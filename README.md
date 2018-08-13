@@ -7,7 +7,7 @@ Full examples are in the [examples](./examples/) folder, but basic usage is as f
 
 ```hcl
 module "iam_binding" {
-  source = "github.com/terraform-google-modules/terraform-google-iam"
+  source = "github.com/terraform-google-modules/terraform-google-iam?ref=v1.0.0"
 
   projects = ["project-123456", "project-9876543"]
 
