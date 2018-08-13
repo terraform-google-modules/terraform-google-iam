@@ -36,13 +36,15 @@ module "project_iam_binding" {
 
   bindings = {
     "roles/compute.networkAdmin" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
+      "user:${var.user_email}",
     ]
 
     "roles/appengine.appAdmin" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
+      "user:${var.user_email}",
     ]
   }
 }

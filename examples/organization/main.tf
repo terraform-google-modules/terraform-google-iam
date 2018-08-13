@@ -36,14 +36,15 @@ module "organization_iam_binding" {
 
   bindings = {
     "roles/resourcemanager.organizationViewer" = [
-      "user:josemanuelt@google.com",
-      "serviceAccount:terraform4@base-project-196723.iam.gserviceaccount.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
+      "user:${var.user_email}",
     ]
 
     "roles/resourcemanager.projectDeleter" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
+      "user:${var.user_email}",
     ]
   }
 }

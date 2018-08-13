@@ -23,8 +23,6 @@ locals {
  *****************************************/
 provider "google" {
   credentials = "${file(local.credentials_file_path)}"
-
-  # project = "${var.pubsub_topic_project}"
 }
 
 /******************************************
@@ -39,13 +37,15 @@ module "pubsub_topic_iam_binding" {
 
   bindings = {
     "roles/pubsub.publisher" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
+      "user:${var.user_email}",
     ]
 
     "roles/pubsub.viewer" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
+      "user:${var.user_email}",
     ]
   }
 }

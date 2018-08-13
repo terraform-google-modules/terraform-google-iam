@@ -38,13 +38,15 @@ module "service_account_iam_binding" {
 
   bindings = {
     "roles/iam.serviceAccountKeyAdmin" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
+      "user:${var.user_email}",
     ]
 
     "roles/iam.serviceAccountTokenCreator" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
+      "user:${var.user_email}",
     ]
   }
 }

@@ -36,13 +36,15 @@ module "storage_buckets_iam_binding" {
 
   bindings = {
     "roles/storage.legacyBucketReader" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
+      "user:${var.user_email}",
     ]
 
     "roles/storage.legacyBucketWriter" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
+      "user:${var.user_email}",
     ]
   }
 }

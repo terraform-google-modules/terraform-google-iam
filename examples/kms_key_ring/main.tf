@@ -36,13 +36,13 @@ module "kms_key_ring_iam_binding" {
 
   bindings = {
     "roles/cloudkms.cryptoKeyEncrypter" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "user:${var.user_email}",
+      "group:${var.group_email}",
     ]
 
     "roles/cloudkms.cryptoKeyDecrypter" = [
-      "user:josemanuelt@google.com",
-      "group:test_sa_group@lnescidev.com",
+      "user:${var.user_email}",
+      "group:${var.group_email}",
     ]
   }
 }
