@@ -36,12 +36,12 @@ module "folder-iam" {
 
   bindings = {
     "roles/resourcemanager.folderEditor" = [
-      "serviceAccount:terraform4@base-project-196723.iam.gserviceaccount.com",
-      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
     ]
 
     "roles/resourcemanager.folderViewer" = [
-      "user:josemanuelt@google.com",
+      "user:${var.user_email}",
     ]
   }
 }
