@@ -34,7 +34,7 @@ function get_sub_string_split {
   STRING="$1"
   SEPARATOR="$2"
   PART=$3
-  IFS="$SEPARATOR" read -ra SPLIT <<< $STRING
+  IFS="$SEPARATOR" read -ra SPLIT <<< "$STRING"
   echo "${SPLIT[$PART]}"
 }
 
@@ -87,15 +87,15 @@ function format_object {
 # Builds an additive structure
 # It's the cartesian product between the roles, members and objects
 function build_additive {
-  IFS=$'\n' read -d ' ' -a OBJECTS_ARRAY <<< "$OBJECTS"
+  IFS=$'\n' read -r -d ' ' -a OBJECTS_ARRAY <<< "$OBJECTS"
 
   ROLES=$(echo "$BINDINGS_STR" | jq -r 'keys[]')
-  IFS=$'\n' read -d ' ' -a ROLES_ARRAY <<< "$ROLES"
+  IFS=$'\n' read -r -d ' ' -a ROLES_ARRAY <<< "$ROLES"
 
   for ROLE in "${ROLES_ARRAY[@]}"
   do
     MEMBERS=$(echo "$BINDINGS_STR" | jq -r --arg role "$ROLE" 'to_entries[] | select(.key==$role) | .value[]?')
-    IFS=$'\n' read -d ' ' -a MEMBERS_ARRAY <<< "$MEMBERS"
+    IFS=$'\n' read -r -d ' ' -a MEMBERS_ARRAY <<< "$MEMBERS"
 
     for MEMBER in "${MEMBERS_ARRAY[@]}"
     do
@@ -113,16 +113,16 @@ function build_additive {
 
 # Builds an authoritative structure
 function build_authoritative {
-  IFS=$'\n' read -d ' ' -a OBJECTS_ARRAY <<< "$OBJECTS"
+  IFS=$'\n' read -r -d ' ' -a OBJECTS_ARRAY <<< "$OBJECTS"
 
   ROLES=$(echo "$BINDINGS_STR" | jq -r 'keys[]')
-  IFS=$'\n' read -d ' ' -a ROLES_ARRAY <<< "$ROLES"
+  IFS=$'\n' read -r -d ' ' -a ROLES_ARRAY <<< "$ROLES"
 
   for ROLE in "${ROLES_ARRAY[@]}"
   do
 
     MEMBERS=$(echo "$BINDINGS_STR" | jq -r --arg role "$ROLE" 'to_entries[] | select(.key==$role) | .value[]?')
-    IFS=$'\n' read -d ' ' -a MEMBERS_ARRAY <<< "$MEMBERS"
+    IFS=$'\n' read -r -d ' ' -a MEMBERS_ARRAY <<< "$MEMBERS"
     MEMBERS_FMT=""
     for MEMBER in "${MEMBERS_ARRAY[@]}"
     do

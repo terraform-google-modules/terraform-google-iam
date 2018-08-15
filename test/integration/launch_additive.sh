@@ -21,4 +21,4 @@
 export MODE="additive"
 export RESOURCE_NUMBER=57
 
-. iam-bindings-test/main_test.sh
+./iam-bindings-test/main_test.sh

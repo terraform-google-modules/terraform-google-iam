@@ -117,7 +117,7 @@ function get_sub_string_split(){
   STRING="$1"
   SEPARATOR="$2"
   PART=$3
-  IFS="$SEPARATOR" read -ra SPLIT <<< $STRING
+  IFS="$SEPARATOR" read -ra SPLIT <<< "$STRING"
   echo "${SPLIT[$PART]}"
 }
 
@@ -126,34 +126,52 @@ function get_sub_string_split(){
 #################################################################
 
 # Subnets
-export SUBNET_1_PROJECT=$(get_sub_string_split "$SUBNET_1" "/" 1)
-export SUBNET_1_REGION=$(get_sub_string_split "$SUBNET_1" "/" 3)
-export SUBNET_1_NAME=$(get_sub_string_split "$SUBNET_1" "/" 5)
+SUBNET_1_PROJECT=$(get_sub_string_split "$SUBNET_1" "/" 1)
+export SUBNET_1_PROJECT
+SUBNET_1_REGION=$(get_sub_string_split "$SUBNET_1" "/" 3)
+export SUBNET_1_REGION
+SUBNET_1_NAME=$(get_sub_string_split "$SUBNET_1" "/" 5)
+export SUBNET_1_NAME
 
-export SUBNET_2_PROJECT=$(get_sub_string_split "$SUBNET_2" "/" 1)
-export SUBNET_2_REGION=$(get_sub_string_split "$SUBNET_2" "/" 3)
-export SUBNET_2_NAME=$(get_sub_string_split "$SUBNET_2" "/" 5)
+SUBNET_2_PROJECT=$(get_sub_string_split "$SUBNET_2" "/" 1)
+export SUBNET_2_PROJECT
+SUBNET_2_REGION=$(get_sub_string_split "$SUBNET_2" "/" 3)
+export SUBNET_2_REGION
+SUBNET_2_NAME=$(get_sub_string_split "$SUBNET_2" "/" 5)
+export SUBNET_2_NAME
 
 # Kms key rings
-export KMS_KEY_RING_1_PROJECT=$(get_sub_string_split "$KMS_KEY_RING_1" "/" 1)
-export KMS_KEY_RING_1_LOCATION=$(get_sub_string_split "$KMS_KEY_RING_1" "/" 3)
-export KMS_KEY_RING_1_NAME=$(get_sub_string_split "$KMS_KEY_RING_1" "/" 5)
+KMS_KEY_RING_1_PROJECT=$(get_sub_string_split "$KMS_KEY_RING_1" "/" 1)
+export KMS_KEY_RING_1_PROJECT
+KMS_KEY_RING_1_LOCATION=$(get_sub_string_split "$KMS_KEY_RING_1" "/" 3)
+export KMS_KEY_RING_1_LOCATION
+KMS_KEY_RING_1_NAME=$(get_sub_string_split "$KMS_KEY_RING_1" "/" 5)
+export KMS_KEY_RING_1_NAME
 
-export KMS_KEY_RING_2_PROJECT=$(get_sub_string_split "$KMS_KEY_RING_2" "/" 1)
-export KMS_KEY_RING_2_LOCATION=$(get_sub_string_split "$KMS_KEY_RING_2" "/" 3)
-export KMS_KEY_RING_2_NAME=$(get_sub_string_split "$KMS_KEY_RING_2" "/" 5)
-
+KMS_KEY_RING_2_PROJECT=$(get_sub_string_split "$KMS_KEY_RING_2" "/" 1)
+export KMS_KEY_RING_2_PROJECT
+KMS_KEY_RING_2_LOCATION=$(get_sub_string_split "$KMS_KEY_RING_2" "/" 3)
+export KMS_KEY_RING_2_LOCATION
+KMS_KEY_RING_2_NAME=$(get_sub_string_split "$KMS_KEY_RING_2" "/" 5)
+export KMS_KEY_RING_2_NAME
 # Kms crypto keys
-export KMS_CRYPTO_KEY_1_PROJECT=$(get_sub_string_split "$KMS_CRYPTO_KEY_1" "/" 1)
-export KMS_CRYPTO_KEY_1_LOCATION=$(get_sub_string_split "$KMS_CRYPTO_KEY_1" "/" 3)
-export KMS_CRYPTO_KEY_1_RING=$(get_sub_string_split "$KMS_CRYPTO_KEY_1" "/" 5)
-export KMS_CRYPTO_KEY_1_NAME=$(get_sub_string_split "$KMS_CRYPTO_KEY_1" "/" 7)
+KMS_CRYPTO_KEY_1_PROJECT=$(get_sub_string_split "$KMS_CRYPTO_KEY_1" "/" 1)
+export KMS_CRYPTO_KEY_1_PROJECT
+KMS_CRYPTO_KEY_1_LOCATION=$(get_sub_string_split "$KMS_CRYPTO_KEY_1" "/" 3)
+export KMS_CRYPTO_KEY_1_LOCATION
+KMS_CRYPTO_KEY_1_RING=$(get_sub_string_split "$KMS_CRYPTO_KEY_1" "/" 5)
+export KMS_CRYPTO_KEY_1_RING
+KMS_CRYPTO_KEY_1_NAME=$(get_sub_string_split "$KMS_CRYPTO_KEY_1" "/" 7)
+export KMS_CRYPTO_KEY_1_NAME
 
-export KMS_CRYPTO_KEY_2_PROJECT=$(get_sub_string_split "$KMS_CRYPTO_KEY_2" "/" 1)
-export KMS_CRYPTO_KEY_2_LOCATION=$(get_sub_string_split "$KMS_CRYPTO_KEY_2" "/" 3)
-export KMS_CRYPTO_KEY_2_RING=$(get_sub_string_split "$KMS_CRYPTO_KEY_2" "/" 5)
-export KMS_CRYPTO_KEY_2_NAME=$(get_sub_string_split "$KMS_CRYPTO_KEY_2" "/" 7)
-
+KMS_CRYPTO_KEY_2_PROJECT=$(get_sub_string_split "$KMS_CRYPTO_KEY_2" "/" 1)
+export KMS_CRYPTO_KEY_2_PROJECT
+KMS_CRYPTO_KEY_2_LOCATION=$(get_sub_string_split "$KMS_CRYPTO_KEY_2" "/" 3)
+export KMS_CRYPTO_KEY_2_LOCATION
+KMS_CRYPTO_KEY_2_RING=$(get_sub_string_split "$KMS_CRYPTO_KEY_2" "/" 5)
+export KMS_CRYPTO_KEY_2_RING
+KMS_CRYPTO_KEY_2_NAME=$(get_sub_string_split "$KMS_CRYPTO_KEY_2" "/" 7)
+export KMS_CRYPTO_KEY_2_NAME
 #################################################################
 #   FUNCTIONS FOR PREPARING WORKSPACE AND CALLING BATS          #
 #################################################################
@@ -161,9 +179,9 @@ export KMS_CRYPTO_KEY_2_NAME=$(get_sub_string_split "$KMS_CRYPTO_KEY_2" "/" 7)
 # Cleans the workdir
 function clean_workdir() {
   echo "Cleaning workdir"
-  yes | rm -f terraform.tfstate*
-  yes | rm -f *.tf
-  yes | rm -rf .terraform
+  rm -f terraform.tfstate*
+  rm -f -- *.tf
+  rm -rf .terraform
 }
 
 # Creates the main.tf file for Terraform
