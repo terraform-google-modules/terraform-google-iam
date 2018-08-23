@@ -83,10 +83,8 @@ Following variables are the most important to control module's behavior:
   - `pubsub_topics`
   - `pubsub_subscriptions`
 
-Please see the variables.tf file on root folder for more information about types and default values for module's variables.
-
-### Outputs
-There is no outputs for this module.
+[^]: (autogen_docs_start)
+[^]: (autogen_docs_end)
 
 ## Caveats
 
@@ -191,6 +189,7 @@ The project has the following folders and files:
 
 ### jq
 - [jq](https://stedolan.github.io/jq/) 1.5
+- [terraform-docs](https://github.com/segmentio/terraform-docs/releases) 0.3.0
 
 ### Permissions
 In order to execute this module you must have a Service Account with an appropriate role to manage IAM for the applicable resource. The appropriate role differs depending on which resource you are targeting, as follows:
@@ -286,6 +285,12 @@ You can use the following command to run the integration tests in the folder */t
 
   `. launch_additive.sh` for additive bindings testing.
   `. launch_authoritative.sh` for authoritative bindings testing.
+
+### Autogeneration of documentation from .tf files
+Run
+```
+make generate_docs
+```
 
 ### Linting
 The makefile in this project will lint or sometimes just format any shell,
