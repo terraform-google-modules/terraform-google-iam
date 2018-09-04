@@ -51,11 +51,11 @@ sudo apt-get -y install jq
 # ####################################### #
 #         Terraform Installation          #
 # ####################################### #
-sudo mkdir -p $TERRAFORM_HOME
-cd $TERRAFORM_HOME
-
-yes | sudo wget "https://releases.hashicorp.com/terraform/$TERRAFORM_VERSION/terraform_"$TERRAFORM_VERSION"_"$LINUXARQ".zip"
-yes | sudo unzip "terraform_"$TERRAFORM_VERSION"_"$LINUXARQ".zip*"
+sudo mkdir -p "$TERRAFORM_HOME"
+cd "$TERRAFORM_HOME" || exit
+#shellcheck disable=SC2153
+yes | sudo wget "https://releases.hashicorp.com/terraform/$TERRAFORM_VERSION/terraform_$TERRAFORM_VERSION_$LINUXARQ.zip"
+yes | sudo unzip terraform_"$TERRAFORM_VERSION"_"$LINUXARQ".zip*
 sudo rm -f terraform_"$TERRAFORM_VERSION"_"$LINUXARQ".zip*
 
 export TERRAFORM_HOME=$TERRAFORM_HOME
@@ -67,8 +67,8 @@ export TERRAFORM_HOME=$TERRAFORM_HOME
 export PATH="$PATH:$TERRAFORM_HOME"
 
 sudo touch /etc/profile.d/environment.sh
-sudo chown $(whoami) /etc/profile.d/environment.sh
-sudo cat <<EOF > /etc/profile.d/environment.sh
+sudo chown "$(whoami)" /etc/profile.d/environment.sh
+cat <<EOF | sudo tee /etc/profile.d/environment.sh
 #!/bin/bash
 
 export PATH="$PATH:$TERRAFORM_HOME:/usr/local/bin"
@@ -84,7 +84,8 @@ EOF
 # ####################################### #
 
 # Create an environment variable for the correct distribution
-export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+export CLOUD_SDK_REPO
 
 # Add the Cloud SDK distribution URI as a package source
 echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -101,9 +102,9 @@ sudo apt-get update -y && sudo apt-get install -y google-cloud-sdk
 
 sudo rm -rf $BATS_HOME/*
 sudo mkdir -p $BATS_HOME
-cd $BATS_HOME
+cd $BATS_HOME || exit
 sudo git clone $BATS_REPO
-cd bats/
+cd bats/ || exit
 sudo ./install.sh /usr/local
 
 export PATH="$PATH:/usr/local/bin"
@@ -115,5 +116,5 @@ export PATH="$PATH:/usr/local/bin"
 echo "Terraform installed on $TERRAFORM_HOME/"
 echo "Terraform version: $(terraform -version)"
 echo "Bats version: $(bats)"
-echo "Terraform plugins: $(ls -l $HOME/.terraform.d/plugins)"
+echo "Terraform plugins: $(ls -l "$TERRAFORM_PLUGINS_PATH")"
 echo "gcloud version: $(gcloud version)"

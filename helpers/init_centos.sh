@@ -52,11 +52,11 @@ sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch
 # ####################################### #
 #         Terraform Installation          #
 # ####################################### #
-sudo mkdir -p $TERRAFORM_HOME
-cd $TERRAFORM_HOME
-
-yes | sudo wget "https://releases.hashicorp.com/terraform/$TERRAFORM_VERSION/terraform_"$TERRAFORM_VERSION"_"$LINUXARQ".zip"
-yes | sudo unzip "terraform_"$TERRAFORM_VERSION"_"$LINUXARQ".zip*"
+sudo mkdir -p "$TERRAFORM_HOME"
+cd "$TERRAFORM_HOME" || exit
+#shellcheck disable=SC2153
+yes | sudo wget "https://releases.hashicorp.com/terraform/$TERRAFORM_VERSION/terraform_$TERRAFORM_VERSION_$LINUXARQ.zip"
+yes | sudo unzip "terraform_$TERRAFORM_VERSION_$LINUXARQ.zip*"
 sudo rm -f terraform_"$TERRAFORM_VERSION"_"$LINUXARQ".zip*
 
 export TERRAFORM_HOME=$TERRAFORM_HOME
@@ -68,8 +68,8 @@ export TERRAFORM_HOME=$TERRAFORM_HOME
 export PATH="$PATH:$TERRAFORM_HOME"
 
 sudo touch /etc/profile.d/environment.sh
-sudo chown $(whoami) /etc/profile.d/environment.sh
-sudo cat <<EOF > /etc/profile.d/environment.sh
+sudo chown "$(whoami)" /etc/profile.d/environment.sh
+cat <<EOF | sudo tee /etc/profile.d/environment.sh
 #!/bin/bash
 
 export PATH="$PATH:$TERRAFORM_HOME:/usr/local/bin"
@@ -103,9 +103,9 @@ sudo yum -y install google-cloud-sdk
 
 sudo rm -rf $BATS_HOME/*
 sudo mkdir -p $BATS_HOME
-cd $BATS_HOME
+cd $BATS_HOME || exit
 sudo git clone $BATS_REPO
-cd bats/
+cd bats/ || exit
 sudo ./install.sh /usr/local
 
 export PATH="$PATH:/usr/local/bin"
@@ -117,4 +117,5 @@ export PATH="$PATH:/usr/local/bin"
 echo "Terraform installed on $TERRAFORM_HOME/"
 echo "Terraform version: $(terraform -version)"
 echo "Bats version: $(bats)"
+echo "Terraform plugins: $(ls -l "$TERRAFORM_PLUGINS_PATH")"
 echo "gcloud version: $(gcloud version)"

@@ -21,4 +21,4 @@
 export MODE="authoritative"
 export RESOURCE_NUMBER=38
 
-. iam-bindings-test/main_test.sh
+./iam-bindings-test/main_test.sh
