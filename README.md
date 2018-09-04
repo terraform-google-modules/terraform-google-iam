@@ -84,6 +84,26 @@ Following variables are the most important to control module's behavior:
   - `pubsub_subscriptions`
 
 [^]: (autogen_docs_start)
+
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-----:|:-----:|
+| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map | - | yes |
+| folders | Folders list to add the IAM policies/bindings | list | `<list>` | no |
+| kms_crypto_keys | Kms Crypto Key list to add the IAM policies/bindings | list | `<list>` | no |
+| kms_key_rings | Kms Key Rings list to add the IAM policies/bindings | list | `<list>` | no |
+| mode | Mode for adding the IAM policies/bindings, additive and authoritative | string | `additive` | no |
+| organizations | Organizations list to add the IAM policies/bindings | list | `<list>` | no |
+| project | Project to add the IAM policies/bindings | string | `` | no |
+| projects | Projects list to add the IAM policies/bindings | list | `<list>` | no |
+| pubsub_subscriptions | Pubsub subscriptions list to add the IAM policies/bindings | list | `<list>` | no |
+| pubsub_topics | Pubsub topics list to add the IAM policies/bindings | list | `<list>` | no |
+| service_accounts | Service Accounts list to add the IAM policies/bindings | list | `<list>` | no |
+| storage_buckets | Buckets list to add the IAM policies/bindings | list | `<list>` | no |
+| subnets | Subnets list to add the IAM policies/bindings | list | `<list>` | no |
+
 [^]: (autogen_docs_end)
 
 ## Caveats
