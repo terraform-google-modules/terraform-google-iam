@@ -85,6 +85,14 @@ Following variables are the most important to control module's behavior:
 
 [^]: (autogen_docs_start)
 
+#### Additive and Authoritative Modes
+
+This module includes two modes: additive and authoritative.
+
+In authoritative mode, the module takes full control over the IAM bindings listed in the module. This means that any members added to roles outside the module will be removed the next time Terraform runs. However, roles not listed in the module will be unaffected.
+
+In additive mode, this module leaves existing bindings unaffected. Instead, any members listed in the module will be added to the existing set of IAM bindings. However, members listed in the module *are* fully controlled by the module. This means that if you add a binding via the module and later remove it, the module will correctly handle removing the role binding.
+
 
 ## Inputs
 
