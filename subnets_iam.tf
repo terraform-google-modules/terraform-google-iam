@@ -21,8 +21,7 @@ resource "google_compute_subnetwork_iam_binding" "subnet_iam_authoritative" {
   count = "${local.subnets_authoritative_iam ? length(local.bindings_array) : 0}"
 
   subnetwork = "${element(split("/", element(split(" ", local.bindings_array[count.index]), 0)), 5)}"
-  region     = "${element(split("/", element(split(" ", local.bindings_array[count.index]), 0)), 3)}"
-  project    = "${element(split("/", element(split(" ", local.bindings_array[count.index]), 0)), 1)}"
+  project    = "${local.resources_project}"
   role       = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
   members = [
@@ -37,8 +36,7 @@ resource "google_compute_subnetwork_iam_member" "subnet_iam_additive" {
   count = "${local.subnets_additive_iam ? length(local.bindings_array) : 0}"
 
   subnetwork = "${element(split("/", element(split(" ", local.bindings_array[count.index]), 0)), 5)}"
-  region     = "${element(split("/", element(split(" ", local.bindings_array[count.index]), 0)), 3)}"
-  project    = "${element(split("/", element(split(" ", local.bindings_array[count.index]), 0)), 1)}"
+  project    = "${local.resources_project}"
   member     = "${element(split(" ", local.bindings_array[count.index]), 1)}"
   role       = "${element(split(" ", local.bindings_array[count.index]), 2)}"
 }
