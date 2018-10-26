@@ -18,6 +18,14 @@ variable "credentials_file_path" {
   description = "Service account json auth path"
 }
 
+variable "project" {
+  description = "The project where the subnet resides"
+}
+
+variable "region" {
+  description = "The region where the subnet resides"
+}
+
 variable "group_email" {
   description = "Email for group to receive roles (ex. group@example.com)"
 }
@@ -34,9 +42,9 @@ variable "user_email" {
   Subnet_iam_binding variables
  *****************************************/
 variable "subnet_one" {
-  description = "First full subnet id to add the IAM policies/bindings"
+  description = "First subnet id to add the IAM policies/bindings"
 }
 
 variable "subnet_two" {
-  description = "Second full subnet id to add the IAM policies/bindings"
+  description = "Second subnet id to add the IAM policies/bindings"
 }

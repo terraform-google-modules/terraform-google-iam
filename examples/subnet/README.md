@@ -1,15 +1,19 @@
 [^]: (autogen_docs_start)
 
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials_file_path | Service account json auth path | string | - | yes |
-| group_email | Email for group to receive roles (ex. group@example.com) | string | - | yes |
-| sa_email | Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com) | string | - | yes |
-| subnet_one | First full subnet id to add the IAM policies/bindings | string | - | yes |
-| subnet_two | Second full subnet id to add the IAM policies/bindings | string | - | yes |
-| user_email | Email for group to receive roles (Ex. user@example.com) | string | - | yes |
+| credentials\_file\_path | Service account json auth path | string | - | yes |
+| group\_email | Email for group to receive roles (ex. group@example.com) | string | - | yes |
+| project | The project where the subnet resides | string | - | yes |
+| region | The region where the subnet resides | string | - | yes |
+| sa\_email | Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com) | string | - | yes |
+| subnet\_one | First subnet id to add the IAM policies/bindings | string | - | yes |
+| subnet\_two | Second subnet id to add the IAM policies/bindings | string | - | yes |
+| user\_email | Email for group to receive roles (Ex. user@example.com) | string | - | yes |
 
 [^]: (autogen_docs_end)
+
+## Caveats
+The module expects the subnets to be provided fully qualified.  (ex: `projects/<project_id>/regions/<region>/subnetworks/<subnet_name>`)  This example takes your inputted project, region and subnets to form the fully qualified subnet ids.
