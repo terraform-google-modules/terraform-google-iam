@@ -16,6 +16,8 @@
 
 locals {
   credentials_file_path = "${var.credentials_file_path}"
+  subnet_one_full = "${format("projects/%s/regions/%s/subnetworks/%s", var.project, var.region, var.subnet_one)}"
+  subnet_two_full = "${format("projects/%s/regions/%s/subnetworks/%s", var.project, var.region, var.subnet_one)}"
 }
 
 /******************************************
@@ -31,7 +33,7 @@ provider "google" {
 module "subnet_iam_binding" {
   source = "../../"
 
-  subnets = ["${var.subnet_one}", "${var.subnet_two}"]
+  subnets = ["${local.subnet_one_full}", "${local.subnet_two_full}"]
 
   mode = "authoritative"
 
