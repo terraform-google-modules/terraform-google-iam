@@ -7,7 +7,7 @@ Full examples are in the [examples](./examples/) folder, but basic usage is as f
 
 ```hcl
 module "iam_binding" {
-  source = "github.com/terraform-google-modules/terraform-google-iam?ref=v1.0.0"
+  source = "terraform-google-modules/iam/google"
 
   projects = ["project-123456", "project-9876543"]
 
@@ -33,7 +33,7 @@ The module also offers an **authoritative** mode which will remove all roles not
 
 ```hcl
 module "storage_buckets_iam_binding" {
-  source          = "github.com/terraform-google-modules/terraform-google-iam"
+  source          = "terraform-google-modules/iam/google"
   storage_buckets = ["my-storage-bucket"]
 
   mode = "authoritative"
@@ -147,7 +147,7 @@ resource "google_service_account" "my_service_account" {
 }
 
 module "iam_binding" {
-  source = "github.com/terraform-google-modules/terraform-google-iam"
+  source = "terraform-google-modules/iam/google"
   mode   = "authoritative"
 
   folders = ["${google_folder.my_new_folder.id}"]
