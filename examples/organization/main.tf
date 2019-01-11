@@ -25,6 +25,10 @@ provider "google" {
   credentials = "${file(local.credentials_file_path)}"
 }
 
+provider "google-beta" {
+  credentials = "${file(local.credentials_file_path)}"
+}
+
 /******************************************
   Module organization_iam_binding calling
  *****************************************/

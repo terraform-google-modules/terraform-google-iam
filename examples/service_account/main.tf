@@ -26,6 +26,11 @@ provider "google" {
   project     = "${var.service_account_project}"
 }
 
+provider "google-beta" {
+  credentials = "${file(local.credentials_file_path)}"
+  project     = "${var.service_account_project}"
+}
+
 /******************************************
   Module service_account_iam_binding calling
  *****************************************/

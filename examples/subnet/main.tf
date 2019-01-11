@@ -16,14 +16,18 @@
 
 locals {
   credentials_file_path = "${var.credentials_file_path}"
-  subnet_one_full = "${format("projects/%s/regions/%s/subnetworks/%s", var.project, var.region, var.subnet_one)}"
-  subnet_two_full = "${format("projects/%s/regions/%s/subnetworks/%s", var.project, var.region, var.subnet_one)}"
+  subnet_one_full       = "${format("projects/%s/regions/%s/subnetworks/%s", var.project, var.region, var.subnet_one)}"
+  subnet_two_full       = "${format("projects/%s/regions/%s/subnetworks/%s", var.project, var.region, var.subnet_one)}"
 }
 
 /******************************************
   Provider configuration
  *****************************************/
 provider "google" {
+  credentials = "${file(local.credentials_file_path)}"
+}
+
+provider "google-beta" {
   credentials = "${file(local.credentials_file_path)}"
 }
 
