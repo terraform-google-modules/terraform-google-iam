@@ -34,3 +34,7 @@ crash.log
 # version control.
 #
 # example.tfvars
+#
+
+credentials.json
+**/terraform.tfvars
