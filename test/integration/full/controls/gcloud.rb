@@ -87,6 +87,7 @@ def splitSubnet(sn)
 end
 
 subnet0Project, subnet0Region, subnet0Name = splitSubnet(subnets[0])
+
 assertBindings(
   'subnet-0',
   "gcloud beta compute networks subnets get-iam-policy #{subnet0Name} --project='#{subnet0Project}' --region='#{subnet0Region}' --format='json(bindings)'",
@@ -95,6 +96,7 @@ assertBindings(
 )
 
 subnet1Project, subnet1Region, subnet1Name = splitSubnet(subnets[1])
+
 assertBindings(
   'subnet-1',
   "gcloud beta compute networks subnets get-iam-policy #{subnet1Name} --project='#{subnet1Project}' --region='#{subnet1Region}' --format='json(bindings)'",
@@ -134,7 +136,7 @@ assertBindings(
   memberGroups[1],
 )
 
-# KMS Keyrings
+# KMS Key Rings
 
 # Split a keyring name into its resources ids.
 # Expected format: "projects/<project>/locations/<location>/keyRings/<name>"
@@ -144,6 +146,7 @@ def splitKeyRing(kr)
 end
 
 keyRing0Project, keyRing0Location, keyRing0Name = splitKeyRing(keyRings[0])
+
 assertBindings(
   'keyring-0',
   "gcloud kms keyrings get-iam-policy #{keyRing0Name} --project='#{keyRing0Project}' --location='#{keyRing0Location}' --format='json(bindings)'",
@@ -152,6 +155,7 @@ assertBindings(
 )
 
 keyRing1Project, keyRing1Location, keyRing1Name = splitKeyRing(keyRings[1])
+
 assertBindings(
   'keyring-1',
   "gcloud kms keyrings get-iam-policy #{keyRing1Name} --project='#{keyRing1Project}' --location='#{keyRing1Location}' --format='json(bindings)'",
@@ -169,6 +173,7 @@ def splitKey(k)
 end
 
 key0Project, key0Location, key0RingName, key0Name = splitKey(keys[0])
+
 assertBindings(
   'key-0',
   "gcloud kms keys get-iam-policy #{key0Name} --project='#{key0Project}' --location='#{key0Location}' --keyring='#{key0RingName}' --format='json(bindings)'",
@@ -177,6 +182,7 @@ assertBindings(
 )
 
 key1Project, key1Location, key1RingName, key1Name = splitKey(keys[1])
+
 assertBindings(
   'key-1',
   "gcloud kms keys get-iam-policy #{key1Name} --project='#{key1Project}' --location='#{key1Location}' --keyring='#{key1RingName}' --format='json(bindings)'",
