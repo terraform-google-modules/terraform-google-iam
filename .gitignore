@@ -36,5 +36,10 @@ crash.log
 # example.tfvars
 #
 
-credentials.json
 **/terraform.tfvars
+
+# Secrets
+credentials.json
+
+# Test files
+.kitchen/
