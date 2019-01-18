@@ -56,6 +56,10 @@ output "folders" {
   value = ["${module.base.folders}"]
 }
 
+output "subnets" {
+  value = ["${local.subnets}"]
+}
+
 output "service_accounts" {
   value = ["${module.base.service_accounts}"]
 }

@@ -264,3 +264,4 @@ load helpers
   [ "$status" -eq 0 ]
   [[ "$output" =~ $RESOURCE_NUMBER\ destroyed ]]
 }
+

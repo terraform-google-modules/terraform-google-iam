@@ -15,19 +15,23 @@
  */
 
 locals {
-  member_group_0 = [
-    "serviceAccount:${module.base.members[0]}",
-    "serviceAccount:${module.base.members[1]}",
-  ]
-
-  member_group_1 = [
-    "serviceAccount:${module.base.members[0]}",
+  subnets = [
+    "projects/${google_project_service.compute.0.project}/regions/us-central1/subnetworks/default",
+    "projects/${google_project_service.compute.0.project}/regions/us-east1/subnetworks/default",
   ]
 
   basic_roles   = ["roles/owner", "roles/editor"]
   org_roles     = ["roles/owner", "roles/iam.organizationRoleViewer"]
   project_roles = ["roles/iam.securityReviewer", "roles/iam.roleViewer"]
   bucket_roles  = ["roles/storage.legacyObjectReader", "roles/storage.legacyBucketReader"]
+
+  member_group_0 = [
+    "serviceAccount:${module.base.members[0]}",
+    "serviceAccount:${module.base.members[1]}",
+  ]
+  member_group_1 = [
+    "serviceAccount:${module.base.members[0]}",
+  ]
 
   basic_bindings = "${map(
     local.basic_roles[0], local.member_group_0,
@@ -112,8 +116,7 @@ module "iam_binding_service_account" {
   source = "../../.."
   mode   = "${var.mode}"
 
-  # NOTE: The fails if service_accounts are not in the specified project.
-  service_accounts = ["${module.base.service_accounts[0]}"]
+  service_accounts = ["${module.base.service_accounts}"]
   project          = "${module.base.projects[0]}"
 
   bindings = "${local.basic_bindings}"
