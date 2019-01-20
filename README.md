@@ -335,8 +335,14 @@ Integration tests are run though
 5. Run kitchen-terraform to test the infrastructure.
 
     1. `kitchen create` creates Terraform state.
-    2. `kitchen converge` creates the underlying resources. You can run `kitchen converge minimal` to only create the minimal fixture.
-    3. `kitchen verify` tests the created infrastructure. Run `kitchen verify minimal` to run the smaller test suite.
+    2. `kitchen converge` creates the underlying resources to later attach bindings to.
+    3. `mv test/fixtures/full/iam.tf.mv test/fixtures/full/iam.tf` activate bindings.
+    4. `kitchen create` re-init terraform plugins.
+    5. `kitchen converge` apply IAM bindings.
+    6. `kitchen verify` tests the created infrastructure.
+    7. `kitchen destroy` remove all test fixtures.
+
+NOTE: Steps 3-5 are needed because the IAM terraform resources rely on computed values from the resources that are to have the bindings applied.
 
 Alternatively, you can simply run `make test_integration_docker` to run all the
 test steps non-interactively.
