@@ -3,6 +3,7 @@
 This Terraform module makes it easier to non-destructively manage multiple IAM roles for resources on Google Cloud Platform.
 
 ## Usage
+
 Full examples are in the [examples](./examples/) folder, but basic usage is as follows for managing roles on two projects:
 
 ```hcl
@@ -53,6 +54,7 @@ module "storage_buckets_iam_binding" {
 ```
 
 ### Variables
+
 Following variables are the most important to control module's behavior:
 
 - Mode
@@ -92,7 +94,6 @@ This module includes two modes: additive and authoritative.
 In authoritative mode, the module takes full control over the IAM bindings listed in the module. This means that any members added to roles outside the module will be removed the next time Terraform runs. However, roles not listed in the module will be unaffected.
 
 In additive mode, this module leaves existing bindings unaffected. Instead, any members listed in the module will be added to the existing set of IAM bindings. However, members listed in the module *are* fully controlled by the module. This means that if you add a binding via the module and later remove it, the module will correctly handle removing the role binding.
-
 
 ## Inputs
 
@@ -182,7 +183,8 @@ Therefore, a simple workaround is as follows:
 4. Run `terraform apply` to apply the bindings.
 
 ## IAM Bindings
-You can choose the following resources type for apply the IAM bindings:
+
+You can choose the following resource types for apply the IAM bindings:
 
 - Projects (`projects` variable)
 - Organizations(`organizations` variable)
@@ -198,6 +200,7 @@ You can choose the following resources type for apply the IAM bindings:
 Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#variables) and give enough [permissions](#permissions) to manage the selected resource as well.
 
 ## File structure
+
 The project has the following folders and files:
 
 - /: root folder.
@@ -211,16 +214,15 @@ The project has the following folders and files:
 - /readme.MD: this file.
 
 ## Requirements
+
 ### Terraform plugins
-- [Terraform](https://www.terraform.io/downloads.html) 0.10.x
+
+- [Terraform](https://www.terraform.io/downloads.html) 0.11.x
 - [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 1.10.0
 - [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 1.19.X
 
-### jq
-- [jq](https://stedolan.github.io/jq/) 1.5
-- [terraform-docs](https://github.com/segmentio/terraform-docs/releases) 0.3.0
-
 ### Permissions
+
 In order to execute this module you must have a Service Account with an appropriate role to manage IAM for the applicable resource. The appropriate role differs depending on which resource you are targeting, as follows:
 
 - Organization:
@@ -271,17 +273,21 @@ In order to execute this module you must have a Service Account with an appropri
 ## Install
 
 ### Terraform
-Be sure you have the correct Terraform version (0.10.x), you can choose the binary here:
+
+Be sure you have the correct Terraform version (0.11.x), you can choose the binary here:
 - https://releases.hashicorp.com/terraform/
 
 ### Terraform plugins
+
 Be sure you have the compiled plugins on $HOME/.terraform.d/plugins/
 
-- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 1.10.0
+- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 1.20.0
+- [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 1.20.0
 
 See each plugin page for more information about how to compile and use them.
 
 ## Fast install (optional)
+
 For a fast install, please configure the variables on init_centos.sh  or init_debian.sh script and then launch it.
 
 The script will do:
@@ -296,32 +302,54 @@ The script will do:
 ## Development
 
 ### Requirements
-- [bats](https://github.com/sstephenson/bats) 0.4.0
-- [jq](https://stedolan.github.io/jq/) 1.5
+
+- [docker](https://www.docker.com/) v18.XX
 
 ### Integration Tests
-The integration tests for this module are built with [bats](https://github.com/sstephenson/bats), basically the test checks the following:
-- Perform `terraform init` command
-- Perform `terraform get` command
-- Perform `terraform plan` command and check that it'll create *n* resources, modify 0 resources and delete 0 resources.
-- Perform `terraform apply -auto-approve` command and check that it has created the *n* resources, modified 0 resources and deleted 0 resources.
-- Perform several `gcloud` commands and check the IAM bindings are in the desired state.
-- Perform `terraform destroy -force` command and check that it has destroyed the *n* resources.
 
-Please edit the *test/integration/iam-bindings-test/main_test.sh* file in order to specify the roles and members to be granted/used.
+Integration tests are run though
+[test-kitchen](https://github.com/test-kitchen/test-kitchen),
+[kitchen-terraform](https://github.com/newcontext-oss/kitchen-terraform), and
+[InSpec](https://github.com/inspec/inspec).
 
-You can use the following command to run the integration tests in the folder */test/integration/*
+#### Test Setup
 
-  `. launch_additive.sh` for additive bindings testing.
-  `. launch_authoritative.sh` for authoritative bindings testing.
+1. Configure the test fixtures
+    ```
+    cp test/fixtures/full/terraform.tfvars.example test/fixtures/full/terraform.tfvars
+    # Edit copied var file.
+    ```
+2. Download a Service Account key with the necessary [permissions](#permissions)
+   and put it in the module's root directory with the name `credentials.json`.
+3. Build the Docker containers for testing.
+    ```
+    CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE="credentials.json" make docker_build_terraform
+    CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE="credentials.json" make docker_build_kitchen_terraform
+    ```
+4. Run the testing container in interactive mode.
+    ```
+    make docker_run
+    ```
+
+    The module root directory will be loaded into the Docker container at `/cftk/workdir/`.
+5. Run kitchen-terraform to test the infrastructure.
+
+    1. `kitchen create` creates Terraform state.
+    2. `kitchen converge` creates the underlying resources. You can run `kitchen converge minimal` to only create the minimal fixture.
+    3. `kitchen verify` tests the created infrastructure. Run `kitchen verify minimal` to run the smaller test suite.
+
+Alternatively, you can simply run `make test_integration_docker` to run all the
+test steps non-interactively.
 
 ### Autogeneration of documentation from .tf files
+
 Run
 ```
 make generate_docs
 ```
 
 ### Linting
+
 The makefile in this project will lint or sometimes just format any shell,
 Python, golang, Terraform, or Dockerfiles. The linters will only be run if
 the makefile finds files with the appropriate file extension.
