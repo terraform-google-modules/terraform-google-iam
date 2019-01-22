@@ -15,211 +15,205 @@
 ENV['CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE'] = attribute('credentials_file_path')
 
 # Resource pairs (arrays of length = 2)
-folders         = attribute('folders')
-subnets         = attribute('subnets')
-projects        = attribute('projects')
-serviceAccounts = attribute('service_accounts')
-buckets         = attribute('buckets')
-keyRings        = attribute('key_rings')
-keys            = attribute('keys')
-topics          = attribute('topics')
-subscriptions   = attribute('subscriptions')
+folders          = attribute('folders')
+subnets          = attribute('subnets')
+projects         = attribute('projects')
+service_accounts = attribute('service_accounts')
+buckets          = attribute('buckets')
+key_rings        = attribute('key_rings')
+keys             = attribute('keys')
+topics           = attribute('topics')
+subscriptions    = attribute('subscriptions')
 
 # Role pairs (arrays of length = 2)
-basicRoles   = attribute('basic_roles')
-orgRoles     = attribute('org_roles')
-projectRoles = attribute('project_roles')
-bucketRoles  = attribute('bucket_roles')
+basic_roles   = attribute('basic_roles')
+org_roles     = attribute('org_roles')
+project_roles = attribute('project_roles')
+bucket_roles  = attribute('bucket_roles')
 
 # Pair of member groupings
-memberGroups = [
+member_groups = [
   attribute('member_group_0'),
   attribute('member_group_1')
 ]
 
 # Asserts that the resource has the correct role-member bindings.
-def assertBindings(name, cmd, expectedRole, expectedMembers)
+def assert_bindings(name, cmd, expected_role, expected_members)
   control "#{name}-bindings" do
     describe command(cmd) do
       its('exit_status') { should eq 0 }
       its('stderr') { should eq '' }
 
-      let(:members) do
+      let(:output) do
         if subject.exit_status == 0
-          res = JSON.parse(subject.stdout, symbolize_names: true)
-          # TODO: Assert before drilling into json.
-          bindings = res[:bindings]
-          bindings.find { |b| b[:'role'] == expectedRole }[:members]
+          JSON.parse(subject.stdout, symbolize_names: true)
         else
           {}
         end
       end
-  
-      it { expect(members).to include(*expectedMembers) }
 
+      it { expect(output).to include bindings: including(role: expected_role, members: expected_members) }
     end
   end
 end
 
 # Folders
 
-assertBindings(
+assert_bindings(
   'folder-0',
   "gcloud beta resource-manager folders get-iam-policy #{folders[0]} --format='json(bindings)'",
-  basicRoles[0],
-  memberGroups[0],
+  basic_roles[0],
+  member_groups[0],
 )
 
-assertBindings(
+assert_bindings(
   'folder-1',
   "gcloud beta resource-manager folders get-iam-policy #{folders[1]} --format='json(bindings)'",
-  basicRoles[1],
-  memberGroups[1],
+  basic_roles[1],
+  member_groups[1],
 )
 
 # Subnets
 
 # Split a subnet name into its resources ids.
 # Expected format: "projects/<project>/regions/<region>/subnetworks/<name>"
-def splitSubnet(sn)
+def split_subnet(sn)
   split = sn.split('/')
   return split[1], split[3], split[5]
 end
 
-subnet0Project, subnet0Region, subnet0Name = splitSubnet(subnets[0])
+subnet_0_project, subnet_0_region, subnet_0_name = split_subnet(subnets[0])
 
-assertBindings(
+assert_bindings(
   'subnet-0',
-  "gcloud beta compute networks subnets get-iam-policy #{subnet0Name} --project='#{subnet0Project}' --region='#{subnet0Region}' --format='json(bindings)'",
-  basicRoles[0],
-  memberGroups[0],
+  "gcloud beta compute networks subnets get-iam-policy #{subnet_0_name} --project='#{subnet_0_project}' --region='#{subnet_0_region}' --format='json(bindings)'",
+  basic_roles[0],
+  member_groups[0],
 )
 
-subnet1Project, subnet1Region, subnet1Name = splitSubnet(subnets[1])
+subnet_1_project, subnet_1_region, subnet_1_name = split_subnet(subnets[1])
 
-assertBindings(
+assert_bindings(
   'subnet-1',
-  "gcloud beta compute networks subnets get-iam-policy #{subnet1Name} --project='#{subnet1Project}' --region='#{subnet1Region}' --format='json(bindings)'",
-  basicRoles[1],
-  memberGroups[1],
+  "gcloud beta compute networks subnets get-iam-policy #{subnet_1_name} --project='#{subnet_1_project}' --region='#{subnet_1_region}' --format='json(bindings)'",
+  basic_roles[1],
+  member_groups[1],
 )
 
 # Projects
 
-assertBindings(
+assert_bindings(
   'project-0',
   "gcloud projects get-iam-policy #{projects[0]} --format='json(bindings)'",
-  projectRoles[0],
-  memberGroups[0],
+  project_roles[0],
+  member_groups[0],
 )
 
-assertBindings(
+assert_bindings(
   'project-1',
   "gcloud projects get-iam-policy #{projects[1]} --format='json(bindings)'",
-  projectRoles[1],
-  memberGroups[1],
+  project_roles[1],
+  member_groups[1],
 )
 
 # Service Accounts
 
-assertBindings(
+assert_bindings(
   'service-account-0',
-  "gcloud iam service-accounts get-iam-policy #{serviceAccounts[0]} --format='json(bindings)'",
-  basicRoles[0],
-  memberGroups[0],
+  "gcloud iam service-accounts get-iam-policy #{service_accounts[0]} --format='json(bindings)'",
+  basic_roles[0],
+  member_groups[0],
 )
 
-assertBindings(
+assert_bindings(
   'service-account-1',
-  "gcloud iam service-accounts get-iam-policy #{serviceAccounts[1]} --format='json(bindings)'",
-  basicRoles[1],
-  memberGroups[1],
+  "gcloud iam service-accounts get-iam-policy #{service_accounts[1]} --format='json(bindings)'",
+  basic_roles[1],
+  member_groups[1],
 )
 
 # KMS Key Rings
 
 # Split a keyring name into its resources ids.
 # Expected format: "projects/<project>/locations/<location>/keyRings/<name>"
-def splitKeyRing(kr)
+def split_key_ring(kr)
   split = kr.split('/')
   return split[1], split[3], split[5]
 end
 
-keyRing0Project, keyRing0Location, keyRing0Name = splitKeyRing(keyRings[0])
+keyring_0_project, keyring_0_location, keyring_0_name = split_key_ring(key_rings[0])
 
-assertBindings(
+assert_bindings(
   'keyring-0',
-  "gcloud kms keyrings get-iam-policy #{keyRing0Name} --project='#{keyRing0Project}' --location='#{keyRing0Location}' --format='json(bindings)'",
-  basicRoles[0],
-  memberGroups[0],
+  "gcloud kms keyrings get-iam-policy #{keyring_0_name} --project='#{keyring_0_project}' --location='#{keyring_0_location}' --format='json(bindings)'",
+  basic_roles[0],
+  member_groups[0],
 )
 
-keyRing1Project, keyRing1Location, keyRing1Name = splitKeyRing(keyRings[1])
+keyring_1_project, keyring_1_location, keyring_1_name = split_key_ring(key_rings[1])
 
-assertBindings(
+assert_bindings(
   'keyring-1',
-  "gcloud kms keyrings get-iam-policy #{keyRing1Name} --project='#{keyRing1Project}' --location='#{keyRing1Location}' --format='json(bindings)'",
-  basicRoles[1],
-  memberGroups[1],
+  "gcloud kms keyrings get-iam-policy #{keyring_1_name} --project='#{keyring_1_project}' --location='#{keyring_1_location}' --format='json(bindings)'",
+  basic_roles[1],
+  member_groups[1],
 )
 
 # KMS Crypto Keys
 
 # Split a key name into its resources ids.
 # Expected format: "projects/<project>/locations/<location>/keyRings/<ring-name>/cryptoKeys/<key-name>"
-def splitKey(k)
+def split_key(k)
   split = k.split('/')
   return split[1], split[3], split[5], split[7]
 end
 
-key0Project, key0Location, key0RingName, key0Name = splitKey(keys[0])
+key_0_project, key_0_location, key_0_ring_name, key_0_name = split_key(keys[0])
 
-assertBindings(
+assert_bindings(
   'key-0',
-  "gcloud kms keys get-iam-policy #{key0Name} --project='#{key0Project}' --location='#{key0Location}' --keyring='#{key0RingName}' --format='json(bindings)'",
-  basicRoles[0],
-  memberGroups[0],
+  "gcloud kms keys get-iam-policy #{key_0_name} --project='#{key_0_project}' --location='#{key_0_location}' --keyring='#{key_0_ring_name}' --format='json(bindings)'",
+  basic_roles[0],
+  member_groups[0],
 )
 
-key1Project, key1Location, key1RingName, key1Name = splitKey(keys[1])
+key_1_project, key_1_location, key_1_ring_name, key_1_name = split_key(keys[1])
 
-assertBindings(
+assert_bindings(
   'key-1',
-  "gcloud kms keys get-iam-policy #{key1Name} --project='#{key1Project}' --location='#{key1Location}' --keyring='#{key1RingName}' --format='json(bindings)'",
-  basicRoles[1],
-  memberGroups[1],
+  "gcloud kms keys get-iam-policy #{key_1_name} --project='#{key_1_project}' --location='#{key_1_location}' --keyring='#{key_1_ring_name}' --format='json(bindings)'",
+  basic_roles[1],
+  member_groups[1],
 )
 
 # Pubsub Topics
 
-assertBindings(
+assert_bindings(
   'topic-0',
   "gcloud beta pubsub topics get-iam-policy #{topics[0]} --project='#{projects[0]}' --format='json(bindings)'",
-  basicRoles[0],
-  memberGroups[0],
+  basic_roles[0],
+  member_groups[0],
 )
 
-assertBindings(
+assert_bindings(
   'topic-1',
   "gcloud beta pubsub topics get-iam-policy #{topics[1]} --project='#{projects[0]}' --format='json(bindings)'",
-  basicRoles[1],
-  memberGroups[1],
+  basic_roles[1],
+  member_groups[1],
 )
 
 # Pubsub Subscriptions
 
-assertBindings(
+assert_bindings(
   'subscription-0',
   "gcloud beta pubsub subscriptions get-iam-policy #{subscriptions[0]} --project='#{projects[0]}' --format='json(bindings)'",
-  basicRoles[0],
-  memberGroups[0],
+  basic_roles[0],
+  member_groups[0],
 )
 
-assertBindings(
+assert_bindings(
   'subscription-1',
   "gcloud beta pubsub subscriptions get-iam-policy #{subscriptions[1]} --project='#{projects[0]}' --format='json(bindings)'",
-  basicRoles[1],
-  memberGroups[1],
+  basic_roles[1],
+  member_groups[1],
 )
-
-# TODO: Bucket binding assertions.
