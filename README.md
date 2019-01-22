@@ -218,7 +218,7 @@ The project has the following folders and files:
 ### Terraform plugins
 
 - [Terraform](https://www.terraform.io/downloads.html) 0.11.x
-- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 1.10.0
+- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 1.20.X
 - [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 1.19.X
 
 ### Permissions
