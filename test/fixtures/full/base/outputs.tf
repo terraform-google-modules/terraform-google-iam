@@ -15,7 +15,8 @@
  */
 
 output "projects" {
-  value = ["${google_project.test.*.project_id}"]
+  value       = ["${google_project.test.*.project_id}"]
+  description = "Projects created for bindings."
 }
 
 output "folders" {
@@ -23,32 +24,41 @@ output "folders" {
     "${replace("${google_folder.test.0.name}", "folders/", "")}",
     "${replace("${google_folder.test.1.name}", "folders/", "")}",
   ]
+
+  description = "Folders created for bindings."
 }
 
 output "service_accounts" {
-  value = ["${google_service_account.test.*.email}"]
+  value       = ["${google_service_account.test.*.email}"]
+  description = "Service accounts created for bindings."
 }
 
 output "members" {
-  value = ["${google_service_account.member.*.email}"]
+  value       = ["${google_service_account.member.*.email}"]
+  description = "Members created for binding with roles."
 }
 
 output "buckets" {
-  value = ["${google_storage_bucket.test.*.name}"]
+  value       = ["${google_storage_bucket.test.*.name}"]
+  description = "Storage buckets created for bindings."
 }
 
 output "key_rings" {
-  value = ["${google_kms_key_ring.test.*.self_link}"]
+  value       = ["${google_kms_key_ring.test.*.self_link}"]
+  description = "Key rings created for bindings."
 }
 
 output "keys" {
-  value = ["${google_kms_crypto_key.test.*.self_link}"]
+  value       = ["${google_kms_crypto_key.test.*.self_link}"]
+  description = "Crypto keys created for bindings."
 }
 
 output "topics" {
-  value = ["${google_pubsub_topic.test.*.name}"]
+  value       = ["${google_pubsub_topic.test.*.name}"]
+  description = "Pubsub topics created for bindings."
 }
 
 output "subscriptions" {
-  value = ["${google_pubsub_subscription.test.*.name}"]
+  value       = ["${google_pubsub_subscription.test.*.name}"]
+  description = "Pubsub subscriptions created for bindings."
 }

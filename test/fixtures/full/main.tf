@@ -24,6 +24,7 @@ locals {
     "serviceAccount:${module.base.members[0]}",
     "serviceAccount:${module.base.members[1]}",
   ]
+
   member_group_1 = [
     "serviceAccount:${module.base.members[0]}",
   ]
@@ -51,10 +52,12 @@ locals {
 
 provider "google" {
   credentials = "${file(var.credentials_file_path)}"
+  version     = "~> 1.20"
 }
 
 provider "google-beta" {
   credentials = "${file(var.credentials_file_path)}"
+  version     = "~> 1.20"
 }
 
 module "base" {
@@ -62,4 +65,3 @@ module "base" {
   org_id          = "${var.org_id}"
   billing_account = "${var.billing_account}"
 }
-

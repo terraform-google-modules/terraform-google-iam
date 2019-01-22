@@ -15,12 +15,18 @@
  */
 
 variable "credentials_file_path" {
-  default = "./credentials.json"
+  default     = "./credentials.json"
+  description = "Path to google credentials file."
 }
 
 variable "mode" {
-  description = "Mode of IAM management (authoritative/additive)."
+  description = "Mode of IAM management ('authoritative' OR 'additive')."
 }
 
-variable "org_id" {}
-variable "billing_account" {}
+variable "org_id" {
+  description = "Organization to create resources in."
+}
+
+variable "billing_account" {
+  description = "Billing account to associate created projects with."
+}
