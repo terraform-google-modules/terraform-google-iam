@@ -1,4 +1,3 @@
-#!/bin/bash
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,12 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-# ################################################ #
-#     Launcher for authoritative integration test  #
-# ################################################ #
-
-export MODE="authoritative"
-export RESOURCE_NUMBER=38
-
-./iam-bindings-test/main_test.sh
+source 'https://rubygems.org/' do
+  gem 'kitchen-terraform', '~> 4.1'
+end

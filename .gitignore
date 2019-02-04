@@ -34,3 +34,12 @@ crash.log
 # version control.
 #
 # example.tfvars
+#
+
+**/terraform.tfvars
+
+# Secrets
+credentials.json
+
+# Test files
+.kitchen/

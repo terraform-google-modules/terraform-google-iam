@@ -62,7 +62,7 @@ locals {
   Temp struct construction for additive bindings
  *****************************************/
 data "external" "additive_bindings_temp_struct" {
-/*
+  /*
  * This external resource is used for construct the structures for both additive and authoritative modes,
  * in order to create the proper resources for Terraform.
  *
