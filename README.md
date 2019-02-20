@@ -68,14 +68,14 @@ Following variables are the most important to control module's behavior:
 
   Is a map of role (key) and list of members (value) with member type prefix, for example:
 
-        ```hcl
+```hcl
         bindings = {
             "roles/<some_role>" = [
                 "user:someone@somewhere.com",
                 "group:somepeople@somewhereelse.com"
             ]
         }
-        ```
+```
 
 - Project
 
