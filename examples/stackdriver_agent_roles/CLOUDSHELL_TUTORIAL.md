@@ -4,13 +4,11 @@
 
 ### Set your Project ID
 
-In the Shell below, run `gcloud config set <PROJECT_ID>`, where `<PROJECT_ID>` is the GCP project in which you wish to grant roles to the service account.
+In the Shell below, run `gcloud config set project <PROJECT_ID>`, where `<PROJECT_ID>` is the GCP project in which you wish to grant roles to the service account.
 
 ### Initialize Terraform
 
 In the Shell, run `terraform init` to initialize `terraform` and download necessary support files.
-
-## Applying Changes
 
 ### Run Terraform
 
@@ -18,4 +16,4 @@ In the Shell, run `terraform apply`. When prompted, enter the email address for 
 
 ### You're Done!
 
-If `terraform` completes without error, the IAM roles `roles/logging/logWriter` and `roles/monitoring.metricWriter` have been applied to the service account you specified.
+If `terraform` completes without error, the IAM roles `roles/logging.logWriter` and `roles/monitoring.metricWriter` have been applied to the service account you specified.
