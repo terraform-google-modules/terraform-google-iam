@@ -1,0 +1,1 @@
+To set up a service account to write to Stackdriver, follow the above instructions to set your project ID, run `terraform init && terraform apply`, and enter the email address of the service account.
