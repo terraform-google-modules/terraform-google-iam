@@ -20,7 +20,7 @@
 resource "google_folder_iam_binding" "folder_iam_authoritative" {
   count = "${local.folders_authoritative_iam ? length(local.bindings_array) : 0}"
 
-  folder = "folders/${element(split(" ", local.bindings_array[count.index]), 0)}"
+  folder = "${element(split(" ", local.bindings_array[count.index]), 0)}"
   role   = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
   members = [
@@ -34,7 +34,7 @@ resource "google_folder_iam_binding" "folder_iam_authoritative" {
 resource "google_folder_iam_member" "folder_iam_additive" {
   count = "${local.folders_additive_iam ? length(local.bindings_array) : 0}"
 
-  folder = "folders/${element(split(" ", local.bindings_array[count.index]), 0)}"
+  folder = "${element(split(" ", local.bindings_array[count.index]), 0)}"
   member = "${element(split(" ", local.bindings_array[count.index]), 1)}"
   role   = "${element(split(" ", local.bindings_array[count.index]), 2)}"
 }
