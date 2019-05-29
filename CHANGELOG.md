@@ -47,7 +47,8 @@ management.
 [subnet-example]: examples/subnet
 [usage-example]: README.md#usage
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/terraform-google-modules/terraform-google-iam/releases/tag/v1.0.0
 
