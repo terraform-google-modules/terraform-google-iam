@@ -10,6 +10,10 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
+### Changed
+
+- Updated folders input to accept either `folders/<id>` or `<id>`. [#19]
+
 ## [1.1.0]
 
 ### Added
@@ -51,3 +55,4 @@ management.
 [#9]: https://github.com/terraform-google-modules/terraform-google-iam/pull/9
 [#12]: https://github.com/terraform-google-modules/terraform-google-iam/pull/12
 [#14]: https://github.com/terraform-google-modules/terraform-google-iam/pull/14
+[#19]: https://github.com/terraform-google-modules/terraform-google-iam/pull/19
