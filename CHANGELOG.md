@@ -10,11 +10,13 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
+## [1.1.1] - 2019-05-29
+
 ### Fixed
 
 - Updated folders input to accept either `folders/<id>` or `<id>`. [#19]
 
-## [1.1.0]
+## [1.1.0] - 2019-05-03
 
 ### Added
 
@@ -33,7 +35,7 @@ corresponding pull request appended.
 - The examples pin the `google` and `google-beta` providers to
   `~> 1.20`. [#9]
 
-## [1.0.0]
+## [1.0.0] - 2018-09-26
 
 This is the initial release of the module, with support for bulk IAM
 management.
