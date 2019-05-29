@@ -10,7 +10,7 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
-### Changed
+### Fixed
 
 - Updated folders input to accept either `folders/<id>` or `<id>`. [#19]
 
