@@ -52,12 +52,12 @@ locals {
 
 provider "google" {
   credentials = "${file(var.credentials_file_path)}"
-  version     = "~> 1.20"
+  version     = "~> 2.7"
 }
 
 provider "google-beta" {
   credentials = "${file(var.credentials_file_path)}"
-  version     = "~> 1.20"
+  version     = "~> 2.7"
 }
 
 module "base" {
