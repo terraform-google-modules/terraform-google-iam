@@ -26,9 +26,7 @@ resource "google_compute_subnetwork_iam_binding" "subnet_iam_authoritative" {
   project    = "${element(split("/", element(split(" ", local.bindings_array[count.index]), 0)), 1)}"
   role       = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}"
 }
 
 /******************************************

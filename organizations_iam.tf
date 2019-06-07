@@ -23,9 +23,7 @@ resource "google_organization_iam_binding" "organization_iam_authoritative" {
   org_id = "${element(split(" ", local.bindings_array[count.index]), 0)}"
   role   = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}"
 }
 
 /******************************************

@@ -23,9 +23,7 @@ resource "google_kms_key_ring_iam_binding" "kms_key_ring_iam_authoritative" {
   key_ring_id = "${element(split(" ", local.bindings_array[count.index]), 0)}"
   role        = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}"
 }
 
 /******************************************

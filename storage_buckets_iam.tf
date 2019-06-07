@@ -23,9 +23,7 @@ resource "google_storage_bucket_iam_binding" "storage_bucket_iam_authoritative" 
   bucket = "${element(split(" ", local.bindings_array[count.index]), 0)}"
   role   = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}"
 }
 
 /******************************************

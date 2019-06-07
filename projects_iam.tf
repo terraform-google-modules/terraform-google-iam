@@ -23,9 +23,7 @@ resource "google_project_iam_binding" "project_iam_authoritative" {
   project = "${element(split(" ", local.bindings_array[count.index]), 0)}"
   role    = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}"
 }
 
 /******************************************

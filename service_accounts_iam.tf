@@ -23,9 +23,7 @@ resource "google_service_account_iam_binding" "service_account_iam_authoritative
   service_account_id = "${element(split(" ", local.bindings_array[count.index]), 0)}"
   role               = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}"
 }
 
 /******************************************

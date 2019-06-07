@@ -23,9 +23,7 @@ resource "google_folder_iam_binding" "folder_iam_authoritative" {
   folder = "folders/${replace(element(split(" ", local.bindings_array[count.index]), 0), "folders/", "")}"
   role   = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}"
 }
 
 /******************************************
