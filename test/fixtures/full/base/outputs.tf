@@ -34,7 +34,7 @@ output "service_accounts" {
 }
 
 output "members" {
-  value       = ["${google_service_account.member.*.email}"]
+  value       = "${google_service_account.member.*.email}"
   description = "Members created for binding with roles."
 }
 
