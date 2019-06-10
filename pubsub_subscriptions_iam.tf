@@ -18,25 +18,29 @@
   Pubsub subscription IAM binding authoritative
  *****************************************/
 resource "google_pubsub_subscription_iam_binding" "pubsub_subscription_iam_authoritative" {
-  count = "${local.pubsub_subscriptions_authoritative_iam ? length(local.bindings_array) : 0}"
+  count = local.pubsub_subscriptions_authoritative_iam ? length(local.bindings_array) : 0
 
-  subscription = "${element(split(" ", local.bindings_array[count.index]), 0)}"
-  project      = "${local.resources_project}"
-  role         = "${element(split(" ", local.bindings_array[count.index]), 1)}"
+  subscription = element(split(" ", local.bindings_array[count.index]), 0)
+  project      = local.resources_project
+  role         = element(split(" ", local.bindings_array[count.index]), 1)
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = compact(
+    split(
+      " ",
+      element(split("=", local.bindings_array[count.index]), 1),
+    ),
+  )
 }
 
 /******************************************
   Pubsub subscription IAM binding additive
  *****************************************/
 resource "google_pubsub_subscription_iam_member" "pubsub_subscription_iam_additive" {
-  count = "${local.pubsub_subscriptions_additive_iam ? length(local.bindings_array) : 0}"
+  count = local.pubsub_subscriptions_additive_iam ? length(local.bindings_array) : 0
 
-  subscription = "${element(split(" ", local.bindings_array[count.index]), 0)}"
-  project      = "${local.resources_project}"
-  member       = "${element(split(" ", local.bindings_array[count.index]), 1)}"
-  role         = "${element(split(" ", local.bindings_array[count.index]), 2)}"
+  subscription = element(split(" ", local.bindings_array[count.index]), 0)
+  project      = local.resources_project
+  member       = element(split(" ", local.bindings_array[count.index]), 1)
+  role         = element(split(" ", local.bindings_array[count.index]), 2)
 }
+

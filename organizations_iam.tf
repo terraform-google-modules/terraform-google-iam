@@ -18,23 +18,27 @@
   Organization IAM binding authoritative
  *****************************************/
 resource "google_organization_iam_binding" "organization_iam_authoritative" {
-  count = "${local.organizations_authoritative_iam ? length(local.bindings_array) : 0}"
+  count = local.organizations_authoritative_iam ? length(local.bindings_array) : 0
 
-  org_id = "${element(split(" ", local.bindings_array[count.index]), 0)}"
-  role   = "${element(split(" ", local.bindings_array[count.index]), 1)}"
+  org_id = element(split(" ", local.bindings_array[count.index]), 0)
+  role   = element(split(" ", local.bindings_array[count.index]), 1)
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = compact(
+    split(
+      " ",
+      element(split("=", local.bindings_array[count.index]), 1),
+    ),
+  )
 }
 
 /******************************************
   Organization IAM binding additive
  *****************************************/
 resource "google_organization_iam_member" "organization_iam_additive" {
-  count = "${local.organizations_additive_iam ? length(local.bindings_array) : 0}"
+  count = local.organizations_additive_iam ? length(local.bindings_array) : 0
 
-  org_id = "${element(split(" ", local.bindings_array[count.index]), 0)}"
-  member = "${element(split(" ", local.bindings_array[count.index]), 1)}"
-  role   = "${element(split(" ", local.bindings_array[count.index]), 2)}"
+  org_id = element(split(" ", local.bindings_array[count.index]), 0)
+  member = element(split(" ", local.bindings_array[count.index]), 1)
+  role   = element(split(" ", local.bindings_array[count.index]), 2)
 }
+

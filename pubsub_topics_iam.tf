@@ -18,25 +18,29 @@
   Pubsub topic IAM binding authoritative
  *****************************************/
 resource "google_pubsub_topic_iam_binding" "pubsub_topic_iam_authoritative" {
-  count = "${local.pubsub_topics_authoritative_iam ? length(local.bindings_array) : 0}"
+  count = local.pubsub_topics_authoritative_iam ? length(local.bindings_array) : 0
 
-  topic   = "${element(split(" ", local.bindings_array[count.index]), 0)}"
-  project = "${local.resources_project}"
-  role    = "${element(split(" ", local.bindings_array[count.index]), 1)}"
+  topic   = element(split(" ", local.bindings_array[count.index]), 0)
+  project = local.resources_project
+  role    = element(split(" ", local.bindings_array[count.index]), 1)
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = compact(
+    split(
+      " ",
+      element(split("=", local.bindings_array[count.index]), 1),
+    ),
+  )
 }
 
 /******************************************
   Pubsub topic IAM binding additive
  *****************************************/
 resource "google_pubsub_topic_iam_member" "pubsub_topic_iam_additive" {
-  count = "${local.pubsub_topics_additive_iam ? length(local.bindings_array) : 0}"
+  count = local.pubsub_topics_additive_iam ? length(local.bindings_array) : 0
 
-  topic   = "${element(split(" ", local.bindings_array[count.index]), 0)}"
-  project = "${local.resources_project}"
-  member  = "${element(split(" ", local.bindings_array[count.index]), 1)}"
-  role    = "${element(split(" ", local.bindings_array[count.index]), 2)}"
+  topic   = element(split(" ", local.bindings_array[count.index]), 0)
+  project = local.resources_project
+  member  = element(split(" ", local.bindings_array[count.index]), 1)
+  role    = element(split(" ", local.bindings_array[count.index]), 2)
 }
+

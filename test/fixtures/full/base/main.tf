@@ -23,7 +23,7 @@ locals {
 # Folders
 
 resource "google_folder" "test" {
-  count = "${local.n}"
+  count = local.n
 
   display_name = "Test IAM Folder ${count.index}"
   parent       = "organizations/${var.org_id}"
@@ -32,17 +32,17 @@ resource "google_folder" "test" {
 # Projects
 
 resource "random_id" "test" {
-  count = "${local.n}"
+  count = local.n
 
   byte_length = 2
 }
 
 resource "google_project" "test" {
-  count = "${local.n}"
+  count = local.n
 
-  project_id      = "${local.prefix}-prj-${count.index}-${random_id.test.*.hex[count.index]}"
-  org_id          = "${var.org_id}"
-  billing_account = "${var.billing_account}"
+  project_id      = "${local.prefix}-prj-${count.index}-${random_id.test[count.index].hex}"
+  org_id          = var.org_id
+  billing_account = var.billing_account
 
   name = "Test IAM Project ${count.index}"
 }
@@ -50,76 +50,77 @@ resource "google_project" "test" {
 # Service Accounts
 
 resource "google_service_account" "test" {
-  count = "${local.n}"
+  count = local.n
 
-  project = "${google_project.test.*.project_id[0]}"
+  project = google_project.test[0].project_id
 
-  account_id = "${local.prefix}-svcacct-${count.index}-${random_id.test.*.hex[count.index]}"
+  account_id = "${local.prefix}-svcacct-${count.index}-${random_id.test[count.index].hex}"
 }
 
 # Buckets
 
 resource "google_storage_bucket" "test" {
-  count = "${local.n}"
+  count = local.n
 
-  project = "${google_project.test.*.project_id[0]}"
+  project = google_project.test[0].project_id
 
-  name = "${local.prefix}-bkt-${count.index}-${random_id.test.*.hex[count.index]}"
+  name = "${local.prefix}-bkt-${count.index}-${random_id.test[count.index].hex}"
 }
 
 # KMS
 
 resource "google_project_service" "kms" {
-  count = "${local.n}"
+  count = local.n
 
-  project = "${google_project.test.*.project_id[count.index]}"
+  project = google_project.test[count.index].project_id
   service = "cloudkms.googleapis.com"
 }
 
 resource "google_kms_key_ring" "test" {
-  count = "${local.n}"
+  count = local.n
 
-  depends_on = ["google_project_service.kms"]
+  depends_on = [google_project_service.kms]
 
-  project = "${google_project.test.*.project_id[0]}"
+  project = google_project.test[0].project_id
 
-  name     = "${local.prefix}-keyrng-${count.index}-${random_id.test.*.hex[count.index]}"
-  location = "${local.location}"
+  name     = "${local.prefix}-keyrng-${count.index}-${random_id.test[count.index].hex}"
+  location = local.location
 }
 
 resource "google_kms_crypto_key" "test" {
-  count = "${local.n}"
+  count = local.n
 
-  name = "${local.prefix}-key-${count.index}-${random_id.test.*.hex[count.index]}"
+  name = "${local.prefix}-key-${count.index}-${random_id.test[count.index].hex}"
 
-  key_ring = "${google_kms_key_ring.test.*.self_link[count.index]}"
+  key_ring = google_kms_key_ring.test[count.index].self_link
 }
 
 # Pubsub
 
 resource "google_pubsub_topic" "test" {
-  count = "${local.n}"
+  count = local.n
 
-  project = "${google_project.test.*.project_id[0]}"
+  project = google_project.test[0].project_id
 
-  name = "${local.prefix}-tpc-${count.index}-${random_id.test.*.hex[count.index]}"
+  name = "${local.prefix}-tpc-${count.index}-${random_id.test[count.index].hex}"
 }
 
 resource "google_pubsub_subscription" "test" {
-  count = "${local.n}"
+  count = local.n
 
-  project = "${google_project.test.*.project_id[0]}"
+  project = google_project.test[0].project_id
 
-  topic = "${google_pubsub_topic.test.*.name[count.index]}"
-  name  = "${local.prefix}-sub-${count.index}-${random_id.test.*.hex[count.index]}"
+  topic = google_pubsub_topic.test[count.index].name
+  name  = "${local.prefix}-sub-${count.index}-${random_id.test[count.index].hex}"
 }
 
 # Members
 
 resource "google_service_account" "member" {
-  count = "${local.n}"
+  count = local.n
 
-  project = "${google_project.test.*.project_id[count.index]}"
+  project = google_project.test[count.index].project_id
 
-  account_id = "${local.prefix}-member-${count.index}-${random_id.test.*.hex[count.index]}"
+  account_id = "${local.prefix}-member-${count.index}-${random_id.test[count.index].hex}"
 }
+
