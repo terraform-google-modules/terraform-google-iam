@@ -24,9 +24,7 @@ resource "google_pubsub_topic_iam_binding" "pubsub_topic_iam_authoritative" {
   project = "${local.resources_project}"
   role    = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}"
 }
 
 /******************************************

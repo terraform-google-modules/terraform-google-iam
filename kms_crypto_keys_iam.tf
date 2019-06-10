@@ -23,9 +23,7 @@ resource "google_kms_crypto_key_iam_binding" "kms_crypto_key_iam_authoritative" 
   crypto_key_id = "${element(split(" ", local.bindings_array[count.index]), 0)}"
   role          = "${element(split(" ", local.bindings_array[count.index]), 1)}"
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}"
 }
 
 /******************************************
