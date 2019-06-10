@@ -18,23 +18,27 @@
   Storage bucket IAM binding authoritative
  *****************************************/
 resource "google_storage_bucket_iam_binding" "storage_bucket_iam_authoritative" {
-  count = "${local.storage_buckets_authoritative_iam ? length(local.bindings_array) : 0}"
+  count = local.storage_buckets_authoritative_iam ? length(local.bindings_array) : 0
 
-  bucket = "${element(split(" ", local.bindings_array[count.index]), 0)}"
-  role   = "${element(split(" ", local.bindings_array[count.index]), 1)}"
+  bucket = element(split(" ", local.bindings_array[count.index]), 0)
+  role   = element(split(" ", local.bindings_array[count.index]), 1)
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = compact(
+    split(
+      " ",
+      element(split("=", local.bindings_array[count.index]), 1),
+    ),
+  )
 }
 
 /******************************************
   Storage bucket IAM binding additive
  *****************************************/
 resource "google_storage_bucket_iam_member" "storage_bucket_iam_additive" {
-  count = "${local.storage_buckets_additive_iam ? length(local.bindings_array) : 0}"
+  count = local.storage_buckets_additive_iam ? length(local.bindings_array) : 0
 
-  bucket = "${element(split(" ", local.bindings_array[count.index]), 0)}"
-  member = "${element(split(" ", local.bindings_array[count.index]), 1)}"
-  role   = "${element(split(" ", local.bindings_array[count.index]), 2)}"
+  bucket = element(split(" ", local.bindings_array[count.index]), 0)
+  member = element(split(" ", local.bindings_array[count.index]), 1)
+  role   = element(split(" ", local.bindings_array[count.index]), 2)
 }
+

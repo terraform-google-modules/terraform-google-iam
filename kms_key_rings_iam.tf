@@ -18,23 +18,27 @@
   Kms Key Ring IAM binding authoritative
  *****************************************/
 resource "google_kms_key_ring_iam_binding" "kms_key_ring_iam_authoritative" {
-  count = "${local.kms_key_rings_authoritative_iam ? length(local.bindings_array) : 0}"
+  count = local.kms_key_rings_authoritative_iam ? length(local.bindings_array) : 0
 
-  key_ring_id = "${element(split(" ", local.bindings_array[count.index]), 0)}"
-  role        = "${element(split(" ", local.bindings_array[count.index]), 1)}"
+  key_ring_id = element(split(" ", local.bindings_array[count.index]), 0)
+  role        = element(split(" ", local.bindings_array[count.index]), 1)
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = compact(
+    split(
+      " ",
+      element(split("=", local.bindings_array[count.index]), 1),
+    ),
+  )
 }
 
 /******************************************
   Kms Key Ring IAM binding additive
  *****************************************/
 resource "google_kms_key_ring_iam_member" "kms_key_ring_iam_additive" {
-  count = "${local.kms_key_rings_additive_iam ? length(local.bindings_array) : 0}"
+  count = local.kms_key_rings_additive_iam ? length(local.bindings_array) : 0
 
-  key_ring_id = "${element(split(" ", local.bindings_array[count.index]), 0)}"
-  member      = "${element(split(" ", local.bindings_array[count.index]), 1)}"
-  role        = "${element(split(" ", local.bindings_array[count.index]), 2)}"
+  key_ring_id = element(split(" ", local.bindings_array[count.index]), 0)
+  member      = element(split(" ", local.bindings_array[count.index]), 1)
+  role        = element(split(" ", local.bindings_array[count.index]), 2)
 }
+
