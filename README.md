@@ -217,9 +217,9 @@ The project has the following folders and files:
 
 ### Terraform plugins
 
-- [Terraform](https://www.terraform.io/downloads.html) 0.11.x
-- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 1.20.X
-- [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 1.20.X
+- [Terraform](https://www.terraform.io/downloads.html) 0.12
+- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 2.5
+- [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 2.5
 
 ### Permissions
 
@@ -274,7 +274,7 @@ In order to execute this module you must have a Service Account with an appropri
 
 ### Terraform
 
-Be sure you have the correct Terraform version (0.11.x), you can choose the binary here:
+Be sure you have the correct Terraform version (0.12), you can choose the binary here:
 - https://releases.hashicorp.com/terraform/
 
 ### Terraform plugins
