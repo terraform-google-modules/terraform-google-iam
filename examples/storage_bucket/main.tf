@@ -15,20 +15,20 @@
  */
 
 locals {
-  credentials_file_path = "${var.credentials_file_path}"
+  credentials_file_path = var.credentials_file_path
 }
 
 /******************************************
   Provider configuration
  *****************************************/
 provider "google" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  credentials = file(local.credentials_file_path)
+  version     = "~> 2.7"
 }
 
 provider "google-beta" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  credentials = file(local.credentials_file_path)
+  version     = "~> 2.7"
 }
 
 /******************************************
@@ -36,7 +36,7 @@ provider "google-beta" {
  *****************************************/
 module "storage_buckets_iam_binding" {
   source          = "../../"
-  storage_buckets = ["${var.storage_bucket_one}", "${var.storage_bucket_two}"]
+  storage_buckets = [var.storage_bucket_one, var.storage_bucket_two]
 
   mode = "additive"
 
@@ -46,7 +46,6 @@ module "storage_buckets_iam_binding" {
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-
     "roles/storage.legacyBucketWriter" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
@@ -54,3 +53,4 @@ module "storage_buckets_iam_binding" {
     ]
   }
 }
+

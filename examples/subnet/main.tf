@@ -15,22 +15,32 @@
  */
 
 locals {
-  credentials_file_path = "${var.credentials_file_path}"
-  subnet_one_full       = "${format("projects/%s/regions/%s/subnetworks/%s", var.project, var.region, var.subnet_one)}"
-  subnet_two_full       = "${format("projects/%s/regions/%s/subnetworks/%s", var.project, var.region, var.subnet_two)}"
+  credentials_file_path = var.credentials_file_path
+  subnet_one_full = format(
+    "projects/%s/regions/%s/subnetworks/%s",
+    var.project,
+    var.region,
+    var.subnet_one,
+  )
+  subnet_two_full = format(
+    "projects/%s/regions/%s/subnetworks/%s",
+    var.project,
+    var.region,
+    var.subnet_two,
+  )
 }
 
 /******************************************
   Provider configuration
  *****************************************/
 provider "google" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  credentials = file(local.credentials_file_path)
+  version     = "~> 2.7"
 }
 
 provider "google-beta" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  credentials = file(local.credentials_file_path)
+  version     = "~> 2.7"
 }
 
 /******************************************
@@ -39,7 +49,7 @@ provider "google-beta" {
 module "subnet_iam_binding" {
   source = "../../"
 
-  subnets = ["${local.subnet_one_full}", "${local.subnet_two_full}"]
+  subnets = [local.subnet_one_full, local.subnet_two_full]
 
   mode = "authoritative"
 
@@ -49,7 +59,6 @@ module "subnet_iam_binding" {
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-
     "roles/compute.networkViewer" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
@@ -57,3 +66,4 @@ module "subnet_iam_binding" {
     ]
   }
 }
+

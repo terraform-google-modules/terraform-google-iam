@@ -34,9 +34,9 @@ variable "user_email" {
   folder_iam_binding variables
  *****************************************/
 variable "folder_one" {
-  description = "The first folder to apply IAM bindings"
+  description = "The first folder ID to apply IAM bindings"
 }
 
 variable "folder_two" {
-  description = "The second folder to apply IAM bindings"
+  description = "The second folder ID to apply IAM bindings"
 }

@@ -37,10 +37,11 @@ variable "pubsub_topic_project" {
   description = "Project id of the pub/sub topic"
 }
 
-variable pubsub_topic_one {
+variable "pubsub_topic_one" {
   description = "First pubsub topic to add the IAM policies/bindings"
 }
 
-variable pubsub_topic_two {
+variable "pubsub_topic_two" {
   description = "Second pubsub topic to add the IAM policies/bindings"
 }
+

@@ -15,20 +15,20 @@
  */
 
 locals {
-  credentials_file_path = "${var.credentials_file_path}"
+  credentials_file_path = var.credentials_file_path
 }
 
 /******************************************
   Provider configuration
  *****************************************/
 provider "google" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  credentials = file(local.credentials_file_path)
+  version     = "~> 2.7"
 }
 
 provider "google-beta" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  credentials = file(local.credentials_file_path)
+  version     = "~> 2.7"
 }
 
 /******************************************
@@ -36,8 +36,8 @@ provider "google-beta" {
  *****************************************/
 module "pubsub_subscription_iam_binding" {
   source               = "../../"
-  project              = "${var.pubsub_subscription_project}"
-  pubsub_subscriptions = ["${var.pubsub_subscription_one}", "${var.pubsub_subscription_two}"]
+  project              = var.pubsub_subscription_project
+  pubsub_subscriptions = [var.pubsub_subscription_one, var.pubsub_subscription_two]
 
   mode = "additive"
 
@@ -47,7 +47,6 @@ module "pubsub_subscription_iam_binding" {
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-
     "roles/pubsub.editor" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
@@ -55,3 +54,4 @@ module "pubsub_subscription_iam_binding" {
     ]
   }
 }
+

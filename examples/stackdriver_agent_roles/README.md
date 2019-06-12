@@ -17,5 +17,6 @@ Applies the roles necessary to write metrics and logs to Stackdriver to a given 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | service_account_email | The service account email to enable Stackdriver agent roles on | string | - | yes |
+| project | The service account email to enable Stackdriver agent roles on | string | - | yes |
 
 [^]: (autogen_docs_end)
