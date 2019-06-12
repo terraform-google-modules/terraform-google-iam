@@ -9,6 +9,7 @@ Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
 ## [Unreleased]
+- Upgrade: migrated examples to the v.012. [#29]
 
 ## [1.1.1] - 2019-05-29
 
@@ -59,3 +60,4 @@ management.
 [#12]: https://github.com/terraform-google-modules/terraform-google-iam/pull/12
 [#14]: https://github.com/terraform-google-modules/terraform-google-iam/pull/14
 [#19]: https://github.com/terraform-google-modules/terraform-google-iam/pull/19
+[#29]: https://github.com/terraform-google-modules/terraform-google-iam/pull/29
