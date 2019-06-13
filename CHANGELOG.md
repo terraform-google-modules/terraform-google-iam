@@ -9,7 +9,12 @@ Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
 ## [Unreleased]
-- Upgrade: migrated examples to the v.012. [#29]
+
+## [2.0.0] - 2019-YY-ZZ
+
+### Changed
+
+- Supported version of Terraform is 0.12. [#24] [#29]
 
 ## [1.1.1] - 2019-05-29
 
@@ -48,7 +53,8 @@ management.
 [subnet-example]: examples/subnet
 [usage-example]: README.md#usage
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.1.1...v2.0.0
 [1.1.1]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/terraform-google-modules/terraform-google-iam/releases/tag/v1.0.0
@@ -60,4 +66,5 @@ management.
 [#12]: https://github.com/terraform-google-modules/terraform-google-iam/pull/12
 [#14]: https://github.com/terraform-google-modules/terraform-google-iam/pull/14
 [#19]: https://github.com/terraform-google-modules/terraform-google-iam/pull/19
+[#24]: https://github.com/terraform-google-modules/terraform-google-iam/pull/24
 [#29]: https://github.com/terraform-google-modules/terraform-google-iam/pull/29
