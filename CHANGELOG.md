@@ -14,7 +14,7 @@ corresponding pull request appended.
 
 ### Changed
 
-- Supported version of Terraform is 0.12. [#24]
+- Supported version of Terraform is 0.12. [#24] [#29]
 
 ## [1.1.1] - 2019-05-29
 
@@ -67,3 +67,4 @@ management.
 [#14]: https://github.com/terraform-google-modules/terraform-google-iam/pull/14
 [#19]: https://github.com/terraform-google-modules/terraform-google-iam/pull/19
 [#24]: https://github.com/terraform-google-modules/terraform-google-iam/pull/24
+[#29]: https://github.com/terraform-google-modules/terraform-google-iam/pull/29

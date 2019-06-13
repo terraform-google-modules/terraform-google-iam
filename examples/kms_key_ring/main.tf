@@ -15,20 +15,20 @@
  */
 
 locals {
-  credentials_file_path = "${var.credentials_file_path}"
+  credentials_file_path = var.credentials_file_path
 }
 
 /******************************************
   Provider configuration
  *****************************************/
 provider "google" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  credentials = file(local.credentials_file_path)
+  version     = "~> 2.7"
 }
 
 provider "google-beta" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  credentials = file(local.credentials_file_path)
+  version     = "~> 2.7"
 }
 
 /******************************************
@@ -36,7 +36,7 @@ provider "google-beta" {
  *****************************************/
 module "kms_key_ring_iam_binding" {
   source        = "../../"
-  kms_key_rings = ["${var.kms_key_ring_one}", "${var.kms_key_ring_two}"]
+  kms_key_rings = [var.kms_key_ring_one, var.kms_key_ring_two]
 
   mode = "additive"
 
@@ -45,10 +45,10 @@ module "kms_key_ring_iam_binding" {
       "user:${var.user_email}",
       "group:${var.group_email}",
     ]
-
     "roles/cloudkms.cryptoKeyDecrypter" = [
       "user:${var.user_email}",
       "group:${var.group_email}",
     ]
   }
 }
+

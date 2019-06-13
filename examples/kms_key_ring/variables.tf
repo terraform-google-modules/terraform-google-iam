@@ -40,3 +40,4 @@ variable "kms_key_ring_one" {
 variable "kms_key_ring_two" {
   description = "First kms_ring to add the IAM policies/bindings"
 }
+

@@ -40,3 +40,4 @@ variable "storage_bucket_one" {
 variable "storage_bucket_two" {
   description = "Second name of a GCS bucket to add the IAM policies/bindings"
 }
+

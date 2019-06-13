@@ -48,3 +48,4 @@ variable "subnet_one" {
 variable "subnet_two" {
   description = "Second subnet id to add the IAM policies/bindings"
 }
+
