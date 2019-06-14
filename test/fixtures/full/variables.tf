@@ -15,7 +15,6 @@
  */
 
 variable "credentials_file_path" {
-  default     = "./credentials.json"
   description = "Path to google credentials file."
 }
 

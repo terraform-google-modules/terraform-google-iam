@@ -12,7 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ENV['CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE'] = attribute('credentials_file_path')
+#ENV['CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE'] = attribute('credentials_file_path')
+
+credentials_file_path = attribute('credentials_file_path')
+
+ENV['CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE'] = File.absolute_path(
+  credentials_file_path,
+  File.join(__dir__, "../../../fixtures/full"))
+
 
 # Resource pairs (arrays of length = 2)
 folders          = attribute('folders')

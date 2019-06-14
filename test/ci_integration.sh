@@ -38,6 +38,7 @@ setup_environment() {
 
   # Terraform variables
   export TF_VAR_project_id="$PROJECT_ID"
+  export TF_VAR_credentials_file_path="../../../credentials.json"
 }
 
 main() {
