@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-locals {
-  credentials_file_path = "${var.credentials_file_path}"
-}
-
 /******************************************
   Provider configuration
  *****************************************/
 provider "google" {
-  credentials = "${file(local.credentials_file_path)}"
   project     = "${var.service_account_project}"
   version     = "~> 2.7"
 }
 
 provider "google-beta" {
-  credentials = "${file(local.credentials_file_path)}"
   project     = "${var.service_account_project}"
   version     = "~> 2.7"
 }
