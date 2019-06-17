@@ -4,7 +4,6 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials\_file\_path | Service account json auth path | string | n/a | yes |
 | group\_email | Email for group to receive roles (ex. group@example.com) | string | n/a | yes |
 | sa\_email | Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com) | string | n/a | yes |
 | service\_account\_one | First service Account to add the IAM policies/bindings | string | n/a | yes |

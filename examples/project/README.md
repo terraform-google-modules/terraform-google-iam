@@ -5,7 +5,6 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials_file_path | Service account json auth path | string | - | yes |
 | group_email | Email for group to receive roles (ex. group@example.com) | string | - | yes |
 | project_one | First project id to add the IAM policies/bindings | string | - | yes |
 | project_two | Second project id to add the IAM policies/bindings | string | - | yes |

@@ -5,7 +5,6 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials_file_path | Service account json auth path | string | - | yes |
 | group_email | Email for group to receive roles (ex. group@example.com) | string | - | yes |
 | pubsub_topic_one | First pubsub topic to add the IAM policies/bindings | string | - | yes |
 | pubsub_topic_project | Project id of the pub/sub topic | string | - | yes |
