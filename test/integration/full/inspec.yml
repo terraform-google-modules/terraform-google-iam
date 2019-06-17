@@ -14,9 +14,6 @@
 
 name: full
 attributes:
-  - name: credentials_file_path
-    required: true
-    type: string
   - name: folders
     required: true
     type: array

@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-variable "credentials_file_path" {
-  description = "Service account json auth path"
-}
-
 variable "group_email" {
   description = "Email for group to receive roles (ex. group@example.com)"
 }
