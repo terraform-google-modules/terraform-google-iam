@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ENV['CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE'] = attribute('credentials_file_path')
-
 # Resource pairs (arrays of length = 2)
 folders          = attribute('folders')
 subnets          = attribute('subnets')

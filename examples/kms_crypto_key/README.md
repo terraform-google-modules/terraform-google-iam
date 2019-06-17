@@ -5,7 +5,6 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials_file_path | Service account json auth path | string | - | yes |
 | group_email | Email for group to receive roles (ex. group@example.com) | string | - | yes |
 | kms_crypto_key_one | First kms_cripto_key to add the IAM policies/bindings | string | - | yes |
 | kms_crypto_key_two | Second kms_cripto_key to add the IAM policies/bindings | string | - | yes |

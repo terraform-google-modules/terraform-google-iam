@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-output "credentials_file_path" {
-  value       = "${path.module}/${var.credentials_file_path}"
-  description = "Path to google credentials file."
-}
-
 # Binding Roles
 
 output "basic_roles" {

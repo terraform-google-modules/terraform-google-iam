@@ -5,7 +5,6 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials_file_path | Service account json auth path | string | - | yes |
 | group_email | Email for group to receive roles (ex. group@example.com) | string | - | yes |
 | sa_email | Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com) | string | - | yes |
 | storage_bucket_one | First name of a GCS bucket to add the IAM policies/bindings | string | - | yes |

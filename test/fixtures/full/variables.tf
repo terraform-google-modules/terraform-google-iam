@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-variable "credentials_file_path" {
-  default     = "./credentials.json"
-  description = "Path to google credentials file."
-}
-
 variable "mode" {
   description = "Mode of IAM management ('authoritative' OR 'additive')."
 }

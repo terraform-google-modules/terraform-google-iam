@@ -4,7 +4,6 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials\_file\_path | Service account json auth path | string | - | yes |
 | group\_email | Email for group to receive roles (ex. group@example.com) | string | - | yes |
 | project | The project where the subnet resides | string | - | yes |
 | region | The region where the subnet resides | string | - | yes |
