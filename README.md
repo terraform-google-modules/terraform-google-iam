@@ -85,8 +85,6 @@ Following variables are the most important to control module's behavior:
   - `pubsub_topics`
   - `pubsub_subscriptions`
 
-[^]: (autogen_docs_start)
-
 #### Additive and Authoritative Modes
 
 This module includes two modes: additive and authoritative.
@@ -95,25 +93,26 @@ In authoritative mode, the module takes full control over the IAM bindings liste
 
 In additive mode, this module leaves existing bindings unaffected. Instead, any members listed in the module will be added to the existing set of IAM bindings. However, members listed in the module *are* fully controlled by the module. This means that if you add a binding via the module and later remove it, the module will correctly handle removing the role binding.
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map | - | yes |
-| folders | Folders list to add the IAM policies/bindings | list | `<list>` | no |
-| kms_crypto_keys | Kms Crypto Key list to add the IAM policies/bindings | list | `<list>` | no |
-| kms_key_rings | Kms Key Rings list to add the IAM policies/bindings | list | `<list>` | no |
-| mode | Mode for adding the IAM policies/bindings, additive and authoritative | string | `additive` | no |
+| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map | n/a | yes |
+| folders | Folders list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| kms\_crypto\_keys | Kms Crypto Key list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| kms\_key\_rings | Kms Key Rings list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| mode | Mode for adding the IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
 | organizations | Organizations list to add the IAM policies/bindings | list | `<list>` | no |
-| project | Project to add the IAM policies/bindings | string | `` | no |
-| projects | Projects list to add the IAM policies/bindings | list | `<list>` | no |
-| pubsub_subscriptions | Pubsub subscriptions list to add the IAM policies/bindings | list | `<list>` | no |
-| pubsub_topics | Pubsub topics list to add the IAM policies/bindings | list | `<list>` | no |
-| service_accounts | Service Accounts list to add the IAM policies/bindings | list | `<list>` | no |
-| storage_buckets | Buckets list to add the IAM policies/bindings | list | `<list>` | no |
-| subnets | Subnets list to add the IAM policies/bindings | list | `<list>` | no |
+| project | Project to add the IAM policies/bindings | string | `""` | no |
+| projects | Projects list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| pubsub\_subscriptions | Pubsub subscriptions list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| pubsub\_topics | Pubsub topics list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| service\_accounts | Service Accounts list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| storage\_buckets | Buckets list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| subnets | Subnets list to add the IAM policies/bindings | list(string) | `<list>` | no |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Caveats
 

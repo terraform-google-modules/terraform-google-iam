@@ -9,14 +9,12 @@ Applies the roles necessary to write metrics and logs to Stackdriver to a given 
 1. Use the above link to open a Cloud Shell
 2. Follow the tutorial presented in Cloud Shell (see also [CLOUDSHELL_TUTORIAL.md](./CLOUDSHELL_TUTORIAL.md)).
 
-[^]: (autogen_docs_start)
-
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| service_account_email | The service account email to enable Stackdriver agent roles on | string | - | yes |
-| project | The service account email to enable Stackdriver agent roles on | string | - | yes |
+| project | GCP project in which you wish to grant roles to the service account | string | n/a | yes |
+| service\_account\_email | The service account email to enable Stackdriver agent roles on | string | n/a | yes |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -1,5 +1,4 @@
-[^]: (autogen_docs_start)
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -11,4 +10,4 @@
 | service\_account\_two | First service Account to add the IAM policies/bindings | string | n/a | yes |
 | user\_email | Email for group to receive roles (Ex. user@example.com) | string | n/a | yes |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
