@@ -40,3 +40,7 @@ variable "service_account_one" {
 variable "service_account_two" {
   description = "First service Account to add the IAM policies/bindings"
 }
+
+variable "credentials_file_path" {
+  description = "Path to the service account"
+}

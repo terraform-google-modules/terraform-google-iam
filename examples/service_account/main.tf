@@ -18,13 +18,15 @@
   Provider configuration
  *****************************************/
 provider "google" {
-  project = "${var.service_account_project}"
-  version = "~> 2.7"
+  credentials = file(var.credentials_file_path)
+  project     = var.service_account_project
+  version     = "~> 2.7"
 }
 
 provider "google-beta" {
-  project = "${var.service_account_project}"
-  version = "~> 2.7"
+  credentials = file(var.credentials_file_path)
+  project     = var.service_account_project
+  version     = "~> 2.7"
 }
 
 /******************************************
@@ -33,7 +35,7 @@ provider "google-beta" {
 module "service_account_iam_binding" {
   source = "../../"
 
-  service_accounts = ["${var.service_account_one}", "${var.service_account_two}"]
+  service_accounts = [var.service_account_one, var.service_account_two]
 
   mode = "additive"
 
@@ -43,7 +45,6 @@ module "service_account_iam_binding" {
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-
     "roles/iam.serviceAccountTokenCreator" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
@@ -51,3 +52,4 @@ module "service_account_iam_binding" {
     ]
   }
 }
+
