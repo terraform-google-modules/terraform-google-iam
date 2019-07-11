@@ -18,13 +18,13 @@
   Provider configuration
  *****************************************/
 provider "google" {
-  project     = "${var.service_account_project}"
-  version     = "~> 2.7"
+  project = "${var.service_account_project}"
+  version = "~> 2.7"
 }
 
 provider "google-beta" {
-  project     = "${var.service_account_project}"
-  version     = "~> 2.7"
+  project = "${var.service_account_project}"
+  version = "~> 2.7"
 }
 
 /******************************************

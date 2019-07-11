@@ -32,7 +32,7 @@ locals {
   basic_bindings = "${map(
     local.basic_roles[0], local.member_group_0,
     local.basic_roles[1], local.member_group_1,
-    )}"
+  )}"
 
   org_bindings = "${map(
     local.org_roles[0], local.member_group_0,
@@ -52,11 +52,11 @@ locals {
 }
 
 provider "google" {
-  version     = "~> 2.7"
+  version = "~> 2.7"
 }
 
 provider "google-beta" {
-  version     = "~> 2.7"
+  version = "~> 2.7"
 }
 
 module "base" {
