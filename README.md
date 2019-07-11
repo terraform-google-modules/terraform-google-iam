@@ -320,18 +320,13 @@ Integration tests are run though
     ```
 2. Download a Service Account key with the necessary [permissions](#permissions)
    and put it in the module's root directory with the name `credentials.json`.
-3. Build the Docker containers for testing.
-    ```
-    CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE="credentials.json" make docker_build_terraform
-    CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE="credentials.json" make docker_build_kitchen_terraform
-    ```
-4. Run the testing container in interactive mode.
+3. Run the testing container in interactive mode.
     ```
     make docker_run
     ```
 
     The module root directory will be loaded into the Docker container at `/cftk/workdir/`.
-5. Run kitchen-terraform to test the infrastructure.
+4. Run kitchen-terraform to test the infrastructure.
 
     1. `kitchen create` creates Terraform state.
     2. `kitchen converge` creates the underlying resources to later attach bindings to.
