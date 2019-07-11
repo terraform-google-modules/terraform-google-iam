@@ -18,11 +18,10 @@ variable "mode" {
   description = "Mode of IAM management ('authoritative' OR 'additive')."
 }
 
-variable "org_id" {
-  description = "Organization to create resources in."
+variable "parent_id" {
+  description = "Folder to create resources in, e.g. folders/12345678"
 }
 
 variable "billing_account" {
   description = "Billing account to associate created projects with."
 }
-

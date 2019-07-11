@@ -26,7 +26,7 @@ resource "google_folder" "test" {
   count = local.n
 
   display_name = "Test IAM Folder ${count.index}"
-  parent       = "organizations/${var.org_id}"
+  parent       = var.parent_id
 }
 
 # Projects
@@ -41,7 +41,7 @@ resource "google_project" "test" {
   count = local.n
 
   project_id      = "${local.prefix}-prj-${count.index}-${random_id.test[count.index].hex}"
-  org_id          = var.org_id
+  folder_id       = var.parent_id
   billing_account = var.billing_account
 
   name = "Test IAM Project ${count.index}"

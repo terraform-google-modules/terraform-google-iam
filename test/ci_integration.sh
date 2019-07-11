@@ -40,6 +40,7 @@ setup_environment() {
   export TF_VAR_project_id="$PROJECT_ID"
   export TF_VAR_billing_account="${BILLING_ACCOUNT_ID}"
   export TF_VAR_org_id="${ORG_ID}"
+  export TF_VAR_parent_id="${FOLDER_ID}"
   export TF_VAR_mode="additive"
 }
 
