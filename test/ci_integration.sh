@@ -53,10 +53,13 @@ main() {
 
   # Setup environment variables
   setup_environment
+
   set -x
 
   # Execute the test lifecycle
-  rm -fv "test/fixtures/full/iam.tf"
+  if [[ -f "test/fixtures/full/iam.tf" ]]; then
+    mv "test/fixtures/full/iam.tf" "test/fixtures/full/iam.tf.mv"
+  fi
 
   kitchen create "$SUITE"
   kitchen converge "$SUITE" || true
