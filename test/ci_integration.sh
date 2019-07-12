@@ -17,10 +17,12 @@
 # Always clean up.
 DELETE_AT_EXIT="$(mktemp -d)"
 finish() {
+  local rv=$?
   echo 'BEGIN: finish() trap handler' >&2
   kitchen destroy "$SUITE"
   [[ -d "${DELETE_AT_EXIT}" ]] && rm -rf "${DELETE_AT_EXIT}"
   echo 'END: finish() trap handler' >&2
+  exit "${rv}"
 }
 
 # Map the input parameters provided by Concourse CI, or whatever mechanism is
