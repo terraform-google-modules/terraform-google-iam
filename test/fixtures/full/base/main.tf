@@ -25,7 +25,7 @@ locals {
 resource "google_folder" "test" {
   count = local.n
 
-  display_name = "Test IAM Folder ${count.index}"
+  display_name = "${local.prefix}-folder-${count.index}-${random_id.test[count.index].hex}"
   parent       = var.parent_id
 }
 
