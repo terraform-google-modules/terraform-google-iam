@@ -100,7 +100,7 @@ resource "google_kms_crypto_key" "test" {
 resource "google_pubsub_topic" "test" {
   count = local.n
 
-  project = google_project.test[0].project_id
+  project = var.fixture_project_id
 
   name = "${local.prefix}-tpc-${count.index}-${random_id.test[count.index].hex}"
 }
@@ -108,7 +108,7 @@ resource "google_pubsub_topic" "test" {
 resource "google_pubsub_subscription" "test" {
   count = local.n
 
-  project = google_project.test[0].project_id
+  project = var.fixture_project_id
 
   topic = google_pubsub_topic.test[count.index].name
   name  = "${local.prefix}-sub-${count.index}-${random_id.test[count.index].hex}"
@@ -123,4 +123,3 @@ resource "google_service_account" "member" {
 
   account_id = "${local.prefix}-member-${count.index}-${random_id.test[count.index].hex}"
 }
-

@@ -104,7 +104,7 @@ module "iam_binding_pubsub_subscription" {
   source               = "../../.."
   mode                 = var.mode
   pubsub_subscriptions = module.base.subscriptions
-  project              = module.base.projects[0]
+  project              = var.fixture_project_id
 
   bindings = local.basic_bindings
 }
@@ -113,7 +113,7 @@ module "iam_binding_pubsub_topic" {
   source        = "../../.."
   mode          = var.mode
   pubsub_topics = module.base.topics
-  project       = module.base.projects[0]
+  project       = var.fixture_project_id
 
   bindings = local.basic_bindings
 }

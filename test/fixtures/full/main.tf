@@ -60,7 +60,8 @@ provider "google-beta" {
 }
 
 module "base" {
-  source          = "./base"
-  billing_account = var.billing_account
-  parent_id       = var.parent_id
+  source             = "./base"
+  billing_account    = var.billing_account
+  parent_id          = var.parent_id
+  fixture_project_id = var.fixture_project_id
 }

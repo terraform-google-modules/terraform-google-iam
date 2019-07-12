@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Fixture project as managed in cloud-foundation-toolkit/infra
+fixture_project_id = attribute('fixture_project_id')
+
 # Resource pairs (arrays of length = 2)
 folders          = attribute('folders')
 subnets          = attribute('subnets')
@@ -188,14 +191,14 @@ assert_bindings(
 
 assert_bindings(
   'topic-0',
-  "gcloud beta pubsub topics get-iam-policy #{topics[0]} --project='#{projects[0]}' --format='json(bindings)'",
+  "gcloud beta pubsub topics get-iam-policy #{topics[0]} --project='#{fixture_project_id}' --format='json(bindings)'",
   basic_roles[0],
   member_groups[0],
 )
 
 assert_bindings(
   'topic-1',
-  "gcloud beta pubsub topics get-iam-policy #{topics[1]} --project='#{projects[0]}' --format='json(bindings)'",
+  "gcloud beta pubsub topics get-iam-policy #{topics[1]} --project='#{fixture_project_id}' --format='json(bindings)'",
   basic_roles[1],
   member_groups[1],
 )
@@ -204,14 +207,14 @@ assert_bindings(
 
 assert_bindings(
   'subscription-0',
-  "gcloud beta pubsub subscriptions get-iam-policy #{subscriptions[0]} --project='#{projects[0]}' --format='json(bindings)'",
+  "gcloud beta pubsub subscriptions get-iam-policy #{subscriptions[0]} --project='#{fixture_project_id}' --format='json(bindings)'",
   basic_roles[0],
   member_groups[0],
 )
 
 assert_bindings(
   'subscription-1',
-  "gcloud beta pubsub subscriptions get-iam-policy #{subscriptions[1]} --project='#{projects[0]}' --format='json(bindings)'",
+  "gcloud beta pubsub subscriptions get-iam-policy #{subscriptions[1]} --project='#{fixture_project_id}' --format='json(bindings)'",
   basic_roles[1],
   member_groups[1],
 )
