@@ -19,6 +19,14 @@ DELETE_AT_EXIT="$(mktemp -d)"
 finish() {
   local rv=$?
   echo 'BEGIN: finish() trap handler' >&2
+  if [[ "${rv}" -ne 0 ]]; then
+    echo 'BEGIN: .kitchen/logs/kitchen.log'
+    cat .kitchen/logs/kitchen.log
+    echo 'END: .kitchen/logs/kitchen.log'
+    echo 'BEGIN: kitchen diagnose --all'
+    kitchen diagnose --all
+    echo 'END: kitchen diagnose --all'
+  fi
   kitchen destroy "$SUITE"
   [[ -d "${DELETE_AT_EXIT}" ]] && rm -rf "${DELETE_AT_EXIT}"
   echo 'END: finish() trap handler' >&2
