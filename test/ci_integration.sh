@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright 2018 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,10 +17,20 @@
 # Always clean up.
 DELETE_AT_EXIT="$(mktemp -d)"
 finish() {
+  local rv=$?
   echo 'BEGIN: finish() trap handler' >&2
+  if [[ "${rv}" -ne 0 ]]; then
+    echo 'BEGIN: .kitchen/logs/kitchen.log'
+    cat .kitchen/logs/kitchen.log
+    echo 'END: .kitchen/logs/kitchen.log'
+    echo 'BEGIN: kitchen diagnose --all'
+    kitchen diagnose --all
+    echo 'END: kitchen diagnose --all'
+  fi
   kitchen destroy "$SUITE"
   [[ -d "${DELETE_AT_EXIT}" ]] && rm -rf "${DELETE_AT_EXIT}"
   echo 'END: finish() trap handler' >&2
+  exit "${rv}"
 }
 
 # Map the input parameters provided by Concourse CI, or whatever mechanism is
@@ -37,7 +47,11 @@ setup_environment() {
   export GOOGLE_APPLICATION_CREDENTIALS="${tmpfile}"
 
   # Terraform variables
-  export TF_VAR_project_id="$PROJECT_ID"
+  export TF_VAR_fixture_project_id="$PROJECT_ID"
+  export TF_VAR_billing_account="${BILLING_ACCOUNT_ID}"
+  export TF_VAR_org_id="${ORG_ID}"
+  export TF_VAR_parent_id="${FOLDER_ID}"
+  export TF_VAR_mode="additive"
 }
 
 main() {
@@ -50,10 +64,13 @@ main() {
 
   # Setup environment variables
   setup_environment
+
   set -x
 
   # Execute the test lifecycle
-  rm -fv "test/fixtures/full/iam.tf"
+  if [[ -f "test/fixtures/full/iam.tf" ]]; then
+    mv "test/fixtures/full/iam.tf" "test/fixtures/full/iam.tf.mv"
+  fi
 
   kitchen create "$SUITE"
   kitchen converge "$SUITE" || true

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright 2018 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,7 +35,12 @@ maketemp() {
 find_files() {
   local pth="$1"
   shift
-  find "${pth}" '(' -path '*/.git' -o -path '*/.terraform' ')' \
+  # Note: Take care to use -print or -print0 when using this function,
+  # otherwise excluded directories will be included in the output.
+  find "${pth}" '(' \
+    -path '*/.git' -o \
+    -path '*/.terraform' -o \
+    -path '*/.kitchen' ')' \
     -prune -o -type f "$@"
 }
 
@@ -70,20 +75,31 @@ function docker() {
     | compat_xargs -0 hadolint
 }
 
-# This function runs 'terraform validate' and 'terraform fmt'
-# against all directory paths which contain *.tf files.
+# This function runs 'terraform validate' against all
+# directory paths which contain *.tf files.
 function check_terraform() {
   set -e
-  echo "Running terraform validate"
-  find_files . -name "*.tf" -print0 \
-    | compat_xargs -0 -n1 dirname \
-    | sort -u \
-    | compat_xargs -t -n1 terraform validate --check-variables=false
+  # fmt is before validate for faster feedback, validate requires terraform
+  # init which takes time.
   echo "Running terraform fmt"
   find_files . -name "*.tf" -print0 \
     | compat_xargs -0 -n1 dirname \
     | sort -u \
-    | compat_xargs -t -n1 terraform fmt -check=true -write=false
+    | compat_xargs -t -n1 terraform fmt -diff -check=true -write=false
+  rval="$?"
+  if [[ "${rval}" -gt 0 ]]; then
+    echo "Error: terraform fmt failed with exit code ${rval}" >&2
+    echo "Check the output for diffs and correct using terraform fmt <dir>" >&2
+    return "${rval}"
+  fi
+  echo "Running terraform validate"
+  # Change to a temporary directory to avoid re-initializing terraform init
+  # over and over in the root of the repository.
+  find_files . -name "*.tf" -print \
+    | grep -v 'test/fixtures/shared' \
+    | compat_xargs -n1 dirname \
+    | sort -u \
+    | compat_xargs -t -n1 test/terraform_validate
 }
 
 # This function runs 'go fmt' and 'go vet' on every file
@@ -130,7 +146,7 @@ function generate_docs() {
   while read -r path; do
     if [[ -e "${path}/README.md" ]]; then
       # script seem to be designed to work into current directory
-      cd $path && echo "Working in ${path} ..." 
+      cd "${path}" && echo "Working in ${path} ..."
       terraform_docs.sh . && echo Success! || echo "Warning! Exit code: ${?}"
       cd - >/dev/null
     else

@@ -59,3 +59,6 @@ attributes:
   - name: member_group_1
     required: true
     type: array
+  - name: fixture_project_id
+    required: true
+    type: string
