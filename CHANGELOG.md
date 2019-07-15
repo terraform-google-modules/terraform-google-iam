@@ -10,6 +10,14 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
+## [2.0.0] - 2019-07-15
+
+### Added
+
+- [Update module for Terraform 0.12 compatibility][#26]
+- [Fix integration tests for 0.12 compatibility][#34]
+- Add a [note about Terraform 0.11 and 0.12 compatibility][#36]
+
 ## [1.1.1] - 2019-05-29
 
 ### Fixed
@@ -59,3 +67,6 @@ management.
 [#12]: https://github.com/terraform-google-modules/terraform-google-iam/pull/12
 [#14]: https://github.com/terraform-google-modules/terraform-google-iam/pull/14
 [#19]: https://github.com/terraform-google-modules/terraform-google-iam/pull/19
+[#26]: https://github.com/terraform-google-modules/terraform-google-iam/pull/26
+[#34]: https://github.com/terraform-google-modules/terraform-google-iam/pull/34
+[#36]: https://github.com/terraform-google-modules/terraform-google-iam/pull/36
