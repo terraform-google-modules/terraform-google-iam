@@ -20,22 +20,24 @@ locals {
   location = "us-central1"
 }
 
-# Folders
-
-resource "google_folder" "test" {
-  count = local.n
-
-  display_name = "Test IAM Folder ${count.index}"
-  parent       = "organizations/${var.org_id}"
-}
-
-# Projects
-
+# Random
 resource "random_id" "test" {
   count = local.n
 
   byte_length = 2
 }
+
+
+# Folders
+
+resource "google_folder" "test" {
+  count = local.n
+
+  display_name = "Test IAM Folder ${count.index} ${random_id.test[count.index].hex}"
+  parent       = "organizations/${var.org_id}"
+}
+
+# Projects
 
 resource "google_project" "test" {
   count = local.n
