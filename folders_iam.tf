@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,23 +18,35 @@
   Folder IAM binding authoritative
  *****************************************/
 resource "google_folder_iam_binding" "folder_iam_authoritative" {
-  count = "${local.folders_authoritative_iam ? length(local.bindings_array) : 0}"
+  count = local.folders_authoritative_iam ? length(local.bindings_array) : 0
 
-  folder = "folders/${replace(element(split(" ", local.bindings_array[count.index]), 0), "folders/", "")}"
-  role   = "${element(split(" ", local.bindings_array[count.index]), 1)}"
+  folder = "folders/${replace(
+    element(split(" ", local.bindings_array[count.index]), 0),
+    "folders/",
+    "",
+  )}"
+  role = element(split(" ", local.bindings_array[count.index]), 1)
 
-  members = [
-    "${compact(split(" ", element(split("=", local.bindings_array[count.index]), 1)))}",
-  ]
+  members = compact(
+    split(
+      " ",
+      element(split("=", local.bindings_array[count.index]), 1),
+    ),
+  )
 }
 
 /******************************************
   Folder IAM binding additive
  *****************************************/
 resource "google_folder_iam_member" "folder_iam_additive" {
-  count = "${local.folders_additive_iam ? length(local.bindings_array) : 0}"
+  count = local.folders_additive_iam ? length(local.bindings_array) : 0
 
-  folder = "folders/${replace(element(split(" ", local.bindings_array[count.index]), 0), "folders/", "")}"
-  member = "${element(split(" ", local.bindings_array[count.index]), 1)}"
-  role   = "${element(split(" ", local.bindings_array[count.index]), 2)}"
+  folder = "folders/${replace(
+    element(split(" ", local.bindings_array[count.index]), 0),
+    "folders/",
+    "",
+  )}"
+  member = element(split(" ", local.bindings_array[count.index]), 1)
+  role   = element(split(" ", local.bindings_array[count.index]), 2)
 }
+

@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-variable "credentials_file_path" {
-  description = "Service account json auth path"
-}
 
 variable "group_email" {
   description = "Email for group to receive roles (ex. group@example.com)"
@@ -34,9 +30,9 @@ variable "user_email" {
   folder_iam_binding variables
  *****************************************/
 variable "folder_one" {
-  description = "The first folder to apply IAM bindings"
+  description = "The first folder ID to apply IAM bindings"
 }
 
 variable "folder_two" {
-  description = "The second folder to apply IAM bindings"
+  description = "The second folder ID to apply IAM bindings"
 }

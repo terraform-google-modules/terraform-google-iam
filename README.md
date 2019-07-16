@@ -2,6 +2,13 @@
 
 This Terraform module makes it easier to non-destructively manage multiple IAM roles for resources on Google Cloud Platform.
 
+## Compatibility
+
+This module is meant for use with Terraform 0.12. If you haven't
+[upgraded][terraform-0.12-upgrade] and need a Terraform 0.11.x-compatible
+version of this module, the last released version intended for Terraform 0.11.x
+is [1.1.1][v1.1.1].
+
 ## Usage
 
 Full examples are in the [examples](./examples/) folder, but basic usage is as follows for managing roles on two projects:
@@ -85,8 +92,6 @@ Following variables are the most important to control module's behavior:
   - `pubsub_topics`
   - `pubsub_subscriptions`
 
-[^]: (autogen_docs_start)
-
 #### Additive and Authoritative Modes
 
 This module includes two modes: additive and authoritative.
@@ -95,25 +100,26 @@ In authoritative mode, the module takes full control over the IAM bindings liste
 
 In additive mode, this module leaves existing bindings unaffected. Instead, any members listed in the module will be added to the existing set of IAM bindings. However, members listed in the module *are* fully controlled by the module. This means that if you add a binding via the module and later remove it, the module will correctly handle removing the role binding.
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map | - | yes |
-| folders | Folders list to add the IAM policies/bindings | list | `<list>` | no |
-| kms_crypto_keys | Kms Crypto Key list to add the IAM policies/bindings | list | `<list>` | no |
-| kms_key_rings | Kms Key Rings list to add the IAM policies/bindings | list | `<list>` | no |
-| mode | Mode for adding the IAM policies/bindings, additive and authoritative | string | `additive` | no |
+| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map | n/a | yes |
+| folders | Folders list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| kms\_crypto\_keys | Kms Crypto Key list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| kms\_key\_rings | Kms Key Rings list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| mode | Mode for adding the IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
 | organizations | Organizations list to add the IAM policies/bindings | list | `<list>` | no |
-| project | Project to add the IAM policies/bindings | string | `` | no |
-| projects | Projects list to add the IAM policies/bindings | list | `<list>` | no |
-| pubsub_subscriptions | Pubsub subscriptions list to add the IAM policies/bindings | list | `<list>` | no |
-| pubsub_topics | Pubsub topics list to add the IAM policies/bindings | list | `<list>` | no |
-| service_accounts | Service Accounts list to add the IAM policies/bindings | list | `<list>` | no |
-| storage_buckets | Buckets list to add the IAM policies/bindings | list | `<list>` | no |
-| subnets | Subnets list to add the IAM policies/bindings | list | `<list>` | no |
+| project | Project to add the IAM policies/bindings | string | `""` | no |
+| projects | Projects list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| pubsub\_subscriptions | Pubsub subscriptions list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| pubsub\_topics | Pubsub topics list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| service\_accounts | Service Accounts list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| storage\_buckets | Buckets list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| subnets | Subnets list to add the IAM policies/bindings | list(string) | `<list>` | no |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Caveats
 
@@ -217,9 +223,9 @@ The project has the following folders and files:
 
 ### Terraform plugins
 
-- [Terraform](https://www.terraform.io/downloads.html) 0.11.x
-- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 1.20.X
-- [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 1.20.X
+- [Terraform](https://www.terraform.io/downloads.html) 0.12
+- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 2.5
+- [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 2.5
 
 ### Permissions
 
@@ -274,7 +280,7 @@ In order to execute this module you must have a Service Account with an appropri
 
 ### Terraform
 
-Be sure you have the correct Terraform version (0.11.x), you can choose the binary here:
+Be sure you have the correct Terraform version (0.12), you can choose the binary here:
 - https://releases.hashicorp.com/terraform/
 
 ### Terraform plugins
@@ -321,18 +327,13 @@ Integration tests are run though
     ```
 2. Download a Service Account key with the necessary [permissions](#permissions)
    and put it in the module's root directory with the name `credentials.json`.
-3. Build the Docker containers for testing.
-    ```
-    CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE="credentials.json" make docker_build_terraform
-    CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE="credentials.json" make docker_build_kitchen_terraform
-    ```
-4. Run the testing container in interactive mode.
+3. Run the testing container in interactive mode.
     ```
     make docker_run
     ```
 
     The module root directory will be loaded into the Docker container at `/cftk/workdir/`.
-5. Run kitchen-terraform to test the infrastructure.
+4. Run kitchen-terraform to test the infrastructure.
 
     1. `kitchen create` creates Terraform state.
     2. `kitchen converge` creates the underlying resources to later attach bindings to.
@@ -387,3 +388,6 @@ is a compiled language so there is no standard linter.
 * Terraform - terraform has a built-in linter in the 'terraform validate'
 command.
 * Dockerfiles - hadolint. Can be found in homebrew
+
+[v1.1.1]: https://registry.terraform.io/modules/terraform-google-modules/iam/google/1.1.1
+[terraform-0.12-upgrade]: https://www.terraform.io/upgrade-guides/0-12.html

@@ -14,93 +14,93 @@
  * limitations under the License.
  */
 
-output "credentials_file_path" {
-  value       = "${path.module}/${var.credentials_file_path}"
-  description = "Path to google credentials file."
-}
-
 # Binding Roles
 
 output "basic_roles" {
-  value       = ["${local.basic_roles}"]
+  value       = local.basic_roles
   description = "Basic roles to be assigned to resources."
 }
 
 output "org_roles" {
-  value       = ["${local.org_roles}"]
+  value       = local.org_roles
   description = "Roles to be assigned to organizations."
 }
 
 output "project_roles" {
-  value       = ["${local.project_roles}"]
+  value       = local.project_roles
   description = "Roles to be assigned to projects."
 }
 
 output "bucket_roles" {
-  value       = ["${local.bucket_roles}"]
+  value       = local.bucket_roles
   description = "Roles to be assigned to buckets."
 }
 
 # Binding Members
 
 output "member_group_0" {
-  value       = ["${local.member_group_0}"]
+  value       = local.member_group_0
   description = "Members to be used in bindings."
 }
 
 output "member_group_1" {
-  value       = ["${local.member_group_1}"]
+  value       = local.member_group_1
   description = "Members to be used in bindings."
 }
 
 # Resources
 
 output "projects" {
-  value       = ["${module.base.projects}"]
+  value       = module.base.projects
   description = "Projects created for bindings."
 }
 
 output "folders" {
-  value       = ["${module.base.folders}"]
+  value       = module.base.folders
   description = "Folders created for bindings."
 }
 
 output "subnets" {
-  value       = ["${local.subnets}"]
+  value       = local.subnets
   description = "Subnetworks created for bindings."
 }
 
 output "service_accounts" {
-  value       = ["${module.base.service_accounts}"]
+  value       = module.base.service_accounts
   description = "Service accounts created for bindings."
 }
 
 output "members" {
-  value       = ["${module.base.members}"]
+  value       = module.base.members
   description = "Members created for binding with roles."
 }
 
 output "buckets" {
-  value       = ["${module.base.buckets}"]
+  value       = module.base.buckets
   description = "Storage buckets created for bindings."
 }
 
 output "key_rings" {
-  value       = ["${module.base.key_rings}"]
+  value       = module.base.key_rings
   description = "Key rings created for bindings."
 }
 
 output "keys" {
-  value       = ["${module.base.keys}"]
+  value       = module.base.keys
   description = "Crypto keys created for bindings."
 }
 
 output "topics" {
-  value       = ["${module.base.topics}"]
+  value       = module.base.topics
   description = "Pubsub topics created for bindings."
 }
 
 output "subscriptions" {
-  value       = ["${module.base.subscriptions}"]
+  value       = module.base.subscriptions
   description = "Pubsub subscriptions created for bindings."
+}
+
+output "fixture_project_id" {
+  value       = var.fixture_project_id
+  description = "Project ID of the test fixture project.  Used to avoid timing issues with recently created projects."
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,61 +22,61 @@ variable "project" {
 variable "projects" {
   description = "Projects list to add the IAM policies/bindings"
   default     = []
-  type        = "list"
+  type        = list(string)
 }
 
 variable "folders" {
   description = "Folders list to add the IAM policies/bindings"
   default     = []
-  type        = "list"
+  type        = list(string)
 }
 
 variable "organizations" {
   description = "Organizations list to add the IAM policies/bindings"
   default     = []
-  type        = "list"
+  type        = list
 }
 
 variable "service_accounts" {
   description = "Service Accounts list to add the IAM policies/bindings"
   default     = []
-  type        = "list"
+  type        = list(string)
 }
 
 variable "pubsub_topics" {
   description = "Pubsub topics list to add the IAM policies/bindings"
   default     = []
-  type        = "list"
+  type        = list(string)
 }
 
 variable "pubsub_subscriptions" {
   description = "Pubsub subscriptions list to add the IAM policies/bindings"
   default     = []
-  type        = "list"
+  type        = list(string)
 }
 
 variable "storage_buckets" {
   description = "Buckets list to add the IAM policies/bindings"
   default     = []
-  type        = "list"
+  type        = list(string)
 }
 
 variable "subnets" {
   description = "Subnets list to add the IAM policies/bindings"
   default     = []
-  type        = "list"
+  type        = list(string)
 }
 
 variable "kms_key_rings" {
   description = "Kms Key Rings list to add the IAM policies/bindings"
   default     = []
-  type        = "list"
+  type        = list(string)
 }
 
 variable "kms_crypto_keys" {
   description = "Kms Crypto Key list to add the IAM policies/bindings"
   default     = []
-  type        = "list"
+  type        = list(string)
 }
 
 variable "mode" {
@@ -86,5 +86,6 @@ variable "mode" {
 
 variable "bindings" {
   description = "Map of role (key) and list of members (value) to add the IAM policies/bindings"
-  type        = "map"
+  type        = map
 }
+

@@ -17,3 +17,8 @@
 variable "service_account_email" {
   description = "The service account email to enable Stackdriver agent roles on"
 }
+
+variable "project" {
+  description = "GCP project in which you wish to grant roles to the service account"
+}
+

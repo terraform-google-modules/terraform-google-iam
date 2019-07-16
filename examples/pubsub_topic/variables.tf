@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-variable "credentials_file_path" {
-  description = "Service account json auth path"
-}
 
 variable "group_email" {
   description = "Email for group to receive roles (ex. group@example.com)"
@@ -37,10 +33,11 @@ variable "pubsub_topic_project" {
   description = "Project id of the pub/sub topic"
 }
 
-variable pubsub_topic_one {
+variable "pubsub_topic_one" {
   description = "First pubsub topic to add the IAM policies/bindings"
 }
 
-variable pubsub_topic_two {
+variable "pubsub_topic_two" {
   description = "Second pubsub topic to add the IAM policies/bindings"
 }
+

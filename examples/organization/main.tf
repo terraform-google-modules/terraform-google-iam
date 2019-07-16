@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-locals {
-  credentials_file_path = "${var.credentials_file_path}"
-}
-
 /******************************************
   Provider configuration
  *****************************************/
 provider "google" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  version = "~> 2.7"
 }
 
 provider "google-beta" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  version = "~> 2.7"
 }
 
 /******************************************
@@ -36,7 +30,7 @@ provider "google-beta" {
  *****************************************/
 module "organization_iam_binding" {
   source        = "../../"
-  organizations = ["${var.organization_one}", "${var.organization_two}"]
+  organizations = [var.organization_one, var.organization_two]
 
   mode = "authoritative"
 
@@ -46,7 +40,6 @@ module "organization_iam_binding" {
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-
     "roles/resourcemanager.projectDeleter" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
@@ -54,3 +47,4 @@ module "organization_iam_binding" {
     ]
   }
 }
+

@@ -1,15 +1,12 @@
-[^]: (autogen_docs_start)
-
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials_file_path | Service account json auth path | string | - | yes |
-| folder_one | The first folder to apply IAM bindings | string | - | yes |
-| folder_two | The second folder to apply IAM bindings | string | - | yes |
-| group_email | Email for group to receive roles (ex. group@example.com) | string | - | yes |
-| sa_email | Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com) | string | - | yes |
-| user_email | Email for group to receive roles (Ex. user@example.com) | string | - | yes |
+| folder\_one | The first folder ID to apply IAM bindings | string | n/a | yes |
+| folder\_two | The second folder ID to apply IAM bindings | string | n/a | yes |
+| group\_email | Email for group to receive roles (ex. group@example.com) | string | n/a | yes |
+| sa\_email | Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com) | string | n/a | yes |
+| user\_email | Email for group to receive roles (Ex. user@example.com) | string | n/a | yes |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

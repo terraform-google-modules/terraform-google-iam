@@ -14,9 +14,6 @@
 
 name: full
 attributes:
-  - name: credentials_file_path
-    required: true
-    type: string
   - name: folders
     required: true
     type: array
@@ -62,3 +59,6 @@ attributes:
   - name: member_group_1
     required: true
     type: array
+  - name: fixture_project_id
+    required: true
+    type: string

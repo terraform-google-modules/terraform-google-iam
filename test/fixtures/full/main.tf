@@ -48,20 +48,20 @@ locals {
     local.bucket_roles[0], local.member_group_0,
     local.bucket_roles[1], local.member_group_1,
   )}"
+
 }
 
 provider "google" {
-  credentials = "${file(var.credentials_file_path)}"
-  version     = "~> 1.20"
+  version = "~> 2.7"
 }
 
 provider "google-beta" {
-  credentials = "${file(var.credentials_file_path)}"
-  version     = "~> 1.20"
+  version = "~> 2.7"
 }
 
 module "base" {
-  source          = "./base"
-  org_id          = "${var.org_id}"
-  billing_account = "${var.billing_account}"
+  source             = "./base"
+  billing_account    = var.billing_account
+  parent_id          = var.parent_id
+  fixture_project_id = var.fixture_project_id
 }

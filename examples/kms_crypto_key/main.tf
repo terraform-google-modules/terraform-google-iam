@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-locals {
-  credentials_file_path = "${var.credentials_file_path}"
-}
-
 /******************************************
   Provider configuration
  *****************************************/
 provider "google" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  version = "~> 2.7"
 }
 
 provider "google-beta" {
-  credentials = "${file(local.credentials_file_path)}"
-  version     = "~> 1.20"
+  version = "~> 2.7"
 }
 
 /******************************************
@@ -36,7 +30,7 @@ provider "google-beta" {
  *****************************************/
 module "kms_crypto_key_iam_binding" {
   source          = "../../"
-  kms_crypto_keys = ["${var.kms_crypto_key_one}", "${var.kms_crypto_key_two}"]
+  kms_crypto_keys = [var.kms_crypto_key_one, var.kms_crypto_key_two]
 
   mode = "authoritative"
 
@@ -45,10 +39,10 @@ module "kms_crypto_key_iam_binding" {
       "user:${var.user_email}",
       "group:${var.group_email}",
     ]
-
     "roles/cloudkms.cryptoKeyDecrypter" = [
       "user:${var.user_email}",
       "group:${var.group_email}",
     ]
   }
 }
+
