@@ -67,39 +67,14 @@ function basefiles() {
   done
 }
 
-# This function runs the hadolint linter on
-# every file named 'Dockerfile'
-function docker() {
-  echo "Running hadolint on Dockerfiles"
-  find_files . -name "Dockerfile" -print0 \
-    | compat_xargs -0 hadolint
-}
-
-# This function runs 'terraform validate' against all
-# directory paths which contain *.tf files.
+# This function runs 'terraform validate' and 'terraform fmt'
+# against all directory paths which contain *.tf files.
 function check_terraform() {
-  set -e
-  # fmt is before validate for faster feedback, validate requires terraform
-  # init which takes time.
-  echo "Running terraform fmt"
-  find_files . -name "*.tf" -print0 \
-    | compat_xargs -0 -n1 dirname \
-    | sort -u \
-    | compat_xargs -t -n1 terraform fmt -diff -check=true -write=false
-  rval="$?"
-  if [[ "${rval}" -gt 0 ]]; then
-    echo "Error: terraform fmt failed with exit code ${rval}" >&2
-    echo "Check the output for diffs and correct using terraform fmt <dir>" >&2
-    return "${rval}"
-  fi
   echo "Running terraform validate"
-  # Change to a temporary directory to avoid re-initializing terraform init
-  # over and over in the root of the repository.
-  find_files . -name "*.tf" -print \
-    | grep -v 'test/fixtures/shared' \
-    | compat_xargs -n1 dirname \
-    | sort -u \
-    | compat_xargs -t -n1 test/terraform_validate
+  #shellcheck disable=SC2156
+  find . -name "*.tf" -not -path "./test/fixtures/shared/*" -not -path "./test/fixtures/all_examples/*" -exec bash -c 'cd $(dirname "{}") && terraform init && terraform validate ' \;
+  echo "Running terraform fmt"
+  find_files . -name "*.tf" -exec terraform fmt  -check=true -write=false {} \;
 }
 
 # This function runs 'go fmt' and 'go vet' on every file
@@ -148,6 +123,7 @@ function generate_docs() {
       # script seem to be designed to work into current directory
       cd "${path}" && echo "Working in ${path} ..."
       terraform_docs.sh . && echo Success! || echo "Warning! Exit code: ${?}"
+      # shellcheck disable=SC2164
       cd - >/dev/null
     else
       echo "Skipping ${path} because README.md does not exist."

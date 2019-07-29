@@ -150,8 +150,7 @@ function main {
   then
     build_authoritative
   fi
-
-  jq -n --arg output "$OUTPUT" '{data:$output}'
+  echo "$OUTPUT"| sed -e 's/.*/{\n  "data": "&/; s/$/"\n}/'
 }
 
 main

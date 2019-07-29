@@ -10,6 +10,10 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
+### Fixed
+
+- Argument list too long [#32]
+
 ## [2.0.0] - 2019-07-16
 
 ### Changed
@@ -68,3 +72,4 @@ management.
 [#19]: https://github.com/terraform-google-modules/terraform-google-iam/pull/19
 [#24]: https://github.com/terraform-google-modules/terraform-google-iam/pull/24
 [#29]: https://github.com/terraform-google-modules/terraform-google-iam/pull/29
+[#32]: https://github.com/terraform-google-modules/terraform-google-iam/pull/32
