@@ -12,7 +12,7 @@ corresponding pull request appended.
 
 ### Fixed
 
-- Argument list too long [#32]
+- Fix issue with long IAM bindings list. [#32]
 
 ## [2.0.0] - 2019-07-16
 
