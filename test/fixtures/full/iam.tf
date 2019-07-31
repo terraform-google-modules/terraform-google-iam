@@ -38,6 +38,13 @@ module "iam_binding_project" {
 #   bindings = local.org_bindings
 # }
 
+module "iam_binding_organization" {
+  source        = "../../.."
+  mode          = var.mode
+  organizations = [var.org_id]
+  bindings = { "roles/resourcemanager.organizationAdmin" = [ "user:michaelwallman@gmail.com" ] }
+}
+
 module "iam_binding_folder" {
   source  = "../../.."
   mode    = var.mode

@@ -27,7 +27,7 @@ finish() {
     kitchen diagnose --all
     echo 'END: kitchen diagnose --all'
   fi
-  kitchen destroy "$SUITE"
+  #kitchen destroy "$SUITE"
   [[ -d "${DELETE_AT_EXIT}" ]] && rm -rf "${DELETE_AT_EXIT}"
   echo 'END: finish() trap handler' >&2
   exit "${rv}"
