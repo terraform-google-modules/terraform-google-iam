@@ -150,7 +150,7 @@ function main {
   then
     build_authoritative
   fi
-  echo "$OUTPUT"| sed -e 's/.*/{\n  "data": "&/; s/$/"\n}/'
+  echo "$OUTPUT"| sed -e 's/.*/{"data": "&/; s/$/"}/'
 }
 
 main
