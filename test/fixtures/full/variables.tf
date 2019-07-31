@@ -29,3 +29,7 @@ variable "billing_account" {
 variable "fixture_project_id" {
   description = "Project ID of the test fixture project.  Used to avoid timing issues with recently created projects."
 }
+
+variable "org_id" {
+  default = "826592752744"
+}
