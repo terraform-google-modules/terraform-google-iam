@@ -14,15 +14,8 @@
  * limitations under the License.
  */
 
-locals {
-  subnets = [
-    "projects/${google_project_service.compute[0].project}/regions/us-central1/subnetworks/default",
-    "projects/${google_project_service.compute[0].project}/regions/us-east1/subnetworks/default",
-  ]
-}
-
 module "iam_binding_project" {
-  source   = "../../.."
+  source   = "../../../modules/projects_iam"
   mode     = var.mode
   projects = module.base.projects
 
@@ -32,44 +25,33 @@ module "iam_binding_project" {
 ## TODO(jmccune): Disabled as per discussion with Aaron.  Re-enable post 0.12
 # considering public pull requests.
 # module "iam_binding_organization" {
-#   source        = "../../.."
+#   source        = "../../../modules/organizations_iam"
 #   mode          = var.mode
 #   organizations = [var.org_id]
 #   bindings = local.org_bindings
 # }
 
 module "iam_binding_folder" {
-  source  = "../../.."
+  source  = "../../../modules/folders_iam"
   mode    = var.mode
   folders = module.base.folders
 
   bindings = local.basic_bindings
 }
 
-# Needed for iam_binding_subnet.
-resource "google_project_service" "compute" {
-  count = length(module.base.projects)
-
-  project = module.base.projects[count.index]
-  service = "compute.googleapis.com"
-}
-
 module "iam_binding_subnet" {
-  source = "../../.."
-  mode   = var.mode
-
-  subnets = [
-    "projects/${google_project_service.compute[0].project}/regions/us-central1/subnetworks/default",
-    "projects/${google_project_service.compute[0].project}/regions/us-east1/subnetworks/default",
-  ]
+  source         = "../../../modules/subnets_iam"
+  mode           = var.mode
+  project        = module.base.projects[0]
+  subnets_region = module.base.region
+  subnets        = module.base.subnets
 
   bindings = local.basic_bindings
 }
 
 module "iam_binding_service_account" {
-  source = "../../.."
-  mode   = var.mode
-
+  source           = "../../../modules/service_accounts_iam"
+  mode             = var.mode
   service_accounts = module.base.service_accounts
   project          = module.base.projects[0]
 
@@ -77,7 +59,7 @@ module "iam_binding_service_account" {
 }
 
 module "iam_binding_storage_bucket" {
-  source          = "../../.."
+  source          = "../../../modules/storage_buckets_iam"
   mode            = var.mode
   storage_buckets = module.base.buckets
 
@@ -85,15 +67,14 @@ module "iam_binding_storage_bucket" {
 }
 
 module "iam_binding_kms_crypto_key" {
-  source          = "../../.."
+  source          = "../../../modules/kms_crypto_keys_iam"
   mode            = var.mode
   kms_crypto_keys = module.base.keys
-
-  bindings = local.basic_bindings
+  bindings        = local.basic_bindings
 }
 
 module "iam_binding_kms_key_ring" {
-  source        = "../../.."
+  source        = "../../../modules/kms_key_rings_iam"
   mode          = var.mode
   kms_key_rings = module.base.key_rings
 
@@ -101,7 +82,7 @@ module "iam_binding_kms_key_ring" {
 }
 
 module "iam_binding_pubsub_subscription" {
-  source               = "../../.."
+  source               = "../../../modules/pubsub_subscriptions_iam"
   mode                 = var.mode
   pubsub_subscriptions = module.base.subscriptions
   project              = var.fixture_project_id
@@ -110,7 +91,7 @@ module "iam_binding_pubsub_subscription" {
 }
 
 module "iam_binding_pubsub_topic" {
-  source        = "../../.."
+  source        = "../../../modules/pubsub_topics_iam"
   mode          = var.mode
   pubsub_topics = module.base.topics
   project       = var.fixture_project_id

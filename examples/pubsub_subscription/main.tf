@@ -29,11 +29,10 @@ provider "google-beta" {
   Module pubsub_subscription_iam_binding calling
  *****************************************/
 module "pubsub_subscription_iam_binding" {
-  source               = "../../"
+  source               = "../../modules/pubsub_subscriptions_iam/"
   project              = var.pubsub_subscription_project
   pubsub_subscriptions = [var.pubsub_subscription_one, var.pubsub_subscription_two]
-
-  mode = "additive"
+  mode                 = "additive"
 
   bindings = {
     "roles/pubsub.viewer" = [

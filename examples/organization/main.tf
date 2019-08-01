@@ -29,10 +29,9 @@ provider "google-beta" {
   Module organization_iam_binding calling
  *****************************************/
 module "organization_iam_binding" {
-  source        = "../../"
+  source        = "../../modules/organizations_iam/"
   organizations = [var.organization_one, var.organization_two]
-
-  mode = "authoritative"
+  mode          = "authoritative"
 
   bindings = {
     "roles/resourcemanager.organizationViewer" = [

@@ -86,11 +86,16 @@ Following variables are the most important to control module's behavior:
 
 - Project
 
-  This variable can be defined either on `provider` section and the module calling itself. It is only used for the following resources:
+  This variable must be defined in case of using one the following modules:
 
-  - `service_accounts`
-  - `pubsub_topics`
-  - `pubsub_subscriptions`
+  - `pubsub_subscriptions_iam`
+  - `pubsub_topics_iam`
+  - `service_accounts_iam`
+  - `subnets_iam`
+
+- Subnets_region
+
+  This variable must be defined in case of using module `subnets_iam`
 
 #### Additive and Authoritative Modes
 
@@ -105,19 +110,58 @@ In additive mode, this module leaves existing bindings unaffected. Instead, any 
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map | n/a | yes |
 | folders | Folders list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| kms\_crypto\_keys | Kms Crypto Key list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| kms\_key\_rings | Kms Key Rings list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| mode | Mode for adding the IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| organizations | Organizations list to add the IAM policies/bindings | list | `<list>` | no |
+| folders\_bindings | Map of role (key) and list of members (value) to add the Folders IAM policies/bindings | map(list(string)) | n/a | yes |
+| folders\_bindings\_num | Number of Folders bindings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| folders\_mode | Mode for adding the Folders IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+| folders\_num | Number of Folders, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| kms\_crypto\_keys | KMS Crypto Keys list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| kms\_crypto\_keys\_bindings | Map of role (key) and list of members (value) to add the KMS Crypto Keys IAM policies/bindings | map(list(string)) | n/a | yes |
+| kms\_crypto\_keys\_bindings\_num | Number of KMS Crypto Keys bindings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| kms\_crypto\_keys\_mode | Mode for adding the KMS Crypto Keys IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+| kms\_crypto\_keys\_num | Number of KMS Crypto Keys, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| kms\_key\_rings | KMS Key Rings list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| kms\_key\_rings\_bindings | Map of role (key) and list of members (value) to add the KMS Key Rings IAM policies/bindings | map(list(string)) | n/a | yes |
+| kms\_key\_rings\_bindings\_num | Number of KMS Key Rings bindings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| kms\_key\_rings\_mode | Mode for adding the KMS Key Rings IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+| kms\_key\_rings\_num | Number of KMS Key Rings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| organizations | Organizations list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| organizations\_bindings | Map of role (key) and list of members (value) to add the Organizations IAM policies/bindings | map(list(string)) | n/a | yes |
+| organizations\_bindings\_num | Number of Organizations bindings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| organizations\_mode | Mode for adding the Organizations IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+| organizations\_num | Number of Organizations, in case using dependcies of outher resources's outputs | number | `"0"` | no |
 | project | Project to add the IAM policies/bindings | string | `""` | no |
-| projects | Projects list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| pubsub\_subscriptions | Pubsub subscriptions list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| pubsub\_topics | Pubsub topics list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| projects | Projects list to add the IAM policies/bindings | list | `<list>` | no |
+| projects\_bindings | Map of role (key) and list of members (value) to add the Projects IAM policies/bindings | map(list(string)) | n/a | yes |
+| projects\_bindings\_num | Number of Projects bindings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| projects\_mode | Mode for adding the Projects IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+| projects\_num | Number of Projects, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| pubsub\_subscriptions | PubSub Subscriptions list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| pubsub\_subscriptions\_bindings | Map of role (key) and list of members (value) to add the PubSub Subscriptions IAM policies/bindings | map(list(string)) | n/a | yes |
+| pubsub\_subscriptions\_bindings\_num | Number of PubSub Subscriptions bindings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| pubsub\_subscriptions\_mode | Mode for adding the PubSub Subscriptions IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+| pubsub\_subscriptions\_num | Number of PubSub Subscriptions, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| pubsub\_topics | PubSub Topics list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| pubsub\_topics\_bindings | Map of role (key) and list of members (value) to add the PubSub Topics IAM policies/bindings | map(list(string)) | n/a | yes |
+| pubsub\_topics\_bindings\_num | Number of PubSub Topics bindings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| pubsub\_topics\_mode | Mode for adding the PubSub Topics IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+| pubsub\_topics\_num | Number of PubSub Topics, in case using dependcies of outher resources's outputs | number | `"0"` | no |
 | service\_accounts | Service Accounts list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| storage\_buckets | Buckets list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| service\_accounts\_bindings | Map of role (key) and list of members (value) to add the Service Accounts IAM policies/bindings | map(list(string)) | n/a | yes |
+| service\_accounts\_bindings\_num | Number of Service Accounts bindings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| service\_accounts\_mode | Mode for adding the Service Accounts IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+| service\_accounts\_num | Number of Service Accounts, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| storage\_buckets | Storage Buckets list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| storage\_buckets\_bindings | Map of role (key) and list of members (value) to add the Storage Buckets IAM policies/bindings | map(list(string)) | n/a | yes |
+| storage\_buckets\_bindings\_num | Number of Storage Buckets bindings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| storage\_buckets\_mode | Mode for adding the Storage Buckets IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+| storage\_buckets\_num | Number of Storage Buckets, in case using dependcies of outher resources's outputs | number | `"0"` | no |
 | subnets | Subnets list to add the IAM policies/bindings | list(string) | `<list>` | no |
+| subnets\_bindings | Map of role (key) and list of members (value) to add the Subnets IAM policies/bindings | map(list(string)) | n/a | yes |
+| subnets\_bindings\_num | Number of Subnets bindings, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| subnets\_mode | Mode for adding the Subnets IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+| subnets\_num | Number of Subnets, in case using dependcies of outher resources's outputs | number | `"0"` | no |
+| subnets\_region | Subnets region | string | n/a | yes |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
@@ -127,9 +171,8 @@ In additive mode, this module leaves existing bindings unaffected. Instead, any 
 
 This Terraform module performs operations over some variables before making any changes on the IAM bindings in GCP.
 
-Because of that, it is important to note that putting a value or attribute of a resource within the following variables, will cause an error:
+The following variables have associated `*_num` variables which must be jointly configured with the number of elements:
 
-- `bindings`
 - `projects`
 - `organizations`
 - `folders`
@@ -140,8 +183,21 @@ Because of that, it is important to note that putting a value or attribute of a 
 - `pubsub_subscriptions`
 - `kms_key_rings`
 - `kms_crypto_keys`
+- `projects_bindings`
+- `organizations_bindings`
+- `folders_bindings`
+- `service_accounts_bindings`
+- `subnets_bindings`
+- `storage_buckets_bindings`
+- `pubsub_topics_bindings`
+- `pubsub_subscriptions_bindings`
+- `kms_key_rings_bindings`
+- `kms_crypto_keys_bindings`
 
-For example, this will fail:
+* For `authoritative` mode set variable equals to the number of roles applyed
+* For `additive` mode set variable equals to the number of Service Accounts and users and groups applyed
+
+For example, `authoritative` mode:
 
 ```hcl
 resource google_folder "my_new_folder" {
@@ -153,13 +209,14 @@ resource "google_service_account" "my_service_account" {
   account_id   = "my-new-service-account"
 }
 
-module "iam_binding" {
-  source = "terraform-google-modules/iam/google"
-  mode   = "authoritative"
+module "folders_iam_binding" {
+  source       = "terraform-google-modules/iam/google//modules/folders_iam"
+  mode         = "authoritative"
 
-  folders = ["${google_folder.my_new_folder.id}"]
+  folders      = ["${google_folder.my_new_folder.id}"]
+  folders_num  = 1
 
-  bindings = {
+  bindings     = {
     "roles/storage.admin" = [
       "group:test_sa_group@lnescidev.com",
       "serviceAccount:${google_service_account.my_service_account.id}",
@@ -170,23 +227,43 @@ module "iam_binding" {
       "user:someone@google.com",
     ]
   }
+  bindings_num = 2
 }
 ```
 
-First, because the `folders` variable has a reference to a resource that is not already created (`my_new_folder`). Second because the `bindings` variable has a reference to `my_service_account` and it is not created yet. The error output is as follows: `(...) value of 'count' cannot be computed`
+`additive` mode:
 
-#### Workaround
+```hcl
+resource google_folder "my_new_folder" {
+  display_name = "folder-test"
+  parent = "76543265432"
+}
 
-To avoid this error, use values or attributes of resources that are already created before calling this module.
+resource "google_service_account" "my_service_account" {
+  account_id   = "my-new-service-account"
+}
 
-Note that as soon as the resources have been created once they **can** be referenced successfully (once they are in the Terraform state file).
+module "folders_iam_binding" {
+  source = "terraform-google-modules/iam/google//modules/folders_iam"
+  mode         = "additive"
 
-Therefore, a simple workaround is as follows:
+  folders      = ["${google_folder.my_new_folder.id}"]
+  folders_num  = 1
 
-1. Comment out the call to this module.
-2. Run `terraform apply` to create the other resources and persist them to the state file.
-3. Uncomment this module.
-4. Run `terraform apply` to apply the bindings.
+  bindings     = {
+    "roles/storage.admin" = [
+      "group:test_sa_group@lnescidev.com",
+      "serviceAccount:${google_service_account.my_service_account.id}",
+    ]
+
+    "roles/compute.networkAdmin" = [
+      "group:test_sa_group@lnescidev.com",
+      "user:someone@google.com",
+    ]
+  }
+  bindings_num = 4
+}
+```
 
 ## IAM Bindings
 
@@ -213,8 +290,8 @@ The project has the following folders and files:
 - /examples: examples for using this module.
 - /scripts: Scripts for specific tasks on module (see Infrastructure section on this file).
 - /test: Folders with files for testing the module (see Testing section on this file).
-- /main.tf: main file for this module, contains all the logic for operate the module.
-- /*_iam.tf: files for manage the IAM bindings for each resource type.
+- /main.tf: main file for this module, contains all the variables for operate the module.
+- /modules: modules to manage the IAM bindings for each resource type.
 - /variables.tf: all the variables for the module.
 - /output.tf: the outputs of the module.
 - /readme.MD: this file.

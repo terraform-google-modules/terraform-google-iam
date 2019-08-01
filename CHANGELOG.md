@@ -10,9 +10,16 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
+## [2.1.0] - 2019-YY-ZZ
+
+### Added
+
+- Submodules for each type of binding. [#43]
+
 ### Fixed
 
 - Fix issue with long IAM bindings list. [#32]
+- Allow referencing computed values. [#43]
 
 ## [2.0.0] - 2019-07-16
 
@@ -73,3 +80,4 @@ management.
 [#24]: https://github.com/terraform-google-modules/terraform-google-iam/pull/24
 [#29]: https://github.com/terraform-google-modules/terraform-google-iam/pull/29
 [#32]: https://github.com/terraform-google-modules/terraform-google-iam/pull/32
+[#43]: https://github.com/terraform-google-modules/terraform-google-iam/pull/43

@@ -44,12 +44,12 @@ provider "google-beta" {
   Module pubsub_subscription_iam_binding calling
  *****************************************/
 module "subnet_iam_binding" {
-  source = "../../"
+  source = "../../modules/subnets_iam"
 
-  subnets = [local.subnet_one_full, local.subnet_two_full]
-
-  mode = "authoritative"
-
+  subnets        = [local.subnet_one_full, local.subnet_two_full]
+  subnets_region = var.region
+  project        = var.project
+  mode           = "authoritative"
   bindings = {
     "roles/compute.networkUser" = [
       "serviceAccount:${var.sa_email}",

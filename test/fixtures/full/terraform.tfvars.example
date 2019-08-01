@@ -17,3 +17,4 @@
 org_id = "000000000000"
 billing_account = "00A0A0-00A000-0AA00A"
 mode = "additive"
+location = "us-central1"

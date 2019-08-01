@@ -61,8 +61,13 @@ output "folders" {
 }
 
 output "subnets" {
-  value       = local.subnets
+  value       = module.base.subnets
   description = "Subnetworks created for bindings."
+}
+
+output "region" {
+  value       = module.base.region
+  description = "Created Subnetworks region."
 }
 
 output "service_accounts" {

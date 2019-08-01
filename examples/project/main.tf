@@ -29,10 +29,9 @@ provider "google-beta" {
   Module project_iam_binding calling
  *****************************************/
 module "project_iam_binding" {
-  source   = "../../"
+  source   = "../../modules/projects_iam/"
   projects = [var.project_one, var.project_two]
-
-  mode = "additive"
+  mode     = "additive"
 
   bindings = {
     "roles/compute.networkAdmin" = [

@@ -29,7 +29,7 @@ provider "google-beta" {
   Module folder_iam_binding calling
  *****************************************/
 module "folder-iam" {
-  source  = "../../"
+  source  = "../../modules/folders_iam/"
   folders = ["${var.folder_one}", "${var.folder_two}"]
 
   mode = "additive"

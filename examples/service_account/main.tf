@@ -33,12 +33,11 @@ provider "google-beta" {
   Module service_account_iam_binding calling
  *****************************************/
 module "service_account_iam_binding" {
-  source = "../../"
+  source = "../../modules/service_accounts_iam/"
 
   service_accounts = [var.service_account_one, var.service_account_two]
-
-  mode = "additive"
-
+  project          = var.service_account_project
+  mode             = "additive"
   bindings = {
     "roles/iam.serviceAccountKeyAdmin" = [
       "serviceAccount:${var.sa_email}",
@@ -52,4 +51,3 @@ module "service_account_iam_binding" {
     ]
   }
 }
-
