@@ -18,29 +18,36 @@
   Pubsub subscription IAM binding authoritative
  *****************************************/
 resource "google_pubsub_subscription_iam_binding" "pubsub_subscription_iam_authoritative" {
-  count = local.pubsub_subscriptions_authoritative_iam ? length(local.bindings_array) : 0
+  for_each = {
+    for binding in(local.pubsub_subscriptions_authoritative_iam ? local.bindings_array : []) :
+    binding => {
+      subscription = element(split(" ", binding), 0)
+      role         = element(split(" ", binding), 1)
+      members      = compact(split(" ", element(split("=", binding), 1)))
+    }
+  }
 
-  subscription = element(split(" ", local.bindings_array[count.index]), 0)
   project      = local.resources_project
-  role         = element(split(" ", local.bindings_array[count.index]), 1)
-
-  members = compact(
-    split(
-      " ",
-      element(split("=", local.bindings_array[count.index]), 1),
-    ),
-  )
+  subscription = each.value.subscription
+  role         = each.value.role
+  members      = each.value.members
 }
 
 /******************************************
   Pubsub subscription IAM binding additive
  *****************************************/
 resource "google_pubsub_subscription_iam_member" "pubsub_subscription_iam_additive" {
-  count = local.pubsub_subscriptions_additive_iam ? length(local.bindings_array) : 0
+  for_each = {
+    for binding in(local.pubsub_subscriptions_additive_iam ? local.bindings_array : []) :
+    binding => {
+      subscription = element(split(" ", binding), 0)
+      member       = element(split(" ", binding), 1)
+      role         = element(split(" ", binding), 2)
+    }
+  }
 
-  subscription = element(split(" ", local.bindings_array[count.index]), 0)
   project      = local.resources_project
-  member       = element(split(" ", local.bindings_array[count.index]), 1)
-  role         = element(split(" ", local.bindings_array[count.index]), 2)
+  subscription = each.value.subscription
+  member       = each.value.member
+  role         = each.value.role
 }
-

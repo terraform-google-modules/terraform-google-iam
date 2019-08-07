@@ -18,27 +18,34 @@
   Project IAM binding authoritative
  *****************************************/
 resource "google_project_iam_binding" "project_iam_authoritative" {
-  count = local.projects_authoritative_iam ? length(local.bindings_array) : 0
+  for_each = {
+    for binding in(local.projects_authoritative_iam ? local.bindings_array : []) :
+    binding => {
+      project = element(split(" ", binding), 0)
+      role    = element(split(" ", binding), 1)
+      members = compact(split(" ", element(split("=", binding), 1)))
+    }
+  }
 
-  project = element(split(" ", local.bindings_array[count.index]), 0)
-  role    = element(split(" ", local.bindings_array[count.index]), 1)
-
-  members = compact(
-    split(
-      " ",
-      element(split("=", local.bindings_array[count.index]), 1),
-    ),
-  )
+  project = each.value.project
+  role    = each.value.role
+  members = each.value.members
 }
 
 /******************************************
   Project IAM binding additive
  *****************************************/
 resource "google_project_iam_member" "project_iam_additive" {
-  count = local.projects_additive_iam ? length(local.bindings_array) : 0
+  for_each = {
+    for binding in(local.projects_additive_iam ? local.bindings_array : []) :
+    binding => {
+      project = element(split(" ", binding), 0)
+      member  = element(split(" ", binding), 1)
+      role    = element(split(" ", binding), 2)
+    }
+  }
 
-  project = element(split(" ", local.bindings_array[count.index]), 0)
-  member  = element(split(" ", local.bindings_array[count.index]), 1)
-  role    = element(split(" ", local.bindings_array[count.index]), 2)
+  project = each.value.project
+  member  = each.value.member
+  role    = each.value.role
 }
-

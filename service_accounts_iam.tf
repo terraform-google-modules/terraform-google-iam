@@ -18,27 +18,34 @@
   Service Account IAM binding authoritative
  *****************************************/
 resource "google_service_account_iam_binding" "service_account_iam_authoritative" {
-  count = local.service_accounts_authoritative_iam ? length(local.bindings_array) : 0
+  for_each = {
+    for binding in(local.service_accounts_authoritative_iam ? local.bindings_array : []) :
+    binding => {
+      service_account_id = element(split(" ", binding), 0)
+      role               = element(split(" ", binding), 1)
+      members            = compact(split(" ", element(split("=", binding), 1)))
+    }
+  }
 
-  service_account_id = element(split(" ", local.bindings_array[count.index]), 0)
-  role               = element(split(" ", local.bindings_array[count.index]), 1)
-
-  members = compact(
-    split(
-      " ",
-      element(split("=", local.bindings_array[count.index]), 1),
-    ),
-  )
+  service_account_id = each.value.service_account_id
+  role               = each.value.role
+  members            = each.value.members
 }
 
 /******************************************
   Service Account IAM binding additive
  *****************************************/
 resource "google_service_account_iam_member" "service_account_iam_additive" {
-  count = local.service_accounts_additive_iam ? length(local.bindings_array) : 0
+  for_each = {
+    for binding in(local.service_accounts_additive_iam ? local.bindings_array : []) :
+    binding => {
+      service_account_id = element(split(" ", binding), 0)
+      member             = element(split(" ", binding), 1)
+      role               = element(split(" ", binding), 2)
+    }
+  }
 
-  service_account_id = element(split(" ", local.bindings_array[count.index]), 0)
-  member             = element(split(" ", local.bindings_array[count.index]), 1)
-  role               = element(split(" ", local.bindings_array[count.index]), 2)
+  service_account_id = each.value.service_account_id
+  member             = each.value.member
+  role               = each.value.role
 }
-

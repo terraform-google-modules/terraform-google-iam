@@ -18,35 +18,34 @@
   Folder IAM binding authoritative
  *****************************************/
 resource "google_folder_iam_binding" "folder_iam_authoritative" {
-  count = local.folders_authoritative_iam ? length(local.bindings_array) : 0
+  for_each = {
+    for binding in(local.folders_authoritative_iam ? local.bindings_array : []) :
+    binding => {
+      folder  = "folders/${replace(element(split(" ", binding), 0), "folders/", "")}"
+      role    = element(split(" ", binding), 1)
+      members = compact(split(" ", element(split("=", binding), 1), ), )
+    }
+  }
 
-  folder = "folders/${replace(
-    element(split(" ", local.bindings_array[count.index]), 0),
-    "folders/",
-    "",
-  )}"
-  role = element(split(" ", local.bindings_array[count.index]), 1)
-
-  members = compact(
-    split(
-      " ",
-      element(split("=", local.bindings_array[count.index]), 1),
-    ),
-  )
+  folder  = each.value.folder
+  role    = each.value.role
+  members = each.value.members
 }
 
 /******************************************
   Folder IAM binding additive
  *****************************************/
 resource "google_folder_iam_member" "folder_iam_additive" {
-  count = local.folders_additive_iam ? length(local.bindings_array) : 0
+  for_each = {
+    for binding in(local.folders_additive_iam ? local.bindings_array : []) :
+    binding => {
+      folder = "folders/${replace(element(split(" ", binding), 0), "folders/", "")}"
+      member = element(split(" ", binding), 1)
+      role   = element(split(" ", binding), 2)
+    }
+  }
 
-  folder = "folders/${replace(
-    element(split(" ", local.bindings_array[count.index]), 0),
-    "folders/",
-    "",
-  )}"
-  member = element(split(" ", local.bindings_array[count.index]), 1)
-  role   = element(split(" ", local.bindings_array[count.index]), 2)
+  folder = each.value.folder
+  member = each.value.member
+  role   = each.value.role
 }
-

@@ -19,37 +19,23 @@
  *****************************************/
 resource "google_compute_subnetwork_iam_binding" "subnet_iam_authoritative" {
   provider = google-beta
-  count    = local.subnets_authoritative_iam ? length(local.bindings_array) : 0
 
-  subnetwork = element(
-    split(
-      "/",
-      element(split(" ", local.bindings_array[count.index]), 0),
-    ),
-    5,
-  )
-  region = element(
-    split(
-      "/",
-      element(split(" ", local.bindings_array[count.index]), 0),
-    ),
-    3,
-  )
-  project = element(
-    split(
-      "/",
-      element(split(" ", local.bindings_array[count.index]), 0),
-    ),
-    1,
-  )
-  role = element(split(" ", local.bindings_array[count.index]), 1)
+  for_each = {
+    for binding in(local.subnets_authoritative_iam ? local.bindings_array : []) :
+    binding => {
+      subnetwork = element(split("/", element(split(" ", binding), 0)), 5)
+      region     = element(split("/", element(split(" ", binding), 0)), 3)
+      project    = element(split("/", element(split(" ", binding), 0)), 1)
+      role       = element(split(" ", binding), 1)
+      members    = compact(split(" ", element(split("=", binding), 1)))
+    }
+  }
 
-  members = compact(
-    split(
-      " ",
-      element(split("=", local.bindings_array[count.index]), 1),
-    ),
-  )
+  subnetwork = each.value.subnetwork
+  region     = each.value.region
+  project    = each.value.project
+  role       = each.value.role
+  members    = each.value.members
 }
 
 /******************************************
@@ -57,30 +43,21 @@ resource "google_compute_subnetwork_iam_binding" "subnet_iam_authoritative" {
  *****************************************/
 resource "google_compute_subnetwork_iam_member" "subnet_iam_additive" {
   provider = google-beta
-  count    = local.subnets_additive_iam ? length(local.bindings_array) : 0
 
-  subnetwork = element(
-    split(
-      "/",
-      element(split(" ", local.bindings_array[count.index]), 0),
-    ),
-    5,
-  )
-  region = element(
-    split(
-      "/",
-      element(split(" ", local.bindings_array[count.index]), 0),
-    ),
-    3,
-  )
-  project = element(
-    split(
-      "/",
-      element(split(" ", local.bindings_array[count.index]), 0),
-    ),
-    1,
-  )
-  member = element(split(" ", local.bindings_array[count.index]), 1)
-  role   = element(split(" ", local.bindings_array[count.index]), 2)
+  for_each = {
+    for binding in(local.subnets_additive_iam ? local.bindings_array : []) :
+    binding => {
+      subnetwork = element(split("/", element(split(" ", binding), 0)), 5)
+      region     = element(split("/", element(split(" ", binding), 0)), 3)
+      project    = element(split("/", element(split(" ", binding), 0)), 1)
+      member     = element(split(" ", binding), 1)
+      role       = element(split(" ", binding), 2)
+    }
+  }
+
+  subnetwork = each.value.subnetwork
+  region     = each.value.region
+  project    = each.value.project
+  member     = each.value.member
+  role       = each.value.role
 }
-

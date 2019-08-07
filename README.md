@@ -4,7 +4,7 @@ This Terraform module makes it easier to non-destructively manage multiple IAM r
 
 ## Compatibility
 
-This module is meant for use with Terraform 0.12. If you haven't
+This module is meant for use with Terraform 0.12.6 and above. If you haven't
 [upgraded][terraform-0.12-upgrade] and need a Terraform 0.11.x-compatible
 version of this module, the last released version intended for Terraform 0.11.x
 is [1.1.1][v1.1.1].
@@ -223,7 +223,7 @@ The project has the following folders and files:
 
 ### Terraform plugins
 
-- [Terraform](https://www.terraform.io/downloads.html) 0.12
+- [Terraform](https://www.terraform.io/downloads.html) 0.12.6
 - [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 2.5
 - [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 2.5
 
@@ -280,7 +280,7 @@ In order to execute this module you must have a Service Account with an appropri
 
 ### Terraform
 
-Be sure you have the correct Terraform version (0.12), you can choose the binary here:
+Be sure you have the correct Terraform version (0.12.6), you can choose the binary here:
 - https://releases.hashicorp.com/terraform/
 
 ### Terraform plugins

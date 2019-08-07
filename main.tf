@@ -29,7 +29,7 @@ locals {
   storage_buckets_authoritative_iam      = length(var.storage_buckets) > 0 && local.authoritative
   subnets_authoritative_iam              = length(var.subnets) > 0 && local.authoritative
   kms_key_rings_authoritative_iam        = length(var.kms_key_rings) > 0 && local.authoritative
-  kms_cryto_keys_authoritative_iam       = length(var.kms_crypto_keys) > 0 && local.authoritative
+  kms_crypto_keys_authoritative_iam      = length(var.kms_crypto_keys) > 0 && local.authoritative
   projects_additive_iam                  = length(var.projects) > 0 && local.additive
   folders_additive_iam                   = length(var.folders) > 0 && local.additive
   organizations_additive_iam             = length(var.organizations) > 0 && local.additive
@@ -39,7 +39,7 @@ locals {
   storage_buckets_additive_iam           = length(var.storage_buckets) > 0 && local.additive
   subnets_additive_iam                   = length(var.subnets) > 0 && local.additive
   kms_key_rings_additive_iam             = length(var.kms_key_rings) > 0 && local.additive
-  kms_cryto_keys_additive_iam            = length(var.kms_crypto_keys) > 0 && local.additive
+  kms_crypto_keys_additive_iam           = length(var.kms_crypto_keys) > 0 && local.additive
 
   # In order to retrieve the project from the provider, this variable takes it from a data source (google_project.project_from_provider) and avoid an error if the count for that resource is 0
   take_project_from_provider = var.project == "" && length(var.organizations) == 0 && length(var.folders) == 0 && length(var.projects) == 0 && length(var.storage_buckets) == 0 && length(var.kms_crypto_keys) == 0 && length(var.kms_key_rings) == 0 && length(var.subnets) == 0
@@ -73,7 +73,7 @@ locals {
     ),
   )
   service_accounts_passed = local.service_accounts_authoritative_iam || local.service_accounts_additive_iam ? "1" : "0"
-  kms_crypto_keys_passed  = local.kms_cryto_keys_additive_iam || local.kms_cryto_keys_authoritative_iam ? "1" : "0"
+  kms_crypto_keys_passed  = local.kms_crypto_keys_additive_iam || local.kms_crypto_keys_authoritative_iam ? "1" : "0"
   kms_key_rings_passed    = local.kms_key_rings_additive_iam || local.kms_key_rings_authoritative_iam ? "1" : "0"
 }
 
