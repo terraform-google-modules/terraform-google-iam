@@ -69,7 +69,7 @@ Following variables are the most important to control module's behavior:
     This variable controls the module's behavior, by default is set to "additive", possible options are:
 
       - additive: add members to role, old members are not deleted from this role.
-      - authoritative: set the role's members, other roles' members are not deleted.
+      - authoritative: set the role's members, other roles' members are deleted.
 
 - Bindings
 
