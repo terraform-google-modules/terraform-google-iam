@@ -33,11 +33,6 @@ output "service_accounts" {
   description = "Service accounts created for bindings."
 }
 
-output "members" {
-  value       = google_service_account.member.*.email
-  description = "Members created for binding with roles."
-}
-
 output "buckets" {
   value       = google_storage_bucket.test.*.name
   description = "Storage buckets created for bindings."
@@ -72,3 +67,9 @@ output "region" {
   value       = local.location
   description = "Subnetworks region created for bindings."
 }
+
+output "bindings_number" {
+  value       = local.n
+  description = "Number of each type of bindings, created for the test fixture."
+}
+

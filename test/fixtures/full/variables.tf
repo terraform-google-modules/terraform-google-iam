@@ -17,9 +17,10 @@
 variable "mode" {
   type        = string
   description = "Mode of IAM management ('authoritative' OR 'additive')."
+  default     = "additive"
 }
 
-variable "parent_id" {
+variable "folder_id" {
   type        = string
   description = "Folder to create resources in, e.g. folders/12345678"
 }
@@ -29,12 +30,23 @@ variable "billing_account" {
   description = "Billing account to associate created projects with."
 }
 
-variable "fixture_project_id" {
+variable "location" {
+  type        = string
+  description = "Region for subnetwork tests."
+  default     = "us-central1"
+}
+
+variable "project_id" {
   type        = string
   description = "Project ID of the test fixture project.  Used to avoid timing issues with recently created projects."
 }
 
-variable "location" {
+variable "member1" {
   type        = string
-  description = "Region for subnetwork tests."
+  description = "Member created for binding with roles."
+}
+
+variable "member2" {
+  type        = string
+  description = "Member created for binding with roles."
 }

@@ -14,19 +14,33 @@
  * limitations under the License.
  */
 
-variable "base_billing_account" {
-  description = "The billing account id associated with the project, e.g. XXXXXX-YYYYYY-ZZZZZZ"
+output "project_id" {
+  value = module.iam-project.project_id
 }
 
-variable "base_parent_id" {
-  description = "Folder to create resources in, e.g. folders/12345678"
+output "sa_key" {
+  value     = google_service_account_key.int_test.private_key
+  sensitive = true
 }
 
-variable "base_location" {
-  description = "Region for subnetwork tests."
+output "folder_id" {
+  value = google_folder.ci-iam-folder.id
 }
 
-variable "base_project_id" {
-  description = "Project ID of the test fixture project.  Used to avoid timing issues with recently created projects."
+output "org_id" {
+  value = var.org_id
 }
 
+output "billing_account" {
+  value = var.billing_account
+}
+
+output "member1" {
+  value       = google_service_account.member[0].email
+  description = "Members created for binding with roles."
+}
+
+output "member2" {
+  value       = google_service_account.member[1].email
+  description = "Members created for binding with roles."
+}

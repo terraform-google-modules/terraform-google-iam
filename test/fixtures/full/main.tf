@@ -17,16 +17,18 @@
 locals {
   basic_roles   = ["roles/owner", "roles/editor"]
   org_roles     = ["roles/owner", "roles/iam.organizationRoleViewer"]
+  folder_roles  = ["roles/resourcemanager.folderViewer", "roles/resourcemanager.folderMover"]
   project_roles = ["roles/iam.securityReviewer", "roles/iam.roleViewer"]
   bucket_roles  = ["roles/storage.legacyObjectReader", "roles/storage.legacyBucketReader"]
+  members       = [var.member1, var.member2]
 
   member_group_0 = [
-    "serviceAccount:${module.base.members[0]}",
-    "serviceAccount:${module.base.members[1]}",
+    "serviceAccount:${var.member1}",
+    "serviceAccount:${var.member2}",
   ]
 
   member_group_1 = [
-    "serviceAccount:${module.base.members[0]}",
+    "serviceAccount:${var.member2}",
   ]
 
   basic_bindings = "${map(
@@ -37,6 +39,11 @@ locals {
   org_bindings = "${map(
     local.org_roles[0], local.member_group_0,
     local.org_roles[1], local.member_group_1,
+  )}"
+
+  folder_bindings = "${map(
+    local.folder_roles[0], local.member_group_0,
+    local.folder_roles[1], local.member_group_1,
   )}"
 
   project_bindings = "${map(
@@ -60,9 +67,9 @@ provider "google-beta" {
 }
 
 module "base" {
-  source             = "./base"
-  billing_account    = var.billing_account
-  parent_id          = var.parent_id
-  fixture_project_id = var.fixture_project_id
-  location           = var.location
+  source               = "./base"
+  base_billing_account = var.billing_account
+  base_parent_id       = var.folder_id
+  base_location        = var.location
+  base_project_id      = var.project_id
 }

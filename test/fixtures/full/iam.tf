@@ -15,11 +15,13 @@
  */
 
 module "iam_binding_project" {
-  source   = "../../../modules/projects_iam"
-  mode     = var.mode
-  projects = module.base.projects
+  source       = "../../../modules/projects_iam"
+  mode         = var.mode
+  projects     = module.base.projects
+  projects_num = module.base.bindings_number
 
-  bindings = local.project_bindings
+  bindings     = local.project_bindings
+  bindings_num = module.base.bindings_number
 }
 
 ## TODO(jmccune): Disabled as per discussion with Aaron.  Re-enable post 0.12
@@ -32,70 +34,87 @@ module "iam_binding_project" {
 # }
 
 module "iam_binding_folder" {
-  source  = "../../../modules/folders_iam"
-  mode    = var.mode
-  folders = module.base.folders
+  source      = "../../../modules/folders_iam"
+  mode        = var.mode
+  folders     = module.base.folders
+  folders_num = module.base.bindings_number
 
-  bindings = local.basic_bindings
+  bindings     = local.folder_bindings
+  bindings_num = module.base.bindings_number
 }
 
 module "iam_binding_subnet" {
   source         = "../../../modules/subnets_iam"
   mode           = var.mode
-  project        = module.base.projects[0]
+  project        = var.project_id
   subnets_region = module.base.region
   subnets        = module.base.subnets
+  subnets_num    = module.base.bindings_number
 
-  bindings = local.basic_bindings
+  bindings     = local.basic_bindings
+  bindings_num = module.base.bindings_number
 }
 
 module "iam_binding_service_account" {
-  source           = "../../../modules/service_accounts_iam"
-  mode             = var.mode
-  service_accounts = module.base.service_accounts
-  project          = module.base.projects[0]
+  source               = "../../../modules/service_accounts_iam"
+  mode                 = var.mode
+  service_accounts     = module.base.service_accounts
+  project              = var.project_id
+  service_accounts_num = module.base.bindings_number
 
-  bindings = local.basic_bindings
+  bindings     = local.basic_bindings
+  bindings_num = module.base.bindings_number
 }
 
 module "iam_binding_storage_bucket" {
-  source          = "../../../modules/storage_buckets_iam"
-  mode            = var.mode
-  storage_buckets = module.base.buckets
+  source              = "../../../modules/storage_buckets_iam"
+  mode                = var.mode
+  storage_buckets     = module.base.buckets
+  storage_buckets_num = module.base.bindings_number
 
-  bindings = local.bucket_bindings
+  bindings     = local.bucket_bindings
+  bindings_num = module.base.bindings_number
 }
 
 module "iam_binding_kms_crypto_key" {
-  source          = "../../../modules/kms_crypto_keys_iam"
-  mode            = var.mode
-  kms_crypto_keys = module.base.keys
-  bindings        = local.basic_bindings
+  source              = "../../../modules/kms_crypto_keys_iam"
+  mode                = var.mode
+  kms_crypto_keys     = module.base.keys
+  kms_crypto_keys_num = module.base.bindings_number
+
+  bindings     = local.basic_bindings
+  bindings_num = module.base.bindings_number
 }
 
 module "iam_binding_kms_key_ring" {
-  source        = "../../../modules/kms_key_rings_iam"
-  mode          = var.mode
-  kms_key_rings = module.base.key_rings
+  source            = "../../../modules/kms_key_rings_iam"
+  mode              = var.mode
+  kms_key_rings     = module.base.key_rings
+  kms_key_rings_num = module.base.bindings_number
 
-  bindings = local.basic_bindings
+  bindings     = local.basic_bindings
+  bindings_num = module.base.bindings_number
 }
 
 module "iam_binding_pubsub_subscription" {
-  source               = "../../../modules/pubsub_subscriptions_iam"
-  mode                 = var.mode
-  pubsub_subscriptions = module.base.subscriptions
-  project              = var.fixture_project_id
+  source                   = "../../../modules/pubsub_subscriptions_iam"
+  mode                     = var.mode
+  pubsub_subscriptions     = module.base.subscriptions
+  project                  = var.project_id
+  pubsub_subscriptions_num = module.base.bindings_number
 
-  bindings = local.basic_bindings
+  bindings     = local.basic_bindings
+  bindings_num = module.base.bindings_number
 }
 
 module "iam_binding_pubsub_topic" {
-  source        = "../../../modules/pubsub_topics_iam"
-  mode          = var.mode
-  pubsub_topics = module.base.topics
-  project       = var.fixture_project_id
+  source            = "../../../modules/pubsub_topics_iam"
+  mode              = var.mode
+  pubsub_topics     = module.base.topics
+  project           = var.project_id
+  pubsub_topics_num = module.base.bindings_number
 
-  bindings = local.basic_bindings
+  bindings     = local.basic_bindings
+  bindings_num = module.base.bindings_number
 }
 

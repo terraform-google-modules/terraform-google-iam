@@ -17,7 +17,7 @@
 locals {
   n           = 2
   prefix      = "test-iam"
-  location    = var.location
+  location    = var.base_location
   subnet_cdir = ["192.168.0.0/24", "192.168.10.0/24"]
 }
 
@@ -27,7 +27,7 @@ resource "google_folder" "test" {
   count = local.n
 
   display_name = "${local.prefix}-folder-${count.index}-${random_id.test[count.index].hex}"
-  parent       = var.parent_id
+  parent       = var.base_parent_id
 }
 
 # Projects
@@ -42,10 +42,9 @@ resource "google_project" "test" {
   count = local.n
 
   project_id      = "${local.prefix}-prj-${count.index}-${random_id.test[count.index].hex}"
-  folder_id       = var.parent_id
-  billing_account = var.billing_account
-
-  name = "Test IAM Project ${count.index}"
+  folder_id       = var.base_parent_id
+  name            = "Test IAM Project ${count.index}"
+  billing_account = var.base_billing_account
 }
 
 # Service Accounts
@@ -53,7 +52,7 @@ resource "google_project" "test" {
 resource "google_service_account" "test" {
   count = local.n
 
-  project = google_project.test[0].project_id
+  project = var.base_project_id
 
   account_id = "${local.prefix}-svcacct-${count.index}-${random_id.test[count.index].hex}"
 }
@@ -63,29 +62,17 @@ resource "google_service_account" "test" {
 resource "google_storage_bucket" "test" {
   count = local.n
 
-  project = google_project.test[0].project_id
+  project = var.base_project_id
 
   name = "${local.prefix}-bkt-${count.index}-${random_id.test[count.index].hex}"
 }
 
 # KMS
 
-resource "google_project_service" "kms" {
-  count = local.n
-
-  project = google_project.test[count.index].project_id
-  service = "cloudkms.googleapis.com"
-}
-
-
-
 resource "google_kms_key_ring" "test" {
   count = local.n
 
-  depends_on = [google_project_service.kms]
-
-  project = google_project.test[0].project_id
-
+  project  = var.base_project_id
   name     = "${local.prefix}-keyrng-${count.index}-${random_id.test[count.index].hex}"
   location = local.location
 }
@@ -103,15 +90,14 @@ resource "google_kms_crypto_key" "test" {
 resource "google_pubsub_topic" "test" {
   count = local.n
 
-  project = var.fixture_project_id
-
-  name = "${local.prefix}-tpc-${count.index}-${random_id.test[count.index].hex}"
+  project = var.base_project_id
+  name    = "${local.prefix}-tpc-${count.index}-${random_id.test[count.index].hex}"
 }
 
 resource "google_pubsub_subscription" "test" {
   count = local.n
 
-  project = var.fixture_project_id
+  project = var.base_project_id
 
   topic = google_pubsub_topic.test[count.index].name
   name  = "${local.prefix}-sub-${count.index}-${random_id.test[count.index].hex}"
@@ -119,27 +105,13 @@ resource "google_pubsub_subscription" "test" {
 
 # Subnets
 
-resource "google_project_service" "subnet" {
-  project = google_project.test[0].project_id
-  service = "compute.googleapis.com"
-}
-
 resource "google_compute_subnetwork" "test" {
   count = local.n
 
-  depends_on = [google_project_service.subnet]
-
-  project       = google_project.test[0].project_id
+  project       = var.base_project_id
   region        = local.location
   name          = "${local.prefix}-snet-${count.index}-${random_id.test[count.index].hex}"
   ip_cidr_range = local.subnet_cdir[count.index]
   network       = "default"
 }
 
-# Members
-
-resource "google_service_account" "member" {
-  count      = local.n
-  project    = google_project.test[0].project_id
-  account_id = "${local.prefix}-member-${count.index}-${random_id.test[count.index].hex}"
-}

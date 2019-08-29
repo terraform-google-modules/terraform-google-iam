@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Fixture project as managed in cloud-foundation-toolkit/infra
-fixture_project_id = attribute('fixture_project_id')
+project_id = attribute('project_id')
 
 # Resource pairs (arrays of length = 2)
 folders          = attribute('folders')
@@ -29,6 +29,7 @@ region           = attribute('region')
 
 # Role pairs (arrays of length = 2)
 basic_roles   = attribute('basic_roles')
+folder_roles  = attribute('folder_roles')
 org_roles     = attribute('org_roles')
 project_roles = attribute('project_roles')
 bucket_roles  = attribute('bucket_roles')
@@ -64,14 +65,14 @@ end
 assert_bindings(
   'folder-0',
   "gcloud beta resource-manager folders get-iam-policy #{folders[0]} --format='json(bindings)'",
-  basic_roles[0],
+  folder_roles[0],
   member_groups[0],
 )
 
 assert_bindings(
   'folder-1',
   "gcloud beta resource-manager folders get-iam-policy #{folders[1]} --format='json(bindings)'",
-  basic_roles[1],
+  folder_roles[1],
   member_groups[1],
 )
 
@@ -79,14 +80,14 @@ assert_bindings(
 
 assert_bindings(
   'subnet-0',
-  "gcloud beta compute networks subnets get-iam-policy #{subnets[0]} --project='#{projects[0]}' --region='#{region}' --format='json(bindings)'",
+  "gcloud beta compute networks subnets get-iam-policy #{subnets[0]} --project='#{project_id}' --region='#{region}' --format='json(bindings)'",
   basic_roles[0],
   member_groups[0],
 )
 
 assert_bindings(
   'subnet-1',
-  "gcloud beta compute networks subnets get-iam-policy #{subnets[1]} --project='#{projects[0]}' --region='#{region}' --format='json(bindings)'",
+  "gcloud beta compute networks subnets get-iam-policy #{subnets[1]} --project='#{project_id}' --region='#{region}' --format='json(bindings)'",
   basic_roles[1],
   member_groups[1],
 )
@@ -181,14 +182,14 @@ assert_bindings(
 
 assert_bindings(
   'topic-0',
-  "gcloud beta pubsub topics get-iam-policy #{topics[0]} --project='#{fixture_project_id}' --format='json(bindings)'",
+  "gcloud beta pubsub topics get-iam-policy #{topics[0]} --project='#{project_id}' --format='json(bindings)'",
   basic_roles[0],
   member_groups[0],
 )
 
 assert_bindings(
   'topic-1',
-  "gcloud beta pubsub topics get-iam-policy #{topics[1]} --project='#{fixture_project_id}' --format='json(bindings)'",
+  "gcloud beta pubsub topics get-iam-policy #{topics[1]} --project='#{project_id}' --format='json(bindings)'",
   basic_roles[1],
   member_groups[1],
 )
@@ -197,14 +198,14 @@ assert_bindings(
 
 assert_bindings(
   'subscription-0',
-  "gcloud beta pubsub subscriptions get-iam-policy #{subscriptions[0]} --project='#{fixture_project_id}' --format='json(bindings)'",
+  "gcloud beta pubsub subscriptions get-iam-policy #{subscriptions[0]} --project='#{project_id}' --format='json(bindings)'",
   basic_roles[0],
   member_groups[0],
 )
 
 assert_bindings(
   'subscription-1',
-  "gcloud beta pubsub subscriptions get-iam-policy #{subscriptions[1]} --project='#{fixture_project_id}' --format='json(bindings)'",
+  "gcloud beta pubsub subscriptions get-iam-policy #{subscriptions[1]} --project='#{project_id}' --format='json(bindings)'",
   basic_roles[1],
   member_groups[1],
 )
