@@ -29,7 +29,7 @@ provider "google-beta" {
   Module kms_crypto_key_iam_binding calling
  *****************************************/
 module "kms_crypto_key_iam_binding" {
-  source          = "../../"
+  source          = "../../modules/kms_crypto_keys_iam/"
   kms_crypto_keys = [var.kms_crypto_key_one, var.kms_crypto_key_two]
 
   mode = "authoritative"

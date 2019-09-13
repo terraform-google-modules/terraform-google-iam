@@ -29,10 +29,9 @@ provider "google-beta" {
   Module kms_key_ring_iam_binding calling
  *****************************************/
 module "kms_key_ring_iam_binding" {
-  source        = "../../"
+  source        = "../../modules/kms_key_rings_iam/"
   kms_key_rings = [var.kms_key_ring_one, var.kms_key_ring_two]
-
-  mode = "additive"
+  mode          = "additive"
 
   bindings = {
     "roles/cloudkms.cryptoKeyEncrypter" = [

@@ -15,9 +15,10 @@
  */
 
 locals {
-  n        = 2
-  prefix   = "test-iam"
-  location = "us-central1"
+  n           = 2
+  prefix      = "test-iam"
+  location    = var.location
+  subnet_cdir = ["192.168.0.0/24", "192.168.10.0/24"]
 }
 
 # Folders
@@ -76,6 +77,8 @@ resource "google_project_service" "kms" {
   service = "cloudkms.googleapis.com"
 }
 
+
+
 resource "google_kms_key_ring" "test" {
   count = local.n
 
@@ -114,12 +117,29 @@ resource "google_pubsub_subscription" "test" {
   name  = "${local.prefix}-sub-${count.index}-${random_id.test[count.index].hex}"
 }
 
+# Subnets
+
+resource "google_project_service" "subnet" {
+  project = google_project.test[0].project_id
+  service = "compute.googleapis.com"
+}
+
+resource "google_compute_subnetwork" "test" {
+  count = local.n
+
+  depends_on = [google_project_service.subnet]
+
+  project       = google_project.test[0].project_id
+  region        = local.location
+  name          = "${local.prefix}-snet-${count.index}-${random_id.test[count.index].hex}"
+  ip_cidr_range = local.subnet_cdir[count.index]
+  network       = "default"
+}
+
 # Members
 
 resource "google_service_account" "member" {
-  count = local.n
-
-  project = google_project.test[count.index].project_id
-
+  count      = local.n
+  project    = google_project.test[0].project_id
   account_id = "${local.prefix}-member-${count.index}-${random_id.test[count.index].hex}"
 }

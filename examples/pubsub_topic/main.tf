@@ -29,11 +29,10 @@ provider "google-beta" {
   Module pubsub_topic_iam_binding calling
  *****************************************/
 module "pubsub_topic_iam_binding" {
-  source        = "../../"
+  source        = "../../modules/pubsub_topics_iam/"
   project       = var.pubsub_topic_project
   pubsub_topics = [var.pubsub_topic_one, var.pubsub_topic_two]
-
-  mode = "authoritative"
+  mode          = "authoritative"
 
   bindings = {
     "roles/pubsub.publisher" = [

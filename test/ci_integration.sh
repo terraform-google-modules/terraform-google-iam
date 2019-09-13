@@ -47,11 +47,12 @@ setup_environment() {
   export GOOGLE_APPLICATION_CREDENTIALS="${tmpfile}"
 
   # Terraform variables
-  export TF_VAR_fixture_project_id="$PROJECT_ID"
+  export TF_VAR_fixture_project_id="${PROJECT_ID}"
   export TF_VAR_billing_account="${BILLING_ACCOUNT_ID}"
   export TF_VAR_org_id="${ORG_ID}"
   export TF_VAR_parent_id="${FOLDER_ID}"
   export TF_VAR_mode="additive"
+  export TF_VAR_location=${REGION:-"us-central1"}
 }
 
 main() {

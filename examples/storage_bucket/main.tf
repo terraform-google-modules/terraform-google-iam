@@ -29,10 +29,9 @@ provider "google-beta" {
   Module pubsub_subscription_iam_binding calling
  *****************************************/
 module "storage_buckets_iam_binding" {
-  source          = "../../"
+  source          = "../../modules/storage_buckets_iam/"
   storage_buckets = [var.storage_bucket_one, var.storage_bucket_two]
-
-  mode = "additive"
+  mode            = "additive"
 
   bindings = {
     "roles/storage.legacyBucketReader" = [

@@ -63,3 +63,12 @@ output "subscriptions" {
   description = "Pubsub subscriptions created for bindings."
 }
 
+output "subnets" {
+  value       = google_compute_subnetwork.test.*.name
+  description = "Subnetworks created for bindings."
+}
+
+output "region" {
+  value       = local.location
+  description = "Subnetworks region created for bindings."
+}

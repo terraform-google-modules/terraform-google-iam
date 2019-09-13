@@ -25,6 +25,7 @@ key_rings        = attribute('key_rings')
 keys             = attribute('keys')
 topics           = attribute('topics')
 subscriptions    = attribute('subscriptions')
+region           = attribute('region')
 
 # Role pairs (arrays of length = 2)
 basic_roles   = attribute('basic_roles')
@@ -76,27 +77,16 @@ assert_bindings(
 
 # Subnets
 
-# Split a subnet name into its resources ids.
-# Expected format: "projects/<project>/regions/<region>/subnetworks/<name>"
-def split_subnet(sn)
-  split = sn.split('/')
-  return split[1], split[3], split[5]
-end
-
-subnet_0_project, subnet_0_region, subnet_0_name = split_subnet(subnets[0])
-
 assert_bindings(
   'subnet-0',
-  "gcloud beta compute networks subnets get-iam-policy #{subnet_0_name} --project='#{subnet_0_project}' --region='#{subnet_0_region}' --format='json(bindings)'",
+  "gcloud beta compute networks subnets get-iam-policy #{subnets[0]} --project='#{projects[0]}' --region='#{region}' --format='json(bindings)'",
   basic_roles[0],
   member_groups[0],
 )
 
-subnet_1_project, subnet_1_region, subnet_1_name = split_subnet(subnets[1])
-
 assert_bindings(
   'subnet-1',
-  "gcloud beta compute networks subnets get-iam-policy #{subnet_1_name} --project='#{subnet_1_project}' --region='#{subnet_1_region}' --format='json(bindings)'",
+  "gcloud beta compute networks subnets get-iam-policy #{subnets[1]} --project='#{projects[0]}' --region='#{region}' --format='json(bindings)'",
   basic_roles[1],
   member_groups[1],
 )
