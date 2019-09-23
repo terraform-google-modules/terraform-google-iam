@@ -114,4 +114,3 @@ resource "google_compute_subnetwork" "test" {
   ip_cidr_range = local.subnet_cdir[count.index]
   network       = "default"
 }
-

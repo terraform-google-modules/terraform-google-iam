@@ -68,3 +68,6 @@ attributes:
   - name: folder_roles
     required: true
     type: array
+  - name: mode
+    required: true
+    type: string
