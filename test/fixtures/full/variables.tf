@@ -50,3 +50,8 @@ variable "member2" {
   type        = string
   description = "Member created for binding with roles."
 }
+
+variable "org_id" {
+  type        = string
+  description = "Organization ID"
+}
