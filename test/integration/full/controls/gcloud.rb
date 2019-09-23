@@ -92,6 +92,38 @@ assert_bindings(
   member_groups[1],
 )
 
+# Buckets
+
+def assert_bucket_bindings(name, project, bucket, expected_role, expected_members)
+  assert_bindings(
+    name,
+    # TODO: Remove explicit `--format='json(bindings)'` since it doesn't seem to be needed in gsutil,
+    #       and I haven't even found any support for it at all.
+    #       Gsutil already returns JSON for iam bindings by default.
+    #       We might leave it for the case of future gsutil api changes which might bring in the gcloud apis.
+    "gsutil iam get gs://#{bucket} --project='#{project}' --format='json(bindings)'",
+    expected_role,
+    maybe_add_default_members_for_role(expected_role, expected_members, project)
+  )
+end
+
+# Patch expected list of members of the bucket with the default users.
+# Example:
+#   role 'roles/storage.legacyBucketReader' is granted to all project viewers by default on bucket creation.
+def maybe_add_default_members_for_role(role, members, project)
+  case role
+  when 'roles/storage.legacyBucketReader'
+    return ["projectViewer:#{project}"] + members # Order matters
+  else
+    return members
+  end
+end
+
+assert_bucket_bindings('bucket-0-role-0', projects[0], buckets[0], bucket_roles[0], member_groups[0])
+assert_bucket_bindings('bucket-0-role-1', projects[0], buckets[0], bucket_roles[1], member_groups[1])
+assert_bucket_bindings('bucket-1-role-0', projects[0], buckets[1], bucket_roles[0], member_groups[0])
+assert_bucket_bindings('bucket-1-role-1', projects[0], buckets[1], bucket_roles[1], member_groups[1])
+
 # Projects
 
 assert_bindings(
