@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Mode of IAM management ('authoritative' OR 'additive')
+mode = attribute('mode')
+
 # Fixture project as managed in cloud-foundation-toolkit/infra
 project_id = attribute('project_id')
 
@@ -94,7 +97,7 @@ assert_bindings(
 
 # Buckets
 
-def assert_bucket_bindings(name, project, bucket, expected_role, expected_members)
+def assert_bucket_bindings(name, project, bucket, expected_role, expected_members, mode)
   assert_bindings(
     name,
     # TODO: Remove explicit `--format='json(bindings)'` since it doesn't seem to be needed in gsutil,
@@ -103,14 +106,17 @@ def assert_bucket_bindings(name, project, bucket, expected_role, expected_member
     #       We might leave it for the case of future gsutil api changes which might bring in the gcloud apis.
     "gsutil iam get gs://#{bucket} --project='#{project}' --format='json(bindings)'",
     expected_role,
-    maybe_add_default_members_for_role(expected_role, expected_members, project)
+    maybe_add_default_members_for_role(expected_role, expected_members, project, mode)
   )
 end
 
 # Patch expected list of members of the bucket with the default users.
 # Example:
 #   role 'roles/storage.legacyBucketReader' is granted to all project viewers by default on bucket creation.
-def maybe_add_default_members_for_role(role, members, project)
+def maybe_add_default_members_for_role(role, members, project, mode)
+  # `authoritative` mode must leave only the roles explicitely
+  # specified in the terraform module.
+  return members if mode === 'authoritative'
   case role
   when 'roles/storage.legacyBucketReader'
     return ["projectViewer:#{project}"] + members # Order matters
@@ -119,10 +125,10 @@ def maybe_add_default_members_for_role(role, members, project)
   end
 end
 
-assert_bucket_bindings('bucket-0-role-0', projects[0], buckets[0], bucket_roles[0], member_groups[0])
-assert_bucket_bindings('bucket-0-role-1', projects[0], buckets[0], bucket_roles[1], member_groups[1])
-assert_bucket_bindings('bucket-1-role-0', projects[0], buckets[1], bucket_roles[0], member_groups[0])
-assert_bucket_bindings('bucket-1-role-1', projects[0], buckets[1], bucket_roles[1], member_groups[1])
+assert_bucket_bindings('bucket-0-role-0', projects[0], buckets[0], bucket_roles[0], member_groups[0], mode)
+assert_bucket_bindings('bucket-0-role-1', projects[0], buckets[0], bucket_roles[1], member_groups[1], mode)
+assert_bucket_bindings('bucket-1-role-0', projects[0], buckets[1], bucket_roles[0], member_groups[0], mode)
+assert_bucket_bindings('bucket-1-role-1', projects[0], buckets[1], bucket_roles[1], member_groups[1], mode)
 
 # Projects
 
