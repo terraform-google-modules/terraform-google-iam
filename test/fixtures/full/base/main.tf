@@ -27,7 +27,11 @@ resource "google_folder" "test" {
   count = local.n
 
   display_name = "${local.prefix}-folder-${count.index}-${random_id.test[count.index].hex}"
-  parent       = var.base_parent_id
+  # Parent folder must be specified in the format of "folders/<parent_id>"
+  # https://cloud.google.com/resource-manager/reference/rest/v2/folders/create
+  # Also make sure that your service account has the "resourcemanager.folders.create" (Folder Creator)
+  # role for the parent_id folder.
+  parent       = "folders/${var.base_parent_id}"
 }
 
 # Projects
@@ -114,4 +118,3 @@ resource "google_compute_subnetwork" "test" {
   ip_cidr_range = local.subnet_cdir[count.index]
   network       = "default"
 }
-
