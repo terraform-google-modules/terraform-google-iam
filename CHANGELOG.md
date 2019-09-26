@@ -10,7 +10,7 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
-## [3.0.0] - 2019-YY-ZZ
+## [3.0.0] - 2019-09-26
 
 ### Added
 
