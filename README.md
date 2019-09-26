@@ -282,20 +282,6 @@ You can choose the following resource types for apply the IAM bindings:
 
 Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#variables) and give enough [permissions](#permissions) to manage the selected resource as well.
 
-## File structure
-
-The project has the following folders and files:
-
-- /: root folder.
-- /examples: examples for using this module.
-- /scripts: Scripts for specific tasks on module (see Infrastructure section on this file).
-- /test: Folders with files for testing the module (see Testing section on this file).
-- /main.tf: main file for this module, contains all the variables for operate the module.
-- /modules: modules to manage the IAM bindings for each resource type.
-- /variables.tf: all the variables for the module.
-- /output.tf: the outputs of the module.
-- /readme.MD: this file.
-
 ## Requirements
 
 ### Terraform plugins
@@ -330,7 +316,7 @@ In order to execute this module you must have a Service Account with an appropri
   - Project compute admin: Full control of Compute Engine resources.
   - Project compute network admin: Full control of Compute Engine networking resources.
   - Project custom: Add compute.subnetworks.getIamPolicy	and
-    compute.subnetworks..setIamPolicy permissions.
+    compute.subnetworks.setIamPolicy permissions.
 - Storage bucket:
   - Storage Admin: Full control of GCS resources.
   - Storage Legacy Bucket Owner: Read and write access to existing
@@ -381,90 +367,6 @@ The script will do:
 - Download the terraform-provider-google plugin
 - Compile the terraform-provider-google plugin
 - Move the terraform-provider-google to the right location
-
-## Development
-
-### Requirements
-
-- [docker](https://www.docker.com/) v18.XX
-
-### Integration Tests
-
-Integration tests are run though
-[test-kitchen](https://github.com/test-kitchen/test-kitchen),
-[kitchen-terraform](https://github.com/newcontext-oss/kitchen-terraform), and
-[InSpec](https://github.com/inspec/inspec).
-
-#### Test Setup
-
-1. Configure the test fixtures
-    ```
-    cp test/fixtures/full/terraform.tfvars.example test/fixtures/full/terraform.tfvars
-    # Edit copied var file.
-    ```
-2. Download a Service Account key with the necessary [permissions](#permissions)
-   and put it in the module's root directory with the name `credentials.json`.
-3. Run the testing container in interactive mode.
-    ```
-    make docker_run
-    ```
-
-    The module root directory will be loaded into the Docker container at `/cftk/workdir/`.
-4. Run kitchen-terraform to test the infrastructure.
-
-    1. `kitchen create` creates Terraform state.
-    2. `kitchen converge` creates the underlying resources to later attach bindings to.
-    3. `mv test/fixtures/full/iam.tf.mv test/fixtures/full/iam.tf` activate bindings.
-    4. `kitchen create` re-init terraform plugins.
-    5. `kitchen converge` apply IAM bindings.
-    6. `kitchen verify` tests the created infrastructure.
-    7. `kitchen destroy` remove all test fixtures.
-
-NOTE: Steps 3-5 are needed because the IAM terraform resources rely on computed values from the resources that are to have the bindings applied.
-
-Alternatively, you can simply run `make test_integration_docker` to run all the
-test steps non-interactively.
-
-### Autogeneration of documentation from .tf files
-
-Run
-```
-make generate_docs
-```
-
-### Linting
-
-The makefile in this project will lint or sometimes just format any shell,
-Python, golang, Terraform, or Dockerfiles. The linters will only be run if
-the makefile finds files with the appropriate file extension.
-
-All of the linter checks are in the default make target, so you just have to
-run
-
-```
-make -s
-```
-
-The -s is for 'silent'. Successful output looks like this
-
-```
-Running shellcheck
-Running flake8
-Running gofmt
-Running terraform validate
-Running hadolint on Dockerfiles
-Test passed - Verified all file Apache 2 headers
-```
-
-The linters
-are as follows:
-* Shell - shellcheck. Can be found in homebrew
-* Python - flake8. Can be installed with 'pip install flake8'
-* Golang - gofmt. gofmt comes with the standard golang installation. golang
-is a compiled language so there is no standard linter.
-* Terraform - terraform has a built-in linter in the 'terraform validate'
-command.
-* Dockerfiles - hadolint. Can be found in homebrew
 
 [v1.1.1]: https://registry.terraform.io/modules/terraform-google-modules/iam/google/1.1.1
 [terraform-0.12-upgrade]: https://www.terraform.io/upgrade-guides/0-12.html

@@ -26,6 +26,11 @@ output "org_roles" {
   description = "Roles to be assigned to organizations."
 }
 
+output "folder_roles" {
+  value       = local.folder_roles
+  description = "Roles to be assigned to folders."
+}
+
 output "project_roles" {
   value       = local.project_roles
   description = "Roles to be assigned to projects."
@@ -76,7 +81,7 @@ output "service_accounts" {
 }
 
 output "members" {
-  value       = module.base.members
+  value       = local.members
   description = "Members created for binding with roles."
 }
 
@@ -105,7 +110,7 @@ output "subscriptions" {
   description = "Pubsub subscriptions created for bindings."
 }
 
-output "fixture_project_id" {
-  value       = var.fixture_project_id
-  description = "Project ID of the test fixture project.  Used to avoid timing issues with recently created projects."
+output "project_id" {
+  value       = var.project_id
+  description = "Project ID of the test fixture project. Used to avoid timing issues with recently created projects."
 }

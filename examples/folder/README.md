@@ -10,3 +10,4 @@
 | user\_email | Email for group to receive roles (Ex. user@example.com) | string | n/a | yes |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
