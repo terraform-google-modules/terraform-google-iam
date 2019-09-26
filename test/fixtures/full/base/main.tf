@@ -27,11 +27,7 @@ resource "google_folder" "test" {
   count = local.n
 
   display_name = "${local.prefix}-folder-${count.index}-${random_id.test[count.index].hex}"
-  # Parent folder must be specified in the format of "folders/<parent_id>"
-  # https://cloud.google.com/resource-manager/reference/rest/v2/folders/create
-  # Also make sure that your service account has the "resourcemanager.folders.create" (Folder Creator)
-  # role for the parent_id folder.
-  parent       = "folders/${var.base_parent_id}"
+  parent       = var.base_parent_id
 }
 
 # Projects
