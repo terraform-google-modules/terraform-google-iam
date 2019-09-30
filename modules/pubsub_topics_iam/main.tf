@@ -18,36 +18,28 @@
   Locals configuration for module logic
  *****************************************/
 locals {
-  authoritative      = var.mode == "authoritative" ? 1 : 0
-  additive           = var.mode == "additive" ? 1 : 0
-  pubsub_topic_count = var.pubsub_topics_num == 0 ? length(var.pubsub_topics) : var.pubsub_topics_num
-  bindings_formatted = distinct(flatten([for pubsub_topic in var.pubsub_topics : [for value in flatten([for k, v in var.bindings : [for val in v : { "role_name" = k, "member_id" = val }]]) : merge({ "pubsub_topic_name" = pubsub_topic }, value)]]))
+  entities     = var.pubsub_topics
+  entities_num = var.pubsub_topics_num
 }
 
 /******************************************
   PubSub Topic IAM binding authoritative
  *****************************************/
 resource "google_pubsub_topic_iam_binding" "pubsub_topic_iam_authoritative" {
-  count = var.bindings_num > 0 ? var.bindings_num * local.authoritative : length(distinct(local.bindings_formatted[*].role_name)) * local.authoritative * local.pubsub_topic_count
-
+  count   = local.count_authoritative
   project = var.project
-  topic   = local.bindings_formatted[count.index].pubsub_topic_name
-  role    = local.bindings_formatted[count.index].role_name
-  members = [
-    for binded in local.bindings_formatted :
-    binded.member_id if binded.pubsub_topic_name == local.bindings_formatted[count.index].pubsub_topic_name && binded.role_name == local.bindings_formatted[count.index].role_name
-  ]
+  topic   = local.bindings_by_role[count.index].name
+  role    = local.bindings_by_role[count.index].role
+  members = local.bindings_by_role[count.index].members
 }
 
 /******************************************
   PubSub Topic IAM binding additive
  *****************************************/
 resource "google_pubsub_topic_iam_member" "pubsub_topic_iam_additive" {
-  count = var.bindings_num > 0 ? var.bindings_num * local.additive * local.pubsub_topic_count : length(local.bindings_formatted) * local.additive
-
+  count = local.count_additive
   project = var.project
-  topic   = local.bindings_formatted[count.index].pubsub_topic_name
-  role    = local.bindings_formatted[count.index].role_name
-  member  = local.bindings_formatted[count.index].member_id
+  topic   = local.bindings_by_member[count.index].name
+  role    = local.bindings_by_member[count.index].role
+  member  = local.bindings_by_member[count.index].member
 }
-

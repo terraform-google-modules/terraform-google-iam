@@ -18,38 +18,16 @@
   Locals configuration for module logic
  *****************************************/
 locals {
-  authoritative        = var.mode == "authoritative" ? 1 : 0
-  additive             = var.mode == "additive" ? 1 : 0
-  storage_bucket_count = var.storage_buckets_num == 0 ? length(var.storage_buckets) : var.storage_buckets_num
-
-  bindings_by_role     = distinct(flatten([
-    for bucket in var.storage_buckets
-    : [
-      for role, members in var.bindings
-      : { role = role, members = members, bucket = bucket }
-    ]
-  ]))
-
-  bindings_by_member   = distinct(flatten([
-    for binding in local.bindings_by_role
-    : [
-      for member in binding["members"]
-      : { bucket = binding["bucket"], role = binding["role"], member = member }
-    ]
-  ]))
+  entities     = var.storage_buckets
+  entities_num = var.storage_buckets_num
 }
 
 /******************************************
   Storage Bucket IAM binding authoritative
  *****************************************/
 resource "google_storage_bucket_iam_binding" "storage_bucket_iam_authoritative" {
-  count = local.authoritative * (
-    var.bindings_num > 0
-      ? var.bindings_num * local.storage_bucket_count
-      : length(local.bindings_by_role)
-  )
-
-  bucket  = local.bindings_by_role[count.index].bucket
+  count   = local.count_authoritative
+  bucket  = local.bindings_by_role[count.index].name
   role    = local.bindings_by_role[count.index].role
   members = local.bindings_by_role[count.index].members
 }
@@ -58,13 +36,8 @@ resource "google_storage_bucket_iam_binding" "storage_bucket_iam_authoritative" 
   Storage Bucket IAM binding additive
  *****************************************/
 resource "google_storage_bucket_iam_member" "storage_bucket_iam_additive" {
-  count = local.additive * (
-    var.bindings_num > 0
-      ? var.bindings_num * local.storage_bucket_count
-      : length(local.bindings_by_member)
-  )
-
-  bucket = local.bindings_by_member[count.index].bucket
+  count  = local.count_additive
+  bucket = local.bindings_by_member[count.index].name
   role   = local.bindings_by_member[count.index].role
   member = local.bindings_by_member[count.index].member
 }
