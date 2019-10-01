@@ -15,9 +15,13 @@
  */
 
 /******************************************
-  Locals configuration for module logic
+  Run helper module to get generic calculated data
  *****************************************/
-locals {
+module "helper" {
+  source       = "../../helper"
+  bindings     = var.bindings
+  bindings_num = var.bindings_num
+  mode         = var.mode
   entities     = var.storage_buckets
   entities_num = var.storage_buckets_num
 }
@@ -26,18 +30,18 @@ locals {
   Storage Bucket IAM binding authoritative
  *****************************************/
 resource "google_storage_bucket_iam_binding" "storage_bucket_iam_authoritative" {
-  count   = local.count_authoritative
-  bucket  = local.bindings_by_role[count.index].name
-  role    = local.bindings_by_role[count.index].role
-  members = local.bindings_by_role[count.index].members
+  count   = module.helper.count_authoritative
+  bucket  = module.helper.bindings_by_role[count.index].name
+  role    = module.helper.bindings_by_role[count.index].role
+  members = module.helper.bindings_by_role[count.index].members
 }
 
 /******************************************
   Storage Bucket IAM binding additive
  *****************************************/
 resource "google_storage_bucket_iam_member" "storage_bucket_iam_additive" {
-  count  = local.count_additive
-  bucket = local.bindings_by_member[count.index].name
-  role   = local.bindings_by_member[count.index].role
-  member = local.bindings_by_member[count.index].member
+  count  = module.helper.count_additive
+  bucket = module.helper.bindings_by_member[count.index].name
+  role   = module.helper.bindings_by_member[count.index].role
+  member = module.helper.bindings_by_member[count.index].member
 }

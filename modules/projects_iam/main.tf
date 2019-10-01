@@ -15,9 +15,13 @@
  */
 
 /******************************************
-  Locals configuration for module logic
+  Run helper module to get generic calculated data
  *****************************************/
-locals {
+module "helper" {
+  source       = "../../helper"
+  bindings     = var.bindings
+  bindings_num = var.bindings_num
+  mode         = var.mode
   entities     = var.projects == [] ? [var.project] : var.projects
   entities_num = var.projects_num
 }
@@ -27,18 +31,18 @@ locals {
  *****************************************/
 
 resource "google_project_iam_binding" "project_iam_authoritative" {
-  count   = local.count_authoritative
-  project = local.bindings_by_role[count.index].name
-  role    = local.bindings_by_role[count.index].role
-  members = local.bindings_by_role[count.index].members
+  count   = module.helper.count_authoritative
+  project = module.helper.bindings_by_role[count.index].name
+  role    = module.helper.bindings_by_role[count.index].role
+  members = module.helper.bindings_by_role[count.index].members
 }
 
 /******************************************
   Project IAM binding additive
  *****************************************/
 resource "google_project_iam_member" "project_iam_additive" {
-  count   = local.count_additive
-  project = local.bindings_by_member[count.index].name
-  role    = local.bindings_by_member[count.index].role
-  member  = local.bindings_by_member[count.index].member
+  count   = module.helper.count_additive
+  project = module.helper.bindings_by_member[count.index].name
+  role    = module.helper.bindings_by_member[count.index].role
+  member  = module.helper.bindings_by_member[count.index].member
 }

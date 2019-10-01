@@ -1,37 +1,31 @@
-// IMPORTANT!!!
-// To prevent duplication, this file MUST be a symbolic link
-// to the original:
-// $ ln -s ../../helpers/helpers.tf helpers.linked.tf
-
-/******************************************
-  Helpers
- ******************************************
+/**
+ * Copyright 2019 Google LLC
  *
- * These helpers are an attempt to cover up for the lack of
- * preprocessing/templating functionality in terraform and keep the code
- * DRY even though we have to repeat it everywhere.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Helpers are exactly the same across all modules.
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * Arguments:
- *   var.mode
- *   var.bindings
- *   var.bindings_num
- *   local.entities
- *   local.entities_num
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 locals {
   authoritative       = var.mode == "authoritative" ? 1 : 0
   additive            = var.mode == "additive" ? 1 : 0
 
   calculated_entities_num = (
-    local.entities_num == 0
-    ? length(local.entities)
-    : local.entities_num
+    var.entities_num == 0
+    ? length(var.entities)
+    : var.entities_num
   )
 
   bindings_by_role    = distinct(flatten([
-    for name in local.entities
+    for name in var.entities
     : [
       for role, members in var.bindings
       : { name = name, role = role, members = members }

@@ -15,9 +15,13 @@
  */
 
 /******************************************
-  Locals configuration for module logic
+  Run helper module to get generic calculated data
  *****************************************/
-locals {
+module "helper" {
+  source       = "../../helper"
+  bindings     = var.bindings
+  bindings_num = var.bindings_num
+  mode         = var.mode
   entities     = var.kms_crypto_keys
   entities_num = var.kms_crypto_keys_num
 }
@@ -26,18 +30,18 @@ locals {
   KMS Crypto Key IAM binding authoritative
  *****************************************/
 resource "google_kms_crypto_key_iam_binding" "kms_crypto_key_iam_authoritative" {
-  count         = local.count_authoritative
-  crypto_key_id = local.bindings_by_role[count.index].name
-  role          = local.bindings_by_role[count.index].role
-  members       = local.bindings_by_role[count.index].members
+  count         = module.helper.count_authoritative
+  crypto_key_id = module.helper.bindings_by_role[count.index].name
+  role          = module.helper.bindings_by_role[count.index].role
+  members       = module.helper.bindings_by_role[count.index].members
 }
 
 /******************************************
   KMS Crypto Key IAM binding additive
  *****************************************/
 resource "google_kms_crypto_key_iam_member" "kms_crypto_key_iam_additive" {
-  count         = local.count_additive
-  crypto_key_id = local.bindings_by_member[count.index].name
-  role          = local.bindings_by_member[count.index].role
-  member        = local.bindings_by_member[count.index].member
+  count         = module.helper.count_additive
+  crypto_key_id = module.helper.bindings_by_member[count.index].name
+  role          = module.helper.bindings_by_member[count.index].role
+  member        = module.helper.bindings_by_member[count.index].member
 }

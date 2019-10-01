@@ -15,9 +15,13 @@
  */
 
 /******************************************
-  Locals configuration for module logic
+  Run helper module to get generic calculated data
  *****************************************/
-locals {
+module "helper" {
+  source       = "../../helper"
+  bindings     = var.bindings
+  bindings_num = var.bindings_num
+  mode         = var.mode
   entities     = var.pubsub_topics
   entities_num = var.pubsub_topics_num
 }
@@ -26,20 +30,20 @@ locals {
   PubSub Topic IAM binding authoritative
  *****************************************/
 resource "google_pubsub_topic_iam_binding" "pubsub_topic_iam_authoritative" {
-  count   = local.count_authoritative
+  count   = module.helper.count_authoritative
   project = var.project
-  topic   = local.bindings_by_role[count.index].name
-  role    = local.bindings_by_role[count.index].role
-  members = local.bindings_by_role[count.index].members
+  topic   = module.helper.bindings_by_role[count.index].name
+  role    = module.helper.bindings_by_role[count.index].role
+  members = module.helper.bindings_by_role[count.index].members
 }
 
 /******************************************
   PubSub Topic IAM binding additive
  *****************************************/
 resource "google_pubsub_topic_iam_member" "pubsub_topic_iam_additive" {
-  count = local.count_additive
+  count   = module.helper.count_additive
   project = var.project
-  topic   = local.bindings_by_member[count.index].name
-  role    = local.bindings_by_member[count.index].role
-  member  = local.bindings_by_member[count.index].member
+  topic   = module.helper.bindings_by_member[count.index].name
+  role    = module.helper.bindings_by_member[count.index].role
+  member  = module.helper.bindings_by_member[count.index].member
 }
