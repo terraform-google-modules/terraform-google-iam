@@ -18,7 +18,7 @@
   Run helper module to get generic calculated data
  *****************************************/
 module "helper" {
-  source       = "../../helper"
+  source       = "../helper"
   bindings     = var.bindings
   bindings_num = var.bindings_num
   mode         = var.mode

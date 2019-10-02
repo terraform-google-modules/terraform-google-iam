@@ -21,7 +21,6 @@ variable "bindings" {
 
 variable "bindings_num" {
   description = "Number of bindings, in case using dependencies of other resources' outputs"
-  default     = 0
   type        = number
 }
 
@@ -32,12 +31,10 @@ variable "mode" {
 
 variable "entities" {
   description = "Entities list to add the IAM policies/bindings"
-  default     = []
   type        = list(string)
 }
 
 variable "entities_num" {
   description = "Number of entities, in case using dependencies of other resources' outputs"
-  default     = 0
   type        = number
 }
