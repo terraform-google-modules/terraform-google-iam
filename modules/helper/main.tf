@@ -15,8 +15,8 @@
  */
 
 locals {
-  authoritative       = var.mode == "authoritative" ? 1 : 0
-  additive            = var.mode == "additive" ? 1 : 0
+  authoritative = var.mode == "authoritative" ? 1 : 0
+  additive      = var.mode == "additive" ? 1 : 0
 
   calculated_entities_num = (
     var.entities_num == 0
@@ -24,7 +24,7 @@ locals {
     : var.entities_num
   )
 
-  bindings_by_role    = distinct(flatten([
+  bindings_by_role = distinct(flatten([
     for name in var.entities
     : [
       for role, members in var.bindings
@@ -32,7 +32,7 @@ locals {
     ]
   ]))
 
-  bindings_by_member  = distinct(flatten([
+  bindings_by_member = distinct(flatten([
     for binding in local.bindings_by_role
     : [
       for member in binding["members"]
@@ -46,7 +46,7 @@ locals {
     : length(local.bindings_by_role)
   )
 
-  count_additive      = local.additive * (
+  count_additive = local.additive * (
     var.bindings_num > 0
     ? var.bindings_num * local.calculated_entities_num
     : length(local.bindings_by_member)
