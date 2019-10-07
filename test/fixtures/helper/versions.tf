@@ -14,19 +14,6 @@
  * limitations under the License.
  */
 
-variable "base_billing_account" {
-  description = "The billing account id associated with the project, e.g. XXXXXX-YYYYYY-ZZZZZZ"
+terraform {
+  required_version = ">= 0.12"
 }
-
-variable "base_parent_id" {
-  description = "Folder to create resources in, e.g. folders/12345678"
-}
-
-variable "base_location" {
-  description = "Region for subnetwork tests."
-}
-
-variable "base_project_id" {
-  description = "Project ID of the test fixture project.  Used to avoid timing issues with recently created projects."
-}
-

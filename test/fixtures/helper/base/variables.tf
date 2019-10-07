@@ -14,39 +14,22 @@
  * limitations under the License.
  */
 
-variable "mode" {
-  type        = string
-  description = "Mode of IAM management ('authoritative' OR 'additive')."
-  default     = "additive"
+variable "base_billing_account" {
+  description = "The billing account id associated with the project, e.g. XXXXXX-YYYYYY-ZZZZZZ"
 }
 
-variable "folder_id" {
-  type        = string
+variable "base_parent_id" {
   description = "Folder to create resources in, e.g. folders/12345678"
 }
 
-variable "billing_account" {
-  type        = string
-  description = "Billing account to associate created projects with."
-}
-
-variable "location" {
-  type        = string
+variable "base_location" {
   description = "Region for subnetwork tests."
-  default     = "us-central1"
 }
 
-variable "project_id" {
-  type        = string
+variable "base_project_id" {
   description = "Project ID of the test fixture project.  Used to avoid timing issues with recently created projects."
 }
 
-variable "member1" {
-  type        = string
-  description = "Member created for binding with roles."
-}
-
-variable "member2" {
-  type        = string
-  description = "Member created for binding with roles."
+variable "subnet_cidr" {
+  description = "List of CIDRs to use when creating fixture subnetworks. Used to avoid the resource locking between test suites."
 }

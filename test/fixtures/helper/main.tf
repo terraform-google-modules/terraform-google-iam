@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+# This helper module is used multiple times to run multiple kitchen test suites
+
 locals {
   basic_roles   = ["roles/owner", "roles/editor"]
   org_roles     = ["roles/owner", "roles/iam.organizationRoleViewer"]
@@ -72,4 +74,5 @@ module "base" {
   base_parent_id       = var.folder_id
   base_location        = var.location
   base_project_id      = var.project_id
+  subnet_cidr          = var.subnet_cidr
 }

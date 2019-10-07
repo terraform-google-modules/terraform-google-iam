@@ -12,7 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: full
+name: authoritative
+depends:
+  - name: helper
+    path: ../helper
 attributes:
   - name: folders
     required: true
@@ -68,6 +71,3 @@ attributes:
   - name: folder_roles
     required: true
     type: array
-  - name: mode
-    required: true
-    type: string

@@ -49,40 +49,10 @@ end
 
 class BucketBindings < Bindings
   name 'bucket_bindings'
-
-  def initialize(bucket, project, owner_project, mode)
-    @id = bucket
-    @mode = mode
-    @owner_project = owner_project
-    @bindings = get_bindings(get_command(bucket, project))
-  end
-
-  def include?(entry)
-    members = maybe_add_default_members_for_role(entry[:role], entry[:members])
-    @bindings.include?(role: entry[:role], members: members)
-  end
-
   private
-
   def get_command(bucket, project)
     "gsutil iam get gs://#{bucket} --project='#{project}' --format='json(bindings)'"
   end
-
-  # Patch expected list of members of the bucket with the default users.
-  # Example:
-  #   role 'roles/storage.legacyBucketReader' is granted to all project viewers by default on bucket creation.
-  def maybe_add_default_members_for_role(role, members)
-    # `authoritative` mode must leave only the roles explicitely
-    # specified in the terraform module.
-    return members if @mode === 'authoritative'
-    case role
-    when 'roles/storage.legacyBucketReader'
-      return ["projectViewer:#{@owner_project}"] + members # Order matters
-    else
-      return members
-    end
-  end
-
 end
 
 # Projects

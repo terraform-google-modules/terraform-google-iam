@@ -14,21 +14,37 @@
 
 ---
 provisioner:
-  name: "terraform"
+  name: terraform
 
 platforms:
   - name: local
 
 suites:
-  - name: "full"
+
+  # Test all IAM modules in `additive` mode
+  - name: additive
     driver:
-      name: "terraform"
+      name: terraform
       command_timeout: 1800
-      root_module_directory: test/fixtures/full
+      root_module_directory: test/fixtures/additive
     verifier:
       name: terraform
       systems:
-        - name: full
+        - name: additive
+          backend: local
+    provisioner:
+      name: terraform
+
+  # Test all IAM modules in `authoritative` mode
+  - name: authoritative
+    driver:
+      name: terraform
+      command_timeout: 1800
+      root_module_directory: test/fixtures/authoritative
+    verifier:
+      name: terraform
+      systems:
+        - name: authoritative
           backend: local
     provisioner:
       name: terraform

@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Mode of IAM management ('authoritative' OR 'additive')
-mode = attribute('mode')
-
 # Fixture project as managed in cloud-foundation-toolkit/infra
 project_id = attribute('project_id')
 
@@ -80,12 +77,12 @@ end
 control 'bucket-bindings' do
   title 'Test bucket bindings are correct'
 
-  describe bucket_bindings(buckets[0], projects[0], project_id, mode) do
+  describe bucket_bindings(buckets[0], projects[0]) do
     it { should include role: bucket_roles[0], members: member_groups[0] }
     it { should include role: bucket_roles[1], members: member_groups[1] }
   end
 
-  describe bucket_bindings(buckets[1], projects[0], project_id, mode) do
+  describe bucket_bindings(buckets[1], projects[0]) do
     it { should include role: bucket_roles[0], members: member_groups[0] }
     it { should include role: bucket_roles[1], members: member_groups[1] }
   end
