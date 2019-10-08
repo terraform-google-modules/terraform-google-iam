@@ -15,42 +15,37 @@
  */
 
 /******************************************
-  Locals configuration for module logic
+  Run helper module to get generic calculated data
  *****************************************/
-locals {
-  authoritative      = var.mode == "authoritative" ? 1 : 0
-  additive           = var.mode == "additive" ? 1 : 0
-  subnet_count       = var.subnets_num == 0 ? length(var.subnets) : var.subnets_num
-  bindings_formatted = distinct(flatten([for subnet in var.subnets : [for value in flatten([for k, v in var.bindings : [for val in v : { "role_name" = k, "member_id" = val }]]) : merge({ "subnet_name" = subnet }, value)]]))
+module "helper" {
+  source       = "../helper"
+  bindings     = var.bindings
+  bindings_num = var.bindings_num
+  mode         = var.mode
+  entities     = var.subnets
+  entities_num = var.subnets_num
 }
 
 /******************************************
   Compute Subnetwork IAM binding authoritative
  *****************************************/
 resource "google_compute_subnetwork_iam_binding" "subnet_iam_authoritative" {
-  count = var.bindings_num > 0 ? var.bindings_num * local.authoritative : length(distinct(local.bindings_formatted[*].role_name)) * local.authoritative * local.subnet_count
-
+  count      = module.helper.count_authoritative
   project    = var.project
   region     = var.subnets_region
-  subnetwork = local.bindings_formatted[count.index].subnet_name
-  role       = local.bindings_formatted[count.index].role_name
-  members = [
-    for binded in local.bindings_formatted :
-    binded.member_id if binded.subnet_name == local.bindings_formatted[count.index].subnet_name && binded.role_name == local.bindings_formatted[count.index].role_name
-  ]
+  subnetwork = module.helper.bindings_by_role[count.index].name
+  role       = module.helper.bindings_by_role[count.index].role
+  members    = module.helper.bindings_by_role[count.index].members
 }
 
 /******************************************
   Compute Subnetwork IAM binding additive
  *****************************************/
 resource "google_compute_subnetwork_iam_member" "subnet_iam_additive" {
-  count = var.bindings_num > 0 ? var.bindings_num * local.additive * local.subnet_count : length(local.bindings_formatted) * local.additive
-
+  count      = module.helper.count_additive
   project    = var.project
   region     = var.subnets_region
-  subnetwork = local.bindings_formatted[count.index].subnet_name
-  role       = local.bindings_formatted[count.index].role_name
-  member     = local.bindings_formatted[count.index].member_id
-
+  subnetwork = module.helper.bindings_by_member[count.index].name
+  role       = module.helper.bindings_by_member[count.index].role
+  member     = module.helper.bindings_by_member[count.index].member
 }
-

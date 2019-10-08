@@ -15,16 +15,16 @@
  */
 
 output "kms_key_rings" {
-  value       = distinct(local.bindings_formatted[*].kms_key_ring_name)
+  value       = distinct(module.helper.bindings_by_member[*].name)
   description = "KMS key rings which received bindings."
 }
 
 output "roles" {
-  value       = distinct(local.bindings_formatted[*].role_name)
+  value       = distinct(module.helper.bindings_by_member[*].role)
   description = "Roles which were assigned to members."
 }
 
 output "members" {
-  value       = distinct(local.bindings_formatted[*].member_id)
+  value       = distinct(module.helper.bindings_by_member[*].member)
   description = "Members which were bound to the KMS key rings."
 }

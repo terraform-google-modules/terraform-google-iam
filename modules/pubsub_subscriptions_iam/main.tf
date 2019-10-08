@@ -15,39 +15,35 @@
  */
 
 /******************************************
-  Locals configuration for module logic
+  Run helper module to get generic calculated data
  *****************************************/
-locals {
-  authoritative             = var.mode == "authoritative" ? 1 : 0
-  additive                  = var.mode == "additive" ? 1 : 0
-  pubsub_subscription_count = var.pubsub_subscriptions_num == 0 ? length(var.pubsub_subscriptions) : var.pubsub_subscriptions_num
-  bindings_formatted        = distinct(flatten([for pubsub_subscription in var.pubsub_subscriptions : [for value in flatten([for k, v in var.bindings : [for val in v : { "role_name" = k, "member_id" = val }]]) : merge({ "pubsub_subscription_name" = pubsub_subscription }, value)]]))
+module "helper" {
+  source       = "../helper"
+  bindings     = var.bindings
+  bindings_num = var.bindings_num
+  mode         = var.mode
+  entities     = var.pubsub_subscriptions
+  entities_num = var.pubsub_subscriptions_num
 }
 
 /******************************************
   PubSub Subscription IAM binding authoritative
  *****************************************/
 resource "google_pubsub_subscription_iam_binding" "pubsub_subscription_iam_authoritative" {
-  count = var.bindings_num > 0 ? var.bindings_num * local.authoritative : length(distinct(local.bindings_formatted[*].role_name)) * local.authoritative * local.pubsub_subscription_count
-
+  count        = module.helper.count_authoritative
   project      = var.project
-  subscription = local.bindings_formatted[count.index].pubsub_subscription_name
-  role         = local.bindings_formatted[count.index].role_name
-  members = [
-    for binded in local.bindings_formatted :
-    binded.member_id if binded.pubsub_subscription_name == local.bindings_formatted[count.index].pubsub_subscription_name && binded.role_name == local.bindings_formatted[count.index].role_name
-  ]
+  subscription = module.helper.bindings_by_role[count.index].name
+  role         = module.helper.bindings_by_role[count.index].role
+  members      = module.helper.bindings_by_role[count.index].members
 }
 
 /******************************************
   PubSub Subscription IAM binding additive
  *****************************************/
 resource "google_pubsub_subscription_iam_member" "pubsub_subscription_iam_additive" {
-  count = var.bindings_num > 0 ? var.bindings_num * local.additive * local.pubsub_subscription_count : length(local.bindings_formatted) * local.additive
-
+  count        = module.helper.count_additive
   project      = var.project
-  subscription = local.bindings_formatted[count.index].pubsub_subscription_name
-  role         = local.bindings_formatted[count.index].role_name
-  member       = local.bindings_formatted[count.index].member_id
+  subscription = module.helper.bindings_by_member[count.index].name
+  role         = module.helper.bindings_by_member[count.index].role
+  member       = module.helper.bindings_by_member[count.index].member
 }
-

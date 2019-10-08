@@ -14,6 +14,18 @@
  * limitations under the License.
  */
 
+locals {
+  // Vars over here are kind of a hardcode.
+  // They currently rely on the fact that all entities' roles lists
+  // are of the same length, and that member_groups used across entities
+  // are the same
+  bindings_num = (
+    var.mode == "additive"
+    ? length(local.member_group_0) + length(local.member_group_1)
+    : length(local.basic_roles)
+  )
+}
+
 module "iam_binding_project" {
   source       = "../../../modules/projects_iam"
   mode         = var.mode
@@ -21,7 +33,7 @@ module "iam_binding_project" {
   projects_num = module.base.bindings_number
 
   bindings     = local.project_bindings
-  bindings_num = module.base.bindings_number
+  bindings_num = local.bindings_num
 }
 
 ## TODO(jmccune): Disabled as per discussion with Aaron.  Re-enable post 0.12
@@ -40,7 +52,7 @@ module "iam_binding_folder" {
   folders_num = module.base.bindings_number
 
   bindings     = local.folder_bindings
-  bindings_num = module.base.bindings_number
+  bindings_num = local.bindings_num
 }
 
 module "iam_binding_subnet" {
@@ -52,7 +64,7 @@ module "iam_binding_subnet" {
   subnets_num    = module.base.bindings_number
 
   bindings     = local.basic_bindings
-  bindings_num = module.base.bindings_number
+  bindings_num = local.bindings_num
 }
 
 module "iam_binding_service_account" {
@@ -63,7 +75,7 @@ module "iam_binding_service_account" {
   service_accounts_num = module.base.bindings_number
 
   bindings     = local.basic_bindings
-  bindings_num = module.base.bindings_number
+  bindings_num = local.bindings_num
 }
 
 module "iam_binding_storage_bucket" {
@@ -73,7 +85,7 @@ module "iam_binding_storage_bucket" {
   storage_buckets_num = module.base.bindings_number
 
   bindings     = local.bucket_bindings
-  bindings_num = module.base.bindings_number
+  bindings_num = local.bindings_num
 }
 
 module "iam_binding_kms_crypto_key" {
@@ -83,7 +95,7 @@ module "iam_binding_kms_crypto_key" {
   kms_crypto_keys_num = module.base.bindings_number
 
   bindings     = local.basic_bindings
-  bindings_num = module.base.bindings_number
+  bindings_num = local.bindings_num
 }
 
 module "iam_binding_kms_key_ring" {
@@ -93,7 +105,7 @@ module "iam_binding_kms_key_ring" {
   kms_key_rings_num = module.base.bindings_number
 
   bindings     = local.basic_bindings
-  bindings_num = module.base.bindings_number
+  bindings_num = local.bindings_num
 }
 
 module "iam_binding_pubsub_subscription" {
@@ -104,7 +116,7 @@ module "iam_binding_pubsub_subscription" {
   pubsub_subscriptions_num = module.base.bindings_number
 
   bindings     = local.basic_bindings
-  bindings_num = module.base.bindings_number
+  bindings_num = local.bindings_num
 }
 
 module "iam_binding_pubsub_topic" {
@@ -115,6 +127,5 @@ module "iam_binding_pubsub_topic" {
   pubsub_topics_num = module.base.bindings_number
 
   bindings     = local.basic_bindings
-  bindings_num = module.base.bindings_number
+  bindings_num = local.bindings_num
 }
-

@@ -15,16 +15,16 @@
  */
 
 output "pubsub_topics" {
-  value       = distinct(local.bindings_formatted[*].pubsub_topic_name)
+  value       = distinct(module.helper.bindings_by_member[*].name)
   description = "PubSub Topics which received for bindings."
 }
 
 output "roles" {
-  value       = distinct(local.bindings_formatted[*].role_name)
+  value       = distinct(module.helper.bindings_by_member[*].role)
   description = "Roles which were assigned to members."
 }
 
 output "members" {
-  value       = distinct(local.bindings_formatted[*].member_id)
+  value       = distinct(module.helper.bindings_by_member[*].member)
   description = "Members which were bound to the PubSub Topics."
 }

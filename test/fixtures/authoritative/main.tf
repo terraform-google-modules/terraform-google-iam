@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-output "pubsub_subscriptions" {
-  value       = distinct(module.helper.bindings_by_member[*].name)
-  description = "PubSub Subscriptions which received bindings."
-}
-
-output "roles" {
-  value       = distinct(module.helper.bindings_by_member[*].role)
-  description = "Roles which were assigned to members."
-}
-
-output "members" {
-  value       = distinct(module.helper.bindings_by_member[*].member)
-  description = "Members which were bound to the PubSub Subscription."
+module "generic" {
+  source          = "../helper"
+  mode            = "authoritative"
+  subnet_cidr     = ["192.168.1.0/24", "192.168.11.0/24"]
+  folder_id       = var.folder_id
+  billing_account = var.billing_account
+  location        = var.location
+  project_id      = var.project_id
+  member1         = var.member1
+  member2         = var.member2
 }

@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-variable "mode" {
-  type        = string
-  description = "Mode of IAM management ('authoritative' OR 'additive')."
-  default     = "additive"
-}
-
 variable "folder_id" {
   type        = string
   description = "Folder to create resources in, e.g. folders/12345678"

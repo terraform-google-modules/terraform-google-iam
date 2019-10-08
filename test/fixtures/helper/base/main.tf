@@ -18,7 +18,7 @@ locals {
   n           = 2
   prefix      = "test-iam"
   location    = var.base_location
-  subnet_cdir = ["192.168.0.0/24", "192.168.10.0/24"]
+  subnet_cidr = var.subnet_cidr
 }
 
 # Folders
@@ -111,7 +111,6 @@ resource "google_compute_subnetwork" "test" {
   project       = var.base_project_id
   region        = local.location
   name          = "${local.prefix}-snet-${count.index}-${random_id.test[count.index].hex}"
-  ip_cidr_range = local.subnet_cdir[count.index]
+  ip_cidr_range = local.subnet_cidr[count.index]
   network       = "default"
 }
-

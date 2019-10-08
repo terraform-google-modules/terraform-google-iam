@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-output "pubsub_subscriptions" {
-  value       = distinct(module.helper.bindings_by_member[*].name)
-  description = "PubSub Subscriptions which received bindings."
-}
-
-output "roles" {
-  value       = distinct(module.helper.bindings_by_member[*].role)
-  description = "Roles which were assigned to members."
-}
-
-output "members" {
-  value       = distinct(module.helper.bindings_by_member[*].member)
-  description = "Members which were bound to the PubSub Subscription."
+terraform {
+  required_version = ">= 0.12"
 }
