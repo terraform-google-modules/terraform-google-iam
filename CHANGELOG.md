@@ -10,6 +10,10 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
+### Fixed
+
+- Authoritative bindings are correctly applied. [#61]
+
 ## [3.0.0] - 2019-09-26
 
 ### Added
@@ -82,3 +86,4 @@ management.
 [#29]: https://github.com/terraform-google-modules/terraform-google-iam/pull/29
 [#32]: https://github.com/terraform-google-modules/terraform-google-iam/pull/32
 [#43]: https://github.com/terraform-google-modules/terraform-google-iam/pull/43
+[#61]: https://github.com/terraform-google-modules/terraform-google-iam/pull/61
