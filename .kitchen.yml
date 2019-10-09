@@ -48,3 +48,21 @@ suites:
           backend: local
     provisioner:
       name: terraform
+
+  # Test how terraform performs updates on an iam module
+  # TODO: This doen't test the actual updating process yet
+  #       and only being used as the playground to debug
+  #       the updates manually by changing fixtures and
+  #       debugging with `terraform plan`
+  - name: update
+    driver:
+      name: terraform
+      command_timeout: 1800
+      root_module_directory: test/fixtures/update
+    verifier:
+      name: terraform
+      systems:
+        - name: update
+          backend: local
+    provisioner:
+      name: terraform
