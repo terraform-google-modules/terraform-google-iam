@@ -26,25 +26,19 @@ locals {
   project_bindings = {
     "roles/iam.roleViewer" = local.member_group_0
 
-    # Uncommenting only one additional role below will force
-    # recreation of resources because of the change in list indexes
-    #
-    # before:
-    #   - iam[0] - project0 role0
-    #   - iam[1] - project1 role0
-    #
-    # after:
-    #   - iam[0] - project0 role0
-    #   - iam[1] - project0 role1 <-- this resource is being modified instead of just reusing it as an item iam[2] below:
-    #   - iam[2] - project1 role0 <-- this resource is created from scratch, even though it did exist before
-    #   - iam[3] - project1 role1
-
+    # Uncomment the following role and re`converge` to test
+    # whether some resources were recreated
     # "roles/logging.viewer" = local.member_group_0
 
     # More roles to test:
 
     # "roles/iam.securityReviewer" = local.member_group_0
   }
+
+  project_ids = [
+    for hex in random_id.test[*].hex
+    : "${local.prefix}-prj-${index(random_id.test[*].hex, hex)}-${hex}"
+  ]
 }
 
 resource "random_id" "test" {
@@ -56,7 +50,7 @@ resource "random_id" "test" {
 resource "google_project" "test" {
   count = local.n
 
-  project_id      = "${local.prefix}-prj-${count.index}-${random_id.test[count.index].hex}"
+  project_id      = local.project_ids[count.index]
   folder_id       = var.folder_id
   name            = "Test IAM Project ${count.index}"
   billing_account = var.billing_account
@@ -65,10 +59,8 @@ resource "google_project" "test" {
 module "iam_binding_project" {
   source       = "../../../modules/projects_iam"
   mode         = local.mode
-  projects     = google_project.test.*.project_id
-  projects_num = length(google_project.test.*.project_id)
+  projects     = local.project_ids
   bindings     = local.project_bindings
-  bindings_num = length(local.project_bindings)
 }
 
 provider "google" {

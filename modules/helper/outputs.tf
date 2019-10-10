@@ -24,6 +24,16 @@ output "bindings_by_member" {
   description = "List of bindings for entities unwinded by members."
 }
 
+output "for_each_authoritative" {
+  value       = local.for_each_authoritative
+  description = "Map of bindings for entities unwinded by roles."
+}
+
+output "for_each_additive" {
+  value       = local.for_each_additive
+  description = "Map of bindings for entities unwinded by members."
+}
+
 output "count_authoritative" {
   value       = local.count_authoritative
   description = "Count of authoritative iam rules to apply. 0 for non-authoritative mode."

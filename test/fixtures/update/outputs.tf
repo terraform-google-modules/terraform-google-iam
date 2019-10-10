@@ -17,7 +17,7 @@
 # Resources
 
 output "projects" {
-  value       = google_project.test.*.project_id
+  value       = local.project_ids
   description = "Projects created for bindings."
 }
 

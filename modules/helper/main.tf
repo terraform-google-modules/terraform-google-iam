@@ -15,13 +15,22 @@
  */
 
 locals {
-  authoritative = var.mode == "authoritative" ? 1 : 0
-  additive      = var.mode == "additive" ? 1 : 0
+  authoritative = var.mode == "authoritative"
+  additive      = var.mode == "additive"
+
+  # When there are *_num specified, consider the module configuration
+  # dynamic. In this case the `count`-resources will be used instead
+  # of the `for_each`-resources
+  #
+  # The downside of depending on `count` is that we can't guarantee the
+  # resources being reused whenever the configuration changes.
+  # Which leads to unnecessary resource recreations.
+  dynamic = var.entities_num > 0 || var.bindings_num > 0
 
   calculated_entities_num = (
-    var.entities_num == 0
-    ? length(var.entities)
-    : var.entities_num
+    var.entities_num > 0
+    ? var.entities_num
+    : length(var.entities)
   )
 
   bindings_by_role = distinct(flatten([
@@ -40,15 +49,41 @@ locals {
     ]
   ]))
 
-  count_authoritative = local.authoritative * (
-    var.bindings_num > 0
-    ? var.bindings_num * local.calculated_entities_num
-    : length(local.bindings_by_role)
+  for_each_authoritative = (
+    !local.dynamic && local.authoritative
+    ? zipmap([
+      for binding in local.bindings_by_role
+      : "${binding["name"]}--${binding["role"]}"
+    ], local.bindings_by_role)
+    : {}
   )
 
-  count_additive = local.additive * (
-    var.bindings_num > 0
-    ? var.bindings_num * local.calculated_entities_num
-    : length(local.bindings_by_member)
+  for_each_additive = (
+    !local.dynamic && local.additive
+    ? zipmap([
+      for binding in local.bindings_by_member
+      : "${binding["name"]}--${binding["role"]}--${binding["member"]}"
+    ], local.bindings_by_member)
+    : {}
+  )
+
+  count_authoritative = (
+    local.dynamic && local.authoritative
+    ? (
+      var.bindings_num > 0
+      ? var.bindings_num * local.calculated_entities_num
+      : length(local.bindings_by_role)
+    )
+    : 0
+  )
+
+  count_additive = (
+    local.dynamic && local.additive
+    ? (
+      var.bindings_num > 0
+      ? var.bindings_num * local.calculated_entities_num
+      : length(local.bindings_by_member)
+    )
+    : 0
   )
 }
