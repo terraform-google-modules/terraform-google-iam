@@ -30,42 +30,20 @@ module "helper" {
   Project IAM binding authoritative
  *****************************************/
 
-# static
-
-resource "google_project_iam_binding" "project_iam_authoritative_static" {
-  for_each = module.helper.for_each_authoritative
-  project  = each.value.name
-  role     = each.value.role
-  members  = each.value.members
-}
-
-# dynamic (when referencing outputs from resources obtained asynchronously)
-
 resource "google_project_iam_binding" "project_iam_authoritative" {
-  count   = module.helper.count_authoritative
-  project = module.helper.bindings_by_role[count.index].name
-  role    = module.helper.bindings_by_role[count.index].role
-  members = module.helper.bindings_by_role[count.index].members
+  for_each = module.helper.set_authoritative
+  project  = module.helper.bindings_authoritative[each.key].name
+  role     = module.helper.bindings_authoritative[each.key].role
+  members  = module.helper.bindings_authoritative[each.key].members
 }
 
 /******************************************
   Project IAM binding additive
  *****************************************/
 
-# static
-
-resource "google_project_iam_member" "project_iam_additive_static" {
-  for_each = module.helper.for_each_additive
-  project  = each.value.name
-  role     = each.value.role
-  member   = each.value.member
-}
-
-# dynamic (when referencing outputs from resources obtained asynchronously)
-
 resource "google_project_iam_member" "project_iam_additive" {
-  count   = module.helper.count_additive
-  project = module.helper.bindings_by_member[count.index].name
-  role    = module.helper.bindings_by_member[count.index].role
-  member  = module.helper.bindings_by_member[count.index].member
+  for_each = module.helper.set_additive
+  project  = module.helper.bindings_additive[each.key].name
+  role     = module.helper.bindings_additive[each.key].role
+  member   = module.helper.bindings_additive[each.key].member
 }

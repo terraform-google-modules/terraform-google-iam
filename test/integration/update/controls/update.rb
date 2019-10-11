@@ -12,24 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Resource pairs (arrays of length = 2)
-projects         = attribute('projects')
+project_groups = [
+  # Resource pairs (arrays of length = 2)
+  attribute('authoritative_static_projects'),
+  attribute('additive_static_projects'),
+  attribute('authoritative_dynamic_projects'),
+  attribute('additive_dynamic_projects')
+]
 
 # Member groupings
-groups = [
-  attribute('member_group_0')
+member_groups = [
+  attribute('member_group_0'),
+  attribute('member_group_1')
 ]
 
 # Projects
 
-control 'project-bindings' do
-  title 'Test projects bindings are correct'
+for projects in project_groups do
+  control "project-bindings-#{projects}" do
+    title 'Test projects bindings are correct'
 
-  for project in [projects[0]] do
-    describe project_bindings(project) do
-      it { should include role: 'roles/iam.roleViewer', members: groups[0] }
-      # it { should include role: 'roles/logging.viewer', members: groups[0] }
-      # it { should include role: 'roles/iam.securityReviewer', members: groups[0] }
+    for project in projects do
+      describe project_bindings(project) do
+        it { should include role: 'roles/iam.roleViewer', members: member_groups[0] }
+        it { should include role: 'roles/logging.viewer', members: member_groups[1] }
+
+        # Uncomment the following line to test the addition of 3rd role
+        # it { should include role: 'roles/iam.securityReviewer', members: member_groups[0] }
+      end
     end
   end
 end

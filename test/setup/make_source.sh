@@ -37,3 +37,6 @@ echo "export TF_VAR_member1='$member1'" >> ../source.sh
 
 member2=$(terraform output member2)
 echo "export TF_VAR_member2='$member2'" >> ../source.sh
+
+random_hexes=$(terraform output random_hexes)
+echo "export TF_VAR_random_hexes='$random_hexes'" >> ../source.sh

@@ -16,8 +16,23 @@
 
 # Resources
 
-output "projects" {
-  value       = local.project_ids
+output "authoritative_static_projects" {
+  value       = google_project.authoritative_static[*].project_id
+  description = "Projects created for bindings."
+}
+
+output "additive_static_projects" {
+  value       = google_project.additive_static[*].project_id
+  description = "Projects created for bindings."
+}
+
+output "authoritative_dynamic_projects" {
+  value       = google_project.authoritative_dynamic[*].project_id
+  description = "Projects created for bindings."
+}
+
+output "additive_dynamic_projects" {
+  value       = google_project.additive_dynamic[*].project_id
   description = "Projects created for bindings."
 }
 
@@ -25,5 +40,10 @@ output "projects" {
 
 output "member_group_0" {
   value       = local.member_group_0
+  description = "Members to be used in bindings."
+}
+
+output "member_group_1" {
+  value       = local.member_group_1
   description = "Members to be used in bindings."
 }

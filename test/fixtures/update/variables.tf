@@ -38,3 +38,8 @@ variable "member2" {
   type        = string
   description = "Member created for binding with roles."
 }
+
+variable "random_hexes" {
+  type        = list(string)
+  description = "List of pre-generated random id hexes. Required for 'for_each' to work when testing static scerarios."
+}

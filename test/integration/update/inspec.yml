@@ -17,9 +17,21 @@ depends:
   - name: helper
     path: ../helper
 attributes:
-  - name: projects
+  - name: authoritative_static_projects
+    required: true
+    type: array
+  - name: additive_static_projects
+    required: true
+    type: array
+  - name: authoritative_dynamic_projects
+    required: true
+    type: array
+  - name: additive_dynamic_projects
     required: true
     type: array
   - name: member_group_0
+    required: true
+    type: array
+  - name: member_group_1
     required: true
     type: array

@@ -19,10 +19,10 @@ locals {
   additive      = var.mode == "additive"
 
   # When there are *_num specified, consider the module configuration
-  # dynamic. In this case the `count`-resources will be used instead
-  # of the `for_each`-resources
+  # dynamic. In this case the `for_each` will basically work as
+  # a polyfill for `count`
   #
-  # The downside of depending on `count` is that we can't guarantee the
+  # The downside of the dynamic mode is that we can't guarantee the
   # resources being reused whenever the configuration changes.
   # Which leads to unnecessary resource recreations.
   dynamic = var.entities_num > 0 || var.bindings_num > 0
@@ -49,41 +49,66 @@ locals {
     ]
   ]))
 
-  for_each_authoritative = (
-    !local.dynamic && local.authoritative
-    ? zipmap([
+  total_roles = (
+    var.bindings_num > 0
+    ? var.bindings_num * local.calculated_entities_num
+    : length(local.bindings_by_role)
+  )
+
+  total_members = (
+    var.bindings_num > 0
+    ? var.bindings_num * local.calculated_entities_num
+    : length(local.bindings_by_member)
+  )
+
+  keys_authoritative = (
+    local.dynamic
+    # [dynamic] fallback for_each to a simple list of indexes
+    ? [for i in range(local.total_roles) : tostring(i)]
+    # [static] generate unique ids which are resilient to updates
+    : [
       for binding in local.bindings_by_role
       : "${binding["name"]}--${binding["role"]}"
-    ], local.bindings_by_role)
-    : {}
+    ]
   )
 
-  for_each_additive = (
-    !local.dynamic && local.additive
-    ? zipmap([
+  keys_additive = (
+    local.dynamic
+    # [dynamic] fallback for_each to a simple list of indexes
+    ? [for i in range(local.total_members) : tostring(i)]
+    # [static] generate unique ids which are resilient to updates
+    : [
       for binding in local.bindings_by_member
       : "${binding["name"]}--${binding["role"]}--${binding["member"]}"
-    ], local.bindings_by_member)
+    ]
+  )
+
+  bindings_authoritative = (
+    local.authoritative
+    ? zipmap(local.keys_authoritative, local.bindings_by_role)
     : {}
   )
 
-  count_authoritative = (
-    local.dynamic && local.authoritative
-    ? (
-      var.bindings_num > 0
-      ? var.bindings_num * local.calculated_entities_num
-      : length(local.bindings_by_role)
-    )
-    : 0
+  bindings_additive = (
+    local.additive
+    ? zipmap(local.keys_additive, local.bindings_by_member)
+    : {}
   )
 
-  count_additive = (
-    local.dynamic && local.additive
-    ? (
-      var.bindings_num > 0
-      ? var.bindings_num * local.calculated_entities_num
-      : length(local.bindings_by_member)
-    )
-    : 0
+  # It is important to provide a set for the `for_each` instead of
+  # the map, since we have to guarantee that the `for_each`
+  # expression is resolved synchonously. And we have to workaround
+  # the potential dependency on dynamic resource values by polyfilling
+  # the `for_each` with `count`-like list of indexes.
+  set_authoritative = (
+    local.authoritative
+    ? toset(local.keys_authoritative)
+    : []
+  )
+
+  set_additive = (
+    local.additive
+    ? toset(local.keys_additive)
+    : []
   )
 }

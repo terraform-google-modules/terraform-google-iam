@@ -14,32 +14,27 @@
  * limitations under the License.
  */
 
-output "bindings_by_role" {
-  value       = local.bindings_by_role
-  description = "List of bindings for entities unwinded by roles."
-}
-
 output "bindings_by_member" {
   value       = local.bindings_by_member
   description = "List of bindings for entities unwinded by members."
 }
 
-output "for_each_authoritative" {
-  value       = local.for_each_authoritative
-  description = "Map of bindings for entities unwinded by roles."
+output "set_authoritative" {
+  value       = local.set_authoritative
+  description = "A set of authoritative binding keys (from bindings_authoritative) to be used in for_each. Unwinded by roles."
 }
 
-output "for_each_additive" {
-  value       = local.for_each_additive
-  description = "Map of bindings for entities unwinded by members."
+output "set_additive" {
+  value       = local.set_additive
+  description = "A set of additive binding keys (from bindings_additive) to be used in for_each. Unwinded by members."
 }
 
-output "count_authoritative" {
-  value       = local.count_authoritative
-  description = "Count of authoritative iam rules to apply. 0 for non-authoritative mode."
+output "bindings_authoritative" {
+  value       = local.bindings_authoritative
+  description = "Map of authoritative bindings for entities. Unwinded by roles."
 }
 
-output "count_additive" {
-  value       = local.count_additive
-  description = "Count of additive iam rules to apply. 0 for non-additive mode."
+output "bindings_additive" {
+  value       = local.bindings_additive
+  description = "Map of additive bindings for entities. Unwinded by members."
 }

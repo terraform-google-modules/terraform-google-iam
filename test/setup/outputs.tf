@@ -44,3 +44,8 @@ output "member2" {
   value       = google_service_account.member[1].email
   description = "Members created for binding with roles."
 }
+
+output "random_hexes" {
+  value       = random_id.random_hexes[*].hex
+  description = "List of pre-generated random id hexes. Required for 'for_each' to work when testing static scerarios."
+}
