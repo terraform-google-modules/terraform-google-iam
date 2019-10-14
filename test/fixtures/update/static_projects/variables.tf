@@ -14,24 +14,32 @@
  * limitations under the License.
  */
 
-variable "project" {
-  description = "Project to add the IAM policies/bindings"
-  default     = ""
+variable "folder_id" {
   type        = string
+  description = "Folder to create resources in, e.g. folders/12345678"
 }
 
-variable "projects" {
-  description = "Projects list to add the IAM policies/bindings"
-  default     = []
+variable "billing_account" {
+  type        = string
+  description = "Billing account to associate created projects with."
+}
+
+variable "random_hexes" {
   type        = list(string)
+  description = "List of pre-generated random id hexes. Required for 'for_each' to work when testing static scerarios."
 }
 
 variable "mode" {
+  type        = string
   description = "Mode for adding the IAM policies/bindings, additive and authoritative"
-  default     = "additive"
 }
 
-variable "bindings" {
-  description = "Map of role (key) and list of members (value) to add the IAM policies/bindings"
-  type        = map(list(string))
+variable "n" {
+  type        = number
+  description = "Amount of projects to create"
+}
+
+variable "prefix" {
+  type        = string
+  description = "Prefix for the project name"
 }

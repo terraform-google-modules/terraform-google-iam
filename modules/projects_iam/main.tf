@@ -20,10 +20,8 @@
 module "helper" {
   source       = "../helper"
   bindings     = var.bindings
-  bindings_num = var.bindings_num
   mode         = var.mode
   entities     = var.projects == [] ? [var.project] : var.projects
-  entities_num = var.projects_num
 }
 
 /******************************************

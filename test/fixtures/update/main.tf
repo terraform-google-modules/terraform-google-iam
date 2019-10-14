@@ -15,9 +15,17 @@
  */
 
 locals {
-  n           = 2
-  mode        = "authoritative"
-  prefix      = "test-iam"
+  static_n  = 2
+  dynamic_n = 1 # Dynamic mode supports only 1 entity atm.
+  mode      = "authoritative"
+  prefix    = "test-iam"
+
+  # TODO: Temporary. Have to change it manually after each destroy
+  #       since project names stay reserved even after deletion.
+  #       Used to test static IAM. We can get rid of it if
+  #       we make a 2 step converge process with the var.random_hexes
+  #       generation being the first step.
+  uniqSuffix = "prj6"
 
   member_group_0 = [
     "serviceAccount:${var.member1}",
@@ -34,68 +42,63 @@ locals {
 
     # Uncomment the following role and re`converge` to test
     # whether some resources were recreated.
-    # For `static` only new resources should be added.
-    # For `dynamic` some resources will be forced to be recreated.
+    # Expectation is that no resource are gonna be recreated, but only
+    # new ones added.
     # "roles/iam.securityReviewer" = local.member_group_0
   }
 }
 
 # Authoritative Static
 
-locals {
-  authoritative_static_project_ids = [
-    for i in range(local.n)
-    : "${local.prefix}-prj2-auth-st-${i}-${var.random_hexes[i]}"
-  ]
-}
-
-resource "google_project" "authoritative_static" {
-  count = local.n
-
-  project_id      = local.authoritative_static_project_ids[count.index]
+module "authoritative_static_projects" {
+  source          = "./static_projects"
+  mode            = "authoritative"
   folder_id       = var.folder_id
-  name            = "Test IAM Project Auth St ${count.index}"
   billing_account = var.billing_account
+  random_hexes    = var.random_hexes
+  prefix          = "${local.prefix}-${local.uniqSuffix}"
+  n               = local.static_n
 }
 
 module "projects_iam_authoritative_static" {
   source   = "../../../modules/projects_iam"
-  mode     = "authoritative"
-  projects = local.authoritative_static_project_ids
+  mode     = module.authoritative_static_projects.mode
+  projects = module.authoritative_static_projects.ids
   bindings = local.project_bindings
 }
 
 # Additive Static
 
-locals {
-  additive_static_project_ids = [
-    for i in range(local.n)
-    : "${local.prefix}-prj2-add-st-${i}-${var.random_hexes[i]}"
-  ]
-}
-
-resource "google_project" "additive_static" {
-  count = local.n
-
-  project_id      = local.additive_static_project_ids[count.index]
+module "additive_static_projects" {
+  source          = "./static_projects"
+  mode            = "additive"
   folder_id       = var.folder_id
-  name            = "Test IAM Project Add St ${count.index}"
   billing_account = var.billing_account
+  random_hexes    = var.random_hexes
+  prefix          = "${local.prefix}-${local.uniqSuffix}"
+  n               = local.static_n
 }
 
 module "projects_iam_additive_static" {
   source   = "../../../modules/projects_iam"
-  mode     = "additive"
-  projects = local.additive_static_project_ids
+  mode     = module.authoritative_static_projects.mode
+  projects = module.additive_static_projects.ids
   bindings = local.project_bindings
+}
+
+# Random ids for dynamic projects
+
+resource "random_id" "test" {
+  count       = local.dynamic_n
+  byte_length = 2
 }
 
 # Authoritative Dynamic
 
 resource "google_project" "authoritative_dynamic" {
-  count = local.n
+  count = local.dynamic_n
 
-  project_id      = "${local.prefix}-prj2-auth-dy-${count.index}-${var.random_hexes[count.index]}"
+  project_id      = "${local.prefix}-auth-dy-${count.index}-${random_id.test[count.index].hex}"
   folder_id       = var.folder_id
   name            = "Test IAM Project Auth Dy ${count.index}"
   billing_account = var.billing_account
@@ -106,16 +109,14 @@ module "projects_iam_authoritative_dynamic" {
   mode         = "authoritative"
   projects     = google_project.authoritative_dynamic[*].project_id
   bindings     = local.project_bindings
-  projects_num = length(google_project.authoritative_dynamic[*].project_id)
-  bindings_num = length(local.project_bindings)
 }
 
 # Additive Dynamic
 
 resource "google_project" "additive_dynamic" {
-  count = local.n
+  count = local.dynamic_n
 
-  project_id      = "${local.prefix}-prj2-add-dy-${count.index}-${var.random_hexes[count.index]}"
+  project_id      = "${local.prefix}-add-dy-${count.index}-${random_id.test[count.index].hex}"
   folder_id       = var.folder_id
   name            = "Test IAM Project Add Dy ${count.index}"
   billing_account = var.billing_account
@@ -126,12 +127,6 @@ module "projects_iam_additive_dynamic" {
   mode         = "additive"
   projects     = google_project.additive_dynamic[*].project_id
   bindings     = local.project_bindings
-  projects_num = length(google_project.additive_dynamic[*].project_id)
-
-  bindings_num = length(flatten([
-    for role, members in local.project_bindings
-    : [for member in members : true]
-  ]))
 }
 
 # Providers

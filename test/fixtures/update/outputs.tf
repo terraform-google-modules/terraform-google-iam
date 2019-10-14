@@ -17,12 +17,12 @@
 # Resources
 
 output "authoritative_static_projects" {
-  value       = google_project.authoritative_static[*].project_id
+  value       = module.authoritative_static_projects.ids
   description = "Projects created for bindings."
 }
 
 output "additive_static_projects" {
-  value       = google_project.additive_static[*].project_id
+  value       = module.additive_static_projects.ids
   description = "Projects created for bindings."
 }
 

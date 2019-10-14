@@ -18,20 +18,18 @@ locals {
   authoritative = var.mode == "authoritative"
   additive      = var.mode == "additive"
 
-  # When there are *_num specified, consider the module configuration
-  # dynamic. In this case the `for_each` will basically work as
-  # a polyfill for `count`
+  # When there is only one entity, consider that the entity passed
+  # might be dynamic. In this case the `for_each` will not use
+  # entity name when constructing the unique ID.
   #
-  # The downside of the dynamic mode is that we can't guarantee the
-  # resources being reused whenever the configuration changes.
-  # Which leads to unnecessary resource recreations.
-  dynamic = var.entities_num > 0 || var.bindings_num > 0
+  # Other rules regrading the dynamic nature of resources:
+  # 1. The roles might never be dynamic.
+  # 2. Members might only be dynamic in `authoritative` mode.
+  singular = length(var.entities) == 1
 
-  calculated_entities_num = (
-    var.entities_num > 0
-    ? var.entities_num
-    : length(var.entities)
-  )
+  # In singular mode, replace entity name with a constant "default". This
+  # will prevent the potentially dynamic resource name usage in the `for_each`
+  aliased_entities = local.singular ? ["default"] : var.entities
 
   bindings_by_role = distinct(flatten([
     for name in var.entities
@@ -49,46 +47,39 @@ locals {
     ]
   ]))
 
-  total_roles = (
-    var.bindings_num > 0
-    ? var.bindings_num * local.calculated_entities_num
-    : length(local.bindings_by_role)
-  )
-
-  total_members = (
-    var.bindings_num > 0
-    ? var.bindings_num * local.calculated_entities_num
-    : length(local.bindings_by_member)
-  )
-
-  keys_authoritative = (
-    local.dynamic
-    # [dynamic] fallback for_each to a simple list of indexes
-    ? [for i in range(local.total_roles) : tostring(i)]
-    # [static] generate unique ids which are resilient to updates
+  keys_authoritative = distinct(flatten([
+    for alias in local.aliased_entities
     : [
-      for binding in local.bindings_by_role
-      : "${binding["name"]}--${binding["role"]}"
+      for role in keys(var.bindings)
+      : "${alias}--${role}"
     ]
-  )
+  ]))
 
-  keys_additive = (
-    local.dynamic
-    # [dynamic] fallback for_each to a simple list of indexes
-    ? [for i in range(local.total_members) : tostring(i)]
-    # [static] generate unique ids which are resilient to updates
+  keys_additive = distinct(flatten([
+    for alias in local.aliased_entities
     : [
-      for binding in local.bindings_by_member
-      : "${binding["name"]}--${binding["role"]}--${binding["member"]}"
+      for role, members in var.bindings
+      : [
+        for member in members
+        : "${alias}--${role}--${member}"
+      ]
     ]
-  )
+  ]))
 
+  # TODO: Refactor this to force the order somehow.
+  #       If you are to change the algo of generating `keys_authoritative`
+  #       or `bindings_by_role`, you have to make sure that the order
+  #       of the elements inside them matches.
   bindings_authoritative = (
     local.authoritative
     ? zipmap(local.keys_authoritative, local.bindings_by_role)
     : {}
   )
 
+  # TODO: Refactor this to force the order somehow.
+  #       If you are to change the algo of generating `keys_additive`
+  #       or `bindings_by_member`, you have to make sure that the order
+  #       of the elements inside them matches.
   bindings_additive = (
     local.additive
     ? zipmap(local.keys_additive, local.bindings_by_member)
@@ -97,9 +88,7 @@ locals {
 
   # It is important to provide a set for the `for_each` instead of
   # the map, since we have to guarantee that the `for_each`
-  # expression is resolved synchonously. And we have to workaround
-  # the potential dependency on dynamic resource values by polyfilling
-  # the `for_each` with `count`-like list of indexes.
+  # expression is resolved synchonously.
   set_authoritative = (
     local.authoritative
     ? toset(local.keys_authoritative)
