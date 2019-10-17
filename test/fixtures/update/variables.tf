@@ -43,3 +43,15 @@ variable "random_hexes" {
   type        = list(string)
   description = "List of pre-generated random id hexes. Required for 'for_each' to work when testing static scerarios."
 }
+
+variable "prefix" {
+  type        = string
+  default     = "prj"
+  description = "Unique string to use as an additional prefix for project name generation. Useful for local testing to rerun the tests without redoing the 'setup' step all over."
+}
+
+variable "roles" {
+  type        = number
+  default     = 2
+  description = "Amount of roles to assign. Useful for testing how the module behaves on updates."
+}

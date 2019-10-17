@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TODO: Get pure integer number from attributes.
+roles = attribute('roles').to_i
+
 project_groups = [
   # Resource pairs (arrays of length = 2)
   attribute('authoritative_static_projects'),
@@ -34,11 +37,9 @@ for projects in project_groups do
 
     for project in projects do
       describe project_bindings(project) do
-        it { should include role: 'roles/iam.roleViewer', members: member_groups[0] }
-        it { should include role: 'roles/logging.viewer', members: member_groups[1] }
-
-        # Uncomment the following line to test the addition of 3rd role
-        # it { should include role: 'roles/iam.securityReviewer', members: member_groups[0] }
+        it { should include role: 'roles/iam.roleViewer', members: member_groups[0] } if roles >= 1
+        it { should include role: 'roles/logging.viewer', members: member_groups[1] } if roles >= 2
+        it { should include role: 'roles/iam.securityReviewer', members: member_groups[0] } if roles >= 3
       end
     end
   end

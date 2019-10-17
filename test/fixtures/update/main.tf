@@ -20,13 +20,6 @@ locals {
   mode      = "authoritative"
   prefix    = "test-iam"
 
-  # TODO: Temporary. Have to change it manually after each destroy
-  #       since project names stay reserved even after deletion.
-  #       Used to test static IAM. We can get rid of it if
-  #       we make a 2 step converge process with the var.random_hexes
-  #       generation being the first step.
-  uniqSuffix = "prj6"
-
   member_group_0 = [
     "serviceAccount:${var.member1}",
   ]
@@ -36,16 +29,18 @@ locals {
     "serviceAccount:${var.member2}"
   ]
 
-  project_bindings = {
-    "roles/iam.roleViewer" = local.member_group_0
-    "roles/logging.viewer" = local.member_group_1
-
-    # Uncomment the following role and re`converge` to test
-    # whether some resources were recreated.
-    # Expectation is that no resource are gonna be recreated, but only
-    # new ones added.
-    # "roles/iam.securityReviewer" = local.member_group_0
-  }
+  project_bindings = zipmap(
+    slice([
+      "roles/iam.roleViewer",
+      "roles/logging.viewer",
+      "roles/iam.securityReviewer"
+    ], 0, var.roles),
+    slice([
+      local.member_group_0,
+      local.member_group_1,
+      local.member_group_0
+    ], 0, var.roles)
+  )
 }
 
 # Authoritative Static
@@ -56,7 +51,7 @@ module "authoritative_static_projects" {
   folder_id       = var.folder_id
   billing_account = var.billing_account
   random_hexes    = var.random_hexes
-  prefix          = "${local.prefix}-${local.uniqSuffix}"
+  prefix          = "${local.prefix}-${var.prefix}"
   n               = local.static_n
 }
 
@@ -75,7 +70,7 @@ module "additive_static_projects" {
   folder_id       = var.folder_id
   billing_account = var.billing_account
   random_hexes    = var.random_hexes
-  prefix          = "${local.prefix}-${local.uniqSuffix}"
+  prefix          = "${local.prefix}-${var.prefix}"
   n               = local.static_n
 }
 

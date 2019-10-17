@@ -18,10 +18,10 @@
   Run helper module to get generic calculated data
  *****************************************/
 module "helper" {
-  source       = "../helper"
-  bindings     = var.bindings
-  mode         = var.mode
-  entities     = var.projects == [] ? [var.project] : var.projects
+  source   = "../helper"
+  bindings = var.bindings
+  mode     = var.mode
+  entities = var.projects == [] ? [var.project] : var.projects
 }
 
 /******************************************

@@ -45,14 +45,11 @@ member_groups = [
 control 'folder-bindings' do
   title 'Test folder bindings are correct'
 
-  describe folder_bindings(folders[0]) do
-    it { should include role: folder_roles[0], members: member_groups[0] }
-    it { should include role: folder_roles[1], members: member_groups[1] }
-  end
-
-  describe folder_bindings(folders[1]) do
-    it { should include role: folder_roles[0], members: member_groups[0] }
-    it { should include role: folder_roles[1], members: member_groups[1] }
+  for folder in folders do
+    describe folder_bindings(folder) do
+      it { should include role: folder_roles[0], members: member_groups[0] }
+      it { should include role: folder_roles[1], members: member_groups[1] }
+    end
   end
 end
 
@@ -61,14 +58,11 @@ end
 control 'subnet-bindings' do
   title 'Test subnets bindings are correct'
 
-  describe subnet_bindings(subnets[0], project_id, region) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
-
-  describe subnet_bindings(subnets[1], project_id, region) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+  for subnet in subnets do
+    describe subnet_bindings(subnet, project_id, region) do
+      it { should include role: basic_roles[0], members: member_groups[0] }
+      it { should include role: basic_roles[1], members: member_groups[1] }
+    end
   end
 end
 
@@ -77,14 +71,11 @@ end
 control 'bucket-bindings' do
   title 'Test bucket bindings are correct'
 
-  describe bucket_bindings(buckets[0], projects[0]) do
-    it { should include role: bucket_roles[0], members: member_groups[0] }
-    it { should include role: bucket_roles[1], members: member_groups[1] }
-  end
-
-  describe bucket_bindings(buckets[1], projects[0]) do
-    it { should include role: bucket_roles[0], members: member_groups[0] }
-    it { should include role: bucket_roles[1], members: member_groups[1] }
+  for bucket in buckets do
+    describe bucket_bindings(bucket, projects[0]) do
+      it { should include role: bucket_roles[0], members: member_groups[0] }
+      it { should include role: bucket_roles[1], members: member_groups[1] }
+    end
   end
 end
 
@@ -93,14 +84,11 @@ end
 control 'project-bindings' do
   title 'Test projects bindings are correct'
 
-  describe project_bindings(projects[0]) do
-    it { should include role: project_roles[0], members: member_groups[0] }
-    it { should include role: project_roles[1], members: member_groups[1] }
-  end
-
-  describe project_bindings(projects[1]) do
-    it { should include role: project_roles[0], members: member_groups[0] }
-    it { should include role: project_roles[1], members: member_groups[1] }
+  for project in projects do
+    describe project_bindings(project) do
+      it { should include role: project_roles[0], members: member_groups[0] }
+      it { should include role: project_roles[1], members: member_groups[1] }
+    end
   end
 end
 
@@ -109,14 +97,11 @@ end
 control 'service-account-bindings' do
   title 'Test service accounts bindings are correct'
 
-  describe service_account_bindings(service_accounts[0]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
-
-  describe service_account_bindings(service_accounts[1]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+  for service_account in service_accounts do
+    describe service_account_bindings(service_account) do
+      it { should include role: basic_roles[0], members: member_groups[0] }
+      it { should include role: basic_roles[1], members: member_groups[1] }
+    end
   end
 end
 
@@ -125,14 +110,11 @@ end
 control 'key-ring-bindings' do
   title 'Test key rings bindings are correct'
 
-  describe key_ring_bindings(key_rings[0]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
-
-  describe key_ring_bindings(key_rings[1]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+  for key_ring in key_rings do
+    describe key_ring_bindings(key_ring) do
+      it { should include role: basic_roles[0], members: member_groups[0] }
+      it { should include role: basic_roles[1], members: member_groups[1] }
+    end
   end
 end
 
@@ -141,14 +123,11 @@ end
 control 'key-bindings' do
   title 'Test keys bindings are correct'
 
-  describe key_bindings(keys[0]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
-
-  describe key_bindings(keys[1]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+  for key in keys do
+    describe key_bindings(key) do
+      it { should include role: basic_roles[0], members: member_groups[0] }
+      it { should include role: basic_roles[1], members: member_groups[1] }
+    end
   end
 end
 
@@ -157,14 +136,11 @@ end
 control 'topic-bindings' do
   title 'Test pubsub topics bindings are correct'
 
-  describe topic_bindings(topics[0], project_id) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
-
-  describe topic_bindings(topics[1], project_id) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+  for topic in topics do
+    describe topic_bindings(topic, project_id) do
+      it { should include role: basic_roles[0], members: member_groups[0] }
+      it { should include role: basic_roles[1], members: member_groups[1] }
+    end
   end
 end
 
@@ -173,13 +149,10 @@ end
 control 'subscription-bindings' do
   title 'Test pubsub subscriptions bindings are correct'
 
-  describe subscription_bindings(subscriptions[0], project_id) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
-
-  describe subscription_bindings(subscriptions[1], project_id) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+  for subscription in subscriptions do
+    describe subscription_bindings(subscription, project_id) do
+      it { should include role: basic_roles[0], members: member_groups[0] }
+      it { should include role: basic_roles[1], members: member_groups[1] }
+    end
   end
 end

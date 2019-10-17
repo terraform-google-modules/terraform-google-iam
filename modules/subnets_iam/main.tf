@@ -18,34 +18,32 @@
   Run helper module to get generic calculated data
  *****************************************/
 module "helper" {
-  source       = "../helper"
-  bindings     = var.bindings
-  bindings_num = var.bindings_num
-  mode         = var.mode
-  entities     = var.subnets
-  entities_num = var.subnets_num
+  source   = "../helper"
+  bindings = var.bindings
+  mode     = var.mode
+  entities = var.subnets
 }
 
 /******************************************
   Compute Subnetwork IAM binding authoritative
  *****************************************/
 resource "google_compute_subnetwork_iam_binding" "subnet_iam_authoritative" {
-  count      = module.helper.count_authoritative
+  for_each   = module.helper.set_authoritative
   project    = var.project
   region     = var.subnets_region
-  subnetwork = module.helper.bindings_by_role[count.index].name
-  role       = module.helper.bindings_by_role[count.index].role
-  members    = module.helper.bindings_by_role[count.index].members
+  subnetwork = module.helper.bindings_authoritative[each.key].name
+  role       = module.helper.bindings_authoritative[each.key].role
+  members    = module.helper.bindings_authoritative[each.key].members
 }
 
 /******************************************
   Compute Subnetwork IAM binding additive
  *****************************************/
 resource "google_compute_subnetwork_iam_member" "subnet_iam_additive" {
-  count      = module.helper.count_additive
+  for_each   = module.helper.set_additive
   project    = var.project
   region     = var.subnets_region
-  subnetwork = module.helper.bindings_by_member[count.index].name
-  role       = module.helper.bindings_by_member[count.index].role
-  member     = module.helper.bindings_by_member[count.index].member
+  subnetwork = module.helper.bindings_additive[each.key].name
+  role       = module.helper.bindings_additive[each.key].role
+  member     = module.helper.bindings_additive[each.key].member
 }

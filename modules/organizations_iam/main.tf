@@ -18,30 +18,28 @@
   Run helper module to get generic calculated data
  *****************************************/
 module "helper" {
-  source       = "../helper"
-  bindings     = var.bindings
-  bindings_num = var.bindings_num
-  mode         = var.mode
-  entities     = var.organizations
-  entities_num = var.organizations_num
+  source   = "../helper"
+  bindings = var.bindings
+  mode     = var.mode
+  entities = var.organizations
 }
 
 /******************************************
   Organization IAM binding authoritative
  *****************************************/
 resource "google_organization_iam_binding" "organization_iam_authoritative" {
-  count   = module.helper.count_authoritative
-  org_id  = module.helper.bindings_by_role[count.index].name
-  role    = module.helper.bindings_by_role[count.index].role
-  members = module.helper.bindings_by_role[count.index].members
+  for_each = module.helper.set_authoritative
+  org_id   = module.helper.bindings_authoritative[each.key].name
+  role     = module.helper.bindings_authoritative[each.key].role
+  members  = module.helper.bindings_authoritative[each.key].members
 }
 
 /******************************************
   Organization IAM binding additive
  *****************************************/
 resource "google_organization_iam_member" "organization_iam_additive" {
-  count  = module.helper.count_additive
-  org_id = module.helper.bindings_by_member[count.index].name
-  role   = module.helper.bindings_by_member[count.index].role
-  member = module.helper.bindings_by_member[count.index].member
+  for_each = module.helper.set_additive
+  org_id   = module.helper.bindings_additive[each.key].name
+  role     = module.helper.bindings_additive[each.key].role
+  member   = module.helper.bindings_additive[each.key].member
 }

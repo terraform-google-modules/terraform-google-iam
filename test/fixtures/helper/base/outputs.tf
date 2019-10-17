@@ -21,8 +21,7 @@ output "projects" {
 
 output "folders" {
   value = [
-    replace(google_folder.test[0].name, "folders/", ""),
-    replace(google_folder.test[1].name, "folders/", ""),
+    replace(google_folder.test[0].name, "folders/", "")
   ]
 
   description = "Folders created for bindings."
@@ -72,4 +71,3 @@ output "bindings_number" {
   value       = local.n
   description = "Number of each type of bindings, created for the test fixture."
 }
-

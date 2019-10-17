@@ -19,12 +19,6 @@ variable "kms_crypto_keys" {
   type        = list(string)
 }
 
-variable "kms_crypto_keys_num" {
-  description = "Number of KMS crypto keys, in case using dependencies of other resources' outputs"
-  default     = 0
-  type        = number
-}
-
 variable "mode" {
   description = "Mode for adding the IAM policies/bindings, additive and authoritative"
   type        = string
@@ -34,10 +28,4 @@ variable "mode" {
 variable "bindings" {
   description = "Map of role (key) and list of members (value) to add the IAM policies/bindings"
   type        = map(list(string))
-}
-
-variable "bindings_num" {
-  description = "Number of bindings, in case using dependencies of other resources' outputs"
-  default     = 0
-  type        = number
 }
