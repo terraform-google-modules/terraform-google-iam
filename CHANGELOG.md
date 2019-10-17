@@ -10,7 +10,11 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
-## [2.1.0] - 2019-YY-ZZ
+### Fixed
+
+- Authoritative bindings are correctly applied. [#61]
+
+## [3.0.0] - 2019-09-26
 
 ### Added
 
@@ -64,7 +68,8 @@ management.
 [subnet-example]: examples/subnet
 [usage-example]: README.md#usage
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.1.1...v2.0.0
 [1.1.1]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.0.0...v1.1.0
@@ -81,3 +86,4 @@ management.
 [#29]: https://github.com/terraform-google-modules/terraform-google-iam/pull/29
 [#32]: https://github.com/terraform-google-modules/terraform-google-iam/pull/32
 [#43]: https://github.com/terraform-google-modules/terraform-google-iam/pull/43
+[#61]: https://github.com/terraform-google-modules/terraform-google-iam/pull/61

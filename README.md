@@ -9,13 +9,20 @@ This module is meant for use with Terraform 0.12. If you haven't
 version of this module, the last released version intended for Terraform 0.11.x
 is [1.1.1][v1.1.1].
 
+## Upgrading
+
+The following guides are available to assist with upgrades:
+
+- [2.0 -> 3.0](./docs/upgrading_to_iam_3.0.md)
+
 ## Usage
 
 Full examples are in the [examples](./examples/) folder, but basic usage is as follows for managing roles on two projects:
 
 ```hcl
-module "iam_binding" {
-  source = "terraform-google-modules/iam/google"
+module "projects_iam_bindings" {
+  source  = "terraform-google-modules/iam/google//modules/projects_iam"
+  version = "~> 3.0"
 
   projects = ["project-123456", "project-9876543"]
 
@@ -40,8 +47,10 @@ module "iam_binding" {
 The module also offers an **authoritative** mode which will remove all roles not assigned through Terraform. This is an example of using the authoritative mode to manage access to a storage bucket:
 
 ```hcl
-module "storage_buckets_iam_binding" {
-  source          = "terraform-google-modules/iam/google"
+module "storage_buckets_iam_bindings" {
+  source  = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
+  version = "~> 3.0"
+
   storage_buckets = ["my-storage-bucket"]
 
   mode = "authoritative"
