@@ -100,10 +100,10 @@ resource "google_project" "authoritative_dynamic" {
 }
 
 module "projects_iam_authoritative_dynamic" {
-  source       = "../../../modules/projects_iam"
-  mode         = "authoritative"
-  projects     = google_project.authoritative_dynamic[*].project_id
-  bindings     = local.project_bindings
+  source   = "../../../modules/projects_iam"
+  mode     = "authoritative"
+  projects = google_project.authoritative_dynamic[*].project_id
+  bindings = local.project_bindings
 }
 
 # Additive Dynamic
@@ -118,10 +118,10 @@ resource "google_project" "additive_dynamic" {
 }
 
 module "projects_iam_additive_dynamic" {
-  source       = "../../../modules/projects_iam"
-  mode         = "additive"
-  projects     = google_project.additive_dynamic[*].project_id
-  bindings     = local.project_bindings
+  source   = "../../../modules/projects_iam"
+  mode     = "additive"
+  projects = google_project.additive_dynamic[*].project_id
+  bindings = local.project_bindings
 }
 
 # Providers
