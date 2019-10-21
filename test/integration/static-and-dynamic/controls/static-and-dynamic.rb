@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO: Get pure integer number from attributes.
+# TODO: Get pure integer number from attributes (bug in InSpec).
+# Roles amount are used to test how the module behaves on configuration updates.
 roles = attribute('roles').to_i
 
 project_groups = [

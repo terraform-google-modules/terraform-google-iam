@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TODO: Get pure integer number from attributes (bug in InSpec).
+# Roles amount are used to test how the module behaves on configuration updates.
+roles = attribute('roles').to_i
+
 # Fixture project as managed in cloud-foundation-toolkit/infra
 project_id = attribute('project_id')
 
@@ -47,8 +51,8 @@ control 'folder-bindings' do
 
   for folder in folders do
     describe folder_bindings(folder) do
-      it { should include role: folder_roles[0], members: member_groups[0] }
-      it { should include role: folder_roles[1], members: member_groups[1] }
+      it { should include role: folder_roles[0], members: member_groups[0] } if roles >= 1
+      it { should include role: folder_roles[1], members: member_groups[1] } if roles >= 2
     end
   end
 end
@@ -60,8 +64,8 @@ control 'subnet-bindings' do
 
   for subnet in subnets do
     describe subnet_bindings(subnet, project_id, region) do
-      it { should include role: basic_roles[0], members: member_groups[0] }
-      it { should include role: basic_roles[1], members: member_groups[1] }
+      it { should include role: basic_roles[0], members: member_groups[0] } if roles >= 1
+      it { should include role: basic_roles[1], members: member_groups[1] } if roles >= 2
     end
   end
 end
@@ -73,10 +77,10 @@ control 'bucket-bindings' do
 
   for bucket in buckets do
     describe bucket_bindings(bucket, projects[0]) do
-      it { should include role: bucket_roles[0], members: member_groups[0] }
+      it { should include role: bucket_roles[0], members: member_groups[0] } if roles >= 1
       # in additive mode role 'roles/storage.legacyBucketReader' (which is being tested here)
       # has a `projectViewer:#{seed_project_id}` member assigned to it by default
-      it { should include role: bucket_roles[1], members: ["projectViewer:#{project_id}"] + member_groups[1] }
+      it { should include role: bucket_roles[1], members: ["projectViewer:#{project_id}"] + member_groups[1] }  if roles >= 2
     end
   end
 end
@@ -88,8 +92,8 @@ control 'project-bindings' do
 
   for project in projects do
     describe project_bindings(project) do
-      it { should include role: project_roles[0], members: member_groups[0] }
-      it { should include role: project_roles[1], members: member_groups[1] }
+      it { should include role: project_roles[0], members: member_groups[0] } if roles >= 1
+      it { should include role: project_roles[1], members: member_groups[1] } if roles >= 2
     end
   end
 end
@@ -101,8 +105,8 @@ control 'service-account-bindings' do
 
   for service_account in service_accounts do
     describe service_account_bindings(service_account) do
-      it { should include role: basic_roles[0], members: member_groups[0] }
-      it { should include role: basic_roles[1], members: member_groups[1] }
+      it { should include role: basic_roles[0], members: member_groups[0] } if roles >= 1
+      it { should include role: basic_roles[1], members: member_groups[1] } if roles >= 2
     end
   end
 end
@@ -114,8 +118,8 @@ control 'key-ring-bindings' do
 
   for key_ring in key_rings do
     describe key_ring_bindings(key_ring) do
-      it { should include role: basic_roles[0], members: member_groups[0] }
-      it { should include role: basic_roles[1], members: member_groups[1] }
+      it { should include role: basic_roles[0], members: member_groups[0] } if roles >= 1
+      it { should include role: basic_roles[1], members: member_groups[1] } if roles >= 2
     end
   end
 end
@@ -127,8 +131,8 @@ control 'key-bindings' do
 
   for key in keys do
     describe key_bindings(key) do
-      it { should include role: basic_roles[0], members: member_groups[0] }
-      it { should include role: basic_roles[1], members: member_groups[1] }
+      it { should include role: basic_roles[0], members: member_groups[0] } if roles >= 1
+      it { should include role: basic_roles[1], members: member_groups[1] } if roles >= 2
     end
   end
 end
@@ -140,8 +144,8 @@ control 'topic-bindings' do
 
   for topic in topics do
     describe topic_bindings(topic, project_id) do
-      it { should include role: basic_roles[0], members: member_groups[0] }
-      it { should include role: basic_roles[1], members: member_groups[1] }
+      it { should include role: basic_roles[0], members: member_groups[0] } if roles >= 1
+      it { should include role: basic_roles[1], members: member_groups[1] } if roles >= 2
     end
   end
 end
@@ -153,8 +157,8 @@ control 'subscription-bindings' do
 
   for subscription in subscriptions do
     describe subscription_bindings(subscription, project_id) do
-      it { should include role: basic_roles[0], members: member_groups[0] }
-      it { should include role: basic_roles[1], members: member_groups[1] }
+      it { should include role: basic_roles[0], members: member_groups[0] } if roles >= 1
+      it { should include role: basic_roles[1], members: member_groups[1] } if roles >= 2
     end
   end
 end

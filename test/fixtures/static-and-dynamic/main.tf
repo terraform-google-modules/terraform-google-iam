@@ -20,6 +20,8 @@ locals {
   mode      = "authoritative"
   prefix    = "test-iam"
 
+  project_roles = ["roles/iam.roleViewer", "roles/logging.viewer", "roles/iam.securityReviewer"]
+
   member_group_0 = [
     "serviceAccount:${var.member1}",
   ]
@@ -29,17 +31,11 @@ locals {
     "serviceAccount:${var.member2}"
   ]
 
+  member_groups = [local.member_group_0, local.member_group_1, local.member_group_0]
+
   project_bindings = zipmap(
-    slice([
-      "roles/iam.roleViewer",
-      "roles/logging.viewer",
-      "roles/iam.securityReviewer"
-    ], 0, var.roles),
-    slice([
-      local.member_group_0,
-      local.member_group_1,
-      local.member_group_0
-    ], 0, var.roles)
+    slice(local.project_roles, 0, var.roles),
+    slice(local.member_groups, 0, var.roles)
   )
 }
 

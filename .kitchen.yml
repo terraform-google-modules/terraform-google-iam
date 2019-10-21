@@ -20,6 +20,11 @@ platforms:
   - name: local
 
 suites:
+  # NOTE: In any test suite you can provide TF_VAR_roles=1 to test
+  #       with only 1 role in bindings. This way you can `converge` and `verify`
+  #       multiple times with roles being 2 and 1 to test how the module
+  #       behaves on configuration updates. This approach is used in the CI
+  #       `/build/int.cloudbuild.yaml`
 
   # Test all IAM modules in `additive` mode
   - name: additive
@@ -49,20 +54,20 @@ suites:
     provisioner:
       name: terraform
 
-  # Test how terraform performs updates on an iam module
-  # TODO: This doen't test the actual updating process yet
-  #       and only being used as the playground to debug
-  #       the updates manually by changing fixtures and
-  #       debugging with `terraform plan`
-  - name: update
+  # Test projects IAM on how the module behaves
+  # in static mode (when all resources are statically defined)
+  # and in dynamic mode (when module params are obtained asynchronously
+  # from other resources)
+  # This suite supports specifying 1 to 3 for TF_VAR_roles
+  - name: static-and-dynamic
     driver:
       name: terraform
       command_timeout: 1800
-      root_module_directory: test/fixtures/update
+      root_module_directory: test/fixtures/static-and-dynamic
     verifier:
       name: terraform
       systems:
-        - name: update
+        - name: static-and-dynamic
           backend: local
     provisioner:
       name: terraform

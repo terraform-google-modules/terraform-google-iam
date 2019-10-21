@@ -33,31 +33,35 @@ locals {
     "serviceAccount:${var.member2}",
   ]
 
-  basic_bindings = "${map(
-    local.basic_roles[0], local.member_group_0,
-    local.basic_roles[1], local.member_group_1,
-  )}"
+  member_groups = [local.member_group_0, local.member_group_1]
 
-  org_bindings = "${map(
-    local.org_roles[0], local.member_group_0,
-    local.org_roles[1], local.member_group_1,
-  )}"
+  # 1 or 2 roles amount can be specified to generate that amount of bindings.
+  # This variability is used to test how the module behaves on configuration updates.
 
-  folder_bindings = "${map(
-    local.folder_roles[0], local.member_group_0,
-    local.folder_roles[1], local.member_group_1,
-  )}"
+  basic_bindings = zipmap(
+    slice(local.basic_roles, 0, var.roles),
+    slice(local.member_groups, 0, var.roles)
+  )
 
-  project_bindings = "${map(
-    local.project_roles[0], local.member_group_0,
-    local.project_roles[1], local.member_group_1,
-  )}"
+  org_bindings = zipmap(
+    slice(local.org_roles, 0, var.roles),
+    slice(local.member_groups, 0, var.roles)
+  )
 
-  bucket_bindings = "${map(
-    local.bucket_roles[0], local.member_group_0,
-    local.bucket_roles[1], local.member_group_1,
-  )}"
+  folder_bindings = zipmap(
+    slice(local.folder_roles, 0, var.roles),
+    slice(local.member_groups, 0, var.roles)
+  )
 
+  project_bindings = zipmap(
+    slice(local.project_roles, 0, var.roles),
+    slice(local.member_groups, 0, var.roles)
+  )
+
+  bucket_bindings = zipmap(
+    slice(local.bucket_roles, 0, var.roles),
+    slice(local.member_groups, 0, var.roles)
+  )
 }
 
 provider "google" {

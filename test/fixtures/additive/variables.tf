@@ -44,3 +44,9 @@ variable "member2" {
   type        = string
   description = "Member created for binding with roles."
 }
+
+variable "roles" {
+  type        = number
+  default     = 2
+  description = "Amount of roles to assign. Useful for testing how the module behaves on updates."
+}

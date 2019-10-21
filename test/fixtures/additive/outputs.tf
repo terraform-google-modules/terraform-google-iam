@@ -114,3 +114,10 @@ output "project_id" {
   value       = module.generic.project_id
   description = "Project ID of the test fixture project. Used to avoid timing issues with recently created projects."
 }
+
+output "roles" {
+  # TODO: This has to be pure integer, but InSpec attributes don't seem
+  #       to support neither of the types number, integer, int, float, double
+  value       = tostring(var.roles)
+  description = "Amount of roles assigned. Useful for testing how the module behaves on updates."
+}
