@@ -10,9 +10,15 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
+### Changed
+
+- Remove `*_num` options. [#64]
+- Limit the dynamic configuration usecases. More on this in [caveats][caveats]. [#64]
+
 ### Fixed
 
 - Authoritative bindings are correctly applied. [#61]
+- Migrate to `for_each` which fixes the configuration update issue. [#64]
 
 ## [3.0.0] - 2019-09-26
 
@@ -67,6 +73,7 @@ management.
 [stackdriver-agent-roles-example]: examples/stackdriver_agent_roles
 [subnet-example]: examples/subnet
 [usage-example]: README.md#usage
+[caveats]: README.md#caveats
 
 [Unreleased]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v3.0.0...HEAD
 [3.0.0]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v2.0.0...v3.0.0
@@ -87,3 +94,4 @@ management.
 [#32]: https://github.com/terraform-google-modules/terraform-google-iam/pull/32
 [#43]: https://github.com/terraform-google-modules/terraform-google-iam/pull/43
 [#61]: https://github.com/terraform-google-modules/terraform-google-iam/pull/61
+[#64]: https://github.com/terraform-google-modules/terraform-google-iam/pull/64

@@ -49,8 +49,7 @@ output "member_group_1" {
 }
 
 output "roles" {
-  # TODO: This has to be pure integer, but InSpec attributes don't seem
-  #       to support neither of the types number, integer, int, float, double
+  # workaround InSpec lack of support for integer
   value       = tostring(var.roles)
   description = "Amount of roles assigned. Useful for testing how the module behaves on updates."
 }

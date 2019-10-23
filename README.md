@@ -13,6 +13,7 @@ is [1.1.1][v1.1.1].
 
 The following guides are available to assist with upgrades:
 
+- [3.0 -> 4.0](./docs/upgrading_to_iam_4.0.md)
 - [2.0 -> 3.0](./docs/upgrading_to_iam_3.0.md)
 
 ## Usage
@@ -161,9 +162,9 @@ In additive mode, this module leaves existing bindings unaffected. Instead, any 
 This Terraform module performs operations over some variables before making any changes on the IAM bindings in GCP. Because of the limitations of `for_each` ([more info](https://www.terraform.io/docs/configuration/resources.html#using-expressions-in-for_each)), which is widely used in this module, there are certain limitations to what kind of dynamic values you can provide to the module:
 
 1. Dynamic entities (for example `projects`) are only allowed for 1 entity.
-2. If you pass 2 or more entities (for example `projects`), the configuration **HAS** to be static, meaning that it can't use any of the other resource's fields to get the entity name from (this includes getting the randomly generated hashes through the `random_id` resource).
+2. If you pass 2 or more entities (for example `projects`), the configuration **MUST** be static, meaning that it can't use any of the other resources' fields to get the entity name from (this includes getting the randomly generated hashes through the `random_id` resource).
 3. The role names themselves can never be dynamic.
-4. Members might only be dynamic in `authoritative` mode.
+4. Members may only be dynamic in `authoritative` mode.
 
 ## IAM Bindings
 

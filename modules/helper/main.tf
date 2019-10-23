@@ -66,20 +66,12 @@ locals {
     ]
   ]))
 
-  # TODO: Refactor this to force the order somehow.
-  #       If you are to change the algo of generating `keys_authoritative`
-  #       or `bindings_by_role`, you have to make sure that the order
-  #       of the elements inside them matches.
   bindings_authoritative = (
     local.authoritative
     ? zipmap(local.keys_authoritative, local.bindings_by_role)
     : {}
   )
 
-  # TODO: Refactor this to force the order somehow.
-  #       If you are to change the algo of generating `keys_additive`
-  #       or `bindings_by_member`, you have to make sure that the order
-  #       of the elements inside them matches.
   bindings_additive = (
     local.additive
     ? zipmap(local.keys_additive, local.bindings_by_member)
