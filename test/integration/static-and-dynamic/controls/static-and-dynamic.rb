@@ -16,13 +16,10 @@
 # Workaround InSpec lack of support for integer by parsing it from string.
 roles = attribute('roles').to_i
 
-project_groups = [
-  # Resource pairs (arrays of length = 2)
-  attribute('authoritative_static_projects'),
-  attribute('additive_static_projects'),
-  attribute('authoritative_dynamic_projects'),
-  attribute('additive_dynamic_projects')
-]
+authoritative_static_projects  = attribute('authoritative_static_projects')
+additive_static_projects       = attribute('additive_static_projects')
+authoritative_dynamic_projects = attribute('authoritative_dynamic_projects')
+additive_dynamic_projects      = attribute('additive_dynamic_projects')
 
 # Member groupings
 member_groups = [
@@ -32,33 +29,121 @@ member_groups = [
 
 # Projects
 
-for projects in project_groups do
-  control "project-bindings-#{projects}" do
-    title 'Test projects bindings are correct'
+control "project-bindings-authoritative-static" do
+  title 'Test authoritative static projects bindings are correct'
 
-    describe projects.map { |project| project_bindings(project) } do
-      it 'include the 1st binding' do
-        if roles < 1
-          skip 'less than 1 roles specified'
-        else
-          should all include role: 'roles/iam.roleViewer', members: member_groups[0]
-        end
+  describe authoritative_static_projects.map { |project| project_bindings(project) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: 'roles/iam.roleViewer', members: member_groups[0]
       end
+    end
 
-      it 'include the 2nd binding' do
-        if roles < 2
-          skip 'less than 2 roles specified'
-        else
-          should all include role: 'roles/logging.viewer', members: member_groups[1]
-        end
+    it 'include the 2nd binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: 'roles/logging.viewer', members: member_groups[1]
       end
+    end
 
-      it 'include the 3rd binding' do
-        if roles < 3
-          skip 'less than 3 roles specified'
-        else
-          should all include role: 'roles/iam.securityReviewer', members: member_groups[0]
-        end
+    it 'include the 3rd binding' do
+      if roles < 3
+        skip 'less than 3 roles specified'
+      else
+        should all include role: 'roles/iam.securityReviewer', members: member_groups[0]
+      end
+    end
+  end
+end
+
+control "project-bindings-additive-static" do
+  title 'Test additive static projects bindings are correct'
+
+  describe additive_static_projects.map { |project| project_bindings(project) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: 'roles/iam.roleViewer', members: member_groups[0]
+      end
+    end
+
+    it 'include the 2nd binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: 'roles/logging.viewer', members: member_groups[1]
+      end
+    end
+
+    it 'include the 3rd binding' do
+      if roles < 3
+        skip 'less than 3 roles specified'
+      else
+        should all include role: 'roles/iam.securityReviewer', members: member_groups[0]
+      end
+    end
+  end
+end
+
+control "project-bindings-authoritative-dynamic" do
+  title 'Test authoritative dynamic projects bindings are correct'
+
+  describe authoritative_dynamic_projects.map { |project| project_bindings(project) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: 'roles/iam.roleViewer', members: member_groups[0]
+      end
+    end
+
+    it 'include the 2nd binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: 'roles/logging.viewer', members: member_groups[1]
+      end
+    end
+
+    it 'include the 3rd binding' do
+      if roles < 3
+        skip 'less than 3 roles specified'
+      else
+        should all include role: 'roles/iam.securityReviewer', members: member_groups[0]
+      end
+    end
+  end
+end
+
+control "project-bindings-additive-dynamic" do
+  title 'Test additive dynamic projects bindings are correct'
+
+  describe additive_dynamic_projects.map { |project| project_bindings(project) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: 'roles/iam.roleViewer', members: member_groups[0]
+      end
+    end
+
+    it 'include the 2nd binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: 'roles/logging.viewer', members: member_groups[1]
+      end
+    end
+
+    it 'include the 3rd binding' do
+      if roles < 3
+        skip 'less than 3 roles specified'
+      else
+        should all include role: 'roles/iam.securityReviewer', members: member_groups[0]
       end
     end
   end

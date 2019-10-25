@@ -12,14 +12,23 @@ Here is an example of such *dynamic* configuration in 3.0
 which applies bindings to two projects.
 
 ```hcl
-module "project_factory" {
-  count = 2
-
+module "project_factory_0" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 3.2"
 
   billing_account = "a-billing-account"
-  name            = "iam-test"
+  name            = "iam-test-0"
+  org_id          = "an-org"
+
+  random_project_id = true
+}
+
+module "project_factory_1" {
+  source  = "terraform-google-modules/project-factory/google"
+  version = "~> 3.2"
+
+  billing_account = "a-billing-account"
+  name            = "iam-test-1"
   org_id          = "an-org"
 
   random_project_id = true
@@ -29,15 +38,16 @@ module "iam" {
   source  = "terraform-google-modules/iam/google"
   version = "~> 3.0"
 
-  projects = [module.project_factory[*].project_id]
+  projects = [module.project_factory_0.project_id, module.project_factory_1.project_id]
   projects_num = 2
 
   projects_bindings = {
     "roles/storage.admin" = [
-      "serviceAccount:${module.project_factory.service_account_email}",
+      "serviceAccount:${module.project_factory_0.service_account_email}",
+      "serviceAccount:${module.project_factory_1.service_account_email}"
     ]
   }
-  projects_bindings_num = 1
+  projects_bindings_num = 2
 }
 ```
 
@@ -76,14 +86,23 @@ To continue from the previous example, the following configurations
 highlight the changes required to upgrade the module to 4.0.
 
 ```diff
- module "project_factory" {
-   count = 2
-
+ module "project_factory_0" {
    source  = "terraform-google-modules/project-factory/google"
    version = "~> 3.2"
 
    billing_account = "a-billing-account"
-   name            = "iam-test"
+   name            = "iam-test-0"
+   org_id          = "an-org"
+
+   random_project_id = true
+ }
+
+ module "project_factory_1" {
+   source  = "terraform-google-modules/project-factory/google"
+   version = "~> 3.2"
+
+   billing_account = "a-billing-account"
+   name            = "iam-test-1"
    org_id          = "an-org"
 
    random_project_id = true
@@ -96,26 +115,31 @@ highlight the changes required to upgrade the module to 4.0.
 
 +  mode = "authoritative"
 +
-   projects = [module.project_factory[0].project_id]
+-  projects = [module.project_factory_0.project_id, module.project_factory_1.project_id]
++  projects = [module.project_factory_0.project_id]
 -  projects_num = 2
 
    projects_bindings = {
      "roles/storage.admin" = [
-       "serviceAccount:${module.project_factory.service_account_email}",
+       "serviceAccount:${module.project_factory_0.service_account_email}",
+       "serviceAccount:${module.project_factory_1.service_account_email}"
      ]
    }
--  projects_bindings_num = 1
+-  projects_bindings_num = 2
  }
 +
 +module "iam" {
 +  source  = "terraform-google-modules/iam/google"
 +  version = "~> 4.0"
 +
-+  projects = [module.project_factory[1].project_id]
++  mode = "authoritative"
++
++  projects = [module.project_factory_1.project_id]
 +
 +  projects_bindings = {
 +    "roles/storage.admin" = [
-+      "serviceAccount:${module.project_factory.service_account_email}",
++      "serviceAccount:${module.project_factory_0.service_account_email}",
++      "serviceAccount:${module.project_factory_1.service_account_email}"
 +    ]
 +  }
 +}
