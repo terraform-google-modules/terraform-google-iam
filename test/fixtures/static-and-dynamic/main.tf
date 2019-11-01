@@ -104,8 +104,11 @@ module "projects_iam_authoritative_dynamic" {
 
 # Additive Dynamic
 
+# We also test here that specifying `project` insead of the `projects` array works
+# That's why the count is forced to 1
+
 resource "google_project" "additive_dynamic" {
-  count = local.dynamic_n
+  count = 1
 
   project_id      = "${local.prefix}-add-dy-${count.index}-${random_id.test[count.index].hex}"
   folder_id       = var.folder_id
@@ -116,7 +119,7 @@ resource "google_project" "additive_dynamic" {
 module "projects_iam_additive_dynamic" {
   source   = "../../../modules/projects_iam"
   mode     = "additive"
-  projects = google_project.additive_dynamic[*].project_id
+  project  = google_project.additive_dynamic[0].project_id
   bindings = local.project_bindings
 }
 
