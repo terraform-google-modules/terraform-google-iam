@@ -84,143 +84,143 @@ steps:
   env:
   - 'TF_VAR_roles=2'
 
-# verify authoritative-local with 2 roles
-- id: create authoritative-local 2 roles
-  waitFor:
-  - prepare
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create authoritative-local']
-  env:
-  - 'TF_VAR_roles=2'
-- id: converge authoritative-local 2 roles
-  waitFor:
-  - create authoritative-local 2 roles
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge authoritative-local']
-  env:
-  - 'TF_VAR_roles=2'
-- id: verify authoritative-local 2 roles
-  waitFor:
-  - converge authoritative-local 2 roles
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify authoritative-local']
-  env:
-  - 'TF_VAR_roles=2'
+# # verify authoritative-local with 2 roles
+# - id: create authoritative-local 2 roles
+#   waitFor:
+#   - prepare
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create authoritative-local']
+#   env:
+#   - 'TF_VAR_roles=2'
+# - id: converge authoritative-local 2 roles
+#   waitFor:
+#   - create authoritative-local 2 roles
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge authoritative-local']
+#   env:
+#   - 'TF_VAR_roles=2'
+# - id: verify authoritative-local 2 roles
+#   waitFor:
+#   - converge authoritative-local 2 roles
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify authoritative-local']
+#   env:
+#   - 'TF_VAR_roles=2'
 
-# scale authoritative-local to 1 role and reverify
-- id: converge authoritative-local 1 role
-  waitFor:
-  - verify authoritative-local 2 roles
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge authoritative-local']
-  env:
-  - 'TF_VAR_roles=1'
-- id: verify authoritative-local 1 role
-  waitFor:
-  - converge authoritative-local 1 role
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify authoritative-local']
-  env:
-  - 'TF_VAR_roles=1'
+# # scale authoritative-local to 1 role and reverify
+# - id: converge authoritative-local 1 role
+#   waitFor:
+#   - verify authoritative-local 2 roles
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge authoritative-local']
+#   env:
+#   - 'TF_VAR_roles=1'
+# - id: verify authoritative-local 1 role
+#   waitFor:
+#   - converge authoritative-local 1 role
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify authoritative-local']
+#   env:
+#   - 'TF_VAR_roles=1'
 
-# scale authoritative-local back to 2 roles and reverify
-- id: converge authoritative-local 2 roles again
-  waitFor:
-  - verify authoritative-local 1 role
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge authoritative-local']
-  env:
-  - 'TF_VAR_roles=2'
-- id: verify authoritative-local 2 roles again
-  waitFor:
-  - converge authoritative-local 2 roles again
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify authoritative-local']
-  env:
-  - 'TF_VAR_roles=2'
-- id: destroy authoritative-local
-  waitFor:
-  - verify authoritative-local 2 roles again
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do destroy authoritative-local']
-  env:
-  - 'TF_VAR_roles=2'
+# # scale authoritative-local back to 2 roles and reverify
+# - id: converge authoritative-local 2 roles again
+#   waitFor:
+#   - verify authoritative-local 1 role
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge authoritative-local']
+#   env:
+#   - 'TF_VAR_roles=2'
+# - id: verify authoritative-local 2 roles again
+#   waitFor:
+#   - converge authoritative-local 2 roles again
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify authoritative-local']
+#   env:
+#   - 'TF_VAR_roles=2'
+# - id: destroy authoritative-local
+#   waitFor:
+#   - verify authoritative-local 2 roles again
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do destroy authoritative-local']
+#   env:
+#   - 'TF_VAR_roles=2'
 
-# verify static-and-dynamic-local with 2 roles
-- id: create static-and-dynamic-local 2 roles
-  waitFor:
-  - prepare
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=2'
-- id: converge static-and-dynamic-local 2 roles
-  waitFor:
-  - create static-and-dynamic-local 2 roles
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=2'
-- id: verify static-and-dynamic-local 2 roles
-  waitFor:
-  - converge static-and-dynamic-local 2 roles
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=2'
+# # verify static-and-dynamic-local with 2 roles
+# - id: create static-and-dynamic-local 2 roles
+#   waitFor:
+#   - prepare
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create static-and-dynamic-local']
+#   env:
+#   - 'TF_VAR_roles=2'
+# - id: converge static-and-dynamic-local 2 roles
+#   waitFor:
+#   - create static-and-dynamic-local 2 roles
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge static-and-dynamic-local']
+#   env:
+#   - 'TF_VAR_roles=2'
+# - id: verify static-and-dynamic-local 2 roles
+#   waitFor:
+#   - converge static-and-dynamic-local 2 roles
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify static-and-dynamic-local']
+#   env:
+#   - 'TF_VAR_roles=2'
 
-# scale static-and-dynamic-local to 1 role and reverify
-- id: converge static-and-dynamic-local 1 role
-  waitFor:
-  - verify static-and-dynamic-local 2 roles
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=1'
-- id: verify static-and-dynamic-local 1 role
-  waitFor:
-  - converge static-and-dynamic-local 1 role
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=1'
+# # scale static-and-dynamic-local to 1 role and reverify
+# - id: converge static-and-dynamic-local 1 role
+#   waitFor:
+#   - verify static-and-dynamic-local 2 roles
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge static-and-dynamic-local']
+#   env:
+#   - 'TF_VAR_roles=1'
+# - id: verify static-and-dynamic-local 1 role
+#   waitFor:
+#   - converge static-and-dynamic-local 1 role
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify static-and-dynamic-local']
+#   env:
+#   - 'TF_VAR_roles=1'
 
-# scale static-and-dynamic-local to 3 roles and reverify
-- id: converge static-and-dynamic-local 3 roles
-  waitFor:
-  - verify static-and-dynamic-local 1 role
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=3'
-- id: verify static-and-dynamic-local 3 roles
-  waitFor:
-  - converge static-and-dynamic-local 3 roles
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=3'
+# # scale static-and-dynamic-local to 3 roles and reverify
+# - id: converge static-and-dynamic-local 3 roles
+#   waitFor:
+#   - verify static-and-dynamic-local 1 role
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge static-and-dynamic-local']
+#   env:
+#   - 'TF_VAR_roles=3'
+# - id: verify static-and-dynamic-local 3 roles
+#   waitFor:
+#   - converge static-and-dynamic-local 3 roles
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify static-and-dynamic-local']
+#   env:
+#   - 'TF_VAR_roles=3'
 
-# scale static-and-dynamic-local back to 2 roles and reverify
-- id: converge static-and-dynamic-local 2 roles again
-  waitFor:
-  - verify static-and-dynamic-local 3 roles
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=2'
-- id: verify static-and-dynamic-local 2 roles again
-  waitFor:
-  - converge static-and-dynamic-local 2 roles again
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=2'
-- id: destroy static-and-dynamic-local
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do destroy static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=2'
+# # scale static-and-dynamic-local back to 2 roles and reverify
+# - id: converge static-and-dynamic-local 2 roles again
+#   waitFor:
+#   - verify static-and-dynamic-local 3 roles
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge static-and-dynamic-local']
+#   env:
+#   - 'TF_VAR_roles=2'
+# - id: verify static-and-dynamic-local 2 roles again
+#   waitFor:
+#   - converge static-and-dynamic-local 2 roles again
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do verify static-and-dynamic-local']
+#   env:
+#   - 'TF_VAR_roles=2'
+# - id: destroy static-and-dynamic-local
+#   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
+#   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do destroy static-and-dynamic-local']
+#   env:
+#   - 'TF_VAR_roles=2'
 
 tags:
 - 'ci'
