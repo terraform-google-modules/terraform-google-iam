@@ -21,7 +21,8 @@ module "helper" {
   source   = "../helper"
   bindings = var.bindings
   mode     = var.mode
-  entities = var.projects == [] ? [var.project] : var.projects
+  entity   = var.project
+  entities = var.projects
 }
 
 /******************************************
