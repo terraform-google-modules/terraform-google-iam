@@ -94,7 +94,6 @@ steps:
 - id: create authoritative-local 2 roles
   waitFor:
   - destroy additive-local
-  # - prepare # TODO: enable parallel
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create authoritative-local']
   env:
@@ -160,7 +159,6 @@ steps:
 - id: create static-and-dynamic-local 2 roles
   waitFor:
   - destroy authoritative-local
-  # - prepare # TODO: enable parallel
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create static-and-dynamic-local']
   env:
