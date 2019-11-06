@@ -67,12 +67,6 @@ class BucketBindings < Bindings
   def get_command(bucket, project)
     "gsutil iam get gs://#{bucket} --project='#{project}' --format='json(bindings)'"
   end
-
-  def get_bindings(command)
-    puts "DEBUG: Bindings output"
-    puts inspec.command(command).stdout
-    JSON.parse(inspec.command(command).stdout, symbolize_names: true)[:bindings]
-  end
 end
 
 # Projects
