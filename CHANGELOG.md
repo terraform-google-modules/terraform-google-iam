@@ -10,10 +10,17 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
+## [4.0.0] - 2019-11-07
+
+This is a backward incompatible release. Refer to the [upgrade guide](docs/upgrading_to_iam_4.0.md) for more details.
+
 ### Changed
 
-- Remove `*_num` options. [#64]
 - Limit the dynamic configuration usecases. More on this in [caveats][caveats]. [#64]
+
+### Removed
+
+- `*_num` options. [#64]
 
 ### Fixed
 
@@ -75,7 +82,8 @@ management.
 [usage-example]: README.md#usage
 [caveats]: README.md#caveats
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.1.1...v2.0.0
 [1.1.1]: https://github.com/terraform-google-modules/terraform-google-iam/compare/v1.1.0...v1.1.1
