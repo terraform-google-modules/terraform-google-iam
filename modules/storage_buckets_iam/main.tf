@@ -18,30 +18,28 @@
   Run helper module to get generic calculated data
  *****************************************/
 module "helper" {
-  source       = "../helper"
-  bindings     = var.bindings
-  bindings_num = var.bindings_num
-  mode         = var.mode
-  entities     = var.storage_buckets
-  entities_num = var.storage_buckets_num
+  source   = "../helper"
+  bindings = var.bindings
+  mode     = var.mode
+  entities = var.storage_buckets
 }
 
 /******************************************
   Storage Bucket IAM binding authoritative
  *****************************************/
 resource "google_storage_bucket_iam_binding" "storage_bucket_iam_authoritative" {
-  count   = module.helper.count_authoritative
-  bucket  = module.helper.bindings_by_role[count.index].name
-  role    = module.helper.bindings_by_role[count.index].role
-  members = module.helper.bindings_by_role[count.index].members
+  for_each = module.helper.set_authoritative
+  bucket   = module.helper.bindings_authoritative[each.key].name
+  role     = module.helper.bindings_authoritative[each.key].role
+  members  = module.helper.bindings_authoritative[each.key].members
 }
 
 /******************************************
   Storage Bucket IAM binding additive
  *****************************************/
 resource "google_storage_bucket_iam_member" "storage_bucket_iam_additive" {
-  count  = module.helper.count_additive
-  bucket = module.helper.bindings_by_member[count.index].name
-  role   = module.helper.bindings_by_member[count.index].role
-  member = module.helper.bindings_by_member[count.index].member
+  for_each = module.helper.set_additive
+  bucket   = module.helper.bindings_additive[each.key].name
+  role     = module.helper.bindings_additive[each.key].role
+  member   = module.helper.bindings_additive[each.key].member
 }

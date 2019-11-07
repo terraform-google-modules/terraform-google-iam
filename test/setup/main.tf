@@ -63,3 +63,9 @@ resource "google_service_account" "member" {
   account_id = "ci-iam-member-${count.index}-${random_id.folder-rand.hex}"
 }
 
+# Random id hex`es for static resources. Generate plenty of them just in case.
+
+resource "random_id" "random_hexes" {
+  count       = 10
+  byte_length = 2
+}

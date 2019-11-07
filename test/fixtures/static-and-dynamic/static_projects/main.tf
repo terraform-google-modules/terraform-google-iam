@@ -14,24 +14,20 @@
  * limitations under the License.
  */
 
-variable "project" {
-  description = "Project to add the IAM policies/bindings"
-  default     = ""
-  type        = string
+locals {
+  mode_short = var.mode == "authoritative" ? "auth" : "add"
+
+  static_project_ids = [
+    for i in range(var.n)
+    : "${var.prefix}-${local.mode_short}-st-${i}-${var.random_hexes[i]}"
+  ]
 }
 
-variable "pubsub_subscriptions" {
-  description = "PubSub Subscriptions list to add the IAM policies/bindings"
-  default     = []
-  type        = list(string)
-}
+resource "google_project" "test" {
+  count = var.n
 
-variable "mode" {
-  description = "Mode for adding the IAM policies/bindings, additive and authoritative"
-  default     = "additive"
-}
-
-variable "bindings" {
-  description = "Map of role (key) and list of members (value) to add the IAM policies/bindings"
-  type        = map(list(string))
+  project_id      = local.static_project_ids[count.index]
+  folder_id       = var.folder_id
+  name            = "Test IAM Project ${title(local.mode_short)} St ${count.index}"
+  billing_account = var.billing_account
 }

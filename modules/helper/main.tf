@@ -15,17 +15,27 @@
  */
 
 locals {
-  authoritative = var.mode == "authoritative" ? 1 : 0
-  additive      = var.mode == "additive" ? 1 : 0
+  authoritative = var.mode == "authoritative"
+  additive      = var.mode == "additive"
 
-  calculated_entities_num = (
-    var.entities_num == 0
-    ? length(var.entities)
-    : var.entities_num
-  )
+  # When there is only one entity, consider that the entity passed
+  # might be dynamic. In this case the `for_each` will not use
+  # entity name when constructing the unique ID.
+  #
+  # Other rules regrading the dynamic nature of resources:
+  # 1. The roles might never be dynamic.
+  # 2. Members might only be dynamic in `authoritative` mode.
+  singular = length(var.entities) <= 1
+
+  # In singular mode, replace entity name with a constant "default". This
+  # will prevent the potentially dynamic resource name usage in the `for_each`
+  aliased_entities = local.singular ? ["default"] : var.entities
+
+  # Cover the usecase of specifying singular entity instead of an array
+  real_entities = var.entity != "" ? [var.entity] : var.entities
 
   bindings_by_role = distinct(flatten([
-    for name in var.entities
+    for name in local.real_entities
     : [
       for role, members in var.bindings
       : { name = name, role = role, members = members }
@@ -40,15 +50,49 @@ locals {
     ]
   ]))
 
-  count_authoritative = local.authoritative * (
-    var.bindings_num > 0
-    ? var.bindings_num * local.calculated_entities_num
-    : length(local.bindings_by_role)
+  keys_authoritative = distinct(flatten([
+    for alias in local.aliased_entities
+    : [
+      for role in keys(var.bindings)
+      : "${alias}--${role}"
+    ]
+  ]))
+
+  keys_additive = distinct(flatten([
+    for alias in local.aliased_entities
+    : [
+      for role, members in var.bindings
+      : [
+        for member in members
+        : "${alias}--${role}--${member}"
+      ]
+    ]
+  ]))
+
+  bindings_authoritative = (
+    local.authoritative
+    ? zipmap(local.keys_authoritative, local.bindings_by_role)
+    : {}
   )
 
-  count_additive = local.additive * (
-    var.bindings_num > 0
-    ? var.bindings_num * local.calculated_entities_num
-    : length(local.bindings_by_member)
+  bindings_additive = (
+    local.additive
+    ? zipmap(local.keys_additive, local.bindings_by_member)
+    : {}
+  )
+
+  # It is important to provide a set for the `for_each` instead of
+  # the map, since we have to guarantee that the `for_each`
+  # expression is resolved synchonously.
+  set_authoritative = (
+    local.authoritative
+    ? toset(local.keys_authoritative)
+    : []
+  )
+
+  set_additive = (
+    local.additive
+    ? toset(local.keys_additive)
+    : []
   )
 }

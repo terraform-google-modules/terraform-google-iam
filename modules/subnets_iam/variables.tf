@@ -26,12 +26,6 @@ variable "subnets" {
   type        = list(string)
 }
 
-variable "subnets_num" {
-  description = "Number of Subnetwork, in case using dependencies of other resources' outputs"
-  default     = 0
-  type        = number
-}
-
 variable "mode" {
   description = "Mode for adding the IAM policies/bindings, additive and authoritative"
   default     = "additive"
@@ -42,14 +36,7 @@ variable "bindings" {
   type        = map(list(string))
 }
 
-variable "bindings_num" {
-  description = "Number of bindings, in case using dependencies of other resources' outputs"
-  default     = 0
-  type        = number
-}
-
 variable "subnets_region" {
   description = "Subnetworks region"
   type        = string
 }
-

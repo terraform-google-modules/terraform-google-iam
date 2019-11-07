@@ -19,11 +19,6 @@ variable "bindings" {
   type        = map(list(string))
 }
 
-variable "bindings_num" {
-  description = "Number of bindings, in case using dependencies of other resources' outputs"
-  type        = number
-}
-
 variable "mode" {
   description = "Mode for adding the IAM policies/bindings, additive and authoritative"
   default     = "additive"
@@ -34,7 +29,8 @@ variable "entities" {
   type        = list(string)
 }
 
-variable "entities_num" {
-  description = "Number of entities, in case using dependencies of other resources' outputs"
-  type        = number
+variable "entity" {
+  description = "Entity to add the IAM policies/bindings"
+  default     = ""
+  type        = string
 }

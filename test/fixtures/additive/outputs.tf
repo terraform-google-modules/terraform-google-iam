@@ -114,3 +114,9 @@ output "project_id" {
   value       = module.generic.project_id
   description = "Project ID of the test fixture project. Used to avoid timing issues with recently created projects."
 }
+
+output "roles" {
+  # workaround InSpec lack of support for integer
+  value       = tostring(var.roles)
+  description = "Amount of roles assigned. Useful for testing how the module behaves on updates."
+}

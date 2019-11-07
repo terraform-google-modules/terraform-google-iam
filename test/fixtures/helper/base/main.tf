@@ -15,7 +15,7 @@
  */
 
 locals {
-  n           = 2
+  n           = 1
   prefix      = "test-iam"
   location    = var.base_location
   subnet_cidr = var.subnet_cidr

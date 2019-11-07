@@ -12,48 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: authoritative
+name: static-and-dynamic
 depends:
   - name: helper
     path: ../helper
 attributes:
-  - name: folders
+  - name: authoritative_static_projects
     required: true
     type: array
-  - name: subnets
+  - name: additive_static_projects
     required: true
     type: array
-  - name: projects
+  - name: authoritative_dynamic_projects
     required: true
     type: array
-  - name: service_accounts
-    required: true
-    type: array
-  - name: buckets
-    required: true
-    type: array
-  - name: key_rings
-    required: true
-    type: array
-  - name: keys
-    required: true
-    type: array
-  - name: topics
-    required: true
-    type: array
-  - name: subscriptions
-    required: true
-    type: array
-  - name: basic_roles
-    required: true
-    type: array
-  - name: org_roles
-    required: true
-    type: array
-  - name: project_roles
-    required: true
-    type: array
-  - name: bucket_roles
+  - name: additive_dynamic_projects
     required: true
     type: array
   - name: member_group_0
@@ -62,15 +35,7 @@ attributes:
   - name: member_group_1
     required: true
     type: array
-  - name: project_id
-    required: true
-    type: string
-  - name: region
-    required: true
-    type: string
-  - name: folder_roles
-    required: true
-    type: array
   - name: roles
     required: true
+    # workaround InSpec lack of support for integer
     type: string

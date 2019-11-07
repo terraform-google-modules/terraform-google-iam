@@ -24,12 +24,6 @@ variable "billing_account" {
   description = "Billing account to associate created projects with."
 }
 
-variable "location" {
-  type        = string
-  description = "Region for subnetwork tests."
-  default     = "us-central1"
-}
-
 variable "project_id" {
   type        = string
   description = "Project ID of the test fixture project.  Used to avoid timing issues with recently created projects."
@@ -43,6 +37,17 @@ variable "member1" {
 variable "member2" {
   type        = string
   description = "Member created for binding with roles."
+}
+
+variable "random_hexes" {
+  type        = list(string)
+  description = "List of pre-generated random id hexes. Required for 'for_each' to work when testing static scerarios."
+}
+
+variable "prefix" {
+  type        = string
+  default     = "prj"
+  description = "Unique string to use as an additional prefix for project name generation. Useful for local testing to rerun the tests without redoing the 'setup' step all over."
 }
 
 variable "roles" {

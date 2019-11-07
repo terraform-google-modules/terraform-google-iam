@@ -54,3 +54,8 @@ variable "member2" {
 variable "subnet_cidr" {
   description = "List of CIDRs to use when creating fixture subnetworks. Used to avoid the resource locking between test suites."
 }
+
+variable "roles" {
+  type        = number
+  description = "Amount of roles to assign. Useful for testing how the module behaves on updates."
+}

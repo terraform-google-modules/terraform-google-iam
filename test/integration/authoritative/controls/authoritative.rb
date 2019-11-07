@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Roles amount are used to test how the module behaves on configuration updates.
+# Workaround InSpec lack of support for integer by parsing it from string.
+roles = attribute('roles').to_i
+
 # Fixture project as managed in cloud-foundation-toolkit/infra
 project_id = attribute('project_id')
 
@@ -45,14 +49,22 @@ member_groups = [
 control 'folder-bindings' do
   title 'Test folder bindings are correct'
 
-  describe folder_bindings(folders[0]) do
-    it { should include role: folder_roles[0], members: member_groups[0] }
-    it { should include role: folder_roles[1], members: member_groups[1] }
-  end
+  describe folders.map { |folder| folder_bindings(folder) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: folder_roles[0], members: member_groups[0]
+      end
+    end
 
-  describe folder_bindings(folders[1]) do
-    it { should include role: folder_roles[0], members: member_groups[0] }
-    it { should include role: folder_roles[1], members: member_groups[1] }
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: folder_roles[1], members: member_groups[1]
+      end
+    end
   end
 end
 
@@ -61,14 +73,22 @@ end
 control 'subnet-bindings' do
   title 'Test subnets bindings are correct'
 
-  describe subnet_bindings(subnets[0], project_id, region) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
+  describe subnets.map { |subnet| subnet_bindings(subnet, project_id, region) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: basic_roles[0], members: member_groups[0]
+      end
+    end
 
-  describe subnet_bindings(subnets[1], project_id, region) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: basic_roles[1], members: member_groups[1]
+      end
+    end
   end
 end
 
@@ -77,14 +97,22 @@ end
 control 'bucket-bindings' do
   title 'Test bucket bindings are correct'
 
-  describe bucket_bindings(buckets[0], projects[0]) do
-    it { should include role: bucket_roles[0], members: member_groups[0] }
-    it { should include role: bucket_roles[1], members: member_groups[1] }
-  end
+  describe buckets.map { |bucket| bucket_bindings(bucket, projects[0]) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: bucket_roles[0], members: member_groups[0]
+      end
+    end
 
-  describe bucket_bindings(buckets[1], projects[0]) do
-    it { should include role: bucket_roles[0], members: member_groups[0] }
-    it { should include role: bucket_roles[1], members: member_groups[1] }
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: bucket_roles[1], members: member_groups[1]
+      end
+    end
   end
 end
 
@@ -93,14 +121,22 @@ end
 control 'project-bindings' do
   title 'Test projects bindings are correct'
 
-  describe project_bindings(projects[0]) do
-    it { should include role: project_roles[0], members: member_groups[0] }
-    it { should include role: project_roles[1], members: member_groups[1] }
-  end
+  describe projects.map { |project| project_bindings(project) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: project_roles[0], members: member_groups[0]
+      end
+    end
 
-  describe project_bindings(projects[1]) do
-    it { should include role: project_roles[0], members: member_groups[0] }
-    it { should include role: project_roles[1], members: member_groups[1] }
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: project_roles[1], members: member_groups[1]
+      end
+    end
   end
 end
 
@@ -109,14 +145,22 @@ end
 control 'service-account-bindings' do
   title 'Test service accounts bindings are correct'
 
-  describe service_account_bindings(service_accounts[0]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
+  describe service_accounts.map { |service_account| service_account_bindings(service_account) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: basic_roles[0], members: member_groups[0]
+      end
+    end
 
-  describe service_account_bindings(service_accounts[1]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: basic_roles[1], members: member_groups[1]
+      end
+    end
   end
 end
 
@@ -125,14 +169,22 @@ end
 control 'key-ring-bindings' do
   title 'Test key rings bindings are correct'
 
-  describe key_ring_bindings(key_rings[0]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
+  describe key_rings.map { |key_ring| key_ring_bindings(key_ring) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: basic_roles[0], members: member_groups[0]
+      end
+    end
 
-  describe key_ring_bindings(key_rings[1]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: basic_roles[1], members: member_groups[1]
+      end
+    end
   end
 end
 
@@ -141,14 +193,22 @@ end
 control 'key-bindings' do
   title 'Test keys bindings are correct'
 
-  describe key_bindings(keys[0]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
+  describe keys.map { |key| key_bindings(key) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: basic_roles[0], members: member_groups[0]
+      end
+    end
 
-  describe key_bindings(keys[1]) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: basic_roles[1], members: member_groups[1]
+      end
+    end
   end
 end
 
@@ -157,14 +217,22 @@ end
 control 'topic-bindings' do
   title 'Test pubsub topics bindings are correct'
 
-  describe topic_bindings(topics[0], project_id) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
+  describe topics.map { |topic| topic_bindings(topic, project_id) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: basic_roles[0], members: member_groups[0]
+      end
+    end
 
-  describe topic_bindings(topics[1], project_id) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: basic_roles[1], members: member_groups[1]
+      end
+    end
   end
 end
 
@@ -173,13 +241,21 @@ end
 control 'subscription-bindings' do
   title 'Test pubsub subscriptions bindings are correct'
 
-  describe subscription_bindings(subscriptions[0], project_id) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
-  end
+  describe subscriptions.map { |subscription| subscription_bindings(subscription, project_id) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: basic_roles[0], members: member_groups[0]
+      end
+    end
 
-  describe subscription_bindings(subscriptions[1], project_id) do
-    it { should include role: basic_roles[0], members: member_groups[0] }
-    it { should include role: basic_roles[1], members: member_groups[1] }
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: basic_roles[1], members: member_groups[1]
+      end
+    end
   end
 end

@@ -24,4 +24,5 @@ module "generic" {
   project_id      = var.project_id
   member1         = var.member1
   member2         = var.member2
+  roles           = var.roles
 }

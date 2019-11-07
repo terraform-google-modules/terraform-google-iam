@@ -18,30 +18,28 @@
   Run helper module to get generic calculated data
  *****************************************/
 module "helper" {
-  source       = "../helper"
-  bindings     = var.bindings
-  bindings_num = var.bindings_num
-  mode         = var.mode
-  entities     = var.service_accounts
-  entities_num = var.service_accounts_num
+  source   = "../helper"
+  bindings = var.bindings
+  mode     = var.mode
+  entities = var.service_accounts
 }
 
 /******************************************
   Service Account IAM binding authoritative
  *****************************************/
 resource "google_service_account_iam_binding" "service_account_iam_authoritative" {
-  count              = module.helper.count_authoritative
-  service_account_id = "projects/${var.project}/serviceAccounts/${module.helper.bindings_by_role[count.index].name}"
-  role               = module.helper.bindings_by_role[count.index].role
-  members            = module.helper.bindings_by_role[count.index].members
+  for_each           = module.helper.set_authoritative
+  service_account_id = "projects/${var.project}/serviceAccounts/${module.helper.bindings_authoritative[each.key].name}"
+  role               = module.helper.bindings_authoritative[each.key].role
+  members            = module.helper.bindings_authoritative[each.key].members
 }
 
 /******************************************
   Service Account IAM binding additive
  *****************************************/
 resource "google_service_account_iam_member" "service_account_iam_additive" {
-  count              = module.helper.count_additive
-  service_account_id = "projects/${var.project}/serviceAccounts/${module.helper.bindings_by_member[count.index].name}"
-  role               = module.helper.bindings_by_member[count.index].role
-  member             = module.helper.bindings_by_member[count.index].member
+  for_each           = module.helper.set_additive
+  service_account_id = "projects/${var.project}/serviceAccounts/${module.helper.bindings_additive[each.key].name}"
+  role               = module.helper.bindings_additive[each.key].role
+  member             = module.helper.bindings_additive[each.key].member
 }

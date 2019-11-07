@@ -71,3 +71,6 @@ attributes:
   - name: folder_roles
     required: true
     type: array
+  - name: roles
+    required: true
+    type: string
