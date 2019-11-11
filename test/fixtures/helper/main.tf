@@ -23,7 +23,18 @@ locals {
   project_roles = ["roles/iam.securityReviewer", "roles/iam.roleViewer"]
   bucket_roles  = ["roles/storage.legacyObjectReader", "roles/storage.legacyBucketReader"]
   members       = [var.member1, var.member2]
+  audit_log_config = [{
+    service          = "allServices"
+    log_type         = "DATA_READ"
+    exempted_members = "user:neeleshjay@google.com"
+    }, {
 
+    service          = "allServices"
+    log_type         = "DATA_READ"
+    exempted_members = "user:neeleshjay@google.com"
+
+  }]
+  
   member_group_0 = [
     "serviceAccount:${var.member1}",
     "serviceAccount:${var.member2}",
@@ -62,6 +73,7 @@ locals {
     slice(local.bucket_roles, 0, var.roles),
     slice(local.member_groups, 0, var.roles)
   )
+
 }
 
 provider "google" {
