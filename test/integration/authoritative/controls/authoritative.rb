@@ -104,6 +104,17 @@ control 'project-bindings' do
   end
 end
 
+control 'audit-config' do
+  title 'Test project audit config is correct'
+
+  describe command("gcloud projects get-iam-policy #{project_id} --format='json(auditConfigs)'") do
+    exempted_members = audit_log_config.auditConfigs[0].auditLogConfigs[0].exemptedMembers[0]
+    log_type         = audit_log_config.auditConfigs[0].auditLogConfigs[0].logType
+    service          = audit_log_config.auditConfigs[0].service
+    it { should include exempted_members: local.audit_log_config[0].exempted_members, log_type: local.audit_log_config[0].log_type, service: local.audit_log_config[0].service }
+  end
+end
+
 # Service Accounts
 
 control 'service-account-bindings' do

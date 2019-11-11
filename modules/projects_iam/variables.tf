@@ -47,3 +47,4 @@ variable "bindings_num" {
   default     = 0
   type        = number
 }
+

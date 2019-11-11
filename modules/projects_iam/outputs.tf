@@ -16,7 +16,7 @@
 
 output "projects" {
   value       = distinct(module.helper.bindings_by_member[*].name)
-  description = "Projects wich received bindings."
+  description = "Projects which received bindings."
 }
 
 output "roles" {

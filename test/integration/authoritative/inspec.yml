@@ -71,3 +71,6 @@ attributes:
   - name: folder_roles
     required: true
     type: array
+  - name: audit_log_config
+    required: true
+    type: array
