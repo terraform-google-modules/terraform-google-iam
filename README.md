@@ -2,6 +2,18 @@
 
 This Terraform module makes it easier to non-destructively manage multiple IAM roles for resources on Google Cloud Platform.
 
+The module is a collection of submodules. We recommend using the specific resource submodules directly:
+* [Folders IAM](modules/folders_iam)
+* [KMS Crypto Keys IAM](modules/kms_crypto_keys_iam)
+* [KMS_Key Rings IAM](modules/kms_key_rings_iam)
+* [Organizations IAM](modules/organizations_iam)
+* [Projects IAM](modules/projects_iam)
+* [Pubsub Subscriptions IAM](modules/pubsub_subscriptions_iam)
+* [Pubsub Topics IAM](modules/pubsub_topics_iam)
+* [Service Accounts IAM](modules/service_accounts_iam)
+* [Storage Buckets IAM](modules/storage_buckets_iam)
+* [Subnets IAM](modules/subnets_iam)
+                              
 ## Compatibility
 
 This module is meant for use with Terraform 0.12. If you haven't
@@ -23,7 +35,7 @@ Full examples are in the [examples](./examples/) folder, but basic usage is as f
 ```hcl
 module "projects_iam_bindings" {
   source  = "terraform-google-modules/iam/google//modules/projects_iam"
-  version = "~> 3.0"
+  version = "~> 4.0"
 
   projects = ["project-123456", "project-9876543"]
 
@@ -50,7 +62,7 @@ The module also offers an **authoritative** mode which will remove all roles not
 ```hcl
 module "storage_buckets_iam_bindings" {
   source  = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
-  version = "~> 3.0"
+  version = "~> 4.0"
 
   storage_buckets = ["my-storage-bucket"]
 
@@ -168,7 +180,7 @@ This Terraform module performs operations over some variables before making any 
 
 ## IAM Bindings
 
-You can choose the following resource types for apply the IAM bindings:
+You can choose the following resource types to apply the IAM bindings:
 
 - Projects (`projects` variable)
 - Organizations(`organizations` variable)

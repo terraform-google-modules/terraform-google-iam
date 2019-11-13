@@ -35,24 +35,24 @@ module "project_factory_1" {
 }
 
 module "iam" {
-  source  = "terraform-google-modules/iam/google"
+  source  = "terraform-google-modules/iam/google//modules/projects_iam"
   version = "~> 3.0"
 
   projects = [module.project_factory_0.project_id, module.project_factory_1.project_id]
   projects_num = 2
 
-  projects_bindings = {
+  bindings = {
     "roles/storage.admin" = [
       "serviceAccount:${module.project_factory_0.service_account_email}",
       "serviceAccount:${module.project_factory_1.service_account_email}"
     ]
   }
-  projects_bindings_num = 2
+  bindings_num = 2
 }
 ```
 
 Note that you have to specify the additional options which look like
-they are redundant: `projects_num` and `projects_bindings_num`. These
+they are redundant: `projects_num` and `bindings_num`. These
 options had to be introduced in 3.0 to support the dynamic configuration
 usecase. Internally it was bounded to the way `count` works in terraform.
 
@@ -109,7 +109,7 @@ highlight the changes required to upgrade the module to 4.0.
  }
 
  module "iam" {
-   source  = "terraform-google-modules/iam/google"
+   source  = "terraform-google-modules/iam/google//modules/projects_iam"
 -  version = "~> 3.0"
 +  version = "~> 4.0"
 
@@ -119,24 +119,24 @@ highlight the changes required to upgrade the module to 4.0.
 +  projects = [module.project_factory_0.project_id]
 -  projects_num = 2
 
-   projects_bindings = {
+   bindings = {
      "roles/storage.admin" = [
        "serviceAccount:${module.project_factory_0.service_account_email}",
        "serviceAccount:${module.project_factory_1.service_account_email}"
      ]
    }
--  projects_bindings_num = 2
+-  bindings_num = 2
  }
 +
 +module "iam" {
-+  source  = "terraform-google-modules/iam/google"
++  source  = "terraform-google-modules/iam/google//modules/projects_iam"
 +  version = "~> 4.0"
 +
 +  mode = "authoritative"
 +
 +  projects = [module.project_factory_1.project_id]
 +
-+  projects_bindings = {
++  bindings = {
 +    "roles/storage.admin" = [
 +      "serviceAccount:${module.project_factory_0.service_account_email}",
 +      "serviceAccount:${module.project_factory_1.service_account_email}"
