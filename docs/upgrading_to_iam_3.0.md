@@ -81,10 +81,10 @@ directly. The following configurations highlight the approach in 3.0:
  }
 ```
 
-Additionally, to support cases where dynamic values 
+Additionally, to support cases where dynamic values
 are used to define the bindings or the bindings targets, number
 variables are available to provide a static count of the contents, e.g.
-`projects_num` and `bindings_num`. Both `*_num` variables must be used 
+`projects_num` and `bindings_num`. Both `*_num` variables must be used
 regardless of which variable contains the dynamic content:
 
 ```diff
@@ -121,7 +121,7 @@ regardless of which variable contains the dynamic content:
 
 Alternatively, you can use a root module where generic `bindings` variable has
  been replaced with resource-specific variables, like `projects_bindings` or
-`folders_bindings`. To continue from the previous example, the following 
+`folders_bindings`. To continue from the previous example, the following
 configurations highlight the changes required to upgrade the module to 3.0:
 
 ```diff
@@ -152,8 +152,8 @@ configurations highlight the changes required to upgrade the module to 3.0:
  }
 ```
 
-In case of dynamic values are used to define the bindings or the bindings 
-targets, number variables, e.g. `projects_num` and `projects_bindings_num`, 
+In case of dynamic values are used to define the bindings or the bindings
+targets, number variables, e.g. `projects_num` and `projects_bindings_num`,
 are available to provide a static count of the contents. Both `*_num`
 variables must be used regardless of which variable contains the
 dynamic content:
