@@ -1,6 +1,16 @@
 # Google IAM Terraform Module
 
-This Terraform module makes it easier to non-destructively manage multiple IAM roles for resources on Google Cloud Platform.
+This is a collection of submodules that make it easier to non-destructively manage multiple IAM roles for resources on Google Cloud Platform:
+* [Folders IAM](modules/folders_iam)
+* [KMS Crypto Keys IAM](modules/kms_crypto_keys_iam)
+* [KMS_Key Rings IAM](modules/kms_key_rings_iam)
+* [Organizations IAM](modules/organizations_iam)
+* [Projects IAM](modules/projects_iam)
+* [Pubsub Subscriptions IAM](modules/pubsub_subscriptions_iam)
+* [Pubsub Topics IAM](modules/pubsub_topics_iam)
+* [Service Accounts IAM](modules/service_accounts_iam)
+* [Storage Buckets IAM](modules/storage_buckets_iam)
+* [Subnets IAM](modules/subnets_iam)
 
 ## Compatibility
 
@@ -95,7 +105,7 @@ Each submodule performs operations over some variables before making any changes
 
 ## IAM Bindings
 
-You can choose the following resource types for apply the IAM bindings:
+You can choose the following resource types to apply the IAM bindings:
 
 - Projects (`projects` variable)
 - Organizations(`organizations` variable)
