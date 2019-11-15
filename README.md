@@ -71,46 +71,12 @@ module "storage_buckets_iam_bindings" {
 }
 ```
 
-### Variables
+### Additive and Authoritative Modes
 
-Following variables are the most important to control a submodule's behavior:
+The `mode` variable controls a submodule's behavior, by default it's set to "additive", possible options are:
 
-- Mode
-
-    This variable controls the module's behavior, by default is set to "additive", possible options are:
-
-      - additive: add members to role, old members are not deleted from this role.
-      - authoritative: set the role's members, other roles' members are not deleted.
-
-- Bindings
-
-  Is a map of role (key) and list of members (value) with member type prefix, for example:
-
-```hcl
-        bindings = {
-            "roles/<some_role>" = [
-                "user:someone@somewhere.com",
-                "group:somepeople@somewhereelse.com"
-            ]
-        }
-```
-
-- Project
-
-  This variable must be defined in case of using one the following modules:
-
-  - `pubsub_subscriptions_iam`
-  - `pubsub_topics_iam`
-  - `service_accounts_iam`
-  - `subnets_iam`
-
-- Subnets_region
-
-  This variable must be defined in case of using module `subnets_iam`
-
-#### Additive and Authoritative Modes
-
-Each submodule includes two modes: additive and authoritative.
+  - additive: add members to role, old members are not deleted from this role.
+  - authoritative: set the role's members, other roles' members are not deleted.
 
 In authoritative mode, a submodule takes full control over the IAM bindings listed in the module. This means that any members added to roles outside the module will be removed the next time Terraform runs. However, roles not listed in the module will be unaffected.
 
@@ -120,7 +86,7 @@ In additive mode, a submodule leaves existing bindings unaffected. Instead, any 
 
 ### Referencing values/attributes from other resources
 
-This Terraform module performs operations over some variables before making any changes on the IAM bindings in GCP. Because of the limitations of `for_each` ([more info](https://www.terraform.io/docs/configuration/resources.html#using-expressions-in-for_each)), which is widely used in this module, there are certain limitations to what kind of dynamic values you can provide to the module:
+Each submodule performs operations over some variables before making any changes on the IAM bindings in GCP. Because of the limitations of `for_each` ([more info](https://www.terraform.io/docs/configuration/resources.html#using-expressions-in-for_each)), which is widely used in the submodules, there are certain limitations to what kind of dynamic values you can provide to a submodule:
 
 1. Dynamic entities (for example `projects`) are only allowed for 1 entity.
 2. If you pass 2 or more entities (for example `projects`), the configuration **MUST** be static, meaning that it can't use any of the other resources' fields to get the entity name from (this includes getting the randomly generated hashes through the `random_id` resource).
@@ -142,7 +108,7 @@ You can choose the following resource types for apply the IAM bindings:
 - Kms Key Rings (`kms_key_rings` variable)
 - Kms Crypto Keys (`kms_crypto_keys` variable)
 
-Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#variables) and give enough [permissions](#permissions) to manage the selected resource as well.
+Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#additive-and-authoritative-modes) and give enough [permissions](#permissions) to manage the selected resource as well.
 
 ## Requirements
 
@@ -154,7 +120,7 @@ Set the specified variable on the module call to choose the resources to affect.
 
 ### Permissions
 
-In order to execute this module you must have a Service Account with an appropriate role to manage IAM for the applicable resource. The appropriate role differs depending on which resource you are targeting, as follows:
+In order to execute a submodule you must have a Service Account with an appropriate role to manage IAM for the applicable resource. The appropriate role differs depending on which resource you are targeting, as follows:
 
 - Organization:
   - Organization Administrator: Access to administer all resources belonging to the organization

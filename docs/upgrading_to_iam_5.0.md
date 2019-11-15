@@ -39,7 +39,7 @@ as follows:
 ## Upgrade Instructions
 
 The 5.0 release has deprecated the root module, so you should switch to a
-specific submodule, where settings defaults for *_bindings variables is dropped:
+specific submodule, where setting defaults for *_bindings variables is dropped:
 
 ```diff
  module "iam" {

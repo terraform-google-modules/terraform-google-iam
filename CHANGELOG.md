@@ -15,7 +15,7 @@ corresponding pull request appended.
 This is a backward incompatible release. Refer to the [upgrade guide](docs/upgrading_to_iam_5.0.md) for more details.
 
 ### Changed
-- The root module has been deprecated. [#73]
+- The root module has been removed. [#73]
 
 ## [4.0.0] - 2019-11-07
 
