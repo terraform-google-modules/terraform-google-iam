@@ -86,7 +86,7 @@ module "storage_buckets_iam_bindings" {
 The `mode` variable controls a submodule's behavior, by default it's set to "additive", possible options are:
 
   - additive: add members to role, old members are not deleted from this role.
-  - authoritative: set the role's members, other roles' members are not deleted.
+  - authoritative: set the role's members (including removing any not listed), unlisted roles are not affected.
 
 In authoritative mode, a submodule takes full control over the IAM bindings listed in the module. This means that any members added to roles outside the module will be removed the next time Terraform runs. However, roles not listed in the module will be unaffected.
 
