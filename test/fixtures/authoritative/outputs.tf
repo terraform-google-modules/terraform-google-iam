@@ -119,9 +119,4 @@ output "roles" {
   # workaround InSpec lack of support for integer
   value       = tostring(var.roles)
   description = "Amount of roles assigned. Useful for testing how the module behaves on updates."
-
-output "audit_log_config"{
-  value       = module.generic.audit_log_config
-  description = "Map of log type and exempted members to be addded to service"
-
 }

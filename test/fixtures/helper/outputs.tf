@@ -115,7 +115,3 @@ output "project_id" {
   description = "Project ID of the test fixture project. Used to avoid timing issues with recently created projects."
 }
 
-output "audit_log_config"{
-  value       = module.projects_iam_audit_config.audit_log_config
-  description = "Map of log type and exempted members to be addded to service"
-}
