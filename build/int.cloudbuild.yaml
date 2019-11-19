@@ -93,7 +93,7 @@ steps:
 # verify authoritative-local with 2 roles
 - id: create authoritative-local 2 roles
   waitFor:
-  - destroy additive-local
+  - prepare
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create authoritative-local']
   env:
@@ -158,7 +158,7 @@ steps:
 # verify static-and-dynamic-local with 2 roles
 - id: create static-and-dynamic-local 2 roles
   waitFor:
-  - destroy authoritative-local
+  - prepare
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create static-and-dynamic-local']
   env:
@@ -226,6 +226,8 @@ steps:
   env:
   - 'TF_VAR_roles=2'
 - id: destroy static-and-dynamic-local
+  waitFor:
+  - verify static-and-dynamic-local 2 roles again
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do destroy static-and-dynamic-local']
   env:
@@ -236,4 +238,4 @@ tags:
 - 'integration'
 substitutions:
   _DOCKER_IMAGE_DEVELOPER_TOOLS: 'cft/developer-tools'
-  _DOCKER_TAG_VERSION_DEVELOPER_TOOLS: '0.5.0'
+  _DOCKER_TAG_VERSION_DEVELOPER_TOOLS: '0'
