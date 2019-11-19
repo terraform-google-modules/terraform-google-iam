@@ -29,7 +29,7 @@ module "helper" {
  *****************************************/
 resource "google_folder_iam_binding" "folder_iam_authoritative" {
   for_each = module.helper.set_authoritative
-  folder   = "folders/${module.helper.bindings_authoritative[each.key].name}"
+  folder   = "${module.helper.bindings_authoritative[each.key].name}"
   role     = module.helper.bindings_authoritative[each.key].role
   members  = module.helper.bindings_authoritative[each.key].members
 }
@@ -39,7 +39,7 @@ resource "google_folder_iam_binding" "folder_iam_authoritative" {
  *****************************************/
 resource "google_folder_iam_member" "folder_iam_additive" {
   for_each = module.helper.set_additive
-  folder   = "folders/${module.helper.bindings_additive[each.key].name}"
+  folder   = "${module.helper.bindings_additive[each.key].name}"
   role     = module.helper.bindings_additive[each.key].role
   member   = module.helper.bindings_additive[each.key].member
 }
