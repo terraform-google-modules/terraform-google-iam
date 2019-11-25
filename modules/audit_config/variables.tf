@@ -5,12 +5,11 @@ variable "service" {
 }
 
 variable "audit_log_config" {
-  description = "Map of log type and exempted members to be addded to service"
-  type        = list(map(string))
+  description = "List of objects to be added to audit log config"
+  type        = list(object({service: string, log_type: string, exempted_members: list(string)))
 }
 
 variable "project" {
   description = "Project to add the IAM policies/bindings"
-  default     = ""
   type        = string
 }

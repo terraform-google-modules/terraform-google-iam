@@ -75,4 +75,3 @@ resource "google_billing_account_iam_member" "int_test_ba" {
 resource "google_service_account_key" "int_test" {
   service_account_id = google_service_account.int_test.id
 }
-

@@ -4,6 +4,6 @@ output "project" {
 }
 
 output "audit_log_config" {
-  value       = local.audit_log_config
+  value       = audit_log_config
   description = "Map of log type and exempted members to be addded to service"
 }
