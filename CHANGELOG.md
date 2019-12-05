@@ -10,11 +10,15 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
-## [5.1.0]
+## [5.1.0] - 2019-12-05
 
 ### Added
 
-- Submodule `billing_accounts_iam`. [#78]
+- Submodule `billing_accounts_iam`. [#52]
+
+### Fixed
+
+- The `folders_iam` submodule correctly handles folder IDs with and without a "folders/" prefix. [#65]
 
 ## [5.0.0]
 
@@ -116,7 +120,9 @@ management.
 [#29]: https://github.com/terraform-google-modules/terraform-google-iam/pull/29
 [#32]: https://github.com/terraform-google-modules/terraform-google-iam/pull/32
 [#43]: https://github.com/terraform-google-modules/terraform-google-iam/pull/43
+[#52]: https://github.com/terraform-google-modules/terraform-google-iam/issues/52
 [#61]: https://github.com/terraform-google-modules/terraform-google-iam/pull/61
 [#64]: https://github.com/terraform-google-modules/terraform-google-iam/pull/64
+[#65]: https://github.com/terraform-google-modules/terraform-google-iam/issues/65
 [#73]: https://github.com/terraform-google-modules/terraform-google-iam/pull/73
 [#78]: https://github.com/terraform-google-modules/terraform-google-iam/pull/78
