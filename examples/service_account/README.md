@@ -1,3 +1,7 @@
+# Service Account Example
+
+This example illustrates how to use the `service_accounts_iam` submodule
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 

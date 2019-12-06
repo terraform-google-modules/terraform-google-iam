@@ -1,3 +1,7 @@
+# Organization Example
+
+This example illustrates how to use the `organizations_iam` submodule
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 

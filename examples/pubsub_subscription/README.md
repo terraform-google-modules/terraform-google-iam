@@ -1,3 +1,7 @@
+# PubSub Subscription Example
+
+This example illustrates how to use the `pubsub_subscriptions_iam` submodule
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 

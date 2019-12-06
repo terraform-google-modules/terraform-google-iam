@@ -1,3 +1,7 @@
+# Folder Example
+
+This example illustrates how to use the `folders_iam` submodule
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
