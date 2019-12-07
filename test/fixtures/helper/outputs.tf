@@ -114,3 +114,8 @@ output "project_id" {
   value       = var.project_id
   description = "Project ID of the test fixture project. Used to avoid timing issues with recently created projects."
 }
+
+output "audit_config" {
+  description = "Map of log type and exempted members to be addded to service"
+  value       = module.audit_config.audit_log_config
+}

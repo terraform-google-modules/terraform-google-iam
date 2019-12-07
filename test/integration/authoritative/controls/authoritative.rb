@@ -30,6 +30,7 @@ keys             = attribute('keys')
 topics           = attribute('topics')
 subscriptions    = attribute('subscriptions')
 region           = attribute('region')
+audit_config     = attribute('audit_config')
 
 # Role pairs (arrays of length = 2)
 basic_roles   = attribute('basic_roles')
@@ -259,3 +260,44 @@ control 'subscription-bindings' do
     end
   end
 end
+
+# Audit config
+
+control 'audit-log-config' do
+  title 'Test if audit log config is correct'
+
+  describe command ("gcloud projects get-iam-policy #{project_id} --format='json(auditConfigs)'") do
+    its(:exit_status) { should eq 0 }
+    its(:stderr) { should eq '' }
+    let!(:data) do
+      if subject.exit_status == 0
+        JSON.parse(subject.stdout)
+      else
+        {}
+      end
+    end
+    describe "check members count" do
+      it "has two exemptedMembers" do
+        expect(data["auditConfigs"][0]["auditLogConfigs"][0]["exemptedMembers"].length).to eq 2
+      end
+    end
+    describe "check members email" do
+      it "has correct exemptedMembers" do
+        expect(data["auditConfigs"][0]["auditLogConfigs"][0]["exemptedMembers"]).to include(
+          audit_config[0]["exempted_members"][0],
+          audit_config[1]["exempted_members"][0]
+          )
+      end
+    end
+    describe "check log type " do
+      it "has correct log type" do
+        expect(data["auditConfigs"][0]["auditLogConfigs"][0]["logType"]).to eq audit_config[0]["log_type"]
+      end
+    end
+    describe "check services " do
+      it "has correct Services" do
+        expect(data["auditConfigs"][0]["service"]).to eq audit_config[0]["service"]
+      end
+    end
+  end
+end 

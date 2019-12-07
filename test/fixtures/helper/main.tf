@@ -24,6 +24,17 @@ locals {
   bucket_roles  = ["roles/storage.legacyObjectReader", "roles/storage.legacyBucketReader"]
   members       = [var.member1, var.member2]
 
+  audit_log_config = [{
+    service          = "allServices"
+    log_type         = "DATA_READ"
+    exempted_members = ["serviceAccount:${var.member1}"]
+    }, {
+    service          = "allServices"
+    log_type         = "DATA_READ"
+    exempted_members = ["serviceAccount:${var.member2}"]
+
+  }]
+
   member_group_0 = [
     "serviceAccount:${var.member1}",
     "serviceAccount:${var.member2}",

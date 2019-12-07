@@ -90,3 +90,9 @@ module "iam_binding_pubsub_topic" {
   project       = var.project_id
   bindings      = local.basic_bindings
 }
+
+module "audit_config" {
+  source           = "../../../modules/audit_config"
+  project          = var.project_id
+  audit_log_config = local.audit_log_config
+}
