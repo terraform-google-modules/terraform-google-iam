@@ -1,6 +1,16 @@
 # Google IAM Terraform Module
 
-This Terraform module makes it easier to non-destructively manage multiple IAM roles for resources on Google Cloud Platform.
+This is a collection of submodules that make it easier to non-destructively manage multiple IAM roles for resources on Google Cloud Platform:
+* [Folders IAM](modules/folders_iam)
+* [KMS Crypto Keys IAM](modules/kms_crypto_keys_iam)
+* [KMS_Key Rings IAM](modules/kms_key_rings_iam)
+* [Organizations IAM](modules/organizations_iam)
+* [Projects IAM](modules/projects_iam)
+* [Pubsub Subscriptions IAM](modules/pubsub_subscriptions_iam)
+* [Pubsub Topics IAM](modules/pubsub_topics_iam)
+* [Service Accounts IAM](modules/service_accounts_iam)
+* [Storage Buckets IAM](modules/storage_buckets_iam)
+* [Subnets IAM](modules/subnets_iam)
 
 ## Compatibility
 
@@ -13,6 +23,7 @@ is [1.1.1][v1.1.1].
 
 The following guides are available to assist with upgrades:
 
+- [4.0 -> 5.0](./docs/upgrading_to_iam_5.0.md)
 - [3.0 -> 4.0](./docs/upgrading_to_iam_4.0.md)
 - [2.0 -> 3.0](./docs/upgrading_to_iam_3.0.md)
 
@@ -23,7 +34,7 @@ Full examples are in the [examples](./examples/) folder, but basic usage is as f
 ```hcl
 module "projects_iam_bindings" {
   source  = "terraform-google-modules/iam/google//modules/projects_iam"
-  version = "~> 3.0"
+  version = "~> 5.0"
 
   projects = ["project-123456", "project-9876543"]
 
@@ -50,7 +61,7 @@ The module also offers an **authoritative** mode which will remove all roles not
 ```hcl
 module "storage_buckets_iam_bindings" {
   source  = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
-  version = "~> 3.0"
+  version = "~> 5.0"
 
   storage_buckets = ["my-storage-bucket"]
 
@@ -70,96 +81,22 @@ module "storage_buckets_iam_bindings" {
 }
 ```
 
-### Variables
+### Additive and Authoritative Modes
 
-Following variables are the most important to control module's behavior:
+The `mode` variable controls a submodule's behavior, by default it's set to "additive", possible options are:
 
-- Mode
+  - additive: add members to role, old members are not deleted from this role.
+  - authoritative: set the role's members (including removing any not listed), unlisted roles are not affected.
 
-    This variable controls the module's behavior, by default is set to "additive", possible options are:
+In authoritative mode, a submodule takes full control over the IAM bindings listed in the module. This means that any members added to roles outside the module will be removed the next time Terraform runs. However, roles not listed in the module will be unaffected.
 
-      - additive: add members to role, old members are not deleted from this role.
-      - authoritative: set the role's members, other roles' members are not deleted.
-
-- Bindings
-
-  Is a map of role (key) and list of members (value) with member type prefix, for example:
-
-```hcl
-        bindings = {
-            "roles/<some_role>" = [
-                "user:someone@somewhere.com",
-                "group:somepeople@somewhereelse.com"
-            ]
-        }
-```
-
-- Project
-
-  This variable must be defined in case of using one the following modules:
-
-  - `pubsub_subscriptions_iam`
-  - `pubsub_topics_iam`
-  - `service_accounts_iam`
-  - `subnets_iam`
-
-- Subnets_region
-
-  This variable must be defined in case of using module `subnets_iam`
-
-#### Additive and Authoritative Modes
-
-This module includes two modes: additive and authoritative.
-
-In authoritative mode, the module takes full control over the IAM bindings listed in the module. This means that any members added to roles outside the module will be removed the next time Terraform runs. However, roles not listed in the module will be unaffected.
-
-In additive mode, this module leaves existing bindings unaffected. Instead, any members listed in the module will be added to the existing set of IAM bindings. However, members listed in the module *are* fully controlled by the module. This means that if you add a binding via the module and later remove it, the module will correctly handle removing the role binding.
-
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| folders | Folders list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| folders\_bindings | Map of role (key) and list of members (value) to add the Folders IAM policies/bindings | map(list(string)) | n/a | yes |
-| folders\_mode | Mode for adding the Folders IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| kms\_crypto\_keys | KMS Crypto Keys list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| kms\_crypto\_keys\_bindings | Map of role (key) and list of members (value) to add the KMS Crypto Keys IAM policies/bindings | map(list(string)) | n/a | yes |
-| kms\_crypto\_keys\_mode | Mode for adding the KMS Crypto Keys IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| kms\_key\_rings | KMS Key Rings list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| kms\_key\_rings\_bindings | Map of role (key) and list of members (value) to add the KMS Key Rings IAM policies/bindings | map(list(string)) | n/a | yes |
-| kms\_key\_rings\_mode | Mode for adding the KMS Key Rings IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| organizations | Organizations list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| organizations\_bindings | Map of role (key) and list of members (value) to add the Organizations IAM policies/bindings | map(list(string)) | n/a | yes |
-| organizations\_mode | Mode for adding the Organizations IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| project | Project to add the IAM policies/bindings | string | `""` | no |
-| projects | Projects list to add the IAM policies/bindings | list | `<list>` | no |
-| projects\_bindings | Map of role (key) and list of members (value) to add the Projects IAM policies/bindings | map(list(string)) | n/a | yes |
-| projects\_mode | Mode for adding the Projects IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| pubsub\_subscriptions | PubSub Subscriptions list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| pubsub\_subscriptions\_bindings | Map of role (key) and list of members (value) to add the PubSub Subscriptions IAM policies/bindings | map(list(string)) | n/a | yes |
-| pubsub\_subscriptions\_mode | Mode for adding the PubSub Subscriptions IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| pubsub\_topics | PubSub Topics list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| pubsub\_topics\_bindings | Map of role (key) and list of members (value) to add the PubSub Topics IAM policies/bindings | map(list(string)) | n/a | yes |
-| pubsub\_topics\_mode | Mode for adding the PubSub Topics IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| service\_accounts | Service Accounts list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| service\_accounts\_bindings | Map of role (key) and list of members (value) to add the Service Accounts IAM policies/bindings | map(list(string)) | n/a | yes |
-| service\_accounts\_mode | Mode for adding the Service Accounts IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| storage\_buckets | Storage Buckets list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| storage\_buckets\_bindings | Map of role (key) and list of members (value) to add the Storage Buckets IAM policies/bindings | map(list(string)) | n/a | yes |
-| storage\_buckets\_mode | Mode for adding the Storage Buckets IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| subnets | Subnets list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| subnets\_bindings | Map of role (key) and list of members (value) to add the Subnets IAM policies/bindings | map(list(string)) | n/a | yes |
-| subnets\_mode | Mode for adding the Subnets IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| subnets\_region | Subnets region | string | n/a | yes |
-
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+In additive mode, a submodule leaves existing bindings unaffected. Instead, any members listed in the module will be added to the existing set of IAM bindings. However, members listed in the module *are* fully controlled by the module. This means that if you add a binding via the module and later remove it, the module will correctly handle removing the role binding.
 
 ## Caveats
 
 ### Referencing values/attributes from other resources
 
-This Terraform module performs operations over some variables before making any changes on the IAM bindings in GCP. Because of the limitations of `for_each` ([more info](https://www.terraform.io/docs/configuration/resources.html#using-expressions-in-for_each)), which is widely used in this module, there are certain limitations to what kind of dynamic values you can provide to the module:
+Each submodule performs operations over some variables before making any changes on the IAM bindings in GCP. Because of the limitations of `for_each` ([more info](https://www.terraform.io/docs/configuration/resources.html#using-expressions-in-for_each)), which is widely used in the submodules, there are certain limitations to what kind of dynamic values you can provide to a submodule:
 
 1. Dynamic entities (for example `projects`) are only allowed for 1 entity.
 2. If you pass 2 or more entities (for example `projects`), the configuration **MUST** be static, meaning that it can't use any of the other resources' fields to get the entity name from (this includes getting the randomly generated hashes through the `random_id` resource).
@@ -168,7 +105,7 @@ This Terraform module performs operations over some variables before making any 
 
 ## IAM Bindings
 
-You can choose the following resource types for apply the IAM bindings:
+You can choose the following resource types to apply the IAM bindings:
 
 - Projects (`projects` variable)
 - Organizations(`organizations` variable)
@@ -181,7 +118,7 @@ You can choose the following resource types for apply the IAM bindings:
 - Kms Key Rings (`kms_key_rings` variable)
 - Kms Crypto Keys (`kms_crypto_keys` variable)
 
-Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#variables) and give enough [permissions](#permissions) to manage the selected resource as well.
+Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#additive-and-authoritative-modes) and give enough [permissions](#permissions) to manage the selected resource as well.
 
 ## Requirements
 
@@ -193,7 +130,7 @@ Set the specified variable on the module call to choose the resources to affect.
 
 ### Permissions
 
-In order to execute this module you must have a Service Account with an appropriate role to manage IAM for the applicable resource. The appropriate role differs depending on which resource you are targeting, as follows:
+In order to execute a submodule you must have a Service Account with an appropriate role to manage IAM for the applicable resource. The appropriate role differs depending on which resource you are targeting, as follows:
 
 - Organization:
   - Organization Administrator: Access to administer all resources belonging to the organization
