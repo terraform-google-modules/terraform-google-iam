@@ -1,3 +1,7 @@
+# KMS Key Ring Example
+
+This example illustrates how to use the `kms_key_rings_iam` submodule
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 

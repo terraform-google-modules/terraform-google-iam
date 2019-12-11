@@ -1,3 +1,7 @@
+# Billing Account Example
+
+This example illustrates how to use the `billing_accounts_iam` submodule
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 

@@ -1,3 +1,7 @@
+# Subnet Example
+
+This example illustrates how to use the `subnets_iam` submodule
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 

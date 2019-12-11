@@ -1,3 +1,7 @@
+# PubSub Topic Example
+
+This example illustrates how to use the `pubsub_topics_iam` submodule
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
