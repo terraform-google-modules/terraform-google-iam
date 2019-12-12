@@ -300,4 +300,4 @@ control 'audit-log-config' do
       end
     end
   end
-end 
+end

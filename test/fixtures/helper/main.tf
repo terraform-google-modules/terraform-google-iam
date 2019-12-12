@@ -26,11 +26,11 @@ locals {
 
   audit_log_config = [{
     service          = "allServices"
-    log_type         = "DATA_READ"
+    log_type         = "DATA_WRITE"
     exempted_members = ["serviceAccount:${var.member1}"]
     }, {
     service          = "allServices"
-    log_type         = "DATA_READ"
+    log_type         = "DATA_WRITE"
     exempted_members = ["serviceAccount:${var.member2}"]
 
   }]

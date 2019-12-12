@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- output "project" {
+output "project" {
   value       = var.project
   description = "Project to add the IAM policies/bindings"
 }
