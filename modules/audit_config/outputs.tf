@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-output "project" {
-  value       = var.project
-  description = "Project to add the IAM policies/bindings"
-}
-
 output "audit_log_config" {
   value       = var.audit_log_config
-  description = "Map of log type and exempted members to be addded to service"
+  description = "Map of log type and exempted members to be added to service"
 }

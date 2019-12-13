@@ -276,17 +276,18 @@ control 'audit-log-config' do
         {}
       end
     end
-    describe "check members count" do
-      it "has two exemptedMembers" do
-        expect(data["auditConfigs"][0]["auditLogConfigs"][0]["exemptedMembers"].length).to eq 2
+    describe "check auditConfigs count" do
+      it "has two auditConfigs" do
+        expect(data["auditConfigs"].length).to eq 2
       end
     end
     describe "check members email" do
       it "has correct exemptedMembers" do
-        expect(data["auditConfigs"][0]["auditLogConfigs"][0]["exemptedMembers"]).to include(
-          audit_config[0]["exempted_members"][0],
-          audit_config[1]["exempted_members"][0]
-          )
+        data["auditConfigs"].each do |config|
+          expect([audit_config[0]["exempted_members"][0], audit_config[1]["exempted_members"][0]]).to include(
+              config["auditLogConfigs"][0]["exemptedMembers"][0]
+            )
+          end
       end
     end
     describe "check log type " do
@@ -296,7 +297,11 @@ control 'audit-log-config' do
     end
     describe "check services " do
       it "has correct Services" do
-        expect(data["auditConfigs"][0]["service"]).to eq audit_config[0]["service"]
+        data["auditConfigs"].each do |config|
+          expect([audit_config[0]["service"],audit_config[1]["service"]]).to include (
+            config["service"]
+          )
+        end
       end
     end
   end

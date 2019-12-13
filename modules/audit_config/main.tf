@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-resource "google_project_iam_audit_config" "project_iam_authoritative" {
+resource "google_project_iam_audit_config" "project" {
   count   = length(var.audit_log_config)
   project = var.project
   service = var.audit_log_config[count.index].service
