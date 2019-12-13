@@ -30,7 +30,7 @@ locals {
     exempted_members = ["serviceAccount:${var.member1}"]
     }, {
     service          = "allServices"
-    log_type         = "DATA_READ
+    log_type         = "DATA_READ"
     exempted_members = ["serviceAccount:${var.member2}"]
 
   }]
