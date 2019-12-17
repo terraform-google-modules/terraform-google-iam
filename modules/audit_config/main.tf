@@ -14,12 +14,19 @@
  * limitations under the License.
  */
 
+locals {
+  audit_log_config = {
+    for key, val in var.audit_log_config :
+    key => val
+  }
+}
+
 resource "google_project_iam_audit_config" "project" {
-  count   = length(var.audit_log_config)
-  project = var.project
-  service = var.audit_log_config[count.index].service
+  for_each = local.audit_log_config
+  project  = var.project
+  service  = each.value.service
   audit_log_config {
-    log_type         = var.audit_log_config[count.index].log_type
-    exempted_members = var.audit_log_config[count.index].exempted_members
+    log_type         = each.value.log_type
+    exempted_members = each.value.exempted_members
   }
 }
