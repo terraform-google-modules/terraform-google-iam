@@ -71,3 +71,16 @@ suites:
           backend: local
     provisioner:
       name: terraform
+
+  - name: member-iam
+    driver:
+      name: terraform
+      command_timeout: 1800
+      root_module_directory: test/fixtures/member-iam
+    verifier:
+      name: terraform
+      systems:
+        - name: member-iam
+          backend: local
+    provisioner:
+      name: terraform
