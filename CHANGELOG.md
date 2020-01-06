@@ -10,6 +10,10 @@ corresponding pull request appended.
 
 ## [Unreleased]
 
+### Added
+
+- Added submodule for assigning multiple roles to a service account. [#88](https://github.com/terraform-google-modules/terraform-google-iam/pull/88)
+
 ## [5.1.0] - 2019-12-05
 
 ### Added
