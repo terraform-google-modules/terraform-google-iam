@@ -14,22 +14,9 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 0.12"
-}
-
-provider "google" {
-  version = "~> 2.12.0"
-}
-
-provider "google-beta" {
-  version = "~> 2.12.0"
-}
-
-
-provider "null" {
-  version = "~> 2.1"
-}
-provider "random" {
-  version = "~> 2.2"
+resource "google_project_iam_member" "project_iam_member" {
+  for_each = toset(var.project_roles)
+  project  = var.project_id
+  role     = each.key
+  member   = "serviceAccount:${var.service_account_address}"
 }

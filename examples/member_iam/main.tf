@@ -14,22 +14,26 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 0.12"
-}
-
+/******************************************
+  Provider configuration
+ *****************************************/
 provider "google" {
-  version = "~> 2.12.0"
+  version = "~> 2.19"
 }
 
 provider "google-beta" {
-  version = "~> 2.12.0"
+  version = "~> 2.19"
 }
 
-
-provider "null" {
-  version = "~> 2.1"
+resource "google_service_account" "member_iam_test" {
+  project      = var.project_id
+  account_id   = "member-iam-test"
+  display_name = "member-iam-test"
 }
-provider "random" {
-  version = "~> 2.2"
+
+module "member_roles" {
+  source                  = "../../modules/member_iam"
+  service_account_address = google_service_account.member_iam_test.email
+  project_id              = var.project_id
+  project_roles           = ["roles/compute.networkAdmin", "roles/appengine.appAdmin"]
 }

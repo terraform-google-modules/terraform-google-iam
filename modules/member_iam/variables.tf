@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 0.12"
+variable "service_account_address" {
+  description = "Service account address"
+  type        = string
 }
 
-provider "google" {
-  version = "~> 2.12.0"
+variable "project_id" {
+  description = "Project id"
+  type        = string
 }
 
-provider "google-beta" {
-  version = "~> 2.12.0"
-}
-
-
-provider "null" {
-  version = "~> 2.1"
-}
-provider "random" {
-  version = "~> 2.2"
+variable "project_roles" {
+  description = "List of IAM roles"
+  type        = list(string)
 }

@@ -14,22 +14,12 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 0.12"
+output "roles" {
+  value       = google_project_iam_member.project_iam_member
+  description = "Project roles."
 }
 
-provider "google" {
-  version = "~> 2.12.0"
-}
-
-provider "google-beta" {
-  version = "~> 2.12.0"
-}
-
-
-provider "null" {
-  version = "~> 2.1"
-}
-provider "random" {
-  version = "~> 2.2"
+output "project_id" {
+  value       = var.project_id
+  description = "Project id."
 }

@@ -14,22 +14,7 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 0.12"
-}
-
-provider "google" {
-  version = "~> 2.12.0"
-}
-
-provider "google-beta" {
-  version = "~> 2.12.0"
-}
-
-
-provider "null" {
-  version = "~> 2.1"
-}
-provider "random" {
-  version = "~> 2.2"
+variable "project_id" {
+  description = "Project id"
+  type        = string
 }
