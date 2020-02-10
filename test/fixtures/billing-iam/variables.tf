@@ -13,18 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-variable "org_id" {
-  description = "The numeric organization id"
+
+variable "member1" {
+  type        = string
+  description = "Member created for binding with roles."
 }
 
-variable "folder_id" {
-  description = "The folder to deploy in"
+variable "member2" {
+  type        = string
+  description = "Member created for binding with roles."
 }
 
-variable "billing_account" {
-  description = "The billing account id associated with the project, e.g. XXXXXX-YYYYYY-ZZZZZZ"
+variable "roles" {
+  type        = number
+  default     = 2
+  description = "Amount of roles to assign. Useful for testing how the module behaves on updates."
 }
 
 variable "billing_iam_test_account" {
-  description = "The billing iam test account id is for the billing-iam-module, only for testing, e.g. XXXXXX-YYYYYY-ZZZZZZ"
+  type        = string
+  description = "Billing Accounts IDs list to add the IAM policies/bindings."
 }

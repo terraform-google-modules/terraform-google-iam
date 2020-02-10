@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-variable "org_id" {
-  description = "The numeric organization id"
+
+# Resources
+
+#Additive
+
+output "billing_iam_test_account" {
+  value       = module.iam_binding_billing_accounts_additive.billing_account_ids
+  description = "Billing Accounts which received bindings."
 }
 
-variable "folder_id" {
-  description = "The folder to deploy in"
+output "roles" {
+  value       = module.iam_binding_billing_accounts_additive.roles
+  description = "Roles which were assigned to members."
 }
 
-variable "billing_account" {
-  description = "The billing account id associated with the project, e.g. XXXXXX-YYYYYY-ZZZZZZ"
-}
-
-variable "billing_iam_test_account" {
-  description = "The billing iam test account id is for the billing-iam-module, only for testing, e.g. XXXXXX-YYYYYY-ZZZZZZ"
+output "members" {
+  value       = module.iam_binding_billing_accounts_additive.members
+  description = "Members which were bound to the billing accounts."
 }

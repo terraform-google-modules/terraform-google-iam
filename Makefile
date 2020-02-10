@@ -39,6 +39,7 @@ docker_test_prepare:
 		-e TF_VAR_org_id \
 		-e TF_VAR_folder_id \
 		-e TF_VAR_billing_account \
+		-e TF_VAR_billing_iam_test_account \
 		-v $(CURDIR):/workspace \
 		$(REGISTRY_URL)/${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS} \
 		/usr/local/bin/execute_with_credentials.sh prepare_environment
@@ -51,6 +52,7 @@ docker_test_cleanup:
 		-e TF_VAR_org_id \
 		-e TF_VAR_folder_id \
 		-e TF_VAR_billing_account \
+		-e TF_VAR_billing_iam_test_account \
 		-v $(CURDIR):/workspace \
 		$(REGISTRY_URL)/${DOCKER_IMAGE_DEVELOPER_TOOLS}:${DOCKER_TAG_VERSION_DEVELOPER_TOOLS} \
 		/usr/local/bin/execute_with_credentials.sh cleanup_environment

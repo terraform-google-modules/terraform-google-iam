@@ -72,7 +72,13 @@ resource "google_billing_account_iam_member" "int_test_ba" {
   member             = "serviceAccount:${google_service_account.int_test.email}"
 }
 
+resource "google_billing_account_iam_member" "int_test_ba_billing_iam" {
+
+  billing_account_id = var.billing_iam_test_account
+  role               = "roles/billing.admin"
+  member             = "serviceAccount:${google_service_account.int_test.email}"
+}
+
 resource "google_service_account_key" "int_test" {
   service_account_id = google_service_account.int_test.id
 }
-
