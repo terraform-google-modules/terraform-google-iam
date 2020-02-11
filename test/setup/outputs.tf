@@ -49,3 +49,8 @@ output "random_hexes" {
   value       = random_id.random_hexes[*].hex
   description = "List of pre-generated random id hexes. Required for 'for_each' to work when testing static scerarios."
 }
+
+output "billing_iam_test_account" {
+  value       = var.billing_iam_test_account
+  description = "The billing iam test account id is for the billing-iam-module, only for testing, e.g. XXXXXX-YYYYYY-ZZZZZZ"
+}
