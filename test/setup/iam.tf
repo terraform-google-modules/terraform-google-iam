@@ -76,7 +76,7 @@ resource "google_billing_account_iam_member" "int_test_ba" {
   member             = "serviceAccount:${google_service_account.int_test.email}"
 }
 
-resource "google_billing_test_account_iam_member" "int_test_ba_billing_iam" {
+resource "google_billing_account_iam_member" "int_test_ba_billing_iam" {
   count = length(local.int_required_ba_billing_iam_roles)
 
   billing_account_id = var.billing_iam_test_account
