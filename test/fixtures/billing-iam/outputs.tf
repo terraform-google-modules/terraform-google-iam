@@ -20,15 +20,15 @@
 
 output "billing_iam_test_account" {
   value       = module.iam_binding_billing_accounts_additive.billing_account_ids
-  description = "Billing Accounts which received bindings."
-}
-
-output "roles" {
-  value       = module.iam_binding_billing_accounts_additive.roles
-  description = "Roles which were assigned to members."
+  description = "Billing Account which received bindings."
 }
 
 output "members" {
   value       = module.iam_binding_billing_accounts_additive.members
   description = "Members which were bound to the billing accounts."
+}
+
+output "billing_sa_admin" {
+  value       = var.billing_sa_admin
+  description = "Admin Service Account bound to Test Billing Account."
 }

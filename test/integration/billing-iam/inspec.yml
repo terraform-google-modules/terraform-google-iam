@@ -22,4 +22,7 @@ attributes:
     type: array
   - name: members
     required: true
-    type: array
+    type: hash
+  - name: billing_sa_admin
+    required: true
+    type: string

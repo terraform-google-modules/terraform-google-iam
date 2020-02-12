@@ -16,6 +16,7 @@
 
 billing_iam_test_account = attribute('billing_iam_test_account')
 members = attribute('members')
+billing_sa_admin = attribute('billing_sa_admin')
 
 control "GCP Billing IAM" do
             title "GCP Billing Bindings"
@@ -34,13 +35,17 @@ control "GCP Billing IAM" do
 
                 describe "members" do
                 it "are bound" do
-                    members.each do |member|
-                        expect(data['bindings'][0]['members']).to include(member)
+                    members.each_value do |member_value|
+                        member_value.each do |member|
+                            expect(data['bindings'][0]['members']).to include(member)
+                        end
                     end
                 end
 
-                it "are admin" do
-                    expect(data['bindings'][0]['role']).to eq 'roles/billing.admin'
+                describe "Billing IAM SA" do
+                it "is bound" do
+                    expect(data['bindings'][0]['members']).to include("serviceAccount:#{billing_sa_admin}")
+                    end
                 end
             end
         end

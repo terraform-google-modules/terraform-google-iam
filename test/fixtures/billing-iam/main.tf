@@ -14,30 +14,6 @@
  * limitations under the License.
  */
 
-locals {
-  billing_roles = ["roles/billing.admin", "roles/billing.viewer"]
-  members       = [var.member1, var.member2]
-
-  member_group_0 = [
-    "serviceAccount:${var.member1}",
-    "serviceAccount:${var.member2}",
-  ]
-
-  member_group_1 = [
-    "serviceAccount:${var.member2}",
-  ]
-
-  member_groups = [local.member_group_0, local.member_group_1]
-
-  # 1 or 2 roles amount can be specified to generate that amount of bindings.
-  # This variability is used to test how the module behaves on configuration updates.
-
-  billing_bindings = zipmap(
-    slice(local.billing_roles, 0, var.roles),
-    slice(local.member_groups, 0, var.roles)
-  )
-}
-
 provider "google" {
   version = "~> 2.7"
 }
@@ -49,8 +25,7 @@ provider "google-beta" {
 #additive
 
 module "iam_binding_billing_accounts_additive" {
-  source              = "../../../modules/billing_accounts_iam"
-  mode                = "additive"
-  bindings            = local.billing_bindings
-  billing_account_ids = [var.billing_iam_test_account]
+  source              = "../../../examples/billing_account"
+  billing_account_id  = var.billing_iam_test_account
+  project_id          = var.project_id
 }

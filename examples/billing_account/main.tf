@@ -25,6 +25,30 @@ provider "google-beta" {
   version = "~> 2.7"
 }
 
+locals {
+
+  bindings={
+    "roles/billing.viewer" = [
+      "serviceAccount:billing-iam-test-01@${var.project_id}.iam.gserviceaccount.com",
+    ]
+
+    "roles/billing.admin" = [
+      "serviceAccount:billing-iam-test-01@${var.project_id}.iam.gserviceaccount.com",
+      "serviceAccount:billing-iam-test-02@${var.project_id}.iam.gserviceaccount.com",
+    ]
+  }
+}
+
+resource "google_service_account" "service_account_01" {
+  account_id = "billing-iam-test-01"
+  project    = var.project_id
+}
+
+resource "google_service_account" "service_account_02" {
+  account_id = "billing-iam-test-02"
+  project    = var.project_id
+}
+
 /******************************************
   Module billing_account_iam_binding calling
  *****************************************/
@@ -35,14 +59,5 @@ module "billing-account-iam" {
 
   mode = "additive"
 
-  bindings = {
-    "roles/billing.viewer" = [
-      "user:${var.user_email}",
-    ]
-
-    "roles/billing.user" = [
-      "serviceAccount:${var.sa_email}",
-      "group:${var.group_email}",
-    ]
-  }
+  bindings = local.bindings
 }

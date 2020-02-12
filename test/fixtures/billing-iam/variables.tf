@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-variable "member1" {
-  type        = string
-  description = "Member created for binding with roles."
-}
-
-variable "member2" {
-  type        = string
-  description = "Member created for binding with roles."
-}
-
-variable "roles" {
-  type        = number
-  default     = 2
-  description = "Amount of roles to assign. Useful for testing how the module behaves on updates."
-}
-
 variable "billing_iam_test_account" {
   type        = string
-  description = "Billing Accounts IDs list to add the IAM policies/bindings."
+  description = "Billing Account ID to use for testing IAM policies/bindings."
+}
+
+variable "billing_sa_admin" {
+  type        = string
+  description = "Admin Service Account bound to Test Billing Account."
+}
+
+variable "project_id" {
+  type        = string
+  description = "Project ID"
 }
