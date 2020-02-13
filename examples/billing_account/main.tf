@@ -27,7 +27,7 @@ provider "google-beta" {
 
 locals {
 
-  bindings={
+  bindings = {
     "roles/billing.viewer" = [
       "serviceAccount:billing-iam-test-01@${var.project_id}.iam.gserviceaccount.com",
     ]
