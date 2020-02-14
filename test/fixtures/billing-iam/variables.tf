@@ -19,11 +19,6 @@ variable "billing_iam_test_account" {
   description = "Billing Account ID to use for testing IAM policies/bindings."
 }
 
-variable "billing_sa_admin" {
-  type        = string
-  description = "Admin Service Account bound to Test Billing Account."
-}
-
 variable "project_id" {
   type        = string
   description = "Project ID"

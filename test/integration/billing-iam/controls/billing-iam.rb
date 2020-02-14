@@ -14,14 +14,13 @@
 
 # Billing Bindings
 
-billing_iam_test_account = attribute('billing_iam_test_account')
+billing_iam_test_accounts = attribute('billing_iam_test_accounts')
 members = attribute('members')
-billing_sa_admin = attribute('billing_sa_admin')
 
 control "GCP Billing IAM" do
             title "GCP Billing Bindings"
-            billing_iam_test_account.each do |billing_iam_test_account|
-                describe command ("gcloud beta billing accounts get-iam-policy #{billing_iam_test_account} --format=json") do
+            billing_iam_test_accounts.each do |billing_iam_test_accounts|
+                describe command ("gcloud beta billing accounts get-iam-policy #{billing_iam_test_accounts} --format=json") do
                 its(:exit_status) { should eq 0 }
                 its(:stderr) { should eq '' }
 
@@ -35,16 +34,14 @@ control "GCP Billing IAM" do
 
                 describe "members" do
                 it "are bound" do
-                    members.each_value do |member_value|
-                        member_value.each do |member|
-                            expect(data['bindings'][0]['members']).to include(member)
-                        end
+                    transformed_data={}
+                    data['bindings'].each do |binding|
+                        transformed_data.store(binding["role"],binding["members"])
                     end
-                end
-
-                describe "Billing IAM SA" do
-                it "is bound" do
-                    expect(data['bindings'][0]['members']).to include("serviceAccount:#{billing_sa_admin}")
+                    members.each do |role,saMembers|
+                        saMembers.each do |member|
+                            expect(transformed_data[role]).to include(member)
+                        end
                     end
                 end
             end

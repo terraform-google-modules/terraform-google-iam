@@ -16,7 +16,7 @@ This example illustrates how to use the `billing_accounts_iam` submodule
 |------|-------------|
 | billing\_account\_ids | Billing Accounts which received bindings. |
 | members | Members which were bound to the billing accounts. |
-| service\_account\_address | Member which was bound to projects. |
+| service\_account\_addresses | Service Account Addresses which were bound to projects. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

@@ -14,7 +14,7 @@
 
 name: billing-iam
 attributes:
-  - name: billing_iam_test_account
+  - name: billing_iam_test_accounts
     required: true
     type: array
   - name: roles
@@ -23,6 +23,3 @@ attributes:
   - name: members
     required: true
     type: hash
-  - name: billing_sa_admin
-    required: true
-    type: string

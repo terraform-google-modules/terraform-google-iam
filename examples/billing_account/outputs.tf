@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-output "service_account_address" {
+output "service_account_addresses" {
   value       = [google_service_account.service_account_01.email, google_service_account.service_account_02.email]
-  description = "Member which was bound to projects."
+  description = "Service Account Addresses which were bound to projects."
 }
 
 output "billing_account_ids" {
