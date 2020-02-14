@@ -23,3 +23,6 @@ attributes:
   - name: members
     required: true
     type: hash
+  - name: project_id
+    required: true
+    type: string

@@ -16,6 +16,7 @@
 
 billing_iam_test_accounts = attribute('billing_iam_test_accounts')
 members = attribute('members')
+project_id = attribute('project_id')
 
 control "GCP Billing IAM" do
             title "GCP Billing Bindings"
@@ -38,11 +39,9 @@ control "GCP Billing IAM" do
                     data['bindings'].each do |binding|
                         transformed_data.store(binding["role"],binding["members"])
                     end
-                    members.each do |role,saMembers|
-                        saMembers.each do |member|
-                            expect(transformed_data[role]).to include(member)
-                        end
-                    end
+                    expect(transformed_data["roles/billing.viewer"]).to include("serviceAccount:billing-iam-test-01@#{project_id}.iam.gserviceaccount.com")
+                    expect(transformed_data["roles/billing.admin"]).to include("serviceAccount:billing-iam-test-01@#{project_id}.iam.gserviceaccount.com")
+                    expect(transformed_data["roles/billing.admin"]).to include("serviceAccount:billing-iam-test-02@#{project_id}.iam.gserviceaccount.com")
                 end
             end
         end

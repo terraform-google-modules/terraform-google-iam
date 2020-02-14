@@ -27,3 +27,8 @@ output "members" {
   value       = module.iam_binding_billing_accounts_additive.members
   description = "Members which were bound to the billing accounts."
 }
+
+output "project_id" {
+  value       = var.project_id
+  description = "Project ID"
+}
