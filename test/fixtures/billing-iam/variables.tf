@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-variable "billing_account_id" {
+variable "billing_iam_test_account" {
   type        = string
-  description = "Billing Account ID to apply IAM bindings"
+  description = "Billing Account ID to use for testing IAM policies/bindings."
 }
 
 variable "project_id" {
   type        = string
-  description = "Project ID for the module"
+  description = "Project ID"
 }

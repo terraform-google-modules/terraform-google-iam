@@ -40,6 +40,10 @@ locals {
   int_required_ba_roles = [
     "roles/billing.user",
   ]
+
+  int_required_ba_billing_iam_roles = [
+    "roles/billing.admin",
+  ]
 }
 
 resource "google_service_account" "int_test" {
@@ -72,7 +76,14 @@ resource "google_billing_account_iam_member" "int_test_ba" {
   member             = "serviceAccount:${google_service_account.int_test.email}"
 }
 
+resource "google_billing_account_iam_member" "int_test_ba_billing_iam" {
+  count = length(local.int_required_ba_billing_iam_roles)
+
+  billing_account_id = var.billing_iam_test_account
+  role               = local.int_required_ba_billing_iam_roles[count.index]
+  member             = "serviceAccount:${google_service_account.int_test.email}"
+}
+
 resource "google_service_account_key" "int_test" {
   service_account_id = google_service_account.int_test.id
 }
-

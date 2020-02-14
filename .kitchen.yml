@@ -84,3 +84,16 @@ suites:
           backend: local
     provisioner:
       name: terraform
+
+  - name: billing-iam
+    driver:
+      name: terraform
+      command_timeout: 1800
+      root_module_directory: test/fixtures/billing-iam
+    verifier:
+      name: terraform
+      systems:
+        - name: billing-iam
+          backend: local
+    provisioner:
+      name: terraform

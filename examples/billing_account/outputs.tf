@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-variable "billing_account_id" {
-  type        = string
-  description = "Billing Account ID to apply IAM bindings"
+output "service_account_addresses" {
+  value       = [google_service_account.service_account_01.email, google_service_account.service_account_02.email]
+  description = "Service Account Addresses which were bound to projects."
 }
 
-variable "project_id" {
-  type        = string
-  description = "Project ID for the module"
+output "billing_account_ids" {
+  value       = module.billing-account-iam.billing_account_ids
+  description = "Billing Accounts which received bindings."
+}
+
+output "members" {
+  value       = local.bindings
+  description = "Members which were bound to the billing accounts."
 }

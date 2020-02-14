@@ -35,7 +35,7 @@ resource "google_folder" "test" {
 resource "random_id" "test" {
   count = local.n
 
-  byte_length = 2
+  byte_length = 4
 }
 
 resource "google_project" "test" {

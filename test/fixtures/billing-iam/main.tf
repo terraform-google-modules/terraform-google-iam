@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-variable "billing_account_id" {
-  type        = string
-  description = "Billing Account ID to apply IAM bindings"
+provider "google" {
+  version = "~> 2.7"
 }
 
-variable "project_id" {
-  type        = string
-  description = "Project ID for the module"
+provider "google-beta" {
+  version = "~> 2.7"
+}
+
+#additive
+
+module "iam_binding_billing_accounts_additive" {
+  source             = "../../../examples/billing_account"
+  billing_account_id = var.billing_iam_test_account
+  project_id         = var.project_id
 }

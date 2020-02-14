@@ -14,12 +14,21 @@
  * limitations under the License.
  */
 
-variable "billing_account_id" {
-  type        = string
-  description = "Billing Account ID to apply IAM bindings"
+# Resources
+
+#Additive
+
+output "billing_iam_test_accounts" {
+  value       = module.iam_binding_billing_accounts_additive.billing_account_ids
+  description = "Billing Accounts which received bindings."
 }
 
-variable "project_id" {
-  type        = string
-  description = "Project ID for the module"
+output "members" {
+  value       = module.iam_binding_billing_accounts_additive.members
+  description = "Members which were bound to the billing accounts."
+}
+
+output "project_id" {
+  value       = var.project_id
+  description = "Project ID"
 }
