@@ -22,7 +22,7 @@ locals {
   Custom IAM Org Role
  *****************************************/
 resource "google_organization_iam_custom_role" "org-custom-role" {
-  count = var.role_level == "org" ? 0 : 1
+  count = var.role_level == "org" ? 1 : 0
 
   org_id      = var.org_id
   role_id     = var.role_id
