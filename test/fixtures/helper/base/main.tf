@@ -16,6 +16,7 @@
 
 locals {
   n           = 1
+  empty       = 0
   prefix      = "test-iam"
   location    = var.base_location
   subnet_cidr = var.subnet_cidr
@@ -107,6 +108,16 @@ resource "google_pubsub_subscription" "test" {
 
 resource "google_compute_subnetwork" "test" {
   count = local.n
+
+  project       = var.base_project_id
+  region        = local.location
+  name          = "${local.prefix}-snet-${count.index}-${random_id.test[count.index].hex}"
+  ip_cidr_range = local.subnet_cidr[count.index]
+  network       = "default"
+}
+
+resource "google_compute_subnetwork" "empty_test" {
+  count = local.empty
 
   project       = var.base_project_id
   region        = local.location

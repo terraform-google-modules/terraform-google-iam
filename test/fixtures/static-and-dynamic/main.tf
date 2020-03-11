@@ -117,10 +117,10 @@ resource "google_project" "additive_dynamic" {
 }
 
 module "projects_iam_additive_dynamic" {
-  source   = "../../../modules/projects_iam"
-  mode     = "additive"
-  project  = google_project.additive_dynamic[0].project_id
-  bindings = local.project_bindings
+  source    = "../../../modules/projects_iam"
+  mode      = "additive"
+  projects  = [google_project.additive_dynamic[0].project_id]
+  bindings  = local.project_bindings
 }
 
 # Providers
