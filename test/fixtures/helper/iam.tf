@@ -51,7 +51,7 @@ module "iam_binding_subnet_empty" {
   mode           = var.mode
   project        = var.project_id
   subnets_region = module.base.region
-  subnets        = module.base.empty_subnets
+  subnets        = []
   bindings       = local.basic_bindings
 }
 

@@ -62,11 +62,6 @@ output "subnets" {
   description = "Subnetworks created for bindings."
 }
 
-output "empty_subnets" {
-  value       = google_compute_subnetwork.test.*.name
-  description = "Subnetworks created for bindings."
-}
-
 output "region" {
   value       = local.location
   description = "Subnetworks region created for bindings."
