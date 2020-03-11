@@ -104,9 +104,6 @@ module "projects_iam_authoritative_dynamic" {
 
 # Additive Dynamic
 
-# We also test here that specifying `project` insead of the `projects` array works
-# That's why the count is forced to 1
-
 resource "google_project" "additive_dynamic" {
   count = 1
 

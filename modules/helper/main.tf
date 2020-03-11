@@ -31,7 +31,7 @@ locals {
   # will prevent the potentially dynamic resource name usage in the `for_each`
   aliased_entities = local.singular ? ["default"] : var.entities
 
-  # Cover the usecase of specifying singular entity instead of an array
+  # Values in the map need to be the proper entity names
   real_entities = var.entities
 
   bindings_by_role = distinct(flatten([
