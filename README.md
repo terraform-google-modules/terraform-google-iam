@@ -118,7 +118,7 @@ You can choose the following resource types to apply the IAM bindings:
 - Kms Key Rings (`kms_key_rings` variable)
 - Kms Crypto Keys (`kms_crypto_keys` variable)
 
-Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#additive-and-authoritative-modes) and give enough [permissions](#permissions) to manage the selected resource as well.
+Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#additive-and-authoritative-modes) and give enough [permissions](#permissions) to manage the selected resource as well. Note that the `bindings` variable accepts an empty map `{}` passed in as an argument in the case that resources don't have IAM bindings to apply.
 
 ## Requirements
 
