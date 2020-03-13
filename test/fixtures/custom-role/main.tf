@@ -14,14 +14,6 @@
  * limitations under the License.
  */
 
-provider "google" {
-  version = "~> 2.7"
-}
-
-provider "google-beta" {
-  version = "~> 2.7"
-}
-
 module "create_custom_role" {
   source     = "../../../examples/custom_role"
   org_id     = var.org_id

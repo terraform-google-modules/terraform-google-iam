@@ -42,9 +42,17 @@ variable "permissions" {
 variable "description" {
   type        = string
   description = "Description of Custom role."
+  default     = "This is a custom role."
+}
+
+variable "stage" {
+  type        = string
+  description = "The current launch stage of the role. Defaults to GA."
+  default     = "GA"
 }
 
 variable "role_level" {
   type        = string
   description = "String variable to denote if custom role being created is at project or organization level."
+  default     = "project"
 }

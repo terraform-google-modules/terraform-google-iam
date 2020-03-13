@@ -27,7 +27,6 @@ resource "google_organization_iam_custom_role" "org-custom-role" {
   org_id      = var.org_id
   role_id     = var.role_id
   title       = var.title
-  description = var.description
   permissions = var.permissions
 }
 
@@ -40,6 +39,5 @@ resource "google_project_iam_custom_role" "project-custom-role" {
   project     = var.project_id
   role_id     = var.role_id
   title       = var.title
-  description = var.description
   permissions = var.permissions
 }

@@ -18,11 +18,11 @@
   Provider configuration
  *****************************************/
 provider "google" {
-  version = "~> 2.7"
+  version = "~> 3.3"
 }
 
 provider "google-beta" {
-  version = "~> 2.7"
+  version = "~> 3.3"
 }
 
 locals {
@@ -44,6 +44,5 @@ module "custom-roles" {
   project_id  = var.project_id
   role_id     = "custom_role_${random_id.rand_custom_id.hex}"
   title       = "Project_Custom_Role_${random_id.rand_custom_id.hex}"
-  description = "Project level custom role"
   permissions = local.role_permissions
 }
