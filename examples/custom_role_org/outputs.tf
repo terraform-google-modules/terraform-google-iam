@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-module "create_custom_role_project" {
-  source    = "../../../examples/custom_role_project"
-  target_id = var.project_id
-}
-
-module "create_custom_role_org" {
-  source    = "../../../examples/custom_role_org"
-  target_id = var.org_id
+output "custom_role_id_org" {
+  value       = module.custom-roles-org.custom_role_id
+  description = "ID of the custom role created at organization level."
 }

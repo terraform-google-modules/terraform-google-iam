@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-module "create_custom_role_project" {
-  source    = "../../../examples/custom_role_project"
-  target_id = var.project_id
-}
-
-module "create_custom_role_org" {
-  source    = "../../../examples/custom_role_org"
-  target_id = var.org_id
+variable "target_id" {
+  type        = string
+  description = "Variable for Project ID."
 }

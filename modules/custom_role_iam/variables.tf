@@ -14,24 +14,15 @@
  * limitations under the License.
  */
 
-variable "org_id" {
+variable "role_id" {
   type        = string
-  description = "Organization ID"
-}
-
-variable "project_id" {
-  type        = string
-  description = "Project ID"
+  description = "ID of the Custom Role."
 }
 
 variable "title" {
   type        = string
-  description = "Title of the Custom Role."
-}
-
-variable "role_id" {
-  type        = string
-  description = "ID of the Custom Role."
+  description = "Human-readable title of the Custom Role, defaults to role_id."
+  default     = ""
 }
 
 variable "permissions" {
@@ -42,7 +33,7 @@ variable "permissions" {
 variable "description" {
   type        = string
   description = "Description of Custom role."
-  default     = "This is a custom role."
+  default     = ""
 }
 
 variable "stage" {
@@ -51,7 +42,12 @@ variable "stage" {
   default     = "GA"
 }
 
-variable "role_level" {
+variable "target_id" {
+  type        = string
+  description = "Variable for project or organization ID."
+}
+
+variable "target_level" {
   type        = string
   description = "String variable to denote if custom role being created is at project or organization level."
   default     = "project"

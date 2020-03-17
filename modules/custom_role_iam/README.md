@@ -45,19 +45,18 @@ module "custom-roles" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| description | Description of Custom role. | string | `"This is a custom role."` | no |
-| org\_id | Organization ID | string | n/a | yes |
+| description | Description of Custom role. | string | `""` | no |
 | permissions | IAM permissions assigned to Custom Role. | list(string) | n/a | yes |
-| project\_id | Project ID | string | n/a | yes |
 | role\_id | ID of the Custom Role. | string | n/a | yes |
-| role\_level | String variable to denote if custom role being created is at project or organization level. | string | `"project"` | no |
 | stage | The current launch stage of the role. Defaults to GA. | string | `"GA"` | no |
-| title | Title of the Custom Role. | string | n/a | yes |
+| target\_id | Variable for project or organization ID. | string | n/a | yes |
+| target\_level | String variable to denote if custom role being created is at project or organization level. | string | `"project"` | no |
+| title | Human-readable title of the Custom Role, defaults to role_id. | string | `""` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| custom\_role\_id | Custom Role ID created. |
+| custom\_role\_id | ID of the custom role created. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

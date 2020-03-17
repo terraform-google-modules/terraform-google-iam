@@ -14,9 +14,15 @@
 
 name: custom-role
 attributes:
-  - name: custom_role_id
+  - name: custom_role_id_project
+    required: true
+    type: string
+  - name: custom_role_id_org
     required: true
     type: string
   - name: project_id
+    required: true
+    type: string
+  - name: org_id
     required: true
     type: string

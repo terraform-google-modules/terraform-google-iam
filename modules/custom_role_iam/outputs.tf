@@ -16,5 +16,5 @@
 
 output "custom_role_id" {
   value       = local.custom-role-output
-  description = "Custom Role ID created."
+  description = "ID of the custom role created."
 }

@@ -14,12 +14,22 @@
  * limitations under the License.
  */
 
-output "custom_role_id" {
-  value       = module.create_custom_role.custom_role_id
-  description = "Custom Role that was created."
-}
-
 output "project_id" {
   value       = var.project_id
-  description = "Project ID of the Custom Role"
+  description = "Project ID of the Custom Role."
+}
+
+output "org_id" {
+  value       = var.org_id
+  description = "Organization ID of the Custom Role."
+}
+
+output "custom_role_id_project" {
+  value       = module.create_custom_role_project.custom_role_id_project
+  description = "ID of the custom role created at project level."
+}
+
+output "custom_role_id_org" {
+  value       = module.create_custom_role_org.custom_role_id_org
+  description = "ID of the custom role created at organization level."
 }

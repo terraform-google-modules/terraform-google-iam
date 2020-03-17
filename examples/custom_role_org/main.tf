@@ -14,30 +14,29 @@
  * limitations under the License.
  */
 
-locals {
-  custom-role-output = (var.target_level == "project") ? google_project_iam_custom_role.project-custom-role[0].role_id : google_organization_iam_custom_role.org-custom-role[0].role_id
+/******************************************
+  Provider configuration
+ *****************************************/
+provider "google" {
+  version = "~> 3.3"
+}
+
+provider "google-beta" {
+  version = "~> 3.3"
+}
+
+resource "random_id" "rand_custom_id" {
+  byte_length = 2
 }
 
 /******************************************
-  Custom IAM Org Role
+  Module custom_role call
  *****************************************/
-resource "google_organization_iam_custom_role" "org-custom-role" {
-  count = var.target_level == "org" ? 1 : 0
+module "custom-roles-org" {
+  source = "../../modules/custom_role_iam/"
 
-  org_id      = var.target_id
-  role_id     = var.role_id
-  title       = var.title == "" ? var.role_id : var.title
-  permissions = var.permissions
-}
-
-/******************************************
-  Custom IAM Project Role
- *****************************************/
-resource "google_project_iam_custom_role" "project-custom-role" {
-  count = var.target_level == "project" ? 1 : 0
-
-  project     = var.target_id
-  role_id     = var.role_id
-  title       = var.title == "" ? var.role_id : var.title
-  permissions = var.permissions
+  target_level = "org"
+  target_id    = var.target_id
+  role_id      = "custom_role_org_${random_id.rand_custom_id.hex}"
+  permissions  = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
 }

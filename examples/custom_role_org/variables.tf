@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-output "custom_role_id" {
-  value       = module.custom-roles.custom_role_id
-  description = "Custom Role ID created."
+variable "target_id" {
+  type        = string
+  description = "Variable for Organization ID."
 }

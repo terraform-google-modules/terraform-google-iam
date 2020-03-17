@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  type        = string
-  description = "Project ID"
-}
-
-variable "org_id" {
-  type        = string
-  description = "Organization ID"
+terraform {
+  required_version = ">= 0.12"
 }

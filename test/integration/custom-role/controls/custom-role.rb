@@ -14,13 +14,36 @@
 
 # GCP Custom Role
 
-custom_role_id = attribute('custom_role_id')
+custom_role_id_project = attribute('custom_role_id_project')
+custom_role_id_org = attribute('custom_role_id_org')
 project_id = attribute('project_id')
+org_id = attribute('org_id')
 
 control "GCP Custom Role" do
     title "Custom Role"
 
-    describe command ("gcloud iam roles describe #{custom_role_id} --project #{project_id} --format=json") do
+    describe command ("gcloud iam roles describe #{custom_role_id_project} --project #{project_id} --format=json") do
+        its(:exit_status) { should eq 0 }
+        its(:stderr) { should eq '' }
+
+        let!(:data) do
+            if subject.exit_status == 0
+                JSON.parse(subject.stdout)
+            else
+                {}
+            end
+        end
+
+        describe "custom_role" do
+            it "have role" do
+                expect(data["includedPermissions"]).to include("iam.roles.list")
+                expect(data["includedPermissions"]).to include("iam.roles.create")
+                expect(data["includedPermissions"]).to include("iam.roles.delete")
+            end
+        end
+    end
+
+    describe command ("gcloud iam roles describe #{custom_role_id_org} --organization #{org_id} --format=json") do
         its(:exit_status) { should eq 0 }
         its(:stderr) { should eq '' }
 
