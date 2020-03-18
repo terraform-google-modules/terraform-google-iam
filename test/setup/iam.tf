@@ -15,6 +15,10 @@
  */
 
 locals {
+  int_required_org_roles = [
+    "roles/iam.organizationRoleAdmin"
+  ]
+
   int_required_proj_roles = [
     "roles/owner",
     "roles/resourcemanager.projectIamAdmin",
@@ -50,6 +54,14 @@ resource "google_service_account" "int_test" {
   project      = module.iam-project.project_id
   account_id   = "iam-int-test"
   display_name = "iam-int-test"
+}
+
+resource "google_organization_iam_member" "int_test_org" {
+  count = length(local.int_required_org_roles)
+
+  org_id = var.org_id
+  role   = local.int_required_org_roles[count.index]
+  member = "serviceAccount:${google_service_account.int_test.email}"
 }
 
 resource "google_project_iam_member" "int_test_project" {
