@@ -15,11 +15,11 @@
  */
 
 module "create_custom_role_project" {
-  source    = "../../../examples/custom_role_project"
-  target_id = var.project_id
+  source     = "../../../examples/custom_role_project"
+  project_id = var.project_id
 }
 
 module "create_custom_role_org" {
-  source    = "../../../examples/custom_role_org"
-  target_id = var.org_id
+  source = "../../../examples/custom_role_org"
+  org_id = var.org_id
 }

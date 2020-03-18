@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-variable "target_id" {
+variable "org_id" {
   type        = string
   description = "Variable for Organization ID."
 }

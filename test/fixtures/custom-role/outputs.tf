@@ -25,11 +25,11 @@ output "org_id" {
 }
 
 output "custom_role_id_project" {
-  value       = module.create_custom_role_project.custom_role_id_project
+  value       = module.create_custom_role_project.role_id
   description = "ID of the custom role created at project level."
 }
 
 output "custom_role_id_org" {
-  value       = module.create_custom_role_org.custom_role_id_org
+  value       = module.create_custom_role_org.role_id
   description = "ID of the custom role created at organization level."
 }

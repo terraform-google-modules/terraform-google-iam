@@ -25,10 +25,6 @@ provider "google-beta" {
   version = "~> 3.3"
 }
 
-resource "random_id" "rand_custom_id" {
-  byte_length = 2
-}
-
 /******************************************
   Module custom_role call
  *****************************************/
@@ -36,7 +32,7 @@ module "custom-role-project" {
   source = "../../modules/custom_role_iam/"
 
   target_level = "project"
-  target_id    = var.target_id
-  role_id      = "custom_role_project_${random_id.rand_custom_id.hex}"
-  permissions  = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
+  target_id    = var.project_id
+  role_id      = "iamDeleter"
+  permissions  = ["iam.roles.list", "iam.roles.delete"]
 }

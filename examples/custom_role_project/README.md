@@ -7,13 +7,13 @@ This example illustrates how to use the `custom_role_iam` submodule to create a 
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| target\_id | Variable for Project ID. | string | n/a | yes |
+| project\_id | Variable for Project ID. | string | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| custom\_role\_id\_project | ID of the custom role created at project level. |
+| role\_id | ID of the custom role created at project level. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

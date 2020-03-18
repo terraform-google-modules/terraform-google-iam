@@ -5,38 +5,30 @@ This optional module is used to create custom roles at organization or project l
 ## Usage - Custom Role at Organization Level
 
 ```hcl
-locals {
-  role_permissions = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
-}
-
 module "custom-roles" {
-  source = "../../modules/custom_role_iam/"
+  source = "terraform-google-modules/iam/google/modules/custom_role_iam"
 
-  role_level  = "org"
-  org_id      = "123456789"
-  role_id     = "custom_role_id"
-  title       = "Custom Role Unique Title"
-  description = "Custom Role Description"
-  permissions = local.role_permissions
+  target_level = "org"
+  org_id       = "123456789"
+  role_id      = "custom_role_id"
+  title        = "Custom Role Unique Title"
+  description  = "Custom Role Description"
+  permissions  = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
 }
 ```
 
 ## Usage - Custom Role at Project Level
 
 ```hcl
-locals {
-  role_permissions = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
-}
-
 module "custom-roles" {
-  source = "../../modules/custom_role_iam/"
+  source = "terraform-google-modules/iam/google/modules/custom_role_iam"
 
-  role_level  = "project"
-  project_id  = "project_id_123"
-  role_id     = "custom_role_id"
-  title       = "Custom Role Unique Title"
-  description = "Custom Role Description"
-  permissions = local.role_permissions
+  target_level = "project"
+  project_id   = "project_id_123"
+  role_id      = "custom_role_id"
+  title        = "Custom Role Unique Title"
+  description  = "Custom Role Description"
+  permissions  = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
 }
 ```
 

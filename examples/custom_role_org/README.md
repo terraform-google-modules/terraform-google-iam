@@ -7,13 +7,13 @@ This example illustrates how to use the `custom_role_iam` submodule to create a 
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| target\_id | Variable for Organization ID. | string | n/a | yes |
+| org\_id | Variable for Organization ID. | string | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| custom\_role\_id\_org | ID of the custom role created at organization level. |
+| role\_id | ID of the custom role created at organization level. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
