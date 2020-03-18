@@ -37,7 +37,6 @@ control "GCP Custom Role" do
         describe "custom_role" do
             it "have role" do
                 expect(data["includedPermissions"]).to include("iam.roles.list")
-                expect(data["includedPermissions"]).to include("iam.roles.create")
                 expect(data["includedPermissions"]).to include("iam.roles.delete")
             end
         end
@@ -58,7 +57,6 @@ control "GCP Custom Role" do
         describe "custom_role" do
             it "have role" do
                 expect(data["includedPermissions"]).to include("iam.roles.list")
-                expect(data["includedPermissions"]).to include("iam.roles.create")
                 expect(data["includedPermissions"]).to include("iam.roles.delete")
             end
         end

@@ -37,7 +37,7 @@ module "custom-roles" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| description | Description of Custom role. | string | `""` | no |
+| description | Description of Custom role. | string | `"This is a Custom Role."` | no |
 | permissions | IAM permissions assigned to Custom Role. | list(string) | n/a | yes |
 | role\_id | ID of the Custom Role. | string | n/a | yes |
 | stage | The current launch stage of the role. Defaults to GA. | string | `"GA"` | no |
