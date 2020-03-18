@@ -6,7 +6,7 @@ This optional module is used to create custom roles at organization or project l
 
 ```hcl
 module "custom-roles" {
-  source = "terraform-google-modules/iam/google/modules/custom_role_iam"
+  source = "terraform-google-modules/iam/google//modules/custom_role_iam"
 
   target_level = "org"
   org_id       = "123456789"
@@ -21,7 +21,7 @@ module "custom-roles" {
 
 ```hcl
 module "custom-roles" {
-  source = "terraform-google-modules/iam/google/modules/custom_role_iam"
+  source = "terraform-google-modules/iam/google//modules/custom_role_iam"
 
   target_level = "project"
   project_id   = "project_id_123"
