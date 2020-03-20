@@ -33,7 +33,7 @@ variable "permissions" {
 variable "description" {
   type        = string
   description = "Description of Custom role."
-  default     = "This is a Custom Role."
+  default     = ""
 }
 
 variable "stage" {
