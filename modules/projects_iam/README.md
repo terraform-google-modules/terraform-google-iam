@@ -31,7 +31,6 @@ module "project-iam-bindings" {
 |------|-------------|:----:|:-----:|:-----:|
 | bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map(list(string)) | n/a | yes |
 | mode | Mode for adding the IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
-| project | Project to add the IAM policies/bindings | string | `""` | no |
 | projects | Projects list to add the IAM policies/bindings | list(string) | `<list>` | no |
 
 ## Outputs

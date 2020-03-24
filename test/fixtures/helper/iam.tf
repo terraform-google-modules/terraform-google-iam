@@ -46,6 +46,15 @@ module "iam_binding_subnet" {
   bindings       = local.basic_bindings
 }
 
+module "iam_binding_subnet_empty" {
+  source         = "../../../modules/subnets_iam"
+  mode           = var.mode
+  project        = var.project_id
+  subnets_region = module.base.region
+  subnets        = []
+  bindings       = local.basic_bindings
+}
+
 module "iam_binding_service_account" {
   source           = "../../../modules/service_accounts_iam"
   mode             = var.mode

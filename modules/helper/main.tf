@@ -25,14 +25,14 @@ locals {
   # Other rules regrading the dynamic nature of resources:
   # 1. The roles might never be dynamic.
   # 2. Members might only be dynamic in `authoritative` mode.
-  singular = length(var.entities) <= 1
+  singular = length(var.entities) == 1
 
   # In singular mode, replace entity name with a constant "default". This
   # will prevent the potentially dynamic resource name usage in the `for_each`
   aliased_entities = local.singular ? ["default"] : var.entities
 
-  # Cover the usecase of specifying singular entity instead of an array
-  real_entities = var.entity != "" ? [var.entity] : var.entities
+  # Values in the map need to be the proper entity names
+  real_entities = var.entities
 
   bindings_by_role = distinct(flatten([
     for name in local.real_entities

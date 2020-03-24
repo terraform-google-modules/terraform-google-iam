@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-variable "project" {
-  description = "Project to add the IAM policies/bindings"
-  default     = ""
-  type        = string
-}
-
 variable "projects" {
   description = "Projects list to add the IAM policies/bindings"
   default     = []
