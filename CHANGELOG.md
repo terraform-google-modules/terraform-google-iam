@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [6.0.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v5.1.0...v6.0.0) (2020-03-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `project` variable has been removed from the `projects_iam` submodule. Please use `projects` instead.
+
+### Features
+
+* Add custom_role submodule ([#95](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/95)) ([18cbbf1](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/18cbbf1a4f703fb30987899c041a6844d842c6dc))
+
+
+### Bug Fixes
+
+* Support empty subnet bindings ([#97](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/97)) ([2f04df9](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/2f04df98ba1a01e907b0d5ab1da133810c5c18bd))
+
 ## [Unreleased]
 
 ### Added
