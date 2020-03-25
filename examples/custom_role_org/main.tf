@@ -39,4 +39,5 @@ module "custom-roles-org" {
   target_id    = var.org_id
   role_id      = "iamDeleter_${random_id.rand_custom_id.hex}"
   permissions  = ["iam.roles.list", "iam.roles.delete"]
+  description  = "This is an organization level custom role."
 }
