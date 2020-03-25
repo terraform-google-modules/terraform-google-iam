@@ -9,7 +9,7 @@ module "custom-roles" {
   source = "terraform-google-modules/iam/google//modules/custom_role_iam"
 
   target_level = "org"
-  target_id       = "123456789"
+  target_id    = "123456789"
   role_id      = "custom_role_id"
   title        = "Custom Role Unique Title"
   description  = "Custom Role Description"
@@ -24,7 +24,7 @@ module "custom-roles" {
   source = "terraform-google-modules/iam/google//modules/custom_role_iam"
 
   target_level = "project"
-  target_id   = "project_id_123"
+  target_id    = "project_id_123"
   role_id      = "custom_role_id"
   title        = "Custom Role Unique Title"
   description  = "Custom Role Description"
