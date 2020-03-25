@@ -104,9 +104,6 @@ module "projects_iam_authoritative_dynamic" {
 
 # Additive Dynamic
 
-# We also test here that specifying `project` insead of the `projects` array works
-# That's why the count is forced to 1
-
 resource "google_project" "additive_dynamic" {
   count = 1
 
@@ -119,7 +116,7 @@ resource "google_project" "additive_dynamic" {
 module "projects_iam_additive_dynamic" {
   source   = "../../../modules/projects_iam"
   mode     = "additive"
-  project  = google_project.additive_dynamic[0].project_id
+  projects = [google_project.additive_dynamic[0].project_id]
   bindings = local.project_bindings
 }
 

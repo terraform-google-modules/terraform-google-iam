@@ -21,7 +21,6 @@ module "helper" {
   source   = "../helper"
   bindings = var.bindings
   mode     = var.mode
-  entity   = var.project
   entities = var.projects
 }
 
