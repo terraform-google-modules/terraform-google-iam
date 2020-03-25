@@ -35,4 +35,5 @@ module "custom-role-project" {
   target_id    = var.project_id
   role_id      = "iamDeleter"
   permissions  = ["iam.roles.list", "iam.roles.delete"]
+  description  = "This is a project level custom role."
 }
