@@ -97,3 +97,16 @@ suites:
           backend: local
     provisioner:
       name: terraform
+
+  - name: custom-role
+    driver:
+      name: terraform
+      command_timeout: 1800
+      root_module_directory: test/fixtures/custom-role
+    verifier:
+      name: terraform
+      systems:
+        - name: custom-role
+          backend: local
+    provisioner:
+      name: terraform
