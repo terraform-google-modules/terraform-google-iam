@@ -52,5 +52,5 @@ resource "google_service_account" "custom_role_account_01" {
 resource "google_project_iam_member" "custom_role_member" {
   project = var.project_id
   role    = "projects/${var.project_id}/roles/${module.custom-role-project.custom_role_id}"
-  member  = "serviceAccount:custom-role-account-01@${var.project_id}"
+  member  = "serviceAccount:custom-role-account-01@${var.project_id}.iam.gserviceaccount.com"
 }
