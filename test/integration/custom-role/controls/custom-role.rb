@@ -83,7 +83,6 @@ control "GCP Custom Role" do
                     transformed_data.store(binding["role"],binding["members"])
                 end
                 expect(transformed_data["projects/#{project_id}/roles/#{custom_role_id_project}"]).to include("serviceAccount:custom-role-account-01@#{project_id}.iam.gserviceaccount.com")
-                expect(transformed_data["projects/#{project_id}/roles/#{custom_role_id_project}"]).to include("serviceAccount:custom-role-account-02@#{project_id}.iam.gserviceaccount.com")
             end
         end
     end
@@ -107,7 +106,6 @@ control "GCP Custom Role" do
                     transformed_data.store(binding["role"],binding["members"])
                 end
                 expect(transformed_data["organizations/#{org_id}/roles/#{custom_role_id_org}"]).to include("group:test-gcp-org-admins@test.infra.cft.tips")
-                expect(transformed_data["organizations/#{org_id}/roles/#{custom_role_id_org}"]).to include("group:test-gcp-billing-admins@test.infra.cft.tips")
             end
         end
     end
