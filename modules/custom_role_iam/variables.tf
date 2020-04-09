@@ -52,3 +52,8 @@ variable "target_level" {
   description = "String variable to denote if custom role being created is at project or organization level."
   default     = "project"
 }
+
+variable "members" {
+  description = "List of members to be added to custom role."
+  type        = list(string)
+}

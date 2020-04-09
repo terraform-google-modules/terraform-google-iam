@@ -14,6 +14,7 @@ module "custom-roles" {
   title        = "Custom Role Unique Title"
   description  = "Custom Role Description"
   permissions  = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
+  members      = ["user:user01@domain.com", "group:group01@domain.com"]
 }
 ```
 
@@ -38,6 +39,7 @@ module "custom-roles" {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | description | Description of Custom role. | string | `""` | no |
+| members | List of members to be added to custom role. | list(string) | n/a | yes |
 | permissions | IAM permissions assigned to Custom Role. | list(string) | n/a | yes |
 | role\_id | ID of the Custom Role. | string | n/a | yes |
 | stage | The current launch stage of the role. Defaults to GA. | string | `"GA"` | no |

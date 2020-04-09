@@ -40,4 +40,5 @@ module "custom-roles-org" {
   role_id      = "iamDeleter_${random_id.rand_custom_id.hex}"
   permissions  = ["iam.roles.list", "iam.roles.delete"]
   description  = "This is an organization level custom role."
+  members      = ["group:test-gcp-org-admins@test.infra.cft.tips", "group:test-gcp-billing-admins@test.infra.cft.tips"]
 }

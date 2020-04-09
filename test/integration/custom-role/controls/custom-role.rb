@@ -34,7 +34,7 @@ control "GCP Custom Role" do
             end
         end
 
-        describe "custom_role" do
+        describe "project_custom_role" do
             it "have role" do
                 expect(data["description"]).to include("This is a project level custom role.")
                 expect(data["includedPermissions"]).to include("iam.roles.list")
@@ -55,11 +55,57 @@ control "GCP Custom Role" do
             end
         end
 
-        describe "custom_role" do
+        describe "organization_custom_role" do
             it "have role" do
                 expect(data["description"]).to include("This is an organization level custom role.")
                 expect(data["includedPermissions"]).to include("iam.roles.list")
                 expect(data["includedPermissions"]).to include("iam.roles.delete")
+            end
+        end
+    end
+
+    describe command ("gcloud projects get-iam-policy #{project_id} --format=json") do
+        its(:exit_status) { should eq 0 }
+        its(:stderr) { should eq '' }
+
+        let!(:data) do
+            if subject.exit_status == 0
+                JSON.parse(subject.stdout)
+            else
+                {}
+            end
+        end
+
+        describe "project_custom_role" do
+            it "is bound to" do
+                transformed_data={}
+                data['bindings'].each do |binding|
+                    transformed_data.store(binding["role"],binding["members"])
+                end
+                expect(transformed_data["projects/#{project_id}/roles/#{custom_role_id_project}"]).to include("serviceAccount:custom-role-account-01@#{project_id}.iam.gserviceaccount.com")
+            end
+        end
+    end
+
+    describe command ("gcloud organizations get-iam-policy #{org_id} --format=json") do
+        its(:exit_status) { should eq 0 }
+        its(:stderr) { should eq '' }
+
+        let!(:data) do
+            if subject.exit_status == 0
+                JSON.parse(subject.stdout)
+            else
+                {}
+            end
+        end
+
+        describe "organization_custom_role" do
+            it "is bound to" do
+                transformed_data={}
+                data['bindings'].each do |binding|
+                    transformed_data.store(binding["role"],binding["members"])
+                end
+                expect(transformed_data["organizations/#{org_id}/roles/#{custom_role_id_org}"]).to include("group:test-gcp-org-admins@test.infra.cft.tips")
             end
         end
     end

@@ -32,6 +32,17 @@ resource "google_organization_iam_custom_role" "org-custom-role" {
 }
 
 /******************************************
+  Assigning custom_role to member
+ *****************************************/
+resource "google_organization_iam_member" "custom_role_member" {
+
+  for_each = var.target_level == "org" ? toset(var.members) : []
+  org_id   = var.target_id
+  role     = "organizations/${var.target_id}/roles/${local.custom-role-output}"
+  member   = each.key
+}
+
+/******************************************
   Custom IAM Project Role
  *****************************************/
 resource "google_project_iam_custom_role" "project-custom-role" {
@@ -42,4 +53,15 @@ resource "google_project_iam_custom_role" "project-custom-role" {
   title       = var.title == "" ? var.role_id : var.title
   description = var.description
   permissions = var.permissions
+}
+
+/******************************************
+  Assigning custom_role to member
+ *****************************************/
+resource "google_project_iam_member" "custom_role_member" {
+
+  for_each = var.target_level == "project" ? toset(var.members) : []
+  project  = var.target_id
+  role     = "projects/${var.target_id}/roles/${local.custom-role-output}"
+  member   = each.key
 }
