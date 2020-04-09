@@ -16,7 +16,8 @@
 
 locals {
   int_required_org_roles = [
-    "roles/iam.organizationRoleAdmin"
+    "roles/iam.organizationRoleAdmin",
+    "roles/orgpolicy.policyAdmin",
   ]
 
   int_required_proj_roles = [
