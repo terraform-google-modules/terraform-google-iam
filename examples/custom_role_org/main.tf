@@ -41,3 +41,12 @@ module "custom-roles-org" {
   permissions  = ["iam.roles.list", "iam.roles.delete"]
   description  = "This is an organization level custom role."
 }
+
+/******************************************
+  Assigning custom_role to members
+ *****************************************/
+resource "google_organization_iam_binding" "custom_role_members" {
+  org_id  = var.org_id
+  role    = "organizations/${var.org_id}/roles/${module.custom-roles-org.custom_role_id}"
+  members = ["group:test-gcp-org-admins@test.infra.cft.tips", "group:test-gcp-billing-admins@test.infra.cft.tips"]
+}

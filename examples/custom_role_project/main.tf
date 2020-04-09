@@ -37,3 +37,26 @@ module "custom-role-project" {
   permissions  = ["iam.roles.list", "iam.roles.delete"]
   description  = "This is a project level custom role."
 }
+
+/******************************************
+  Create service accounts to use as members
+ *****************************************/
+resource "google_service_account" "custom_role_account_01" {
+  account_id = "custom-role-account-01"
+  project    = var.project_id
+}
+
+resource "google_service_account" "custom_role_account_02" {
+  account_id = "custom-role-account-02"
+  project    = var.project_id
+}
+
+/******************************************
+  Assigning custom_role to members
+ *****************************************/
+resource "google_project_iam_binding" "custom_role_members" {
+  project = var.project_id
+  role    = "projects/${var.project_id}/roles/${module.custom-role-project.custom_role_id}"
+  members = ["serviceAccount:custom-role-account-01@${var.project_id}.iam.gserviceaccount.com",
+  "serviceAccount:custom-role-account-02@${var.project_id}.iam.gserviceaccount.com"]
+}
