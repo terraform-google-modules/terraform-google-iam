@@ -120,3 +120,8 @@ output "roles" {
   value       = tostring(var.roles)
   description = "Amount of roles assigned. Useful for testing how the module behaves on updates."
 }
+
+output "audit_config" {
+  value       = module.generic.audit_config
+  description = "Map of log type and exempted members to be addded to service"
+}

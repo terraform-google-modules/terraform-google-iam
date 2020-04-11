@@ -74,3 +74,6 @@ attributes:
   - name: roles
     required: true
     type: string
+  - name: audit_config
+    required: true
+    type: array
