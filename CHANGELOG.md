@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [6.1.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.0.0...v6.1.0) (2020-04-13)
+
+
+### Features
+
+* Add helper for assigning members to custom roles ([#102](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/102)) ([fc46920](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/fc469204fb961de12763904b323fd2e23d9acac2))
+* Add submodule for managing audit config ([#82](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/82)) ([801788c](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/801788c0bcafb5694ca49a6d4495362f90807d0b))
+
 ## [6.0.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v5.1.0...v6.0.0) (2020-03-25)
 
 
