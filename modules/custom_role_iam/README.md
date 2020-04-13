@@ -30,6 +30,7 @@ module "custom-roles" {
   title        = "Custom Role Unique Title"
   description  = "Custom Role Description"
   permissions  = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
+  members      = ["serviceAccount:member01@${var.target_id}.iam.gserviceaccount.com", "serviceAccount:member02@${var.target_id}.iam.gserviceaccount.com"]
 }
 ```
 
