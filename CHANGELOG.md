@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [6.2.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.1.0...v6.2.0) (2020-07-17)
+
+
+### Features
+
+* add type of member to member submodule (member or group or serviceAccount) ([#106](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/106)) ([c6b968c](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/c6b968ce22dc48e3996f72e1e8b0e9bd2a5a6c01))
+
 ## [6.1.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.0.0...v6.1.0) (2020-04-13)
 
 
