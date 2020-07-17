@@ -17,4 +17,5 @@
 module "member_roles" {
   source     = "../../../examples/member_iam"
   project_id = var.project_id
+  prefix     = var.prefix
 }

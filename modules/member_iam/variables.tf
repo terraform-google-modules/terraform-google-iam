@@ -31,6 +31,6 @@ variable "project_roles" {
 
 variable "prefix" {
   description = "Prefix member or group or serviceaccount"
-  type = string
+  type        = string
 }
 
