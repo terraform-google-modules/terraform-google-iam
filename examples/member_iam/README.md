@@ -13,7 +13,6 @@ This example illustrates how to use the `member_iam` submodule
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| prefix | Prefix | string | n/a | yes |
 | project\_id | Project id | string | n/a | yes |
 
 ## Outputs

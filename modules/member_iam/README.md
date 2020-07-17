@@ -19,7 +19,7 @@ module "member_roles" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| prefix | Prefix member or group or serviceaccount | string | n/a | yes |
+| prefix | Prefix member or group or serviceaccount | string | `"serviceAccount"` | no |
 | project\_id | Project id | string | n/a | yes |
 | project\_roles | List of IAM roles | list(string) | n/a | yes |
 | service\_account\_address | Service account address | string | n/a | yes |
