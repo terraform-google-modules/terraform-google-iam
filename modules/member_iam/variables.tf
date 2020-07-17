@@ -28,3 +28,10 @@ variable "project_roles" {
   description = "List of IAM roles"
   type        = list(string)
 }
+
+variable "prefix" {
+  description = "Prefix member or group or serviceaccount"
+  type        = string
+  default     = "serviceAccount"
+}
+
