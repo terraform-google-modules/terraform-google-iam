@@ -21,6 +21,15 @@ module "organization-iam-bindings" {
       "user:my-user@my-org.com",
     ]
   }
+  conditional_bindings = [
+    {
+      role = "roles/storage.Admin"
+      title = "bucket_name_starts_with_test"
+      description = "Bucket Name Starts with test"
+      expression = ""
+      members = ["user:my-user@my-org.com"]
+    }
+  ]
 }
 ```
 
