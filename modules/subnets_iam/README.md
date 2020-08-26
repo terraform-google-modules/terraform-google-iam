@@ -23,6 +23,15 @@ module "subnet-iam-bindings" {
       "user:my-user@my-org.com",
     ]
   }
+  conditional_bindings = [
+    {
+      role = "roles/compute.networkAdmin"
+      title = "expires_after_2019_12_31"
+      description = "Expiring at midnight of 2019-12-31"
+      expression = "request.time < timestamp(\"2020-01-01T00:00:00Z\")"
+      members = ["user:my-user@my-org.com"]
+    }
+  ]
 }
 ```
 

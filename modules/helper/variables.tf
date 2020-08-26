@@ -28,3 +28,16 @@ variable "entities" {
   description = "Entities list to add the IAM policies/bindings"
   type        = list(string)
 }
+
+variable "conditional_bindings" {
+  description = "List of maps of role and respective conditions, and the members to add the IAM policies/bindings"
+  type = list(object({
+    role        = string
+    title       = string
+    description = string
+    expression  = string
+    members     = list(string)
+  }))
+  default = [
+  ]
+}
