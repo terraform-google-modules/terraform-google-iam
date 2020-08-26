@@ -76,7 +76,7 @@ locals {
     ]
   ]))
 
-keys_additive = distinct(flatten([
+  keys_additive = distinct(flatten([
     for alias in local.aliased_entities
     : [
       for role, members in var.bindings
@@ -87,7 +87,7 @@ keys_additive = distinct(flatten([
     ]
   ]))
 
-keys_additive_conditional = distinct(flatten([
+  keys_additive_conditional = distinct(flatten([
     for alias in local.aliased_entities
     : [
       for binding in var.conditional_bindings
