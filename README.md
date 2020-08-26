@@ -103,9 +103,6 @@ Each submodule performs operations over some variables before making any changes
 3. The role names themselves can never be dynamic.
 4. Members may only be dynamic in `authoritative` mode.
 
-### Conditional IAM Bindings
-1. You can only use one of `bindings` or `conditional_bindings` for a particular role per module call. Bindings cannot be applied to the same role both with and without conditions in the same module call and must be split into separate module calls.
-
 ## IAM Bindings
 
 You can choose the following resource types to apply the IAM bindings:
