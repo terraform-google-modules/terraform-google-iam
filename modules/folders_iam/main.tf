@@ -18,10 +18,11 @@
   Run helper module to get generic calculated data
  *****************************************/
 module "helper" {
-  source   = "../helper"
-  bindings = var.bindings
-  mode     = var.mode
-  entities = var.folders
+  source               = "../helper"
+  bindings             = var.bindings
+  mode                 = var.mode
+  entities             = var.folders
+  conditional_bindings = var.conditional_bindings
 }
 
 /******************************************
