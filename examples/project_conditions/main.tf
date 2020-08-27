@@ -18,7 +18,7 @@
   Provider configuration
  *****************************************/
 provider "google" {
-  version = "~> 3.33"
+  version = "~> 3.36"
 }
 
 provider "google-beta" {
