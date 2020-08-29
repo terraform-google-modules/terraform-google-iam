@@ -104,7 +104,7 @@ locals {
 
   bindings_authoritative = (
     local.authoritative
-    ? zipmap(local.all_keys_authoritative, local.bindings_by_role)
+    ? zipmap(local.all_keys_authoritative, local.all_bindings)
     : {}
   )
 
