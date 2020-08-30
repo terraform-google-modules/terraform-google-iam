@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 
+# Project general bindings
 module "iam_binding_project" {
   source   = "../../../modules/projects_iam"
   mode     = var.mode
   projects = module.base.projects
   bindings = local.project_bindings
+}
+
+# Project conditional bindings
+module "iam_conditional_binding_project" {
+  source               = "../../../modules/projects_iam"
+  mode                 = var.mode
+  projects             = module.base.projects
+  conditional_bindings = local.project_conditional_bindings
 }
 
 ## TODO(jmccune): Disabled as per discussion with Aaron.  Re-enable post 0.12

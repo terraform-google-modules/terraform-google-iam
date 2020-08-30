@@ -53,6 +53,13 @@ output "member_group_1" {
   description = "Members to be used in bindings."
 }
 
+# Binding Condition
+
+output "bindings_condition" {
+  value       = module.generic.bindings_condition
+  description = "Condition to be used in conditional bindings."
+}
+
 # Resources
 
 output "projects" {

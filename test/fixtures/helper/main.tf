@@ -24,6 +24,12 @@ locals {
   bucket_roles  = ["roles/storage.legacyObjectReader", "roles/storage.legacyBucketReader"]
   members       = [var.member1, var.member2]
 
+  bindings_condition = {
+    title       = "expires_after_2020_12_31"
+    description = "Expiring at midnight of 2020-12-31"
+    expression  = "request.time < timestamp(\"2021-01-01T00:00:00Z\")"
+  }
+
   audit_log_config = [{
     service          = "storage.googleapis.com"
     log_type         = "DATA_READ"
@@ -68,6 +74,16 @@ locals {
     slice(local.project_roles, 0, var.roles),
     slice(local.member_groups, 0, var.roles)
   )
+
+  project_conditional_bindings = [
+    merge(
+      {
+        role    = slice(local.project, 0, var.roles)
+        members = slice(local.member_groups, 0, var.roles)
+      },
+      local.bindings_condition
+    )
+  ]
 
   bucket_bindings = zipmap(
     slice(local.bucket_roles, 0, var.roles),

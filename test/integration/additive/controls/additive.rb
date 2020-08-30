@@ -44,6 +44,9 @@ member_groups = [
   attribute('member_group_1')
 ]
 
+# Condition for conditional bindings
+bindings_condition = attribute(bindings_condition)
+
 # Folders
 
 control 'folder-bindings' do
@@ -137,6 +140,30 @@ control 'project-bindings' do
         skip 'less than 2 roles specified'
       else
         should all include role: project_roles[1], members: member_groups[1]
+      end
+    end
+  end
+end
+
+# Projects conditional bindings
+
+control 'project-conditional-bindings' do
+  title 'Test projects conditional bindings are correct'
+
+  describe projects.map { |project| project_bindings(project) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: project_roles[0], members: member_groups[0], condition: bindings_condition
+      end
+    end
+
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: project_roles[1], members: member_groups[1], condition: bindings_condition
       end
     end
   end
