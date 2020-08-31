@@ -64,7 +64,7 @@ attributes:
     type: array
   - name: bindings_condition
     required: true
-    type: hash 
+    type: hash
   - name: project_id
     required: true
     type: string
