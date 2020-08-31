@@ -15,7 +15,7 @@
  */
 
 output "service_account_addresses" {
-  value       = [google_service_account.service_account_01.email, google_service_account.service_account_02.email]
+  value       = [local.service_account_01_email, local.service_account_02_email]
   description = "Service Account Addresses which were bound to projects."
 }
 

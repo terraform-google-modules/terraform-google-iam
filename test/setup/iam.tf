@@ -101,3 +101,14 @@ resource "google_billing_account_iam_member" "int_test_ba_billing_iam" {
 resource "google_service_account_key" "int_test" {
   service_account_id = google_service_account.int_test.id
 }
+
+# Adding creation of service accounts here for testing of billing_iam module
+resource "google_service_account" "service_account_01" {
+  account_id = "billing-iam-test-01"
+  project    = module.iam-project.project_id
+}
+
+resource "google_service_account" "service_account_02" {
+  account_id = "billing-iam-test-02"
+  project    = module.iam-project.project_id
+}
