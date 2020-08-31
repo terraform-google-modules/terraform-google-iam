@@ -78,7 +78,7 @@ locals {
   project_conditional_bindings = [
     merge(
       {
-        role    = slice(local.project, 0, var.roles)
+        role    = slice(local.project_roles, 0, var.roles)
         members = slice(local.member_groups, 0, var.roles)
       },
       local.bindings_condition
