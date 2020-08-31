@@ -17,9 +17,6 @@ attributes:
   - name: billing_iam_test_accounts
     required: true
     type: array
-  - name: roles
-    required: true
-    type: array
   - name: members
     required: true
     type: hash
