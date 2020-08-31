@@ -25,6 +25,6 @@ output "billing_account_ids" {
 }
 
 output "members" {
-  value       = local.bindings
+  value       = module.billing-account-iam.members
   description = "Members which were bound to the billing accounts."
 }
