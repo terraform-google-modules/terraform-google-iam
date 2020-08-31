@@ -17,12 +17,13 @@
 # This helper module is used multiple times to run multiple kitchen test suites
 
 locals {
-  basic_roles   = ["roles/owner", "roles/editor"]
-  org_roles     = ["roles/owner", "roles/iam.organizationRoleViewer"]
-  folder_roles  = ["roles/resourcemanager.folderViewer", "roles/resourcemanager.folderMover"]
-  project_roles = ["roles/iam.securityReviewer", "roles/iam.roleViewer"]
-  bucket_roles  = ["roles/storage.legacyObjectReader", "roles/storage.legacyBucketReader"]
-  members       = [var.member1, var.member2]
+  basic_roles               = ["roles/owner", "roles/editor"]
+  org_roles                 = ["roles/owner", "roles/iam.organizationRoleViewer"]
+  folder_roles              = ["roles/resourcemanager.folderViewer", "roles/resourcemanager.folderMover"]
+  project_roles             = ["roles/iam.securityReviewer", "roles/iam.roleViewer"]
+  project_conditional_roles = ["roles/compute.networkViewer", "roles/compute.networkUser"]
+  bucket_roles              = ["roles/storage.legacyObjectReader", "roles/storage.legacyBucketReader"]
+  members                   = [var.member1, var.member2]
 
   bindings_condition = {
     title       = "expires_after_2020_12_31"
@@ -78,8 +79,15 @@ locals {
   project_conditional_bindings = [
     merge(
       {
-        role    = slice(local.project_roles, 0, var.roles)
-        members = slice(local.member_groups, 0, var.roles)
+        role    = local.project_conditional_roles[0]
+        members = local.member_group_0
+      },
+      local.bindings_condition
+    ),
+    merge(
+      {
+        role    = local.project_conditional_roles[1]
+        members = local.member_group_1
       },
       local.bindings_condition
     )

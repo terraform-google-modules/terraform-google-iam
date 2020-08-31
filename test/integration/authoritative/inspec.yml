@@ -53,6 +53,9 @@ attributes:
   - name: project_roles
     required: true
     type: array
+  - name: project_conditional_roles
+    required: true
+    type: array
   - name: bucket_roles
     required: true
     type: array

@@ -33,11 +33,12 @@ region           = attribute('region')
 audit_config     = attribute('audit_config')
 
 # Role pairs (arrays of length = 2)
-basic_roles   = attribute('basic_roles')
-folder_roles  = attribute('folder_roles')
-org_roles     = attribute('org_roles')
-project_roles = attribute('project_roles')
-bucket_roles  = attribute('bucket_roles')
+basic_roles               = attribute('basic_roles')
+folder_roles              = attribute('folder_roles')
+org_roles                 = attribute('org_roles')
+project_roles             = attribute('project_roles')
+project_conditional_roles = attribute('project_conditional_roles')
+bucket_roles              = attribute('bucket_roles')
 
 # Pair of member groupings
 member_groups = [
@@ -46,7 +47,7 @@ member_groups = [
 ]
 
 # Condition for conditional bindings
-bindings_condition = attribute(bindings_condition)
+bindings_condition = attribute('bindings_condition')
 
 # Folders
 
@@ -154,7 +155,7 @@ control 'project-conditional-bindings' do
       if roles < 1
         skip 'less than 1 roles specified'
       else
-        should all include role: project_roles[0], members: member_groups[0], condition: bindings_condition
+        should all include role: project_conditional_roles[0], members: member_groups[0], condition: bindings_condition
       end
     end
 
@@ -162,7 +163,7 @@ control 'project-conditional-bindings' do
       if roles < 2
         skip 'less than 2 roles specified'
       else
-        should all include role: project_roles[1], members: member_groups[1], condition: bindings_condition
+        should all include role: project_conditional_roles[1], members: member_groups[1], condition: bindings_condition
       end
     end
   end
