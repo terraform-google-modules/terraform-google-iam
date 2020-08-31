@@ -37,7 +37,7 @@ module "kms_key_ring-iam-bindings" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map(list(string)) | n/a | yes |
+| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map(list(string)) | `<map>` | no |
 | conditional\_bindings | List of maps of role and respective conditions, and the members to add the IAM policies/bindings | object | `<list>` | no |
 | kms\_key\_rings | KMS Key Rings list to add the IAM policies/bindings | list(string) | `<list>` | no |
 | mode | Mode for adding the IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
