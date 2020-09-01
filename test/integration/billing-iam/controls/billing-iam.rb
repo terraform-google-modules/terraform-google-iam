@@ -15,7 +15,6 @@
 # Billing Bindings
 
 billing_iam_test_accounts = attribute('billing_iam_test_accounts')
-members = attribute('members')
 project_id = attribute('project_id')
 
 control "GCP Billing IAM" do

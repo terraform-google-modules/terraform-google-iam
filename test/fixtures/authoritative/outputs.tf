@@ -36,6 +36,11 @@ output "project_roles" {
   description = "Roles to be assigned to projects."
 }
 
+output "project_conditional_roles" {
+  value       = module.generic.project_conditional_roles
+  description = "Roles to be assigned with conditions to projects."
+}
+
 output "bucket_roles" {
   value       = module.generic.bucket_roles
   description = "Roles to be assigned to buckets."

@@ -47,7 +47,7 @@ member_groups = [
 ]
 
 # Condition for conditional bindings
-bindings_condition = attribute('bindings_condition')
+bindings_condition = attribute('bindings_condition').transform_keys!(&:to_sym)
 
 # Folders
 
