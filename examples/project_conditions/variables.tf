@@ -14,34 +14,31 @@
  * limitations under the License.
  */
 
+variable "group_email" {
+  type        = string
+  description = "Email for group to receive roles (ex. group@example.com)"
+}
+
+variable "sa_email" {
+  type        = string
+  description = "Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com)"
+}
+
+variable "user_email" {
+  type        = string
+  description = "Email for group to receive roles (Ex. user@example.com)"
+}
+
 /******************************************
-  Provider configuration
+  project_iam_binding variables
  *****************************************/
-provider "google" {
-  version = "~> 3.36"
+variable "project_one" {
+  type        = string
+  description = "First project id to add the IAM policies/bindings"
 }
 
-provider "google-beta" {
-  version = "~> 3.36"
+variable "project_two" {
+  type        = string
+  description = "Second project id to add the IAM policies/bindings"
 }
 
-/******************************************
-  Module folder_iam_binding calling
- *****************************************/
-module "folder-iam" {
-  source  = "../../modules/folders_iam/"
-  folders = ["${var.folder_one}", "${var.folder_two}"]
-
-  mode = "additive"
-
-  bindings = {
-    "roles/resourcemanager.folderEditor" = [
-      "serviceAccount:${var.sa_email}",
-      "group:${var.group_email}",
-    ]
-
-    "roles/resourcemanager.folderViewer" = [
-      "user:${var.user_email}",
-    ]
-  }
-}

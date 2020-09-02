@@ -36,6 +36,11 @@ output "project_roles" {
   description = "Roles to be assigned to projects."
 }
 
+output "project_conditional_roles" {
+  value       = local.project_conditional_roles
+  description = "Roles to be assigned with conditions to projects."
+}
+
 output "bucket_roles" {
   value       = local.bucket_roles
   description = "Roles to be assigned to buckets."
@@ -51,6 +56,13 @@ output "member_group_0" {
 output "member_group_1" {
   value       = local.member_group_1
   description = "Members to be used in bindings."
+}
+
+# Binding Condition
+
+output "bindings_condition" {
+  value       = local.bindings_condition
+  description = "Condition to be used in conditional bindings."
 }
 
 # Resources
