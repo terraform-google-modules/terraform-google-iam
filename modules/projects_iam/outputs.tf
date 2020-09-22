@@ -17,6 +17,7 @@
 output "projects" {
   value       = distinct(module.helper.bindings_by_member[*].name)
   description = "Projects wich received bindings."
+  depends_on  = [google_project_iam_binding.project_iam_authoritative, google_project_iam_member.project_iam_additive, ]
 }
 
 output "roles" {
