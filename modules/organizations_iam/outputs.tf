@@ -17,6 +17,7 @@
 output "organizations" {
   value       = distinct(module.helper.bindings_by_member[*].name)
   description = "Organizations which received bindings."
+  depends_on  = [google_organization_iam_binding.organization_iam_authoritative, google_organization_iam_member.organization_iam_additive, ]
 }
 
 output "roles" {
