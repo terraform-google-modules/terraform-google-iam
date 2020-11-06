@@ -8,10 +8,9 @@ module "audit_log_config" {
   source           = "terraform-google-modules/iam/google//modules/audit_config"
 
   project          = my-project
-  
 audit_log_config = [
     {
-      service          = "pubsub.googleapis.com"      
+      service          = "pubsub.googleapis.com"
       log_type         = "DATA_READ"
       exempted_members = [
             "group:my-group@my-org.com",
@@ -20,7 +19,7 @@ audit_log_config = [
           ]
     },
     {
-      service          = "storage.googleapis.com" 
+      service          = "storage.googleapis.com"
       log_type         = "DATA_WRITE"
       exempted_members = [
             "group:my-group@my-org.com",
@@ -29,7 +28,7 @@ audit_log_config = [
           ]
     },
     {
-      service          = "pubsub.googleapis.com" 
+      service          = "pubsub.googleapis.com"
       log_type         = "DATA_WRITE"
       exempted_members = [
             "group:my-group@my-org.com",
@@ -53,4 +52,3 @@ audit_log_config = [
 | Name | Description |
 |------|-------------|
 | audit\_log\_config | Map of log type and exempted members to be added to service |
-
