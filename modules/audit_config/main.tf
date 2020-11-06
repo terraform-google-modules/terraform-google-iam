@@ -25,7 +25,7 @@ resource "google_project_iam_audit_config" "project" {
   for_each = local.audit_log_config
   project  = var.project
   service  = each.key
-  
+
   dynamic "audit_log_config" {
     for_each = each.value
     iterator = log_type
