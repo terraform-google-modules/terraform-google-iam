@@ -26,24 +26,38 @@ provider "google-beta" {
 }
 
 /******************************************
-  Module organization_iam_binding calling
+  Module project_iam_binding calling
  *****************************************/
-module "organization_iam_binding" {
-  source        = "../../modules/organizations_iam/"
-  organizations = [var.organization_one, var.organization_two]
-  mode          = "authoritative"
+module "project_iam_binding" {
+  source   = "../../modules/projects_iam/"
+  projects = [var.project_one, var.project_two]
+  mode     = "additive"
 
   bindings = {
-    "roles/resourcemanager.organizationViewer" = [
+    "roles/compute.networkAdmin" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-    "roles/resourcemanager.projectDeleter" = [
+    "roles/appengine.appAdmin" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
   }
+
+  conditional_bindings = [
+    {
+      role        = "roles/storage.admin"
+      title       = "expires_after_2019_12_31"
+      description = "Expiring at midnight of 2019-12-31"
+      expression  = "request.time < timestamp(\"2020-01-01T00:00:00Z\")"
+      members = [
+        "serviceAccount:${var.sa_email}",
+        "group:${var.group_email}",
+        "user:${var.user_email}",
+      ]
+    }
+  ]
 }
 

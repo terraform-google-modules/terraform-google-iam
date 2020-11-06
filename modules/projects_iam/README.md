@@ -21,6 +21,16 @@ module "project-iam-bindings" {
       "user:my-user@my-org.com",
     ]
   }
+
+  conditional_bindings = [
+    {
+      role = "roles/editor"
+      title = "expires_after_2019_12_31"
+      description = "Expiring at midnight of 2019-12-31"
+      expression = "request.time < timestamp(\"2020-01-01T00:00:00Z\")"
+      members = ["user:my-user@my-org.com"]
+    }
+  ]
 }
 ```
 
@@ -29,7 +39,8 @@ module "project-iam-bindings" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map(list(string)) | n/a | yes |
+| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map(list(string)) | `<map>` | no |
+| conditional\_bindings | List of maps of role and respective conditions, and the members to add the IAM policies/bindings | object | `<list>` | no |
 | mode | Mode for adding the IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
 | projects | Projects list to add the IAM policies/bindings | list(string) | `<list>` | no |
 

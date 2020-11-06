@@ -18,35 +18,27 @@
   Provider configuration
  *****************************************/
 provider "google" {
-  version = "~> 2.7"
+  version = "~> 3.36"
 }
 
 provider "google-beta" {
-  version = "~> 2.7"
+  version = "~> 3.36"
 }
 
 locals {
+  service_account_01_email = "billing-iam-test-01@${var.project_id}.iam.gserviceaccount.com"
+  service_account_02_email = "billing-iam-test-02@${var.project_id}.iam.gserviceaccount.com"
 
   bindings = {
     "roles/billing.viewer" = [
-      "serviceAccount:billing-iam-test-01@${var.project_id}.iam.gserviceaccount.com",
+      "serviceAccount:${local.service_account_01_email}",
     ]
 
     "roles/billing.admin" = [
-      "serviceAccount:billing-iam-test-01@${var.project_id}.iam.gserviceaccount.com",
-      "serviceAccount:billing-iam-test-02@${var.project_id}.iam.gserviceaccount.com",
+      "serviceAccount:${local.service_account_01_email}",
+      "serviceAccount:${local.service_account_02_email}",
     ]
   }
-}
-
-resource "google_service_account" "service_account_01" {
-  account_id = "billing-iam-test-01"
-  project    = var.project_id
-}
-
-resource "google_service_account" "service_account_02" {
-  account_id = "billing-iam-test-02"
-  project    = var.project_id
 }
 
 /******************************************
