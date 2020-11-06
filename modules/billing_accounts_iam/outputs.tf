@@ -17,6 +17,7 @@
 output "billing_account_ids" {
   value       = distinct(module.helper.bindings_by_member[*].name)
   description = "Billing Accounts which received bindings."
+  depends_on  = [google_billing_account_iam_binding.billing_account_iam_authoritative, google_billing_account_iam_member.billing_account_iam_additive, ]
 }
 
 output "roles" {

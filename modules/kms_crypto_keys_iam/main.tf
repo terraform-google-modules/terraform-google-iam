@@ -18,10 +18,11 @@
   Run helper module to get generic calculated data
  *****************************************/
 module "helper" {
-  source   = "../helper"
-  bindings = var.bindings
-  mode     = var.mode
-  entities = var.kms_crypto_keys
+  source               = "../helper"
+  bindings             = var.bindings
+  mode                 = var.mode
+  entities             = var.kms_crypto_keys
+  conditional_bindings = var.conditional_bindings
 }
 
 /******************************************
@@ -32,6 +33,14 @@ resource "google_kms_crypto_key_iam_binding" "kms_crypto_key_iam_authoritative" 
   crypto_key_id = module.helper.bindings_authoritative[each.key].name
   role          = module.helper.bindings_authoritative[each.key].role
   members       = module.helper.bindings_authoritative[each.key].members
+  dynamic "condition" {
+    for_each = module.helper.bindings_authoritative[each.key].condition.title == "" ? [] : [module.helper.bindings_authoritative[each.key].condition]
+    content {
+      title       = module.helper.bindings_authoritative[each.key].condition.title
+      description = module.helper.bindings_authoritative[each.key].condition.description
+      expression  = module.helper.bindings_authoritative[each.key].condition.expression
+    }
+  }
 }
 
 /******************************************
@@ -42,4 +51,12 @@ resource "google_kms_crypto_key_iam_member" "kms_crypto_key_iam_additive" {
   crypto_key_id = module.helper.bindings_additive[each.key].name
   role          = module.helper.bindings_additive[each.key].role
   member        = module.helper.bindings_additive[each.key].member
+  dynamic "condition" {
+    for_each = module.helper.bindings_additive[each.key].condition.title == "" ? [] : [module.helper.bindings_additive[each.key].condition]
+    content {
+      title       = module.helper.bindings_additive[each.key].condition.title
+      description = module.helper.bindings_additive[each.key].condition.description
+      expression  = module.helper.bindings_additive[each.key].condition.expression
+    }
+  }
 }

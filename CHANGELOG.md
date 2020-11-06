@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+### [6.3.1](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.3.0...v6.3.1) (2020-09-22)
+
+
+### Bug Fixes
+
+* add depends_on to resource name outputs ([#114](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/114)) ([00a7b22](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/00a7b222d940b2f16d9ea8ff9e23a1d988072441))
+
+## [6.3.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.2.0...v6.3.0) (2020-09-02)
+
+
+### Features
+
+* Adding support for IAM Conditions ([#109](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/109)) ([ac41053](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/ac41053db55fad183313dc4e9c7f7fbff86c232d))
+
 ## [6.2.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.1.0...v6.2.0) (2020-07-17)
 
 
