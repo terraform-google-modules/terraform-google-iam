@@ -16,7 +16,7 @@
 
 custom_role_id_project = attribute('custom_role_id_project')
 custom_role_id_org = attribute('custom_role_id_org')
-custom_role_id_project_unsupported = attribute('custom_role_id_project_unsupported')
+custom_role_id_org_unsupported = attribute('custom_role_id_org_unsupported')
 project_id = attribute('project_id')
 org_id = attribute('org_id')
 
