@@ -35,6 +35,6 @@ output "custom_role_id_org" {
 }
 
 output "custom_role_id_org_unsupported" {
-  value       = module.create_custom_role_unsupported_permissions_org.role_id
+  value       = module.create_custom_role_unsupported_permissions_org.custom_role_id
   description = "ID of the custom role created formed from base role with unsupported permissions"
 }
