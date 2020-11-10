@@ -2,6 +2,8 @@
 
 This optional module is used to create custom roles at organization or project level. The module supports creating custom rules optionally using predefined roles as a base, with additional permissions or excluded permissions.
 
+Permissions that are [unsupported](https://cloud.google.com/iam/docs/custom-roles-permissions-support) from custom roles are automatically excluded.
+
 ## Usage - Custom Role at Organization Level
 
 ```hcl

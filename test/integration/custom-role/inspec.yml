@@ -20,6 +20,9 @@ attributes:
   - name: custom_role_id_org
     required: true
     type: string
+  - name: custom_role_id_org_unsupported
+    required: true
+    type: string
   - name: project_id
     required: true
     type: string
