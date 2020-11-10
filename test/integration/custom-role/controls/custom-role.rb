@@ -16,6 +16,7 @@
 
 custom_role_id_project = attribute('custom_role_id_project')
 custom_role_id_org = attribute('custom_role_id_org')
+custom_role_id_org_unsupported = attribute('custom_role_id_org_unsupported')
 project_id = attribute('project_id')
 org_id = attribute('org_id')
 
@@ -39,6 +40,9 @@ control "GCP Custom Role" do
                 expect(data["description"]).to include("This is a project level custom role.")
                 expect(data["includedPermissions"]).to include("iam.roles.list")
                 expect(data["includedPermissions"]).to include("iam.roles.delete")
+                expect(data["includedPermissions"]).to include("iam.serviceAccounts.list")
+                expect(data["includedPermissions"]).to include("iam.serviceAccounts.delete")
+                expect(data["includedPermissions"]).not_to include("iam.serviceAccounts.setIamPolicy")
             end
         end
     end
@@ -60,6 +64,28 @@ control "GCP Custom Role" do
                 expect(data["description"]).to include("This is an organization level custom role.")
                 expect(data["includedPermissions"]).to include("iam.roles.list")
                 expect(data["includedPermissions"]).to include("iam.roles.delete")
+                expect(data["includedPermissions"]).to include("iam.serviceAccounts.list")
+                expect(data["includedPermissions"]).to include("iam.serviceAccounts.delete")
+                expect(data["includedPermissions"]).not_to include("iam.serviceAccounts.setIamPolicy")
+            end
+        end
+    end
+
+    describe command ("gcloud iam roles describe #{custom_role_id_org_unsupported} --organization #{org_id} --format=json") do
+        its(:exit_status) { should eq 0 }
+        its(:stderr) { should eq '' }
+
+        let!(:data) do
+            if subject.exit_status == 0
+                JSON.parse(subject.stdout)
+            else
+                {}
+            end
+        end
+
+        describe "project_unsupported_custom_role" do
+            it "does not have permissions" do
+                expect(data["includedPermissions"]).not_to include("datastore.databases.get")
             end
         end
     end

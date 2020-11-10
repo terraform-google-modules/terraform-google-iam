@@ -25,9 +25,21 @@ variable "title" {
   default     = ""
 }
 
+variable "base_roles" {
+  type        = list(string)
+  description = "List of base predefined roles to use to compose custom role."
+  default     = []
+}
+
 variable "permissions" {
   type        = list(string)
   description = "IAM permissions assigned to Custom Role."
+}
+
+variable "excluded_permissions" {
+  type        = list(string)
+  description = "List of permissions to exclude from custom role."
+  default     = []
 }
 
 variable "description" {
