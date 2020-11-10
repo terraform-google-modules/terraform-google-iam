@@ -1,6 +1,6 @@
 # Module Custom Role IAM
 
-This optional module is used to create custom roles at organization or project level.
+This optional module is used to create custom roles at organization or project level. The module supports creating custom rules optionally using predefined roles as a base, with additional permissions or excluded permissions.
 
 ## Usage - Custom Role at Organization Level
 
@@ -8,13 +8,15 @@ This optional module is used to create custom roles at organization or project l
 module "custom-roles" {
   source = "terraform-google-modules/iam/google//modules/custom_role_iam"
 
-  target_level = "org"
-  target_id    = "123456789"
-  role_id      = "custom_role_id"
-  title        = "Custom Role Unique Title"
-  description  = "Custom Role Description"
-  permissions  = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
-  members      = ["user:user01@domain.com", "group:group01@domain.com"]
+  target_level         = "org"
+  target_id            = "123456789"
+  role_id              = "custom_role_id"
+  title                = "Custom Role Unique Title"
+  description          = "Custom Role Description"
+  base_roles           = ["roles/iam.serviceAccountAdmin"]
+  permissions          = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
+  excluded_permissions = ["iam.serviceAccounts.setIamPolicy"]
+  members              = ["user:user01@domain.com", "group:group01@domain.com"]
 }
 ```
 
@@ -24,13 +26,15 @@ module "custom-roles" {
 module "custom-roles" {
   source = "terraform-google-modules/iam/google//modules/custom_role_iam"
 
-  target_level = "project"
-  target_id    = "project_id_123"
-  role_id      = "custom_role_id"
-  title        = "Custom Role Unique Title"
-  description  = "Custom Role Description"
-  permissions  = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
-  members      = ["serviceAccount:member01@${var.target_id}.iam.gserviceaccount.com", "serviceAccount:member02@${var.target_id}.iam.gserviceaccount.com"]
+  target_level         = "project"
+  target_id            = "project_id_123"
+  role_id              = "custom_role_id"
+  title                = "Custom Role Unique Title"
+  description          = "Custom Role Description"
+  base_roles           = ["roles/iam.serviceAccountAdmin"]
+  permissions          = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
+  excluded_permissions = ["iam.serviceAccounts.setIamPolicy"]
+  members              = ["serviceAccount:member01@${var.target_id}.iam.gserviceaccount.com", "serviceAccount:member02@${var.target_id}.iam.gserviceaccount.com"]
 }
 ```
 
@@ -39,7 +43,9 @@ module "custom-roles" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| base\_roles | List of base predefined roles to use to compose custom role. | list(string) | `<list>` | no |
 | description | Description of Custom role. | string | `""` | no |
+| excluded\_permissions | List of permissions to exclude from custom role. | list(string) | `<list>` | no |
 | members | List of members to be added to custom role. | list(string) | n/a | yes |
 | permissions | IAM permissions assigned to Custom Role. | list(string) | n/a | yes |
 | role\_id | ID of the Custom Role. | string | n/a | yes |

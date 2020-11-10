@@ -35,10 +35,12 @@ resource "random_id" "rand_custom_id" {
 module "custom-roles-org" {
   source = "../../modules/custom_role_iam/"
 
-  target_level = "org"
-  target_id    = var.org_id
-  role_id      = "iamDeleter_${random_id.rand_custom_id.hex}"
-  permissions  = ["iam.roles.list", "iam.roles.delete"]
-  description  = "This is an organization level custom role."
-  members      = ["group:test-gcp-org-admins@test.infra.cft.tips", "group:test-gcp-billing-admins@test.infra.cft.tips"]
+  target_level         = "org"
+  target_id            = var.org_id
+  role_id              = "iamDeleter_${random_id.rand_custom_id.hex}"
+  base_roles           = ["roles/iam.serviceAccountAdmin"]
+  permissions          = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
+  excluded_permissions = ["iam.serviceAccounts.setIamPolicy"]
+  description          = "This is an organization level custom role."
+  members              = ["group:test-gcp-org-admins@test.infra.cft.tips", "group:test-gcp-billing-admins@test.infra.cft.tips"]
 }

@@ -15,7 +15,17 @@
  */
 
 locals {
-  custom-role-output = (var.target_level == "project") ? google_project_iam_custom_role.project-custom-role[0].role_id : google_organization_iam_custom_role.org-custom-role[0].role_id
+  included_permissions = concat(flatten(values(data.google_iam_role.role_permissions)[*].included_permissions), var.permissions)
+  permissions          = [for permission in local.included_permissions : permission if ! contains(var.excluded_permissions, permission)]
+  custom-role-output   = (var.target_level == "project") ? google_project_iam_custom_role.project-custom-role[0].role_id : google_organization_iam_custom_role.org-custom-role[0].role_id
+}
+
+/******************************************
+  Permissions from predefined roles
+ *****************************************/
+data "google_iam_role" "role_permissions" {
+  for_each = toset(var.base_roles)
+  name     = "${each.value}"
 }
 
 /******************************************
@@ -28,7 +38,7 @@ resource "google_organization_iam_custom_role" "org-custom-role" {
   role_id     = var.role_id
   title       = var.title == "" ? var.role_id : var.title
   description = var.description
-  permissions = var.permissions
+  permissions = local.permissions
 }
 
 /******************************************
@@ -52,7 +62,7 @@ resource "google_project_iam_custom_role" "project-custom-role" {
   role_id     = var.role_id
   title       = var.title == "" ? var.role_id : var.title
   description = var.description
-  permissions = var.permissions
+  permissions = local.permissions
 }
 
 /******************************************

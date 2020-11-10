@@ -39,6 +39,9 @@ control "GCP Custom Role" do
                 expect(data["description"]).to include("This is a project level custom role.")
                 expect(data["includedPermissions"]).to include("iam.roles.list")
                 expect(data["includedPermissions"]).to include("iam.roles.delete")
+                expect(data["includedPermissions"]).to include("iam.serviceAccounts.list")
+                expect(data["includedPermissions"]).to include("iam.serviceAccounts.delete")
+                expect(data["includedPermissions"]).not_to include("iam.serviceAccounts.setIamPolicy")
             end
         end
     end
@@ -60,6 +63,9 @@ control "GCP Custom Role" do
                 expect(data["description"]).to include("This is an organization level custom role.")
                 expect(data["includedPermissions"]).to include("iam.roles.list")
                 expect(data["includedPermissions"]).to include("iam.roles.delete")
+                expect(data["includedPermissions"]).to include("iam.serviceAccounts.list")
+                expect(data["includedPermissions"]).to include("iam.serviceAccounts.delete")
+                expect(data["includedPermissions"]).not_to include("iam.serviceAccounts.setIamPolicy")
             end
         end
     end

@@ -31,12 +31,14 @@ provider "google-beta" {
 module "custom-role-project" {
   source = "../../modules/custom_role_iam/"
 
-  target_level = "project"
-  target_id    = var.project_id
-  role_id      = "iamDeleter"
-  permissions  = ["iam.roles.list", "iam.roles.delete"]
-  description  = "This is a project level custom role."
-  members      = ["serviceAccount:custom-role-account-01@${var.project_id}.iam.gserviceaccount.com", "serviceAccount:custom-role-account-02@${var.project_id}.iam.gserviceaccount.com"]
+  target_level         = "project"
+  target_id            = var.project_id
+  role_id              = "iamDeleter"
+  base_roles           = ["roles/iam.serviceAccountAdmin"]
+  permissions          = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
+  excluded_permissions = ["iam.serviceAccounts.setIamPolicy"]
+  description          = "This is a project level custom role."
+  members              = ["serviceAccount:custom-role-account-01@${var.project_id}.iam.gserviceaccount.com", "serviceAccount:custom-role-account-02@${var.project_id}.iam.gserviceaccount.com"]
 }
 
 /******************************************
