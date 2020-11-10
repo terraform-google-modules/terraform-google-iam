@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [6.4.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.3.1...v6.4.0) (2020-11-10)
+
+
+### Features
+
+* Add support for predefined roles as a basis for custom roles ([#118](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/118)) ([86c16ee](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/86c16eed31e9c4477a99453ea8a9bb25fe3ce106))
+
 ### [6.3.1](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.3.0...v6.3.1) (2020-09-22)
 
 
