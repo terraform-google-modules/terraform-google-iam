@@ -28,8 +28,12 @@ module "create_custom_role_unsupported_permissions_org" {
   source       = "../../../modules/custom_role_iam"
   target_level = "org"
   target_id    = var.org_id
-  role_id      = "customDatastoreViewer"
+  role_id      = "customDatastoreViewer_${random_id.rand_custom_id.hex}"
   base_roles   = ["roles/datastore.viewer"] # https://cloud.google.com/iam/docs/custom-roles-permissions-support
   permissions  = []
   members      = []
+}
+
+resource "random_id" "rand_custom_id" {
+  byte_length = 2
 }
