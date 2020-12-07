@@ -61,7 +61,7 @@ The module also offers an **authoritative** mode which will remove all roles not
 ```hcl
 module "storage_buckets_iam_bindings" {
   source  = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
-  version = "~> 5.0"
+  version = "~> 6.4"
 
   storage_buckets = ["my-storage-bucket"]
 
