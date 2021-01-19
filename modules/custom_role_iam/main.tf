@@ -26,7 +26,7 @@ locals {
  *****************************************/
 data "google_iam_role" "role_permissions" {
   for_each = toset(var.base_roles)
-  name     = "${each.value}"
+  name     = each.value
 }
 
 /******************************************
