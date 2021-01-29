@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+### [6.4.1](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.4.0...v6.4.1) (2021-01-19)
+
+
+### Bug Fixes
+
+* Remove deprecated syntax ([#124](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/124)) ([8fb0abc](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/8fb0abca61498ae4c3be2c7493c190117cf9a366))
+
 ## [6.4.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.3.1...v6.4.0) (2020-11-10)
 
 
