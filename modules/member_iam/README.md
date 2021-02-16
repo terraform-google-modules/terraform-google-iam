@@ -5,11 +5,11 @@ This optional module is used to assign service account roles
 ## Example Usage
 ```
 module "member_roles" {
-  source          = "terraform-google-modules/iam/google//modules/member_iam"
-  service_account = "my-sa@my-project.iam.gserviceaccount.com"
-  prefix          = "serviceAccount"
-  project         = "my-project-one"
-  project_roles   = ["roles/compute.networkAdmin", "roles/appengine.appAdmin"]
+  source                  = "terraform-google-modules/iam/google//modules/member_iam"
+  service_account_address = "my-sa@my-project.iam.gserviceaccount.com"
+  prefix                  = "serviceAccount"
+  project_id              = "my-project-one"
+  project_roles           = ["roles/compute.networkAdmin", "roles/appengine.appAdmin"]
 }
 
 ```
