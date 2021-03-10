@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+### [6.4.2](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.4.1...v6.4.2) (2021-03-10)
+
+
+### Bug Fixes
+
+* Correctly exclude unsupported permissions at all stages. ([#131](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/131)) ([a0c07c3](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/a0c07c35cfe029c699396f64da858473a45492a1))
+
 ### [6.4.1](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.4.0...v6.4.1) (2021-01-19)
 
 
