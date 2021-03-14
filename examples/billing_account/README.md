@@ -6,9 +6,9 @@ This example illustrates how to use the `billing_accounts_iam` submodule
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| billing\_account\_id | Billing Account ID to apply IAM bindings | string | n/a | yes |
-| project\_id | Project ID for the module | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| billing\_account\_id | Billing Account ID to apply IAM bindings | `string` | n/a | yes |
+| project\_id | Project ID for the module | `string` | n/a | yes |
 
 ## Outputs
 

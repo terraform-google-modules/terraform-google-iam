@@ -18,11 +18,11 @@
   Provider configuration
  *****************************************/
 provider "google" {
-  version = "~> 2.7"
+  version = "~> 3.53"
 }
 
 provider "google-beta" {
-  version = "~> 2.7"
+  version = "~> 3.53"
 }
 
 /******************************************

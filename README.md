@@ -13,11 +13,10 @@ This is a collection of submodules that make it easier to non-destructively mana
 * [Subnets IAM](modules/subnets_iam)
 
 ## Compatibility
-
-This module is meant for use with Terraform 0.12. If you haven't
-[upgraded][terraform-0.12-upgrade] and need a Terraform 0.11.x-compatible
-version of this module, the last released version intended for Terraform 0.11.x
-is [1.1.1][v1.1.1].
+This module is meant for use with Terraform 0.13. If you haven't
+[upgraded](https://www.terraform.io/upgrade-guides/0-13.html) and need a Terraform
+0.12.x-compatible version of this module, the last released version
+intended for Terraform 0.12.x is [v6.4.1](https://registry.terraform.io/modules/terraform-google-modules/-iam/google/v6.4.1).
 
 ## Upgrading
 
@@ -124,7 +123,7 @@ Set the specified variable on the module call to choose the resources to affect.
 
 ### Terraform plugins
 
-- [Terraform](https://www.terraform.io/downloads.html) 0.12
+- [Terraform](https://www.terraform.io/downloads.html) >= 0.13.0
 - [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 2.5
 - [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 2.5
 

@@ -44,17 +44,17 @@ module "custom-roles" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| base\_roles | List of base predefined roles to use to compose custom role. | list(string) | `<list>` | no |
-| description | Description of Custom role. | string | `""` | no |
-| excluded\_permissions | List of permissions to exclude from custom role. | list(string) | `<list>` | no |
-| members | List of members to be added to custom role. | list(string) | n/a | yes |
-| permissions | IAM permissions assigned to Custom Role. | list(string) | n/a | yes |
-| role\_id | ID of the Custom Role. | string | n/a | yes |
-| stage | The current launch stage of the role. Defaults to GA. | string | `"GA"` | no |
-| target\_id | Variable for project or organization ID. | string | n/a | yes |
-| target\_level | String variable to denote if custom role being created is at project or organization level. | string | `"project"` | no |
-| title | Human-readable title of the Custom Role, defaults to role_id. | string | `""` | no |
+|------|-------------|------|---------|:--------:|
+| base\_roles | List of base predefined roles to use to compose custom role. | `list(string)` | `[]` | no |
+| description | Description of Custom role. | `string` | `""` | no |
+| excluded\_permissions | List of permissions to exclude from custom role. | `list(string)` | `[]` | no |
+| members | List of members to be added to custom role. | `list(string)` | n/a | yes |
+| permissions | IAM permissions assigned to Custom Role. | `list(string)` | n/a | yes |
+| role\_id | ID of the Custom Role. | `string` | n/a | yes |
+| stage | The current launch stage of the role. Defaults to GA. | `string` | `"GA"` | no |
+| target\_id | Variable for project or organization ID. | `string` | n/a | yes |
+| target\_level | String variable to denote if custom role being created is at project or organization level. | `string` | `"project"` | no |
+| title | Human-readable title of the Custom Role, defaults to role\_id. | `string` | `""` | no |
 
 ## Outputs
 

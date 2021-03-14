@@ -13,8 +13,12 @@ Applies the roles necessary to write metrics and logs to Stackdriver to a given 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| project | GCP project in which you wish to grant roles to the service account | string | n/a | yes |
-| service\_account\_email | The service account email to enable Stackdriver agent roles on | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| project | GCP project in which you wish to grant roles to the service account | `string` | n/a | yes |
+| service\_account\_email | The service account email to enable Stackdriver agent roles on | `string` | n/a | yes |
+
+## Outputs
+
+No output.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
