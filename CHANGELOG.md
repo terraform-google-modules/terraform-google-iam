@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [7.0.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.4.1...v7.0.0) (2021-03-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* add Terraform 0.13 constraint and module attribution (#134)
+* Update audit_config submodule to support multiple log types (#108)
+
+### Features
+
+* add Terraform 0.13 constraint and module attribution ([#134](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/134)) ([1bd58cf](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/1bd58cf7805a70ca7ae7bb3da463795b6a483327))
+* Update audit_config submodule to support multiple log types ([#108](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/108)) ([1e5d793](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/1e5d79307f29327d3b5a7f453ca598a84255dad5))
+
+
+### Bug Fixes
+
+* Correctly exclude unsupported permissions at all stages. ([#131](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/131)) ([a0c07c3](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/a0c07c35cfe029c699396f64da858473a45492a1))
+
 ### [6.4.1](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.4.0...v6.4.1) (2021-01-19)
 
 
