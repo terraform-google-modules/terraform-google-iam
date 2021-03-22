@@ -25,7 +25,7 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-iam:audit_config/v1.0.0"
+    module_name = "blueprints/terraform/terraform-google-iam:audit_config/v7.0.0"
   }
 
 }
