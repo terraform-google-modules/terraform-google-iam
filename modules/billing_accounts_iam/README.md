@@ -28,10 +28,10 @@ module "billing-account-iam" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| billing\_account\_ids | Billing Accounts IDs list to add the IAM policies/bindings | list(string) | `<list>` | no |
-| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | map(list(string)) | n/a | yes |
-| mode | Mode for adding the IAM policies/bindings, additive and authoritative | string | `"additive"` | no |
+|------|-------------|------|---------|:--------:|
+| billing\_account\_ids | Billing Accounts IDs list to add the IAM policies/bindings | `list(string)` | `[]` | no |
+| bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | `map(list(string))` | n/a | yes |
+| mode | Mode for adding the IAM policies/bindings, additive and authoritative | `string` | `"additive"` | no |
 
 ## Outputs
 

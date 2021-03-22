@@ -18,11 +18,11 @@
   Provider configuration
  *****************************************/
 provider "google" {
-  version = "~> 2.19"
+  version = "~> 3.53"
 }
 
 provider "google-beta" {
-  version = "~> 2.19"
+  version = "~> 3.53"
 }
 
 resource "google_service_account" "member_iam_test" {

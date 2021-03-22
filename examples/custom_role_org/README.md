@@ -6,8 +6,8 @@ This example illustrates how to use the `custom_role_iam` submodule to create a 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| org\_id | Variable for Organization ID. | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| org\_id | Variable for Organization ID. | `string` | n/a | yes |
 
 ## Outputs
 

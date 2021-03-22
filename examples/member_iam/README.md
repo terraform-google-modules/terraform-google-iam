@@ -12,8 +12,8 @@ This example illustrates how to use the `member_iam` submodule
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| project\_id | Project id | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| project\_id | Project id | `string` | n/a | yes |
 
 ## Outputs
 
