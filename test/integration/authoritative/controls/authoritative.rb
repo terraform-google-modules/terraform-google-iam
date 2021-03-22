@@ -312,7 +312,7 @@ control 'audit-log-config' do
     describe "check members email" do
       it "has correct exemptedMembers" do
         data["auditConfigs"].each do |config|
-          expect([audit_config[0]["exempted_members"][0], audit_config[1]["exempted_members"][0]]).to include(
+          expect([audit_config[0][:exempted_members][0], audit_config[1][:exempted_members][0]]).to include(
               config["auditLogConfigs"][0]["exemptedMembers"][0]
             )
           end
@@ -320,13 +320,13 @@ control 'audit-log-config' do
     end
     describe "check log type " do
       it "has correct log type" do
-        expect(data["auditConfigs"][0]["auditLogConfigs"][0]["logType"]).to eq audit_config[0]["log_type"]
+        expect(data["auditConfigs"][0]["auditLogConfigs"][0]["logType"]).to eq audit_config[0][:log_type]
       end
     end
     describe "check services " do
       it "has correct Services" do
         data["auditConfigs"].each do |config|
-          expect([audit_config[0]["service"],audit_config[1]["service"]]).to include (
+          expect([audit_config[0][:service],audit_config[1][:service]]).to include (
             config["service"]
           )
         end
