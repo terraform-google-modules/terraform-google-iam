@@ -71,3 +71,8 @@ output "bindings_number" {
   value       = local.n
   description = "Number of each type of bindings, created for the test fixture."
 }
+
+output "secrets" {
+  value       = google_secret_manager_secret.test.*.name
+  description = "Secrets created for bindings."
+}

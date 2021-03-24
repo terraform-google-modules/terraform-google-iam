@@ -83,3 +83,5 @@ attributes:
   - name: audit_config
     required: true
     type: array
+  - name: secrets
+    required: true

@@ -150,3 +150,13 @@ class SubscriptionBindings < Bindings
     "gcloud beta pubsub subscriptions get-iam-policy #{subscription} --project='#{project}' --format='json(bindings)'"
   end
 end
+
+# Secret Manager
+
+class SecretManager < Bindings
+  name 'secret_bindings'
+  private
+  def get_command(secret, project)
+    "gcloud beta secrets get-iam-policy #{secret} --project='#{project}' --format='json(bindings)'"
+  end
+end

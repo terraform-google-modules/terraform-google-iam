@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-output "secret_manager_secrets" {
+output "secrets" {
   value       = distinct(module.helper.bindings_by_member[*].name)
   description = "Secret Manager Secrets which received for bindings."
   depends_on  = [google_secret_manager_secret_iam_binding.secret_manager_iam_authoritative, google_secret_manager_secret_iam_member.secret_manager_iam_additive]

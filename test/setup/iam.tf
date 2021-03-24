@@ -32,6 +32,7 @@ locals {
     "roles/cloudkms.admin",
     "roles/storage.admin",
     "roles/composer.worker",
+    "roles/secretmanager.admin",
   ]
 
   int_required_folder_roles = [

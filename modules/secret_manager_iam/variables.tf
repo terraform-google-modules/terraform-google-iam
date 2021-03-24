@@ -20,7 +20,7 @@ variable "project" {
   type        = string
 }
 
-variable "secret_manager_secrets" {
+variable "secrets" {
   description = "Secret Manager Secrets list to add the IAM policies/bindings"
   default     = []
   type        = list(string)

@@ -80,3 +80,5 @@ attributes:
   - name: roles
     required: true
     type: string
+  - name: secrets
+    required: true

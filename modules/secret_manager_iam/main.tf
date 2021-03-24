@@ -21,7 +21,7 @@ module "helper" {
   source               = "../helper"
   bindings             = var.bindings
   mode                 = var.mode
-  entities             = var.secret_manager_secrets
+  entities             = var.secrets
   conditional_bindings = var.conditional_bindings
 }
 
