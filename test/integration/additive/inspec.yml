@@ -82,3 +82,4 @@ attributes:
     type: string
   - name: secrets
     required: true
+    type: array

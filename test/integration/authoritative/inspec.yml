@@ -85,3 +85,4 @@ attributes:
     type: array
   - name: secrets
     required: true
+    type: array

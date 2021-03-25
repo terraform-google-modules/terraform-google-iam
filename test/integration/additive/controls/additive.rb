@@ -30,6 +30,7 @@ keys             = attribute('keys')
 topics           = attribute('topics')
 subscriptions    = attribute('subscriptions')
 region           = attribute('region')
+secrets          = attribute('secrets')
 
 # Role pairs (arrays of length = 2)
 basic_roles               = attribute('basic_roles')

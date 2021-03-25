@@ -31,7 +31,7 @@ topics           = attribute('topics')
 subscriptions    = attribute('subscriptions')
 region           = attribute('region')
 audit_config     = attribute('audit_config')
-secrets           = attribute('secrets')
+secrets          = attribute('secrets')
 
 # Role pairs (arrays of length = 2)
 basic_roles               = attribute('basic_roles')
