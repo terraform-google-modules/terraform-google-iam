@@ -11,6 +11,7 @@ This is a collection of submodules that make it easier to non-destructively mana
 * [Service Accounts IAM](modules/service_accounts_iam)
 * [Storage Buckets IAM](modules/storage_buckets_iam)
 * [Subnets IAM](modules/subnets_iam)
+* [Secret Manager IAM](modules/secret_manager_iam)
 
 ## Compatibility
 This module is meant for use with Terraform 0.13. If you haven't
@@ -116,6 +117,7 @@ You can choose the following resource types to apply the IAM bindings:
 - Pubsub subscriptions (`pubsub_subscriptions` variable)
 - Kms Key Rings (`kms_key_rings` variable)
 - Kms Crypto Keys (`kms_crypto_keys` variable)
+- Secret Manager Secrets (`secrets` variable)
 
 Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#additive-and-authoritative-modes) and give enough [permissions](#permissions) to manage the selected resource as well. Note that the `bindings` variable accepts an empty map `{}` passed in as an argument in the case that resources don't have IAM bindings to apply.
 
@@ -175,6 +177,9 @@ In order to execute a submodule you must have a Service Account with an appropri
   - Owner: Full access to all resources.
   - Cloud KMS Admin: Enables management of cryptoresources.
   - Custom: Add cloudkms.cryptoKeys.getIamPolicy	and cloudkms.cryptoKeys.setIamPolicy permissions.
+- Secret Manager:
+    - Secret Manager Admin: Full access to administer Secret Manager.
+    - Custom: Add secretmanager.secrets.getIamPolicy and secretmanager.secrets.setIamPolicy permissions.
 
 ## Install
 

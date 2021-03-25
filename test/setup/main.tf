@@ -52,6 +52,7 @@ module "iam-project" {
     "servicenetworking.googleapis.com",
     "storage-component.googleapis.com",
     "iap.googleapis.com",
+    "secretmanager.googleapis.com",
   ]
 }
 

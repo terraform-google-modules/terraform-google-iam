@@ -114,3 +114,19 @@ resource "google_compute_subnetwork" "test" {
   ip_cidr_range = local.subnet_cidr[count.index]
   network       = "default"
 }
+
+# Secret Manager
+
+resource "google_secret_manager_secret" "test" {
+  count = local.n
+
+  project   = var.base_project_id
+  secret_id = "${local.prefix}-secret-${count.index}-${random_id.test[count.index].hex}"
+  replication {
+    user_managed {
+      replicas {
+        location = local.location
+      }
+    }
+  }
+}

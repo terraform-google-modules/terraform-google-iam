@@ -114,3 +114,11 @@ module "audit_config" {
   project          = var.project_id
   audit_log_config = local.audit_log_config
 }
+
+module "iam_binding_secret_manager" {
+  source   = "../../../modules/secret_manager_iam"
+  mode     = var.mode
+  secrets  = module.base.secrets
+  project  = var.project_id
+  bindings = local.basic_bindings
+}
