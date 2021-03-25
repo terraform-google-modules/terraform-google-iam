@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [7.1.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v7.0.0...v7.1.0) (2021-03-25)
+
+
+### Features
+
+* Add submodule to support assigning IAM for Secret Manager secrets ([#135](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/135)) ([56b6688](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/56b668857955baeed87590eacca1bfcdaa1867cd))
+
 ## [7.0.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v6.4.1...v7.0.0) (2021-03-22)
 
 
