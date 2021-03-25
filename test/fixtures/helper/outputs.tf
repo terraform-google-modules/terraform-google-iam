@@ -131,3 +131,8 @@ output "audit_config" {
   description = "Map of log type and exempted members to be addded to service"
   value       = module.audit_config.audit_log_config
 }
+
+output "secrets" {
+  value       = module.base.secrets
+  description = "Secrets created for bindings."
+}

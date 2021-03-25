@@ -30,6 +30,7 @@ provider "google-beta" {
  *****************************************/
 module "folder-iam" {
   source  = "../../modules/secret_manager_iam"
+  project = var.project_id
   secrets = ["${var.secret_one}", "${var.secret_two}"]
 
   mode = "additive"
