@@ -26,18 +26,18 @@ module "artifact-registry-repository-iam-bindings" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| repositories | Artifact registry repositories list to add the IAM policies/bindings | `list(string)` | "" | yes
+| artifact\_registry\_repositories | Artifact registry repositories list to add the IAM policies/bindings | `list(string)` | `[]` | no |
 | bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | `map(list(string))` | `{}` | no |
+| location | Location of the provided artifact registry repositories | `string` | `""` | no |
 | mode | Mode for adding the IAM policies/bindings, additive and authoritative | `string` | `"additive"` | no |
-| project | Project where the artifact registry repositories are placed | `string` | `[]` | yes |
-| location | Location of the provided artifact registry repositories | `string` | "" | yes |
+| project | Project where the artifact registry repositories are placed | `string` | `""` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| artifact\_registry\_repositories | Artifact registry repositories which received bindings. |
 | members | Members which were bound to artifact registry repositories. |
-| artifact_registry_repositories | Artifact registry repositories which received bindings. |
 | roles | Roles which were assigned to members. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
