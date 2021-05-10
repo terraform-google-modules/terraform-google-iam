@@ -22,7 +22,6 @@ variable "repositories" {
 
 variable "location" {
   description = "Location of the provided artifact registry repositories"
-  default     = ""
   type        = string
 }
 
