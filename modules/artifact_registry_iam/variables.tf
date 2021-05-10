@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-variable "artifact_registry_repositories" {
+variable "repositories" {
   description = "Artifact registry repositories list to add the IAM policies/bindings"
   default     = []
   type        = list(string)
