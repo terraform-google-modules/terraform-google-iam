@@ -26,11 +26,11 @@ module "artifact-registry-repository-iam-bindings" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| artifact\_registry\_repositories | Artifact registry repositories list to add the IAM policies/bindings | `list(string)` | `[]` | no |
 | bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | `map(list(string))` | `{}` | no |
 | location | Location of the provided artifact registry repositories | `string` | `""` | no |
 | mode | Mode for adding the IAM policies/bindings, additive and authoritative | `string` | `"additive"` | no |
 | project | Project where the artifact registry repositories are placed | `string` | `""` | no |
+| repositories | Artifact registry repositories list to add the IAM policies/bindings | `list(string)` | `[]` | no |
 
 ## Outputs
 
