@@ -36,8 +36,8 @@ module "artifact-registry-repository-iam-bindings" {
 
 | Name | Description |
 |------|-------------|
-| artifact\_registry\_repositories | Artifact registry repositories which received bindings. |
 | members | Members which were bound to artifact registry repositories. |
+| repositories | Artifact registry repositories which received bindings. |
 | roles | Roles which were assigned to members. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
