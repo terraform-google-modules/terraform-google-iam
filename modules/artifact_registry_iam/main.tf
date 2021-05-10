@@ -21,7 +21,7 @@ module "helper" {
   source   = "../helper"
   bindings = var.bindings
   mode     = var.mode
-  entities = var.artifact_registry_repositories
+  entities = var.repositories
 }
 
 /******************************************

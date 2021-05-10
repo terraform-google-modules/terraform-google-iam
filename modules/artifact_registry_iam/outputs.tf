@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-output "artifact_registry_repositories" {
+output "repositories" {
   value       = distinct(module.helper.bindings_by_member[*].name)
   description = "Artifact registry repositories which received bindings."
   depends_on  = [google_artifact_registry_repository_iam_binding.artifact_registry_iam_authoritative, google_artifact_registry_repository_iam_member.artifact_registry_iam_additive, ]
