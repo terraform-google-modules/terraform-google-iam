@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [7.2.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v7.1.0...v7.2.0) (2021-05-10)
+
+
+### Features
+
+* Add submodule for managing artifact registry IAM ([#137](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/137)) ([3c84a19](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/3c84a196b37060b99383b93362f46fb3c5c4e8bc))
+
 ## [7.1.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v7.0.0...v7.1.0) (2021-03-25)
 
 
