@@ -28,7 +28,6 @@ variable "location" {
 
 variable "project" {
   description = "Project where the artifact registry repositories are placed"
-  default     = ""
   type        = string
 }
 
