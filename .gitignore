@@ -43,3 +43,6 @@ credentials.json
 
 # Test files
 .kitchen/
+
+# tf lock file
+.terraform.lock.hcl
