@@ -29,7 +29,7 @@ module "create_custom_role_unsupported_permissions_org" {
   target_level = "org"
   target_id    = var.org_id
   role_id      = "customDatastoreViewer_${random_id.rand_custom_id.hex}"
-  base_roles   = ["roles/datastore.viewer"] # https://cloud.google.com/iam/docs/custom-roles-permissions-support
+  base_roles   = ["roles/gkehub.viewer"] # https://cloud.google.com/iam/docs/custom-roles-permissions-support
   permissions  = []
   members      = []
 }

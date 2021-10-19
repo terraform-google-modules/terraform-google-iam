@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,32 +18,33 @@
   Provider configuration
  *****************************************/
 provider "google" {
-  version = "~> 3.36"
+  version = "~> 3.53"
 }
 
 provider "google-beta" {
-  version = "~> 3.36"
+  version = "~> 3.53"
 }
 
-/******************************************
-  Module secret_iam_binding calling
- *****************************************/
-module "folder-iam" {
-  source  = "../../modules/secret_manager_iam"
-  project = var.project_id
-  secrets = [var.secret_one, var.secret_two]
-
-  mode = "additive"
+/*********************************************
+  Module bigquery_dataset_iam_binding calling
+ *********************************************/
+module "bigquery_dataset_iam_binding" {
+  source            = "../../modules/bigquery_datasets_iam/"
+  project           = var.bigquery_dataset_project
+  bigquery_datasets = [var.bigquery_dataset_one, var.bigquery_dataset_two]
+  mode              = "authoritative"
 
   bindings = {
-    "roles/secretmanager.secretAccessor" = [
+    "roles/bigquery.dataViewer" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-
-    "roles/secretmanager.viewer" = [
+    "roles/bigquery.dataEditor" = [
+      "serviceAccount:${var.sa_email}",
+      "group:${var.group_email}",
       "user:${var.user_email}",
     ]
   }
 }
+

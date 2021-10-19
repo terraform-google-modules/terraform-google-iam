@@ -130,3 +130,12 @@ resource "google_secret_manager_secret" "test" {
     }
   }
 }
+
+# BigQuery Dataset
+
+resource "google_bigquery_dataset" "dataset" {
+  count = local.n
+
+  project    = var.base_project_id
+  dataset_id = replace("${local.prefix}_ds_${count.index}-${random_id.test[count.index].hex}", "-", "_")
+}
