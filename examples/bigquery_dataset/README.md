@@ -1,4 +1,4 @@
-# PubSub Topic Example
+# BigQuery Topic Example
 
 This example illustrates how to use the `pubsub_topics_iam` submodule
 

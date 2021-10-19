@@ -1,4 +1,4 @@
-# Module pubsub_topic IAM
+# Module bigquery_datasets IAM
 
 This optional module is used to assign bigquery dataset roles
 
@@ -33,7 +33,7 @@ module "bigquery_dataset-iam-bindings" {
 | bigquery\_datasets | Bigquery dataset IDs list to add the IAM policies/bindings | `list(string)` | `[]` | no |
 | bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | `map(any)` | n/a | yes |
 | mode | Mode for adding the IAM policies/bindings, additive and authoritative | `string` | `"additive"` | no |
-| project | Project to add the IAM policies/bindings | `string` | `""` | no |
+| project | Project to add the IAM policies/bindings | `string` | n/a | yes |
 
 ## Outputs
 
