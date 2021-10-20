@@ -85,7 +85,7 @@ control "GCP Custom Role" do
 
         describe "project_unsupported_custom_role" do
             it "does not have permissions" do
-                expect(data["includedPermissions"]).not_to include("datastore.databases.get")
+                expect(data["includedPermissions"]).not_to include("gkehub.features.list")
             end
         end
     end

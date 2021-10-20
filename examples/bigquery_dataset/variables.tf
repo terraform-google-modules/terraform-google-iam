@@ -14,34 +14,25 @@
  * limitations under the License.
  */
 
-/******************************************
-  Provider configuration
- *****************************************/
-provider "google" {
-  version = "~> 3.36"
+variable "group_email" {
+  type        = string
+  description = "Email for group to receive roles (ex. group@example.com)"
 }
 
-provider "google-beta" {
-  version = "~> 3.36"
+variable "sa_email" {
+  type        = string
+  description = "Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com)"
+}
+
+variable "user_email" {
+  type        = string
+  description = "Email for group to receive roles (Ex. user@example.com)"
 }
 
 /******************************************
-  Module folder_iam_binding calling
+  bigquery_dataset_iam_binding variables
  *****************************************/
-module "folder-iam" {
-  source  = "../../modules/folders_iam/"
-  folders = [var.folder_one, var.folder_two]
-
-  mode = "additive"
-
-  bindings = {
-    "roles/resourcemanager.folderEditor" = [
-      "serviceAccount:${var.sa_email}",
-      "group:${var.group_email}",
-    ]
-
-    "roles/resourcemanager.folderViewer" = [
-      "user:${var.user_email}",
-    ]
-  }
+variable "project_id" {
+  type        = string
+  description = "Project ID to create BigQuery resources in"
 }

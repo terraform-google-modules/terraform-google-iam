@@ -53,6 +53,7 @@ module "iam-project" {
     "storage-component.googleapis.com",
     "iap.googleapis.com",
     "secretmanager.googleapis.com",
+    "bigquery.googleapis.com",
   ]
 }
 
@@ -67,6 +68,6 @@ resource "google_service_account" "member" {
 # Random id hex`es for static resources. Generate plenty of them just in case.
 
 resource "random_id" "random_hexes" {
-  count       = 10
+  count       = 15
   byte_length = 2
 }

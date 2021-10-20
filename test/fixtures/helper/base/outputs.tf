@@ -76,3 +76,8 @@ output "secrets" {
   value       = google_secret_manager_secret.test.*.name
   description = "Secrets created for bindings."
 }
+
+output "datasets" {
+  value       = google_bigquery_dataset.dataset.*.name
+  description = "bigquery datasets created for bindings."
+}
