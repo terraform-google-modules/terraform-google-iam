@@ -20,8 +20,7 @@ variable "project" {
 }
 
 variable "bigquery_datasets" {
-  description = "Bigquery dataset IDs list to add the IAM policies/bindings"
-  default     = []
+  description = "BigQuery dataset IDs list to add the IAM policies/bindings"
   type        = list(string)
 }
 

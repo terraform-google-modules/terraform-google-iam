@@ -32,7 +32,7 @@ variable "user_email" {
 /******************************************
   bigquery_dataset_iam_binding variables
  *****************************************/
-variable "bigquery_dataset_project" {
+variable "project_id" {
   type        = string
-  description = "Project id of the pub/sub topic"
+  description = "Project ID to create BigQuery resources in"
 }

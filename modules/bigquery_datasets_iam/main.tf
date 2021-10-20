@@ -25,7 +25,7 @@ module "helper" {
 }
 
 /******************************************
-  PubSub Topic IAM binding authoritative
+  BigQuery Topic IAM binding authoritative
  *****************************************/
 resource "google_bigquery_dataset_iam_binding" "bigquery_dataset_iam_authoritative" {
   for_each   = module.helper.set_authoritative
@@ -36,7 +36,7 @@ resource "google_bigquery_dataset_iam_binding" "bigquery_dataset_iam_authoritati
 }
 
 /******************************************
-  PubSub Topic IAM binding additive
+  BigQuery Topic IAM binding additive
  *****************************************/
 resource "google_bigquery_dataset_iam_member" "bigquery_dataset_iam_additive" {
   for_each   = module.helper.set_additive

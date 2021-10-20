@@ -30,7 +30,7 @@ provider "google-beta" {
  *********************************************/
 module "bigquery_dataset_iam_binding" {
   source  = "../../modules/bigquery_datasets_iam/"
-  project = var.bigquery_dataset_project
+  project = var.project_id
   bigquery_datasets = [
     google_bigquery_dataset.bigquery_dataset_one.dataset_id,
   ]
@@ -51,7 +51,7 @@ module "bigquery_dataset_iam_binding" {
 }
 
 resource "google_bigquery_dataset" "bigquery_dataset_one" {
-  project    = var.bigquery_dataset_project
+  project    = var.project_id
   dataset_id = "test_iam_ds_${random_id.test.hex}_one"
 }
 
