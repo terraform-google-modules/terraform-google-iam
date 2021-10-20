@@ -1,4 +1,4 @@
-# BigQuery Topic Example
+# BigQuery Dataset Example
 
 This example illustrates how to use the `bigquery_datasets_iam` submodule
 
