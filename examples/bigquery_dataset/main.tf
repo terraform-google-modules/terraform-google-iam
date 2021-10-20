@@ -29,10 +29,12 @@ provider "google-beta" {
   Module bigquery_dataset_iam_binding calling
  *********************************************/
 module "bigquery_dataset_iam_binding" {
-  source            = "../../modules/bigquery_datasets_iam/"
-  project           = var.bigquery_dataset_project
-  bigquery_datasets = [var.bigquery_dataset_one, var.bigquery_dataset_two]
-  mode              = "authoritative"
+  source  = "../../modules/bigquery_datasets_iam/"
+  project = var.bigquery_dataset_project
+  bigquery_datasets = [
+    google_bigquery_dataset.bigquery_dataset_one.dataset_id,
+  ]
+  mode = "authoritative"
 
   bindings = {
     "roles/bigquery.dataViewer" = [
@@ -48,3 +50,11 @@ module "bigquery_dataset_iam_binding" {
   }
 }
 
+resource "google_bigquery_dataset" "bigquery_dataset_one" {
+  project    = var.bigquery_dataset_project
+  dataset_id = "test_iam_ds_${random_id.test.hex}_one"
+}
+
+resource "random_id" "test" {
+  byte_length = 4
+}

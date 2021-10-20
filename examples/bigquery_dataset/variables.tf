@@ -36,14 +36,3 @@ variable "bigquery_dataset_project" {
   type        = string
   description = "Project id of the pub/sub topic"
 }
-
-variable "bigquery_dataset_one" {
-  type        = string
-  description = "First bigquery dataset to add the IAM policies/bindings"
-}
-
-variable "bigquery_dataset_two" {
-  type        = string
-  description = "Second bigquery dataset to add the IAM policies/bindings"
-}
-
