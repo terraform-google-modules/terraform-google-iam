@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [7.3.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v7.2.0...v7.3.0) (2021-10-20)
+
+
+### Features
+
+* add bigquery dataset IAM submodule ([#143](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/143)) ([3af16f5](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/3af16f5cdbb7e6f06f270e7be1a479b939fd949d))
+
 ## [7.2.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v7.1.0...v7.2.0) (2021-05-10)
 
 
