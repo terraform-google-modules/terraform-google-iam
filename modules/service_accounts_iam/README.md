@@ -10,16 +10,10 @@ resource "google_service_account" "service_account_one" {
   project      = "<PROJECT ID>"
 }
 
-resource "google_service_account" "service_account_two" {
-  account_id   = "my-service_account_two"
-  display_name = "my service account two"
-  project      = "<PROJECT ID>"
-}
-
 module "service_account-iam-bindings" {
   source = "terraform-google-modules/iam/google//modules/service_accounts_iam"
 
-  service_accounts = [google_service_account.service_account_one.email, google_service_account.service_account_two.email]
+  service_accounts = [google_service_account.service_account_one.email]
   project          = "<PROJECT ID>"
   mode             = "additive"
   bindings = {
