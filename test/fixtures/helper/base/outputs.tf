@@ -32,6 +32,11 @@ output "service_accounts" {
   description = "Service accounts created for bindings."
 }
 
+output "service_accounts_id" {
+  value       = google_service_account.test.*.account_id
+  description = "Service accounts created for bindings."
+}
+
 output "buckets" {
   value       = google_storage_bucket.test.*.name
   description = "Storage buckets created for bindings."
@@ -78,6 +83,6 @@ output "secrets" {
 }
 
 output "datasets" {
-  value       = google_bigquery_dataset.dataset.*.name
+  value       = google_bigquery_dataset.dataset.*.dataset_id
   description = "bigquery datasets created for bindings."
 }

@@ -99,14 +99,6 @@ locals {
   )
 }
 
-provider "google" {
-  version = "~> 3.36"
-}
-
-provider "google-beta" {
-  version = "~> 3.36"
-}
-
 module "base" {
   source               = "./base"
   base_billing_account = var.billing_account

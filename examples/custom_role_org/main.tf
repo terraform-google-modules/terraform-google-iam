@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-/******************************************
-  Provider configuration
- *****************************************/
-provider "google" {
-  version = "~> 3.3"
-}
-
-provider "google-beta" {
-  version = "~> 3.3"
-}
-
 resource "random_id" "rand_custom_id" {
   byte_length = 2
 }

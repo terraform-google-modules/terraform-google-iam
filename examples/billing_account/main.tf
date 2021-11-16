@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-/******************************************
-  Provider configuration
- *****************************************/
-provider "google" {
-  version = "~> 3.36"
-}
-
-provider "google-beta" {
-  version = "~> 3.36"
-}
-
 locals {
   service_account_01_email = "billing-iam-test-01@${var.project_id}.iam.gserviceaccount.com"
   service_account_02_email = "billing-iam-test-02@${var.project_id}.iam.gserviceaccount.com"

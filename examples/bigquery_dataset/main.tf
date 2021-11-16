@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-/******************************************
-  Provider configuration
- *****************************************/
-provider "google" {
-  version = "~> 3.53"
-}
-
-provider "google-beta" {
-  version = "~> 3.53"
-}
-
 /*********************************************
   Module bigquery_dataset_iam_binding calling
  *********************************************/

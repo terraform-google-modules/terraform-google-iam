@@ -16,20 +16,42 @@
 
 terraform {
   required_version = ">= 0.12"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 3.36"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "~> 3.36"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 2.1"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 2.2"
+    }
+  }
 }
 
-provider "google" {
-  version = "~> 3.36"
-}
+# terraform {
+#   required_version = ">= 0.12"
+# }
 
-provider "google-beta" {
-  version = "~> 3.36"
-}
+# provider "google" {
+#   version = "~> 3.36"
+# }
+
+# provider "google-beta" {
+#   version = "~> 3.36"
+# }
 
 
-provider "null" {
-  version = "~> 2.1"
-}
-provider "random" {
-  version = "~> 2.2"
-}
+# provider "null" {
+#   version = "~> 2.1"
+# }
+# provider "random" {
+#   version = "~> 2.2"
+# }

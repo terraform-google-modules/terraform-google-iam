@@ -20,13 +20,11 @@
 provider "google" {
   credentials = file(var.credentials_file_path)
   project     = var.service_account_project
-  version     = "~> 3.36"
 }
 
 provider "google-beta" {
   credentials = file(var.credentials_file_path)
   project     = var.service_account_project
-  version     = "~> 3.36"
 }
 
 /******************************************

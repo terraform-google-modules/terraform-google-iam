@@ -15,17 +15,6 @@
  */
 
 /******************************************
-  Provider configuration
- *****************************************/
-provider "google" {
-  version = "~> 3.36"
-}
-
-provider "google-beta" {
-  version = "~> 3.36"
-}
-
-/******************************************
   Module folder_iam_binding calling
  *****************************************/
 module "folder-iam" {

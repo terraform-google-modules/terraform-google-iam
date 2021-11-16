@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-/******************************************
-  Provider configuration
- *****************************************/
-provider "google" {
-  version = "~> 3.53"
-}
-
-provider "google-beta" {
-  version = "~> 3.53"
-}
-
 resource "google_service_account" "member_iam_test" {
   project      = var.project_id
   account_id   = "member-iam-test"

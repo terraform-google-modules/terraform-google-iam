@@ -15,18 +15,6 @@
  */
 
 /******************************************
-  Provider configuration
- *****************************************/
-provider "google" {
-  version = "~> 3.36"
-}
-
-provider "google-beta" {
-  version = "~> 3.36"
-}
-
-
-/******************************************
   Module kms_key_ring_iam_binding calling
  *****************************************/
 module "kms_key_ring_iam_binding" {

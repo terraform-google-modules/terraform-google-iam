@@ -119,13 +119,3 @@ module "projects_iam_additive_dynamic" {
   projects = [google_project.additive_dynamic[0].project_id]
   bindings = local.project_bindings
 }
-
-# Providers
-
-provider "google" {
-  version = "~> 3.36"
-}
-
-provider "google-beta" {
-  version = "~> 3.36"
-}
