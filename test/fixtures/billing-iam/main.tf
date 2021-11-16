@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-# provider "google" {
-# }
-
-# provider "google-beta" {
-# }
-
 #additive
 
 module "iam_binding_billing_accounts_additive" {

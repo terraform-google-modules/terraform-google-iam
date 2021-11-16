@@ -4,11 +4,23 @@ This optional module is used to assign service_account roles
 
 ## Example Usage
 ```
+resource "google_service_account" "service_account_one" {
+  account_id   = "my-service_account_one"
+  display_name = "my service account one"
+  project      = "<PROJECT ID>"
+}
+
+resource "google_service_account" "service_account_two" {
+  account_id   = "my-service_account_two"
+  display_name = "my service account two"
+  project      = "<PROJECT ID>"
+}
+
 module "service_account-iam-bindings" {
   source = "terraform-google-modules/iam/google//modules/service_accounts_iam"
 
-  service_accounts = ["my-service_account_one", "my-service_account_two"]
-  project          = "my-service_account_project"
+  service_accounts = [google_service_account.service_account_one.email, google_service_account.service_account_two.email]
+  project          = "<PROJECT ID>"
   mode             = "additive"
   bindings = {
     "roles/iam.serviceAccountKeyAdmin" = [
@@ -44,7 +56,7 @@ module "service_account-iam-bindings" {
 | conditional\_bindings | List of maps of role and respective conditions, and the members to add the IAM policies/bindings | <pre>list(object({<br>    role        = string<br>    title       = string<br>    description = string<br>    expression  = string<br>    members     = list(string)<br>  }))</pre> | `[]` | no |
 | mode | Mode for adding the IAM policies/bindings, additive and authoritative | `string` | `"additive"` | no |
 | project | Project to add the IAM policies/bindings | `string` | `""` | no |
-| service\_accounts | Service Accounts list to add the IAM policies/bindings | `list(string)` | `[]` | no |
+| service\_accounts | Service Accounts Email list to add the IAM policies/bindings | `list(string)` | `[]` | no |
 
 ## Outputs
 

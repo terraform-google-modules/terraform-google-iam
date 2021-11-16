@@ -30,7 +30,7 @@ module "helper" {
  *****************************************/
 resource "google_service_account_iam_binding" "service_account_iam_authoritative" {
   for_each           = module.helper.set_authoritative
-  service_account_id = "projects/${var.project}/serviceAccounts/${module.helper.bindings_authoritative[each.key].name}@${var.project}.iam.gserviceaccount.com"
+  service_account_id = "projects/${var.project}/serviceAccounts/${module.helper.bindings_authoritative[each.key].name}"
   role               = module.helper.bindings_authoritative[each.key].role
   members            = module.helper.bindings_authoritative[each.key].members
   dynamic "condition" {
@@ -48,7 +48,7 @@ resource "google_service_account_iam_binding" "service_account_iam_authoritative
  *****************************************/
 resource "google_service_account_iam_member" "service_account_iam_additive" {
   for_each           = module.helper.set_additive
-  service_account_id = "projects/${var.project}/serviceAccounts/${module.helper.bindings_additive[each.key].name}@${var.project}.iam.gserviceaccount.com"
+  service_account_id = "projects/${var.project}/serviceAccounts/${module.helper.bindings_additive[each.key].name}"
   role               = module.helper.bindings_additive[each.key].role
   member             = module.helper.bindings_additive[each.key].member
   dynamic "condition" {

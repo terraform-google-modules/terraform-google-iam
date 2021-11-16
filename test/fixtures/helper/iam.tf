@@ -67,7 +67,7 @@ module "iam_binding_subnet_empty" {
 module "iam_binding_service_account" {
   source           = "../../../modules/service_accounts_iam"
   mode             = var.mode
-  service_accounts = module.base.service_accounts_id
+  service_accounts = module.base.service_accounts
   project          = var.project_id
   bindings         = local.basic_bindings
 }
