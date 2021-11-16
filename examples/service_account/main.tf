@@ -15,19 +15,6 @@
  */
 
 /******************************************
-  Provider configuration
- *****************************************/
-provider "google" {
-  credentials = file(var.credentials_file_path)
-  project     = var.service_account_project
-}
-
-provider "google-beta" {
-  credentials = file(var.credentials_file_path)
-  project     = var.service_account_project
-}
-
-/******************************************
   Module service_account_iam_binding calling
  *****************************************/
 module "service_account_iam_binding" {
