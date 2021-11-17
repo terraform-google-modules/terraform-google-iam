@@ -21,7 +21,7 @@ variable "project" {
 }
 
 variable "service_accounts" {
-  description = "Service Accounts list to add the IAM policies/bindings"
+  description = "Service Accounts Email list to add the IAM policies/bindings"
   default     = []
   type        = list(string)
 }

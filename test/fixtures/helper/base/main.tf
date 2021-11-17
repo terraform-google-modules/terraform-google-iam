@@ -62,7 +62,8 @@ resource "google_service_account" "test" {
 resource "google_storage_bucket" "test" {
   count = local.n
 
-  project = var.base_project_id
+  project  = var.base_project_id
+  location = local.location
 
   name = "${local.prefix}-bkt-${count.index}-${random_id.test[count.index].hex}"
 }

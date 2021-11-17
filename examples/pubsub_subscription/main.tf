@@ -15,17 +15,6 @@
  */
 
 /******************************************
-  Provider configuration
- *****************************************/
-provider "google" {
-  version = "~> 3.53"
-}
-
-provider "google-beta" {
-  version = "~> 3.53"
-}
-
-/******************************************
   Module pubsub_subscription_iam_binding calling
  *****************************************/
 module "pubsub_subscription_iam_binding" {

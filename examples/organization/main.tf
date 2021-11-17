@@ -15,17 +15,6 @@
  */
 
 /******************************************
-  Provider configuration
- *****************************************/
-provider "google" {
-  version = "~> 3.36"
-}
-
-provider "google-beta" {
-  version = "~> 3.36"
-}
-
-/******************************************
   Module organization_iam_binding calling
  *****************************************/
 module "organization_iam_binding" {

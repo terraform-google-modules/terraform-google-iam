@@ -1,6 +1,11 @@
 # Google IAM Terraform Module
 
 This is a collection of submodules that make it easier to non-destructively manage multiple IAM roles for resources on Google Cloud Platform:
+* [Artifact Registry IAM](modules/artifact_registry_iam)
+* [Audit Config](modules/audit_config)
+* [BigQuery IAM](modules/bigquery_datasets_iam)
+* [Billing Accounts IAM](modules/billing_accounts_iam)
+* [Custom Role IAM](modules/custom_role_iam)
 * [Folders IAM](modules/folders_iam)
 * [KMS Crypto Keys IAM](modules/kms_crypto_keys_iam)
 * [KMS_Key Rings IAM](modules/kms_key_rings_iam)

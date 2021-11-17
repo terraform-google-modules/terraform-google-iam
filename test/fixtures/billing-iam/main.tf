@@ -14,14 +14,6 @@
  * limitations under the License.
  */
 
-provider "google" {
-  version = "~> 3.36"
-}
-
-provider "google-beta" {
-  version = "~> 3.36"
-}
-
 #additive
 
 module "iam_binding_billing_accounts_additive" {

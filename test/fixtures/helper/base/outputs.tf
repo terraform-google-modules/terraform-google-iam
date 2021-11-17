@@ -78,6 +78,6 @@ output "secrets" {
 }
 
 output "datasets" {
-  value       = google_bigquery_dataset.dataset.*.name
+  value       = google_bigquery_dataset.dataset.*.dataset_id
   description = "bigquery datasets created for bindings."
 }
