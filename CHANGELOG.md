@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+### [7.3.1](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v7.3.0...v7.3.1) (2021-11-17)
+
+
+### Bug Fixes
+
+* update expected service_account_id format in service_accounts_iam module docs ([#147](https://www.github.com/terraform-google-modules/terraform-google-iam/issues/147)) ([d35e19b](https://www.github.com/terraform-google-modules/terraform-google-iam/commit/d35e19b3a0a4865041cc9c452a0f4cc74de89db1))
+
 ## [7.3.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v7.2.0...v7.3.0) (2021-10-20)
 
 
