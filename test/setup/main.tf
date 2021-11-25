@@ -26,7 +26,7 @@ resource "google_folder" "ci-iam-folder" {
 }
 
 module "iam-project" {
-  source  = "github.com/terraform-google-modules/terraform-google-project-factory.git?ref=master"
+  source = "github.com/terraform-google-modules/terraform-google-project-factory.git?ref=master"
   /* version = "~> 11.0" */
 
   name                = "ci-iam"
