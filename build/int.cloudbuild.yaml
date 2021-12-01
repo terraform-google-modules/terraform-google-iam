@@ -23,14 +23,14 @@ steps:
   - 'TF_VAR_billing_account=$_BILLING_ACCOUNT'
   - 'TF_VAR_billing_iam_test_account=$_BILLING_IAM_TEST_ACCOUNT'
 
-- id: create member-iam-local
+- id: create all
   waitFor:
     - prepare
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create member-iam-local']
+  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create']
 - id: converge member-iam-local
   waitFor:
-    - create member-iam-local
+    - create all
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge member-iam-local']
 - id: verify member-iam-local
@@ -46,14 +46,9 @@ steps:
 
 # ----- SUITE billing-iam-local
 
-- id: create billing-iam-local
-  waitFor:
-    - prepare
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create billing-iam-local']
 - id: converge billing-iam-local
   waitFor:
-    - create billing-iam-local
+    - create all
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge billing-iam-local']
 - id: verify billing-iam-local
@@ -69,14 +64,9 @@ steps:
 
 # ----- SUITE custom-role-local
 
-- id: create custom-role-local
-  waitFor:
-    - prepare
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create custom-role-local']
 - id: converge custom-role-local
   waitFor:
-    - create custom-role-local
+    - create all
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge custom-role-local']
 - id: verify custom-role-local
@@ -93,16 +83,9 @@ steps:
 # ----- SUITE additive-local
 
 # verify additive-local with 2 roles
-- id: create additive-local 2 roles
-  waitFor:
-  - prepare
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create additive-local']
-  env:
-  - 'TF_VAR_roles=2'
 - id: converge additive-local 2 roles
   waitFor:
-  - create additive-local 2 roles
+  - create all
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge additive-local']
   env:
@@ -158,16 +141,9 @@ steps:
 # ----- SUITE authoritative-local
 
 # verify authoritative-local with 2 roles
-- id: create authoritative-local 2 roles
-  waitFor:
-  - prepare
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create authoritative-local']
-  env:
-  - 'TF_VAR_roles=2'
 - id: converge authoritative-local 2 roles
   waitFor:
-  - create authoritative-local 2 roles
+  - create all
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge authoritative-local']
   env:
@@ -223,16 +199,10 @@ steps:
 # ----- SUITE static-and-dynamic
 
 # verify static-and-dynamic-local with 2 roles
-- id: create static-and-dynamic-local 2 roles
-  waitFor:
-  - prepare
-  name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-  args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do create static-and-dynamic-local']
-  env:
-  - 'TF_VAR_roles=2'
+
 - id: converge static-and-dynamic-local 2 roles
   waitFor:
-  - create static-and-dynamic-local 2 roles
+  - create all
   name: 'gcr.io/cloud-foundation-cicd/$_DOCKER_IMAGE_DEVELOPER_TOOLS:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
   args: ['/bin/bash', '-c', 'source /usr/local/bin/task_helper_functions.sh && kitchen_do converge static-and-dynamic-local']
   env:
