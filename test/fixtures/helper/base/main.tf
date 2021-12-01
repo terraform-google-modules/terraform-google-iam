@@ -83,7 +83,7 @@ resource "google_kms_crypto_key" "test" {
 
   name = "${local.prefix}-key-${count.index}-${random_id.test[count.index].hex}"
 
-  key_ring = google_kms_key_ring.test[count.index].self_link
+  key_ring = google_kms_key_ring.test[count.index].id
 }
 
 # Pubsub
