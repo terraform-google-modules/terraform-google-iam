@@ -38,12 +38,12 @@ output "buckets" {
 }
 
 output "key_rings" {
-  value       = google_kms_key_ring.test.*.self_link
+  value       = google_kms_key_ring.test.*.id
   description = "Key rings created for bindings."
 }
 
 output "keys" {
-  value       = google_kms_crypto_key.test.*.self_link
+  value       = google_kms_crypto_key.test.*.id
   description = "Crypto keys created for bindings."
 }
 
