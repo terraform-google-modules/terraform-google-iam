@@ -49,6 +49,7 @@ resource "google_organization_iam_custom_role" "org-custom-role" {
   title       = var.title == "" ? var.role_id : var.title
   description = var.description
   permissions = local.permissions
+  stage       = var.stage
 }
 
 /******************************************
@@ -73,6 +74,7 @@ resource "google_project_iam_custom_role" "project-custom-role" {
   title       = var.title == "" ? var.role_id : var.title
   description = var.description
   permissions = local.permissions
+  stage       = var.stage
 }
 
 /******************************************
