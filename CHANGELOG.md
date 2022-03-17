@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+### [7.4.1](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.4.0...v7.4.1) (2022-03-02)
+
+
+### Bug Fixes
+
+* pass stage to *_custom_role resources ([255a427](https://github.com/terraform-google-modules/terraform-google-iam/commit/255a427afc110e5fb26028cf98195fc7b6f05b8f))
+
 ## [7.4.0](https://www.github.com/terraform-google-modules/terraform-google-iam/compare/v7.3.0...v7.4.0) (2021-12-04)
 
 
