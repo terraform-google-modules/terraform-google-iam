@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2020 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,7 @@
 locals {
   excluded_permissions = concat(data.google_iam_testable_permissions.unsupported_permissions.permissions[*].name, var.excluded_permissions)
   included_permissions = concat(flatten(values(data.google_iam_role.role_permissions)[*].included_permissions), var.permissions)
-  permissions          = [for permission in local.included_permissions : permission if !contains(local.excluded_permissions, permission)]
+  permissions          = setsubtract(setintersection(local.included_permissions, data.google_iam_testable_permissions.supported_permissions.permissions[*].name), local.excluded_permissions)
   custom-role-output   = (var.target_level == "project") ? google_project_iam_custom_role.project-custom-role[0].role_id : google_organization_iam_custom_role.org-custom-role[0].role_id
 }
 
@@ -32,6 +32,12 @@ data "google_iam_role" "role_permissions" {
 /******************************************
   Permissions unsupported for custom roles
  *****************************************/
+data "google_iam_testable_permissions" "supported_permissions" {
+  full_resource_name   = var.target_level == "org" ? "//cloudresourcemanager.googleapis.com/organizations/${var.target_id}" : "//cloudresourcemanager.googleapis.com/projects/${var.target_id}"
+  stages               = ["GA", "ALPHA", "BETA"]
+  custom_support_level = "SUPPORTED"
+}
+
 data "google_iam_testable_permissions" "unsupported_permissions" {
   full_resource_name   = var.target_level == "org" ? "//cloudresourcemanager.googleapis.com/organizations/${var.target_id}" : "//cloudresourcemanager.googleapis.com/projects/${var.target_id}"
   stages               = ["GA", "ALPHA", "BETA"]
