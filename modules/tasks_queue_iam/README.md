@@ -1,11 +1,11 @@
 # Module Tasks Queue IAM
 
-This optional module is used to assign secrets roles
+This optional module is used to assign Tasks queue roles
 
 ## Usage
 
 ```hcl
-module "secret_manager_iam" {
+module "tasks_queue_iam" {
   source       = "terraform-google-modules/iam/google//modules/tasks_queue_iam"
   project      = "gcp-project-id"
   tasks_queues = ["tasks-queue-one", "tasks-queue-two"]
