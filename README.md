@@ -17,6 +17,7 @@ This is a collection of submodules that make it easier to non-destructively mana
 * [Storage Buckets IAM](modules/storage_buckets_iam)
 * [Subnets IAM](modules/subnets_iam)
 * [Secret Manager IAM](modules/secret_manager_iam)
+* [Tasks Queue IAM](modules/tasks_queue_iam)
 
 ## Compatibility
 This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0+. If you find incompatibilities using Terraform >=0.13, please open an issue.
