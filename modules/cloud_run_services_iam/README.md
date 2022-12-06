@@ -1,13 +1,13 @@
-# Module pubsub_topic IAM
+# Module Cloud Run Service IAM
 
-This optional module is used to assign pubsub_topic roles
+This optional module is used to assign cloud run service roles
 
 ## Example Usage
 ```
 module "cloud-run-services-iam-bindings" {
-  source             = "terraform-google-modules/iam/google//modules/pubsub_topics_iam"
-  project            = "my-pubsub_topic_project"
-  cloud_run_services = ["my-pubsub_topic_one", "my-pubsub_topic_two"]
+  source             = "terraform-google-modules/iam/google//modules/cloud_run_services_iam"
+  project            = "my_cloud_run_project"
+  cloud_run_services = ["my_cloud_run_service_one", "my_cloud_run_service_two"]
   mode               = "authoritative"
 
   bindings = {

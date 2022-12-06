@@ -1,4 +1,4 @@
-# PubSub Topic Example
+# Cloud Run Example
 
 This example illustrates how to use the `cloud_run_service_iam` submodule
 
