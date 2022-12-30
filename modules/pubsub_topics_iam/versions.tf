@@ -25,7 +25,7 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-iam:pubsub_topics_iam/v7.4.1"
+    module_name = "blueprints/terraform/terraform-google-iam:pubsub_topics_iam/v7.5.0"
   }
 
 }

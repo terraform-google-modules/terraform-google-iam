@@ -30,7 +30,7 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-iam:artifact_registry_iam/v7.4.1"
+    module_name = "blueprints/terraform/terraform-google-iam:artifact_registry_iam/v7.5.0"
   }
 
 }
