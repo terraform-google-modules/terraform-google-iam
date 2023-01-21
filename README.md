@@ -40,7 +40,7 @@ Full examples are in the [examples](./examples/) folder, but basic usage is as f
 ```hcl
 module "projects_iam_bindings" {
   source  = "terraform-google-modules/iam/google//modules/projects_iam"
-  version = "~> 6.4"
+  version = "~> 7.5"
 
   projects = ["project-123456", "project-9876543"]
 
