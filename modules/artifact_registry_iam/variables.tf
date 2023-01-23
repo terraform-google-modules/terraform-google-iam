@@ -32,6 +32,7 @@ variable "project" {
 
 variable "mode" {
   description = "Mode for adding the IAM policies/bindings, additive and authoritative"
+  type        = string
   default     = "additive"
 }
 

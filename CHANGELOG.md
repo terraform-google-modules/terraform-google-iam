@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [7.5.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.4.1...v7.5.0) (2022-12-30)
+
+
+### Features
+
+* cloud run services iam submodule ([#164](https://github.com/terraform-google-modules/terraform-google-iam/issues/164)) ([96471a8](https://github.com/terraform-google-modules/terraform-google-iam/commit/96471a8dd3068e90f2c776b2940116f14dbdf143))
+
+
+### Bug Fixes
+
+* fixes lint issues and generate metadata ([#175](https://github.com/terraform-google-modules/terraform-google-iam/issues/175)) ([d6d503e](https://github.com/terraform-google-modules/terraform-google-iam/commit/d6d503e7dd965deb1c57fabb260fbf80dc84d2f4))
+
 ### [7.4.1](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.4.0...v7.4.1) (2022-03-02)
 
 

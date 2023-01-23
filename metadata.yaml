@@ -1,0 +1,150 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: terraform-google-iam
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  title: Google IAM Terraform Module
+  source:
+    repo: https://github.com/terraform-google-modules/terraform-google-iam.git
+    sourceType: git
+  subBlueprints:
+  - name: artifact_registry_iam
+    location: modules/artifact_registry_iam
+  - name: audit_config
+    location: modules/audit_config
+  - name: bigquery_datasets_iam
+    location: modules/bigquery_datasets_iam
+  - name: billing_accounts_iam
+    location: modules/billing_accounts_iam
+  - name: custom_role_iam
+    location: modules/custom_role_iam
+  - name: folders_iam
+    location: modules/folders_iam
+  - name: helper
+    location: modules/helper
+  - name: kms_crypto_keys_iam
+    location: modules/kms_crypto_keys_iam
+  - name: kms_key_rings_iam
+    location: modules/kms_key_rings_iam
+  - name: member_iam
+    location: modules/member_iam
+  - name: organizations_iam
+    location: modules/organizations_iam
+  - name: projects_iam
+    location: modules/projects_iam
+  - name: pubsub_subscriptions_iam
+    location: modules/pubsub_subscriptions_iam
+  - name: pubsub_topics_iam
+    location: modules/pubsub_topics_iam
+  - name: secret_manager_iam
+    location: modules/secret_manager_iam
+  - name: service_accounts_iam
+    location: modules/service_accounts_iam
+  - name: storage_buckets_iam
+    location: modules/storage_buckets_iam
+  - name: subnets_iam
+    location: modules/subnets_iam
+  examples:
+  - name: bigquery_dataset
+    location: examples/bigquery_dataset
+  - name: billing_account
+    location: examples/billing_account
+  - name: custom_role_org
+    location: examples/custom_role_org
+  - name: custom_role_project
+    location: examples/custom_role_project
+  - name: folder
+    location: examples/folder
+  - name: kms_crypto_key
+    location: examples/kms_crypto_key
+  - name: kms_key_ring
+    location: examples/kms_key_ring
+  - name: member_iam
+    location: examples/member_iam
+  - name: organization
+    location: examples/organization
+  - name: project
+    location: examples/project
+  - name: project_conditions
+    location: examples/project_conditions
+  - name: pubsub_subscription
+    location: examples/pubsub_subscription
+  - name: pubsub_topic
+    location: examples/pubsub_topic
+  - name: secret_manager
+    location: examples/secret_manager
+  - name: service_account
+    location: examples/service_account
+  - name: stackdriver_agent_roles
+    location: examples/stackdriver_agent_roles
+  - name: storage_bucket
+    location: examples/storage_bucket
+  - name: subnet
+    location: examples/subnet
+  roles:
+  - level: Project
+    roles:
+    - roles/iam.organizationRoleAdmin
+    - roles/orgpolicy.policyAdmin
+    - roles/resourcemanager.organizationAdmin
+  - level: Project
+    roles:
+    - roles/owner
+    - roles/resourcemanager.projectIamAdmin
+    - roles/iam.serviceAccountAdmin
+    - roles/compute.admin
+    - roles/compute.networkAdmin
+    - roles/compute.storageAdmin
+    - roles/pubsub.admin
+    - roles/cloudkms.admin
+    - roles/storage.admin
+    - roles/composer.worker
+    - roles/secretmanager.admin
+  - level: Project
+    roles:
+    - roles/resourcemanager.projectCreator
+    - roles/resourcemanager.folderAdmin
+    - roles/resourcemanager.folderIamAdmin
+    - roles/owner
+    - roles/billing.projectManager
+    - roles/composer.worker
+  - level: Project
+    roles:
+    - roles/billing.user
+  - level: Project
+    roles:
+    - roles/billing.admin
+  services:
+  - admin.googleapis.com
+  - appengine.googleapis.com
+  - cloudbilling.googleapis.com
+  - cloudresourcemanager.googleapis.com
+  - compute.googleapis.com
+  - iam.googleapis.com
+  - iamcredentials.googleapis.com
+  - oslogin.googleapis.com
+  - serviceusage.googleapis.com
+  - cloudkms.googleapis.com
+  - pubsub.googleapis.com
+  - storage-api.googleapis.com
+  - servicenetworking.googleapis.com
+  - storage-component.googleapis.com
+  - iap.googleapis.com
+  - secretmanager.googleapis.com
+  - bigquery.googleapis.com

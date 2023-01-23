@@ -32,6 +32,7 @@ suites:
       name: terraform
       command_timeout: 1800
       root_module_directory: test/fixtures/additive
+      verify_version: false
     verifier:
       name: terraform
       systems:
@@ -46,6 +47,7 @@ suites:
       name: terraform
       command_timeout: 1800
       root_module_directory: test/fixtures/authoritative
+      verify_version: false
     verifier:
       name: terraform
       systems:
@@ -64,6 +66,7 @@ suites:
       name: terraform
       command_timeout: 1800
       root_module_directory: test/fixtures/static-and-dynamic
+      verify_version: false
     verifier:
       name: terraform
       systems:
@@ -77,6 +80,7 @@ suites:
       name: terraform
       command_timeout: 1800
       root_module_directory: test/fixtures/member-iam
+      verify_version: false
     verifier:
       name: terraform
       systems:
@@ -90,6 +94,7 @@ suites:
       name: terraform
       command_timeout: 1800
       root_module_directory: test/fixtures/billing-iam
+      verify_version: false
     verifier:
       name: terraform
       systems:
@@ -103,6 +108,7 @@ suites:
       name: terraform
       command_timeout: 1800
       root_module_directory: test/fixtures/custom-role
+      verify_version: false
     verifier:
       name: terraform
       systems:
