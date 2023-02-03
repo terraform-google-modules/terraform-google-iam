@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ metadata:
 spec:
   title: Module Billing Accounts IAM
   source:
-    repo: https://github.com/terraform-google-modules/terraform-google-iam.git
+    repo: https://github.com/terraform-google-modules/terraform-google-iam/
     sourceType: git
-  version: 7.4.1
+  version: 7.5.0
   actuationTool:
     type: Terraform
     version: '>= 0.13'
@@ -32,6 +32,8 @@ spec:
     location: examples/bigquery_dataset
   - name: billing_account
     location: examples/billing_account
+  - name: cloud_run_service
+    location: examples/cloud_run_service
   - name: custom_role_org
     location: examples/custom_role_org
   - name: custom_role_project
@@ -89,6 +91,20 @@ spec:
   roles:
   - level: Project
     roles:
+    - roles/resourcemanager.projectCreator
+    - roles/resourcemanager.folderAdmin
+    - roles/resourcemanager.folderIamAdmin
+    - roles/owner
+    - roles/billing.projectManager
+    - roles/composer.worker
+  - level: Project
+    roles:
+    - roles/billing.user
+  - level: Project
+    roles:
+    - roles/billing.admin
+  - level: Project
+    roles:
     - roles/iam.organizationRoleAdmin
     - roles/orgpolicy.policyAdmin
     - roles/resourcemanager.organizationAdmin
@@ -105,20 +121,6 @@ spec:
     - roles/storage.admin
     - roles/composer.worker
     - roles/secretmanager.admin
-  - level: Project
-    roles:
-    - roles/resourcemanager.projectCreator
-    - roles/resourcemanager.folderAdmin
-    - roles/resourcemanager.folderIamAdmin
-    - roles/owner
-    - roles/billing.projectManager
-    - roles/composer.worker
-  - level: Project
-    roles:
-    - roles/billing.user
-  - level: Project
-    roles:
-    - roles/billing.admin
   services:
   - admin.googleapis.com
   - appengine.googleapis.com

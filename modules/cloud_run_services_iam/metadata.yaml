@@ -19,7 +19,7 @@ metadata:
   annotations:
     config.kubernetes.io/local-config: "true"
 spec:
-  title: Module kms_key_ring IAM
+  title: Module Cloud Run Service IAM
   source:
     repo: https://github.com/terraform-google-modules/terraform-google-iam/
     sourceType: git
@@ -69,42 +69,36 @@ spec:
   variables:
   - name: bindings
     description: Map of role (key) and list of members (value) to add the IAM policies/bindings
-    type: map(list(string))
-    default: {}
-    required: false
-  - name: conditional_bindings
-    description: List of maps of role and respective conditions, and the members to add the IAM policies/bindings
-    type: |-
-      list(object({
-          role        = string
-          title       = string
-          description = string
-          expression  = string
-          members     = list(string)
-        }))
-    default: []
-    required: false
-  - name: kms_key_rings
-    description: KMS Key Rings list to add the IAM policies/bindings
+    type: map(any)
+    required: true
+  - name: cloud_run_services
+    description: Cloud Run services list to add the IAM policies/bindings
     type: list(string)
     default: []
+    required: false
+  - name: location
+    description: The location of the cloud run instance
+    type: string
+    default: ""
     required: false
   - name: mode
     description: Mode for adding the IAM policies/bindings, additive and authoritative
     type: string
     default: additive
     required: false
+  - name: project
+    description: Project to add the IAM policies/bindings
+    type: string
+    default: ""
+    required: false
   outputs:
-  - name: kms_key_rings
-    description: KMS key rings which received bindings.
+  - name: cloud_run_services
+    description: Cloud Run services which received for bindings.
   - name: members
-    description: Members which were bound to the KMS key rings.
+    description: Members which were bound to the Cloud Run services.
   - name: roles
     description: Roles which were assigned to members.
   roles:
-  - level: Project
-    roles:
-    - roles/billing.admin
   - level: Project
     roles:
     - roles/iam.organizationRoleAdmin
@@ -134,6 +128,9 @@ spec:
   - level: Project
     roles:
     - roles/billing.user
+  - level: Project
+    roles:
+    - roles/billing.admin
   services:
   - admin.googleapis.com
   - appengine.googleapis.com
