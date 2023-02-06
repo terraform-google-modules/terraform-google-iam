@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -121,4 +121,12 @@ module "iam_binding_secret_manager" {
   secrets  = module.base.secrets
   project  = var.project_id
   bindings = local.basic_bindings
+}
+
+module "iam_binding_dns_zone" {
+  source        = "../../../modules/dns_zones_iam"
+  mode          = var.mode
+  managed_zones = module.base.dns_zone
+  project       = var.project_id
+  bindings      = local.basic_bindings
 }
