@@ -152,3 +152,4 @@ spec:
   - iap.googleapis.com
   - secretmanager.googleapis.com
   - bigquery.googleapis.com
+  - dns.googleapis.com
