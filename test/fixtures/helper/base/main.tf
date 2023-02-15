@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -139,4 +139,14 @@ resource "google_bigquery_dataset" "dataset" {
 
   project    = var.base_project_id
   dataset_id = replace("${local.prefix}_ds_${count.index}-${random_id.test[count.index].hex}", "-", "_")
+}
+
+# DNS Zone
+
+resource "google_dns_managed_zone" "test" {
+  count = local.n
+
+  project  = var.base_project_id
+  name     = "${local.prefix}-dns-${count.index}-${random_id.test[count.index].hex}"
+  dns_name = "example-${random_id.test[count.index].hex}.com."
 }

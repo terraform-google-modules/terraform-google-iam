@@ -5,7 +5,9 @@ This is a collection of submodules that make it easier to non-destructively mana
 * [Audit Config](modules/audit_config)
 * [BigQuery IAM](modules/bigquery_datasets_iam)
 * [Billing Accounts IAM](modules/billing_accounts_iam)
+* [Cloud Run Service IAM](modules/cloud_run_services_iam)
 * [Custom Role IAM](modules/custom_role_iam)
+* [DNS Zone IAM](modules/dns_zones_iam)
 * [Folders IAM](modules/folders_iam)
 * [KMS Crypto Keys IAM](modules/kms_crypto_keys_iam)
 * [KMS_Key Rings IAM](modules/kms_key_rings_iam)
@@ -13,10 +15,10 @@ This is a collection of submodules that make it easier to non-destructively mana
 * [Projects IAM](modules/projects_iam)
 * [Pubsub Subscriptions IAM](modules/pubsub_subscriptions_iam)
 * [Pubsub Topics IAM](modules/pubsub_topics_iam)
+* [Secret Manager IAM](modules/secret_manager_iam)
 * [Service Accounts IAM](modules/service_accounts_iam)
 * [Storage Buckets IAM](modules/storage_buckets_iam)
 * [Subnets IAM](modules/subnets_iam)
-* [Secret Manager IAM](modules/secret_manager_iam)
 
 ## Compatibility
 This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0+. If you find incompatibilities using Terraform >=0.13, please open an issue.
@@ -40,7 +42,7 @@ Full examples are in the [examples](./examples/) folder, but basic usage is as f
 ```hcl
 module "projects_iam_bindings" {
   source  = "terraform-google-modules/iam/google//modules/projects_iam"
-  version = "~> 7.5"
+  version = "~> 8.0"
 
   projects = ["project-123456", "project-9876543"]
 
@@ -67,7 +69,7 @@ The module also offers an **authoritative** mode which will remove all roles not
 ```hcl
 module "storage_buckets_iam_bindings" {
   source  = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
-  version = "~> 6.4"
+  version = "~> 8.0"
 
   storage_buckets = ["my-storage-bucket"]
 
@@ -124,6 +126,7 @@ You can choose the following resource types to apply the IAM bindings:
 - Kms Key Rings (`kms_key_rings` variable)
 - Kms Crypto Keys (`kms_crypto_keys` variable)
 - Secret Manager Secrets (`secrets` variable)
+- DNS Zones (`managed_zones` variable)
 
 Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#additive-and-authoritative-modes) and give enough [permissions](#permissions) to manage the selected resource as well. Note that the `bindings` variable accepts an empty map `{}` passed in as an argument in the case that resources don't have IAM bindings to apply.
 
@@ -186,6 +189,9 @@ In order to execute a submodule you must have a Service Account with an appropri
 - Secret Manager:
     - Secret Manager Admin: Full access to administer Secret Manager.
     - Custom: Add secretmanager.secrets.getIamPolicy and secretmanager.secrets.setIamPolicy permissions.
+- DNS Zone:
+    - DNS Administrator : Full access to administer DNS Zone.
+    - Custom: Add dns.managedZones.setIamPolicy, dns.managedZones.list and dns.managedZones.getIamPolicy permissions.
 
 ## Install
 

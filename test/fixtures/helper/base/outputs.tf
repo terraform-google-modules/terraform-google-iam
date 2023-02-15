@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,4 +80,9 @@ output "secrets" {
 output "datasets" {
   value       = google_bigquery_dataset.dataset.*.dataset_id
   description = "bigquery datasets created for bindings."
+}
+
+output "dns_zone" {
+  value       = google_dns_managed_zone.test.*.name
+  description = "DNS Zones created for bindings."
 }
