@@ -131,7 +131,7 @@ control "GCP Custom Role" do
                 data['bindings'].each do |binding|
                     transformed_data.store(binding["role"],binding["members"])
                 end
-                expect(transformed_data["organizations/#{org_id}/roles/#{custom_role_id_org}"]).to include("group:test-gcp-org-admins@test.infra.cft.tips")
+                expect(transformed_data["organizations/#{org_id}/roles/#{custom_role_id_org}"]).to include("group:test-gcp-org-admins@test.blueprints.joonix.net")
             end
         end
     end
