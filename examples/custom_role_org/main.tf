@@ -31,5 +31,5 @@ module "custom-roles-org" {
   permissions          = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]
   excluded_permissions = ["iam.serviceAccounts.setIamPolicy"]
   description          = "This is an organization level custom role."
-  members              = ["group:test-gcp-org-admins@test.infra.cft.tips", "group:test-gcp-billing-admins@test.infra.cft.tips"]
+  members              = ["group:test-gcp-org-admins@test.blueprints.joonix.net", "group:test-gcp-billing-admins@test.blueprints.joonix.net"]
 }
