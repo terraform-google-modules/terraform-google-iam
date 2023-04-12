@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [7.6.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.5.0...v7.6.0) (2023-04-12)
+
+
+### Features
+
+* add dns zone IAM submodule ([#181](https://github.com/terraform-google-modules/terraform-google-iam/issues/181)) ([4f6e19d](https://github.com/terraform-google-modules/terraform-google-iam/commit/4f6e19d1e561853dd55106bcb2bcc1c4edc96d45))
+
+
+### Bug Fixes
+
+* update cloud run tflint ([#179](https://github.com/terraform-google-modules/terraform-google-iam/issues/179)) ([3d72db5](https://github.com/terraform-google-modules/terraform-google-iam/commit/3d72db5b655f9fef5948be5ec7cbb18babb88428))
+
 ## [7.5.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.4.1...v7.5.0) (2022-12-30)
 
 
