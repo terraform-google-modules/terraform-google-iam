@@ -86,3 +86,13 @@ output "dns_zone" {
   value       = google_dns_managed_zone.test.*.name
   description = "DNS Zones created for bindings."
 }
+
+output "tag_keys" {
+  value       = google_tags_tag_key.tag_key.*.name
+  description = "Tag Keys created for bindings."
+}
+
+output "tag_values" {
+  value       = google_tags_tag_value.tag_value.*.name
+  description = "Tag values created for bindings."
+}

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-output "managed_zones" {
-  value       = distinct(module.helper.bindings_by_member[*].name)
-  description = "DNS Managed Zones which received for bindings."
-  depends_on  = [google_dns_managed_zone_iam_binding.dns_zone_iam_authoritative, google_dns_managed_zone_iam_member.dns_zone_iam_additive, ]
+variable "tag_values" {
+  description = "List of tag values to add the IAM policies/bindings"
+  type        = list(string)
 }
 
-output "roles" {
-  value       = distinct(module.helper.bindings_by_member[*].role)
-  description = "Roles which were assigned to members."
+variable "mode" {
+  description = "Mode for adding the IAM policies/bindings, additive and authoritative"
+  type        = string
+  default     = "additive"
 }
 
-output "members" {
-  value       = distinct(module.helper.bindings_by_member[*].member)
-  description = "Members which were bound to the Tag keys."
+variable "bindings" {
+  description = "Map of role (key) and list of members (value) to add the IAM policies/bindings"
+  type        = map(any)
 }

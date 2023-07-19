@@ -29,6 +29,9 @@ variable "user_email" {
   description = "Email for group to receive roles (Ex. user@example.com)"
 }
 
+/******************************************
+  bigquery_dataset_iam_binding variables
+ *****************************************/
 variable "project_id" {
   type        = string
   description = "Project ID to create BigQuery resources in"
