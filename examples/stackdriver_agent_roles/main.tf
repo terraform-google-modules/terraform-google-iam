@@ -26,3 +26,7 @@ resource "google_project_iam_member" "monitoring-metric_writer" {
   project = var.project
 }
 
+output "project" {
+  value       = var.project
+  description = "project"
+}

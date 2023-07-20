@@ -36,3 +36,7 @@ module "project_iam_binding" {
   }
 }
 
+output "project_one" {
+  value       = var.project_one
+  description = "project one"
+}

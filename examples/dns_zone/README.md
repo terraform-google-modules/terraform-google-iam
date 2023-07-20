@@ -14,6 +14,8 @@ This example illustrates how to use the `bigquery_datasets_iam` submodule
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| dns\_zone\_one | DNS Zone created |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

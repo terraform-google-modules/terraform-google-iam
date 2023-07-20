@@ -16,6 +16,8 @@ This example illustrates how to use the `pubsub_topics_iam` submodule
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| pubsub\_topic\_one | topic one |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

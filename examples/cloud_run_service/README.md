@@ -17,6 +17,8 @@ This example illustrates how to use the `cloud_run_service_iam` submodule
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| cloud\_run\_service\_one | CloudRun Service |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -37,3 +37,7 @@ module "pubsub_topic_iam_binding" {
   }
 }
 
+output "pubsub_topic_one" {
+  value       = var.pubsub_topic_one
+  description = "topic one"
+}

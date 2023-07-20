@@ -37,8 +37,10 @@ audit_log_config = [
           ]
     }
   ]
+}
 
 ```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 

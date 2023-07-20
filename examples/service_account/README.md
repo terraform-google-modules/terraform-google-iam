@@ -16,7 +16,9 @@ This example illustrates how to use the `service_accounts_iam` submodule
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| service\_account\_one | service account one |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

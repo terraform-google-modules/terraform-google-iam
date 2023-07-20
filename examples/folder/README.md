@@ -15,7 +15,9 @@ This example illustrates how to use the `folders_iam` submodule
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| folder | folder one |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

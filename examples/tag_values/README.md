@@ -14,6 +14,8 @@ This example illustrates how to use the `bigquery_datasets_iam` submodule
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| tag\_value | tag value |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -35,3 +35,7 @@ module "kms_crypto_key_iam_binding" {
   }
 }
 
+output "kms_crypto_one" {
+  value       = var.kms_crypto_key_one
+  description = "KMS crypto one"
+}

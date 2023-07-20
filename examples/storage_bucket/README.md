@@ -15,6 +15,8 @@ This example illustrates how to use the `storage_buckets_iam` submodule
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| storage\_bucket\_one | bucket one |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
