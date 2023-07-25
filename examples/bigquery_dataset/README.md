@@ -14,8 +14,6 @@ This example illustrates how to use the `bigquery_datasets_iam` submodule
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| bigquery\_dataset\_one | BQ dataset ID |
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

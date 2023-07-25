@@ -35,8 +35,3 @@ module "storage_buckets_iam_binding" {
     ]
   }
 }
-
-output "storage_bucket_one" {
-  value       = var.storage_bucket_one
-  description = "bucket one"
-}

@@ -33,8 +33,3 @@ module "kms_key_ring_iam_binding" {
     ]
   }
 }
-
-output "kms_key_ring" {
-  value       = var.kms_key_ring_one
-  description = "kms key ring one"
-}

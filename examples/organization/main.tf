@@ -35,8 +35,3 @@ module "organization_iam_binding" {
     ]
   }
 }
-
-output "organization" {
-  value       = var.organization_one
-  description = "organization one"
-}

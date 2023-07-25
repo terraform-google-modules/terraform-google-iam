@@ -15,8 +15,6 @@ This example illustrates how to use the `organizations_iam` submodule
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| organization | organization one |
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -19,8 +19,6 @@ Applies the roles necessary to write metrics and logs to Stackdriver to a given 
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| project | project |
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -16,8 +16,6 @@ This example illustrates how to use the `pubsub_subscriptions_iam` submodule
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| pubsub\_subscription\_one | subscription one |
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

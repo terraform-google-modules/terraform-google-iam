@@ -34,8 +34,3 @@ module "folder-iam" {
     ]
   }
 }
-
-output "folder" {
-  value       = var.folder_one
-  description = "folder one"
-}

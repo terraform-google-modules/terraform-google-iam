@@ -14,8 +14,6 @@ This example illustrates how to use the `kms_key_rings_iam` submodule
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| kms\_key\_ring | kms key ring one |
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

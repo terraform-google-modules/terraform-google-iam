@@ -15,8 +15,6 @@ This example illustrates how to use the `projects_iam` submodule
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| project\_one | project one |
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

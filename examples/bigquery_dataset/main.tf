@@ -47,8 +47,3 @@ resource "google_bigquery_dataset" "bigquery_dataset_one" {
 resource "random_id" "test" {
   byte_length = 4
 }
-
-output "bigquery_dataset_one" {
-  value       = google_bigquery_dataset.bigquery_dataset_one.dataset_id
-  description = "BQ dataset ID"
-}

@@ -37,8 +37,3 @@ module "cloud_run_service_iam_binding" {
     ]
   }
 }
-
-output "cloud_run_service_one" {
-  value       = var.cloud_run_service_one
-  description = "CloudRun Service"
-}

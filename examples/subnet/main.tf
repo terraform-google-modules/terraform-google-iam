@@ -52,8 +52,3 @@ module "subnet_iam_binding" {
     ]
   }
 }
-
-output "subnet_one" {
-  value       = var.subnet_one
-  description = "subnet one"
-}

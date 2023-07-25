@@ -36,8 +36,3 @@ module "service_account_iam_binding" {
     ]
   }
 }
-
-output "service_account_one" {
-  value       = var.service_account_one
-  description = "service account one"
-}

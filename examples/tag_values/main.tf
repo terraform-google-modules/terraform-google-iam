@@ -48,8 +48,3 @@ resource "google_tags_tag_value" "tag_value" {
   short_name  = "bar1"
   description = "Tag value bar."
 }
-
-output "tag_value" {
-  value       = google_tags_tag_value.tag_value.short_name
-  description = "tag value"
-}

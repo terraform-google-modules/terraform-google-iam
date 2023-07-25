@@ -42,7 +42,3 @@ resource "google_tags_tag_key" "tag_key" {
   short_name  = "foo"
   description = "test tags"
 }
-
-output "tag_key" {
-  value = google_tags_tag_key.tag_key.short_name
-}

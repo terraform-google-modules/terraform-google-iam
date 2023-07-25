@@ -36,8 +36,3 @@ module "folder-iam" {
     ]
   }
 }
-
-output "secret_one" {
-  value       = var.secret_one
-  description = "secret oneß"
-}

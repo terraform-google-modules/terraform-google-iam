@@ -36,8 +36,3 @@ module "pubsub_subscription_iam_binding" {
     ]
   }
 }
-
-output "pubsub_subscription_one" {
-  value       = var.pubsub_subscription_one
-  description = "subscription one"
-}

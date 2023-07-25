@@ -48,8 +48,3 @@ resource "google_dns_managed_zone" "dns_zone_one" {
 resource "random_id" "test" {
   byte_length = 4
 }
-
-output "dns_zone_one" {
-  value       = google_dns_managed_zone.dns_zone_one.name
-  description = "DNS Zone created"
-}
