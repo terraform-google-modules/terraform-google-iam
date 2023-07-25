@@ -16,7 +16,7 @@ This example illustrates how to use the `secret_manager_iam` submodule
 
 ## Outputs
 
-No output.
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

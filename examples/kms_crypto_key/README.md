@@ -14,6 +14,6 @@ This example illustrates how to use the `kms_crypto_keys_iam` submodule
 
 ## Outputs
 
-No output.
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

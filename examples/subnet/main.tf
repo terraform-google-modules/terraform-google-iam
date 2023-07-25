@@ -52,4 +52,3 @@ module "subnet_iam_binding" {
     ]
   }
 }
-

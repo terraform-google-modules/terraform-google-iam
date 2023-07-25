@@ -35,4 +35,3 @@ module "storage_buckets_iam_binding" {
     ]
   }
 }
-

@@ -17,7 +17,7 @@ This example illustrates how to use the `subnets_iam` submodule
 
 ## Outputs
 
-No output.
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

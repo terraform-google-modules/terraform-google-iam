@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-output "managed_zones" {
-  value       = distinct(module.helper.bindings_by_member[*].name)
-  description = "DNS Managed Zones which received for bindings."
-  depends_on  = [google_dns_managed_zone_iam_binding.dns_zone_iam_authoritative, google_dns_managed_zone_iam_member.dns_zone_iam_additive, ]
-}
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
 
-output "roles" {
-  value       = distinct(module.helper.bindings_by_member[*].role)
-  description = "Roles which were assigned to members."
-}
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 4.48, < 5.0"
+    }
+  }
 
-output "members" {
-  value       = distinct(module.helper.bindings_by_member[*].member)
-  description = "Members which were bound to the Tag keys."
+  provider_meta "google" {
+    module_name = "blueprints/terraform/terraform-google-iam:dns_zone_iam/v7.6.0"
+  }
+
 }

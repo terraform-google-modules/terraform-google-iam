@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-resource "google_project_iam_member" "monitoring-log_writer" {
-  role    = "roles/logging.logWriter"
-  member  = "serviceAccount:${var.service_account_email}"
-  project = var.project
-}
-
-resource "google_project_iam_member" "monitoring-metric_writer" {
-  role    = "roles/monitoring.metricWriter"
-  member  = "serviceAccount:${var.service_account_email}"
-  project = var.project
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 4.0"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "~> 4.0"
+    }
+  }
 }

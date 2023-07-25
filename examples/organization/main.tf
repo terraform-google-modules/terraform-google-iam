@@ -35,4 +35,3 @@ module "organization_iam_binding" {
     ]
   }
 }
-

@@ -33,4 +33,3 @@ module "kms_key_ring_iam_binding" {
     ]
   }
 }
-

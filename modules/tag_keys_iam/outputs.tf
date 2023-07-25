@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-output "managed_zones" {
+output "tag_keys" {
   value       = distinct(module.helper.bindings_by_member[*].name)
-  description = "DNS Managed Zones which received for bindings."
-  depends_on  = [google_dns_managed_zone_iam_binding.dns_zone_iam_authoritative, google_dns_managed_zone_iam_member.dns_zone_iam_additive, ]
+  description = "Tag keys which received for bindings."
+  depends_on  = [google_tags_tag_key_iam_binding.tag_key_iam_authoritative, google_tags_tag_key_iam_member.tag_key_iam_additive, ]
 }
 
 output "roles" {

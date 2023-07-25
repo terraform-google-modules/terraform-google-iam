@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,31 @@
  * limitations under the License.
  */
 
-/******************************************
-  Module kms_crypto_key_iam_binding calling
- *****************************************/
-module "kms_crypto_key_iam_binding" {
-  source          = "../../modules/kms_crypto_keys_iam/"
-  kms_crypto_keys = [var.kms_crypto_key_one, var.kms_crypto_key_two]
-
+/*********************************************
+  Module tag_keys_iam_binding calling
+ *********************************************/
+module "tag_keys_iam_binding" {
+  source = "../../modules/tag_keys_iam/"
+  tag_keys = [
+    google_tags_tag_key.tag_key.name,
+  ]
   mode = "authoritative"
 
   bindings = {
-    "roles/cloudkms.cryptoKeyEncrypter" = [
-      "user:${var.user_email}",
+    "roles/viewer" = [
+      "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
-    ]
-    "roles/cloudkms.cryptoKeyDecrypter" = [
       "user:${var.user_email}",
-      "group:${var.group_email}",
     ]
   }
+}
+
+data "google_project" "project" {
+  project_id = var.project_id
+}
+
+resource "google_tags_tag_key" "tag_key" {
+  parent      = "projects/${data.google_project.project.number}"
+  short_name  = "foo"
+  description = "test tags"
 }

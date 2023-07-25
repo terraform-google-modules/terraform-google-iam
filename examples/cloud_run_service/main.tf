@@ -17,6 +17,7 @@
 /******************************************
   Module cloud_run_service_iam_binding calling
  *****************************************/
+
 module "cloud_run_service_iam_binding" {
   source             = "../../modules/cloud_run_services_iam/"
   project            = var.cloud_run_service_project
@@ -37,4 +38,3 @@ module "cloud_run_service_iam_binding" {
     ]
   }
 }
-

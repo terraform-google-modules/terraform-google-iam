@@ -36,4 +36,3 @@ module "pubsub_topic_iam_binding" {
     ]
   }
 }
-

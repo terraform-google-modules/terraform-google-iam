@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
-/******************************************
-  Module project_iam_binding calling
- *****************************************/
-module "project_iam_binding" {
-  source   = "../../modules/projects_iam/"
-  projects = [var.project_one, var.project_two]
-  mode     = "additive"
+variable "group_email" {
+  type        = string
+  description = "Email for group to receive roles (ex. group@example.com)"
+}
 
-  bindings = {
-    "roles/compute.networkAdmin" = [
-      "serviceAccount:${var.sa_email}",
-      "group:${var.group_email}",
-      "user:${var.user_email}",
-    ]
-    "roles/appengine.appAdmin" = [
-      "serviceAccount:${var.sa_email}",
-      "group:${var.group_email}",
-      "user:${var.user_email}",
-    ]
-  }
+variable "sa_email" {
+  type        = string
+  description = "Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com)"
+}
+
+variable "user_email" {
+  type        = string
+  description = "Email for group to receive roles (Ex. user@example.com)"
+}
+
+/******************************************
+  bigquery_dataset_iam_binding variables
+ *****************************************/
+variable "project_id" {
+  type        = string
+  description = "Project ID to create BigQuery resources in"
 }

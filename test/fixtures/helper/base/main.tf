@@ -150,3 +150,25 @@ resource "google_dns_managed_zone" "test" {
   name     = "${local.prefix}-dns-${count.index}-${random_id.test[count.index].hex}"
   dns_name = "example-${random_id.test[count.index].hex}.com."
 }
+
+# Tag Key
+
+data "google_project" "project" {
+  project_id = var.base_project_id
+}
+
+resource "google_tags_tag_key" "tag_key" {
+  count       = local.n
+  parent      = "projects/${data.google_project.project.number}"
+  short_name  = "${local.prefix}-tag-${count.index}-${random_id.test[count.index].hex}"
+  description = "test tag ${count.index}"
+}
+
+# Tag Key
+
+resource "google_tags_tag_value" "tag_value" {
+  count       = local.n
+  parent      = "tagKeys/${google_tags_tag_key.tag_key[count.index].name}"
+  short_name  = "${local.prefix}-tagvalue-${count.index}-${random_id.test[count.index].hex}"
+  description = "test value ${count.index}"
+}

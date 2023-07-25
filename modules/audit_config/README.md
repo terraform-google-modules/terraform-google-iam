@@ -37,18 +37,22 @@ audit_log_config = [
           ]
     }
   ]
+}
 
 ```
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| audit\_log\_config | List of objects to be added to audit log config | object | n/a | yes |
-| project | Project to add the IAM policies/bindings | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| audit\_log\_config | List of objects to be added to audit log config | `list(object({ service : string, log_type : string, exempted_members : list(string) }))` | n/a | yes |
+| project | Project to add the IAM policies/bindings | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | audit\_log\_config | Map of log type and exempted members to be added to service |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

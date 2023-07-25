@@ -33,16 +33,15 @@ module "dns_zones_iam_binding" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | `map(any)` | n/a | yes |
-| managed\_zones | List of managed zone to add the IAM policies/bindings | `list(string)` | n/a | yes |
 | mode | Mode for adding the IAM policies/bindings, additive and authoritative | `string` | `"additive"` | no |
-| project | Project to add the IAM policies/bindings | `string` | n/a | yes |
+| tag\_keys | List of tag keys to add the IAM policies/bindings | `list(string)` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| managed\_zones | DNS Managed Zones which received for bindings. |
 | members | Members which were bound to the Tag keys. |
 | roles | Roles which were assigned to members. |
+| tag\_keys | Tag keys which received for bindings. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

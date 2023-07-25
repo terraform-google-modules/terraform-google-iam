@@ -17,6 +17,6 @@ This example illustrates how to use the `cloud_run_service_iam` submodule
 
 ## Outputs
 
-No output.
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -130,3 +130,17 @@ module "iam_binding_dns_zone" {
   project       = var.project_id
   bindings      = local.basic_bindings
 }
+
+module "iam_binding_tag_keys" {
+  source   = "../../../modules/tag_keys_iam"
+  mode     = var.mode
+  tag_keys = module.base.tag_keys
+  bindings = local.basic_bindings
+}
+
+module "iam_binding_tag_values" {
+  source     = "../../../modules/tag_values_iam"
+  mode       = var.mode
+  tag_values = module.base.tag_values
+  bindings   = local.basic_bindings
+}

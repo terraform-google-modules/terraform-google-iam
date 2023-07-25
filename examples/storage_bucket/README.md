@@ -15,6 +15,6 @@ This example illustrates how to use the `storage_buckets_iam` submodule
 
 ## Outputs
 
-No output.
+No outputs.
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
