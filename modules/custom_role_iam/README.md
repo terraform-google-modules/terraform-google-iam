@@ -45,11 +45,11 @@ module "custom-roles" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| base\_roles | List of base predefined roles to use to compose custom role. | `list(string)` | `[]` | no |
+| base\_roles | List of base predefined roles to use to compose custom role. Either base\_roles or permissions must be set with some values | `list(string)` | `[]` | no |
 | description | Description of Custom role. | `string` | `""` | no |
 | excluded\_permissions | List of permissions to exclude from custom role. | `list(string)` | `[]` | no |
-| members | List of members to be added to custom role. | `list(string)` | n/a | yes |
-| permissions | IAM permissions assigned to Custom Role. | `list(string)` | n/a | yes |
+| members | List of members to be added to custom role. | `list(string)` | `[]` | no |
+| permissions | IAM permissions assigned to Custom Role. Either base\_roles or permissions must be set with some values | `list(string)` | `[]` | no |
 | role\_id | ID of the Custom Role. | `string` | n/a | yes |
 | stage | The current launch stage of the role. Defaults to GA. | `string` | `"GA"` | no |
 | target\_id | Variable for project or organization ID. | `string` | n/a | yes |
