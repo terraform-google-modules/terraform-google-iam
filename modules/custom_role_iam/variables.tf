@@ -27,13 +27,14 @@ variable "title" {
 
 variable "base_roles" {
   type        = list(string)
-  description = "List of base predefined roles to use to compose custom role."
+  description = "List of base predefined roles to use to compose custom role. Either base_roles or permissions must be set with some values"
   default     = []
 }
 
 variable "permissions" {
   type        = list(string)
-  description = "IAM permissions assigned to Custom Role."
+  description = "IAM permissions assigned to Custom Role. Either base_roles or permissions must be set with some values"
+  default     = []
 }
 
 variable "excluded_permissions" {
@@ -68,4 +69,5 @@ variable "target_level" {
 variable "members" {
   description = "List of members to be added to custom role."
   type        = list(string)
+  default     = []
 }
