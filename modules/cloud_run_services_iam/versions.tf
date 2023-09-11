@@ -25,7 +25,7 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-iam:cloud_run_services_iam/v7.6.0"
+    module_name = "blueprints/terraform/terraform-google-iam:cloud_run_services_iam/v7.7.0"
   }
 
 }

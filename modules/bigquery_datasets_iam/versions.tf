@@ -25,7 +25,7 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-iam:bigquery_dataset_iam/v7.6.0"
+    module_name = "blueprints/terraform/terraform-google-iam:bigquery_dataset_iam/v7.7.0"
   }
 
 }
