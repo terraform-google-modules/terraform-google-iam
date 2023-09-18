@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [7.7.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.6.0...v7.7.0) (2023-09-11)
+
+
+### Features
+
+* add iam submodule for tag keys and values ([#190](https://github.com/terraform-google-modules/terraform-google-iam/issues/190)) ([91ff044](https://github.com/terraform-google-modules/terraform-google-iam/commit/91ff044511481248165cdfcb9cf5e1d5f9b48d77))
+* set permissions and member field optional in custom-role sub-module ([#195](https://github.com/terraform-google-modules/terraform-google-iam/issues/195)) ([e5da8da](https://github.com/terraform-google-modules/terraform-google-iam/commit/e5da8daa1359713007f08220456cf9f35685aeb9))
+
 ## [7.6.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.5.0...v7.6.0) (2023-04-12)
 
 

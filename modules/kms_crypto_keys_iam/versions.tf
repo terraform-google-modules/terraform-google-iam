@@ -25,7 +25,7 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-iam:kms_crypto_keys_iam/v7.6.0"
+    module_name = "blueprints/terraform/terraform-google-iam:kms_crypto_keys_iam/v7.7.0"
   }
 
 }
