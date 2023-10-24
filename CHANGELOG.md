@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [7.7.1](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.7.0...v7.7.1) (2023-10-17)
+
+
+### Bug Fixes
+
+* upgraded versions.tf to include minor bumps from tpg v5 ([#199](https://github.com/terraform-google-modules/terraform-google-iam/issues/199)) ([a4debef](https://github.com/terraform-google-modules/terraform-google-iam/commit/a4debef5bc12242f95355ec4abe4a80369b94f85))
+
 ## [7.7.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.6.0...v7.7.0) (2023-09-11)
 
 

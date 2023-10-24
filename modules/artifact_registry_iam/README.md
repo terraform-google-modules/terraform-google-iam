@@ -8,11 +8,11 @@ module "artifact-registry-repository-iam-bindings" {
   source   = "terraform-google-modules/iam/google//modules/artifact_registry_iam"
   project      = "my-project"
   repositories = ["my-project_one", "my-project_two"]
-  location     = "us-central-1"
+  location     = "us-central1"
   mode         = "additive"
 
   bindings = {
-    "roles/compute.networkAdmin" = [
+    "roles/artifactregistry.writer" = [
       "serviceAccount:my-sa@my-project.iam.gserviceaccount.com",
       "group:my-group@my-org.com",
       "user:my-user@my-org.com",
