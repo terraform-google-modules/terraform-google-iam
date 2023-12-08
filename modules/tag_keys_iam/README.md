@@ -1,24 +1,19 @@
-# Module DNS Zone IAM
+# Module Tag Keys IAM
 
-This submodule is used to assign roles on DNS zones.
+This submodule is used to assign roles on Tag Keys.
 
 ## Example Usage
 ```
-module "dns_zones_iam_binding" {
-  source  = "../../modules/dns_zones_iam/"
-  project = var.project_id
-  managed_zones = [
-    google_dns_managed_zone.dns_zone_one.name,
+module "tag_keys_iam_binding" {
+  source  = "terraform-google-modules/iam/google//modules/tag_keys_iam"
+  version = "~> 7.7"
+  tag_keys = [
+    google_tags_tag_key.tag_key.name,
   ]
   mode = "authoritative"
 
   bindings = {
     "roles/viewer" = [
-      "serviceAccount:${var.sa_email}",
-      "group:${var.group_email}",
-      "user:${var.user_email}",
-    ]
-    "roles/dns.reader" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
