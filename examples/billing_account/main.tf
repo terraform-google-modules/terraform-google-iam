@@ -34,7 +34,8 @@ locals {
   Module billing_account_iam_binding calling
  *****************************************/
 module "billing-account-iam" {
-  source = "../../modules/billing_accounts_iam/"
+  source  = "terraform-google-modules/iam/google//modules/billing_accounts_iam"
+  version = "~> 7.0"
 
   billing_account_ids = [var.billing_account_id]
 

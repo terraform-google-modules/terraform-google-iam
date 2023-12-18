@@ -18,7 +18,9 @@
   Module tag_values_iam_binding calling
  *********************************************/
 module "tag_values_iam_binding" {
-  source = "../../modules/tag_values_iam/"
+  source  = "terraform-google-modules/iam/google//modules/tag_values_iam"
+  version = "~> 7.0"
+
   tag_values = [
     google_tags_tag_value.tag_value.name,
   ]

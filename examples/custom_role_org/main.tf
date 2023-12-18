@@ -22,7 +22,8 @@ resource "random_id" "rand_custom_id" {
   Module custom_role call
  *****************************************/
 module "custom-roles-org" {
-  source = "../../modules/custom_role_iam/"
+  source  = "terraform-google-modules/iam/google//modules/custom_role_iam"
+  version = "~> 7.0"
 
   target_level         = "org"
   target_id            = var.org_id

@@ -18,7 +18,9 @@
   Module tag_keys_iam_binding calling
  *********************************************/
 module "tag_keys_iam_binding" {
-  source = "../../modules/tag_keys_iam/"
+  source  = "terraform-google-modules/iam/google//modules/tag_keys_iam"
+  version = "~> 7.0"
+
   tag_keys = [
     google_tags_tag_key.tag_key.name,
   ]
