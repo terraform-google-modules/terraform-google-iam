@@ -18,7 +18,9 @@
   Module pubsub_subscription_iam_binding calling
  *****************************************/
 module "storage_buckets_iam_binding" {
-  source          = "../../modules/storage_buckets_iam/"
+  source  = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
+  version = "~> 7.0"
+
   storage_buckets = [var.storage_bucket_one, var.storage_bucket_two]
   mode            = "additive"
 

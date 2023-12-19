@@ -18,7 +18,9 @@
   Module kms_crypto_key_iam_binding calling
  *****************************************/
 module "kms_crypto_key_iam_binding" {
-  source          = "../../modules/kms_crypto_keys_iam/"
+  source  = "terraform-google-modules/iam/google//modules/kms_crypto_keys_iam"
+  version = "~> 7.0"
+
   kms_crypto_keys = [var.kms_crypto_key_one, var.kms_crypto_key_two]
 
   mode = "authoritative"

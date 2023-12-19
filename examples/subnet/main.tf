@@ -33,7 +33,8 @@ locals {
   Module pubsub_subscription_iam_binding calling
  *****************************************/
 module "subnet_iam_binding" {
-  source = "../../modules/subnets_iam"
+  source  = "terraform-google-modules/iam/google//modules/subnets_iam"
+  version = "~> 7.0"
 
   subnets        = [local.subnet_one_full, local.subnet_two_full]
   subnets_region = var.region
