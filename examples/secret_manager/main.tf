@@ -18,7 +18,9 @@
   Module secret_iam_binding calling
  *****************************************/
 module "folder-iam" {
-  source  = "../../modules/secret_manager_iam"
+  source  = "terraform-google-modules/iam/google//modules/secret_manager_iam"
+  version = "~> 7.0"
+
   project = var.project_id
   secrets = [var.secret_one, var.secret_two]
 

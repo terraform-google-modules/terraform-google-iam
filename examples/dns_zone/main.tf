@@ -18,7 +18,9 @@
   Module dns_zone_iam_binding calling
  *********************************************/
 module "dns_zones_iam_binding" {
-  source  = "../../modules/dns_zones_iam/"
+  source  = "terraform-google-modules/iam/google//modules/dns_zones_iam"
+  version = "~> 7.0"
+
   project = var.project_id
   managed_zones = [
     google_dns_managed_zone.dns_zone_one.name,

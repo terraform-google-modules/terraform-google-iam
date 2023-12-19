@@ -18,7 +18,9 @@
   Module project_iam_binding calling
  *****************************************/
 module "project_iam_binding" {
-  source   = "../../modules/projects_iam/"
+  source  = "terraform-google-modules/iam/google//modules/projects_iam"
+  version = "~> 7.0"
+
   projects = [var.project_one, var.project_two]
   mode     = "additive"
 

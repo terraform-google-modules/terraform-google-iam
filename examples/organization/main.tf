@@ -18,7 +18,9 @@
   Module organization_iam_binding calling
  *****************************************/
 module "organization_iam_binding" {
-  source        = "../../modules/organizations_iam/"
+  source  = "terraform-google-modules/iam/google//modules/organizations_iam"
+  version = "~> 7.0"
+
   organizations = [var.organization_one, var.organization_two]
   mode          = "authoritative"
 
