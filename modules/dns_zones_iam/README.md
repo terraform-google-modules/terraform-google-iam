@@ -5,7 +5,8 @@ This submodule is used to assign roles on DNS zones.
 ## Example Usage
 ```
 module "dns_zones_iam_binding" {
-  source  = "../../modules/dns_zones_iam/"
+  source  = "terraform-google-modules/iam/google//modules/dns_zones_iam"
+  version = "~> 7.7"
   project = var.project_id
   managed_zones = [
     google_dns_managed_zone.dns_zone_one.name,
