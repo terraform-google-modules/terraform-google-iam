@@ -142,6 +142,6 @@ locals {
   ])
 
   # Check for duplicate roles
-  duplicate_roles = [for role in local.all_roles : role if length([for r in local.all_roles : r if r == role]) > 0]
+  duplicate_roles = [for role in local.all_roles : role if length([for r in local.all_roles : r if r == role]) > 1]
 
 }
