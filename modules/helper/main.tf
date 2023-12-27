@@ -128,4 +128,28 @@ locals {
     ? toset(local.all_keys_additive)
     : []
   )
+
+  /**
+    * Only the conditional authoritative role bindings could have repeated
+    * roles. Thefore, a validation must exist to prevent race conditions during
+    * the creation of the role bindings
+  */
+
+  # Extract roles from bindings and conditional_bindings
+  all_roles = flatten([
+    keys(var.bindings),
+    var.conditional_bindings[*].role,
+  ])
+
+  # Check for duplicate roles
+  duplicate_roles = [for role, count in countmap(local.all_roles): role if count > 1]
+
+}
+
+# Validation for duplicate roles
+check "duplicate_roles" {
+  assert {
+  condition     = length(local.duplicate_roles) == 0
+  error_message = "Duplicate roles found: ${join(", ", local.duplicate_roles)}"
+  }
 }
