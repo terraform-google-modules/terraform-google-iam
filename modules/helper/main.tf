@@ -149,7 +149,7 @@ locals {
 # Validation for duplicate roles
 check "duplicate_roles" {
   assert {
-  condition     = length(local.duplicate_roles) == 0
+  condition     = var.mode == "authoritative" && length(local.duplicate_roles) == 0
   error_message = "Duplicate roles found: ${join(", ", local.duplicate_roles)}"
   }
 }
