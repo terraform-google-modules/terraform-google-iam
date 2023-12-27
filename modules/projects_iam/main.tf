@@ -42,6 +42,16 @@ resource "google_project_iam_binding" "project_iam_authoritative" {
       expression  = module.helper.bindings_authoritative[each.key].condition.expression
     }
   }
+
+  lifecycle {
+    # Validate that there are no repeated roles
+    precondition {
+
+      condition     = var.mode == "authoritative" && length(module.helper.duplicate_roles) == 0
+      error_message = "Duplicate roles found: ${join(", ", module.helper.duplicate_roles)}"
+
+    }
+  }
 }
 
 /******************************************

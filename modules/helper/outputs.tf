@@ -38,3 +38,8 @@ output "bindings_additive" {
   value       = local.bindings_additive
   description = "Map of additive bindings for entities. Unwinded by members."
 }
+
+output "duplicate_roles" {
+  value       = local.duplicate_roles
+  description = "List of duplicated roles"
+}

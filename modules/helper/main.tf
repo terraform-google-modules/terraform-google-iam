@@ -142,14 +142,6 @@ locals {
   ])
 
   # Check for duplicate roles
-  duplicate_roles = [for role, count in countmap(local.all_roles): role if count > 1]
+  duplicate_roles = [for role, count in countmap(local.all_roles) : role if count > 1]
 
-}
-
-# Validation for duplicate roles
-check "duplicate_roles" {
-  assert {
-  condition     = var.mode == "authoritative" && length(local.duplicate_roles) == 0
-  error_message = "Duplicate roles found: ${join(", ", local.duplicate_roles)}"
-  }
 }
