@@ -128,4 +128,20 @@ locals {
     ? toset(local.all_keys_additive)
     : []
   )
+
+  /**
+    * Only the conditional authoritative role bindings could have repeated
+    * roles. Thefore, a validation must exist to prevent race conditions during
+    * the creation of the role bindings
+  */
+
+  # Extract roles from bindings and conditional_bindings
+  all_roles = flatten([
+    keys(var.bindings),
+    var.conditional_bindings[*].role,
+  ])
+
+  # Check for duplicate roles
+  duplicate_roles = [for role in local.all_roles : role if length([for r in local.all_roles : r if r == role]) > 1]
+
 }
