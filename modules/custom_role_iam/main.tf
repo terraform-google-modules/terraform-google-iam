@@ -86,4 +86,13 @@ resource "google_project_iam_member" "custom_role_member" {
   project  = var.target_id
   role     = "projects/${var.target_id}/roles/${local.custom-role-output}"
   member   = each.key
+
+  dynamic "condition" {
+    for_each = var.condition_expression != "" ? [var.condition_expression] : []
+    content {
+      title       = var.condition_title
+      description = var.condition_description
+      expression  = condition.value
+    }
+  }
 }
