@@ -88,11 +88,11 @@ resource "google_project_iam_member" "custom_role_member" {
   member   = each.key
 
   dynamic "condition" {
-    for_each = var.condition_expression != "" ? [var.condition_expression] : []
+    for_each = var.condition != null ? [var.condition] : []
     content {
-      title       = var.condition_title
-      description = var.condition_description
-      expression  = condition.value
+      title       = condition.value.title
+      description = condition.value.description
+      expression  = condition.value.expression
     }
   }
 }

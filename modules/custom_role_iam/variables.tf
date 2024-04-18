@@ -72,20 +72,11 @@ variable "members" {
   default     = []
 }
 
-variable "condition_title" {
-  description = "A title for the expression, i.e. a short string describing its purpose for condition."
-  type        = string
-  default     = "Default title"
-}
-
-variable "condition_description" {
-  description = "An optional description of the expression for condition."
-  type        = string
-  default     = ""
-}
-
-variable "condition_expression" {
-  description = "Textual representation of an expression in Common Expression Language syntax for condition."
-  type        = string
-  default     = ""
+variable "condition" {
+  description = "Condition to add to IAM policy binding"
+  type = object({
+    title       = optional(string, "Default title")
+    description = optional(string, "")
+    expression  = string
+  })
 }
