@@ -29,6 +29,13 @@ module "custom-role-project" {
   excluded_permissions = ["iam.serviceAccounts.setIamPolicy", "resourcemanager.projects.get", "resourcemanager.projects.list"]
   description          = "This is a project level custom role."
   members              = ["serviceAccount:custom-role-account-01@${var.project_id}.iam.gserviceaccount.com", "serviceAccount:custom-role-account-02@${var.project_id}.iam.gserviceaccount.com"]
+  condition            = {
+    title = "Limit access to year 2024"
+    description = "This optional field allows you to provide longer description."
+    expression =  <<-EOT
+      request.time < timestamp("2025-01-01T00:00:00.000Z")
+    EOT
+  }
 }
 
 /******************************************
