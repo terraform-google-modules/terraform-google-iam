@@ -71,3 +71,13 @@ variable "members" {
   type        = list(string)
   default     = []
 }
+
+variable "condition" {
+  description = "Condition to add to IAM policy binding"
+  type = object({
+    title       = optional(string, "Default title")
+    description = optional(string, "")
+    expression  = string
+  })
+  default = null
+}

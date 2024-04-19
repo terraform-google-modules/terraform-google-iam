@@ -46,6 +46,7 @@ module "custom-roles" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | base\_roles | List of base predefined roles to use to compose custom role. Either base\_roles or permissions must be set with some values | `list(string)` | `[]` | no |
+| condition | Condition to add to IAM policy binding | <pre>object({<br>    title       = optional(string, "Default title")<br>    description = optional(string, "")<br>    expression  = string<br>  })</pre> | n/a | yes |
 | description | Description of Custom role. | `string` | `""` | no |
 | excluded\_permissions | List of permissions to exclude from custom role. | `list(string)` | `[]` | no |
 | members | List of members to be added to custom role. | `list(string)` | `[]` | no |
