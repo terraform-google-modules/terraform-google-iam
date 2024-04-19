@@ -79,4 +79,5 @@ variable "condition" {
     description = optional(string, "")
     expression  = string
   })
+  default = null
 }
