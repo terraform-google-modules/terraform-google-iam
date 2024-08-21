@@ -1,25 +1,27 @@
-# Module DNS Zone IAM
+# Module Secure Source Manager Instance IAM
 
-This submodule is used to assign roles on DNS zones.
+This submodule is used to assign roles on secure source manager instance.
 
 ## Example Usage
 ```
-module "dns_zones_iam_binding" {
-  source  = "terraform-google-modules/iam/google//modules/dns_zones_iam"
-  version = "~> 7.7"
-  project = var.project_id
-  managed_zones = [
-    google_dns_managed_zone.dns_zone_one.name,
+module "ssm_instance_iam_binding" {
+  source    = "terraform-google-modules/iam/google//modules/secure_source_manager_instance_iam"
+  version   = "~> 7.7"
+  project   = var.project_id
+  location  = "us-central1"
+
+  instance_ids = [
+    google_secure_source_manager_instance.default.instance_id,
   ]
   mode = "authoritative"
 
   bindings = {
-    "roles/viewer" = [
+    "roles/securesourcemanager.instanceAccessor" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-    "roles/dns.reader" = [
+    "roles/securesourcemanager.instanceManager" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
@@ -34,7 +36,8 @@ module "dns_zones_iam_binding" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | `map(any)` | n/a | yes |
-| managed\_zones | List of managed zone to add the IAM policies/bindings | `list(string)` | n/a | yes |
+| instance\_ids | List of secure source manager instance names | `list(string)` | n/a | yes |
+| location | The location for the secure source manager Instance | `string` | n/a | yes |
 | mode | Mode for adding the IAM policies/bindings, additive and authoritative | `string` | `"additive"` | no |
 | project | Project to add the IAM policies/bindings | `string` | n/a | yes |
 
@@ -42,8 +45,8 @@ module "dns_zones_iam_binding" {
 
 | Name | Description |
 |------|-------------|
-| managed\_zones | DNS Managed Zones which received for bindings. |
-| members | Members which were bound to the DNS managed zones. |
+| instances | Secure source manager instance names which received for bindings. |
+| members | Members which were bound to the SSM instances. |
 | roles | Roles which were assigned to members. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-output "managed_zones" {
+output "repositories" {
   value       = distinct(module.helper.bindings_by_member[*].name)
-  description = "DNS Managed Zones which received for bindings."
-  depends_on  = [google_dns_managed_zone_iam_binding.dns_zone_iam_authoritative, google_dns_managed_zone_iam_member.dns_zone_iam_additive, ]
+  description = "Secure source manager repository names which received for bindings."
+  depends_on  = [google_secure_source_manager_repository_iam_binding.ssm_repository_iam_authoritative, google_secure_source_manager_repository_iam_member.ssm_repository_iam_additive, ]
 }
 
 output "roles" {
@@ -27,5 +27,5 @@ output "roles" {
 
 output "members" {
   value       = distinct(module.helper.bindings_by_member[*].member)
-  description = "Members which were bound to the DNS managed zones."
+  description = "Members which were bound to the SSM instances."
 }
