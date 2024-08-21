@@ -34,6 +34,7 @@ locals {
     "roles/composer.worker",
     "roles/secretmanager.admin",
     "roles/dns.admin",
+    "roles/privilegedaccessmanager.admin",
   ]
 
   int_required_folder_roles = [
