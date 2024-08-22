@@ -15,17 +15,17 @@
  */
 
 terraform {
-  required_version = ">= 0.13"
+  required_version = ">= 1.3"
   required_providers {
 
     google = {
       source  = "hashicorp/google"
-      version = ">= 4.48, < 6"
+      version = ">= 5.37, < 6"
     }
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-iam:dns_zone_iam/v7.7.1"
+    module_name = "blueprints/terraform/terraform-google-iam:secure_source_manager_repository_iam/v7.7.1"
   }
 
 }

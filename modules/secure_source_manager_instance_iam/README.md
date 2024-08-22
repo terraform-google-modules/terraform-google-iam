@@ -13,7 +13,7 @@ module "ssm_instance_iam_binding" {
   instance_ids = [
     google_secure_source_manager_instance.default.instance_id,
   ]
-  mode = "authoritative"
+  mode = "additive"
 
   bindings = {
     "roles/securesourcemanager.instanceAccessor" = [

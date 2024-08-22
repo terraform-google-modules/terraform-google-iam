@@ -36,5 +36,4 @@ module "entitlement" {
       role = "roles/bigquery.admin"
     }
   ]
-
 }

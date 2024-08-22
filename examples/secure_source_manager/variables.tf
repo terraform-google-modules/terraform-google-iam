@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,22 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 0.13"
-  required_providers {
+variable "group_email" {
+  type        = string
+  description = "Email for group to receive roles (ex. group@example.com)"
+}
 
-    google = {
-      source  = "hashicorp/google"
-      version = ">= 5.37, < 6"
-    }
-  }
+variable "sa_email" {
+  type        = string
+  description = "Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com)"
+}
 
-  provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-iam:secure_source_manager_instance_iam/v7.7.1"
-  }
+variable "user_email" {
+  type        = string
+  description = "Email for group to receive roles (Ex. user@example.com)"
+}
 
+variable "project_id" {
+  type        = string
+  description = "Project ID to create BigQuery resources in"
 }

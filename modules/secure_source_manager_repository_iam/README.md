@@ -13,7 +13,7 @@ module "ssm_instance_iam_binding" {
   repository_ids = [
     google_secure_source_manager_repository.default.repository_id,
   ]
-  mode = "authoritative"
+  mode = "additive"
 
   bindings = {
     "roles/securesourcemanager.repoReader" = [
