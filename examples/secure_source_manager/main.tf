@@ -62,10 +62,8 @@ module "ssm_instance_iam_binding" {
 }
 
 module "ssm_repository_iam_binding" {
-  # source  = "terraform-google-modules/iam/google//modules/secure_source_manager_repository_iam"
-  # version = "~> 7.7"
-
-  source = "../../modules/secure_source_manager_iam/"
+  source  = "terraform-google-modules/iam/google//modules/secure_source_manager_repository_iam"
+  version = "~> 8"
 
   project  = var.project_id
   location = "us-central1"

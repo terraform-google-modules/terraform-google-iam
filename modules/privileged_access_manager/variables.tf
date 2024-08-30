@@ -44,6 +44,12 @@ variable "requester_justification" {
   default     = true
 }
 
+variable "require_approver_justification" {
+  type        = bool
+  description = "Do the approvers need to provide a justification for their actions"
+  default     = true
+}
+
 variable "entitlement_requesters" {
   type        = list(string)
   description = "Required List of users, groups, service accounts or domains who can request grants using this entitlement. Can be one or more of Google Account email, Google Group, Service account, or Google Workspace domain"
@@ -64,12 +70,6 @@ variable "entitlement_availability_notification_recipients" {
   type        = list(string)
   description = "List of email addresses to be notified when a entitlement is created. These email addresses will receive an email about availability of the entitlement"
   default     = null
-}
-
-variable "require_approver_justification" {
-  type        = bool
-  description = "Do the approvers need to provide a justification for their actions"
-  default     = true
 }
 
 variable "max_request_duration_hours" {

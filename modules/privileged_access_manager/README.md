@@ -36,7 +36,7 @@ module "dns_zones_iam_binding" {
 |------|-------------|------|---------|:--------:|
 | entitlement\_approval\_notification\_recipients | List of email addresses to be notified when a request is granted | `list(string)` | `null` | no |
 | entitlement\_approvers | Required List of users, groups or service accounts who can approve this entitlement. Can be one or more of Google Account email, Google Group or Service account | `list(string)` | n/a | yes |
-| entitlement\_availability\_notification\_recipients | List of email addresses to be notified when a entitlement is created. These email addresses will recieve an email about availability of the entitlement | `list(string)` | `null` | no |
+| entitlement\_availability\_notification\_recipients | List of email addresses to be notified when a entitlement is created. These email addresses will receive an email about availability of the entitlement | `list(string)` | `null` | no |
 | entitlement\_id | The ID to use for this Entitlement. This will become the last part of the resource name. This value should be 4-63 characters. This value should be unique among all other Entitlements under the specified parent | `string` | n/a | yes |
 | entitlement\_requesters | Required List of users, groups, service accounts or domains who can request grants using this entitlement. Can be one or more of Google Account email, Google Group, Service account, or Google Workspace domain | `list(string)` | n/a | yes |
 | location | The region of the Entitlement resource | `string` | `"global"` | no |
