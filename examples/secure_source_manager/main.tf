@@ -33,8 +33,8 @@ resource "google_secure_source_manager_repository" "default" {
 }
 
 module "ssm_instance_iam_binding" {
-  source  = "terraform-google-modules/iam/google//modules/secure_source_manager_instance_iam"
-  version = "~> 8"
+  source  = "terraform-google-modules/iam/google//modules/secure_source_manager_iam"
+  version = "~> 8.0"
 
   project  = var.project_id
   location = "us-central1"
@@ -62,8 +62,8 @@ module "ssm_instance_iam_binding" {
 }
 
 module "ssm_repository_iam_binding" {
-  source  = "terraform-google-modules/iam/google//modules/secure_source_manager_repository_iam"
-  version = "~> 8"
+  source  = "terraform-google-modules/iam/google//modules/secure_source_manager_iam"
+  version = "~> 8.0"
 
   project  = var.project_id
   location = "us-central1"
