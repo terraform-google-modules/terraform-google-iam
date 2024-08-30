@@ -62,7 +62,7 @@ variable "entitlement_approval_notification_recipients" {
 
 variable "entitlement_availability_notification_recipients" {
   type        = list(string)
-  description = "List of email addresses to be notified when a entitlement is created. These email addresses will recieve an email about availability of the entitlement"
+  description = "List of email addresses to be notified when a entitlement is created. These email addresses will receive an email about availability of the entitlement"
   default     = null
 }
 
