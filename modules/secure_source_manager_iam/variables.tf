@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,22 @@ variable "project" {
   type        = string
 }
 
-variable "instance_ids" {
-  description = "List of secure source manager instance names"
-  type        = list(string)
+# variable "instance_ids" {
+#   description = "List of secure source manager instance names"
+#   type        = list(string)
+# }
+
+variable "entity_ids" {
+  description = "List of secure source manager instance or repository names"
+  type = object({
+    instance_ids   = optional(list(string))
+    repository_ids = optional(list(string))
+  })
+  validation {
+    # condition     = (try(length(var.entity_ids.instance_ids),0) > 0 && !(try(length(var.entity_ids.repository_ids),0) > 0)) || (!(try(length(var.entity_ids.instance_ids),0)) > 0 && try(length(var.entity_ids.repository_ids),0) > 0)
+    condition     = (try(length(var.entity_ids.instance_ids), 0) > 0 && !(try(length(var.entity_ids.repository_ids), 0) > 0)) || (!(try(length(var.entity_ids.instance_ids), 0) > 0) && try(length(var.entity_ids.repository_ids), 0) > 0)
+    error_message = "ERROR: one of instance_ids or repository_ids must be specified and they both are mutually exclusive"
+  }
 }
 
 variable "mode" {

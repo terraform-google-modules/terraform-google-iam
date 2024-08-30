@@ -5,7 +5,9 @@ This optional module is used to assign kms_crypto_key roles
 ## Example Usage
 ```
 module "kms_crypto_key-iam-bindings" {
-  source          = "terraform-google-modules/iam/google//modules/kms_crypto_keys_iam"
+  source   = "terraform-google-modules/iam/google//modules/kms_crypto_keys_iam"
+  version  = "~> 8.0"
+
   kms_crypto_keys = ["my-kms_crypto_key_one", "my-kms_crypto_key_two"]
 
   mode = "authoritative"

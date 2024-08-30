@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 module "entitlement" {
   source  = "terraform-google-modules/iam/google//modules/privileged_access_manager"
-  version = "~> 7.0"
+  version = "~> 8.0"
 
   entitlement_id = "example-entitlement"
   parent_id      = var.project_id

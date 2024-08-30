@@ -20,7 +20,7 @@
 
 module "cloud_run_service_iam_binding" {
   source  = "terraform-google-modules/iam/google//modules/cloud_run_services_iam"
-  version = "~> 7.0"
+  version = "~> 8.0"
 
   project            = var.cloud_run_service_project
   location           = var.cloud_run_service_location

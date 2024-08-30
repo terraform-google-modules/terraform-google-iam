@@ -5,7 +5,9 @@ This optional module is used to assign cloud run service roles
 ## Example Usage
 ```
 module "cloud-run-services-iam-bindings" {
-  source             = "terraform-google-modules/iam/google//modules/cloud_run_services_iam"
+  source  = "terraform-google-modules/iam/google//modules/cloud_run_services_iam"
+  version = "~> 8.0"
+
   project            = "my_cloud_run_project"
   cloud_run_services = ["my_cloud_run_service_one", "my_cloud_run_service_two"]
   mode               = "authoritative"

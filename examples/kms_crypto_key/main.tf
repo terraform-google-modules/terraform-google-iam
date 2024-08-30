@@ -19,7 +19,7 @@
  *****************************************/
 module "kms_crypto_key_iam_binding" {
   source  = "terraform-google-modules/iam/google//modules/kms_crypto_keys_iam"
-  version = "~> 7.0"
+  version = "~> 8.0"
 
   kms_crypto_keys = [var.kms_crypto_key_one, var.kms_crypto_key_two]
 

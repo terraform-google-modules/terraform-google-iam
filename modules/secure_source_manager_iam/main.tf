@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,38 @@ module "helper" {
   source   = "../helper"
   bindings = var.bindings
   mode     = var.mode
-  entities = var.repository_ids
+  entities = coalesce(var.entity_ids.instance_ids, var.entity_ids.repository_ids)
+}
+
+/******************************************
+  SSM Instance IAM binding authoritative
+ *****************************************/
+resource "google_secure_source_manager_instance_iam_binding" "ssm_instance_iam_authoritative" {
+  for_each    = var.entity_ids.instance_ids == null ? [] : module.helper.set_authoritative
+  project     = var.project
+  instance_id = module.helper.bindings_authoritative[each.key].name
+  location    = var.location
+  role        = module.helper.bindings_authoritative[each.key].role
+  members     = module.helper.bindings_authoritative[each.key].members
+}
+
+/******************************************
+  SSM Instance IAM binding additive
+ *****************************************/
+resource "google_secure_source_manager_instance_iam_member" "ssm_instance_iam_additive" {
+  for_each    = var.entity_ids.instance_ids == null ? [] : module.helper.set_additive
+  project     = var.project
+  instance_id = module.helper.bindings_additive[each.key].name
+  location    = var.location
+  role        = module.helper.bindings_additive[each.key].role
+  member      = module.helper.bindings_additive[each.key].member
 }
 
 /******************************************
   SSM Repos binding authoritative
  *****************************************/
 resource "google_secure_source_manager_repository_iam_binding" "ssm_repository_iam_authoritative" {
-  for_each      = module.helper.set_authoritative
+  for_each      = var.entity_ids.repository_ids == null ? [] : module.helper.set_authoritative
   project       = var.project
   repository_id = module.helper.bindings_authoritative[each.key].name
   location      = var.location
@@ -40,7 +64,7 @@ resource "google_secure_source_manager_repository_iam_binding" "ssm_repository_i
   SSM Repos IAM binding additive
  *****************************************/
 resource "google_secure_source_manager_repository_iam_member" "ssm_repository_iam_additive" {
-  for_each      = module.helper.set_additive
+  for_each      = var.entity_ids.repository_ids == null ? [] : module.helper.set_additive
   project       = var.project
   repository_id = module.helper.bindings_additive[each.key].name
   location      = var.location

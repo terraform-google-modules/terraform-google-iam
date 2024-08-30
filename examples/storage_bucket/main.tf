@@ -19,7 +19,7 @@
  *****************************************/
 module "storage_buckets_iam_binding" {
   source  = "terraform-google-modules/iam/google//modules/storage_buckets_iam"
-  version = "~> 7.0"
+  version = "~> 8.0"
 
   storage_buckets = [var.storage_bucket_one, var.storage_bucket_two]
   mode            = "additive"

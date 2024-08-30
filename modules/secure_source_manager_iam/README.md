@@ -6,7 +6,8 @@ This submodule is used to assign roles on secure source manager instance.
 ```
 module "ssm_instance_iam_binding" {
   source    = "terraform-google-modules/iam/google//modules/secure_source_manager_instance_iam"
-  version   = "~> 7.7"
+  version   = "~> 8.0"
+
   project   = var.project_id
   location  = "us-central1"
 
@@ -36,7 +37,7 @@ module "ssm_instance_iam_binding" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | bindings | Map of role (key) and list of members (value) to add the IAM policies/bindings | `map(any)` | n/a | yes |
-| instance\_ids | List of secure source manager instance names | `list(string)` | n/a | yes |
+| entity\_ids | List of secure source manager instance or repository names | <pre>object({<br>    instance_ids   = optional(list(string))<br>    repository_ids = optional(list(string))<br>  })</pre> | n/a | yes |
 | location | The location for the secure source manager Instance | `string` | n/a | yes |
 | mode | Mode for adding the IAM policies/bindings, additive and authoritative | `string` | `"additive"` | no |
 | project | Project to add the IAM policies/bindings | `string` | n/a | yes |

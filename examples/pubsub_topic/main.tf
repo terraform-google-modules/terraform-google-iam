@@ -19,7 +19,7 @@
  *****************************************/
 module "pubsub_topic_iam_binding" {
   source  = "terraform-google-modules/iam/google//modules/pubsub_topics_iam"
-  version = "~> 7.0"
+  version = "~> 8.0"
 
   project       = var.pubsub_topic_project
   pubsub_topics = [var.pubsub_topic_one, var.pubsub_topic_two]

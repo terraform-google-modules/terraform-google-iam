@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,12 +38,12 @@ resource "google_privileged_access_manager_entitlement" "entitlement" {
   }
 
   eligible_users {
-    principals = var.entitlement_requesters #can request entitlement
+    principals = var.entitlement_requesters #Can request entitlement
   }
 
   additional_notification_targets {
-    admin_email_recipients     = var.entitlement_approval_notification_recipients     #notified when entitlement is approved
-    requester_email_recipients = var.entitlement_availability_notification_recipients #notified when entitlement is available
+    admin_email_recipients     = var.entitlement_approval_notification_recipients     #Notified when entitlement is approved
+    requester_email_recipients = var.entitlement_availability_notification_recipients #Notified when entitlement is available
   }
 
   privileged_access {

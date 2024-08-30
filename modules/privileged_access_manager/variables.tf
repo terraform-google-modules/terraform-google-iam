@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,10 @@
 variable "entitlement_id" {
   type        = string
   description = "The ID to use for this Entitlement. This will become the last part of the resource name. This value should be 4-63 characters. This value should be unique among all other Entitlements under the specified parent"
+  validation {
+    condition     = can(regex("^[a-z][a-z0-9-]{3,62}$", var.entitlement_id))
+    error_message = "ERROR: entitlement_id must contain only Letters(lowercase), number, hyphen and should be 4-63 characters"
+  }
 }
 variable "location" {
   type        = string
@@ -42,12 +46,12 @@ variable "requester_justification" {
 
 variable "entitlement_requesters" {
   type        = list(string)
-  description = "Required List of users or groups who can request grants using this entitlement. Can be one or more of Google Account email, Google Group, Service account, or Google Workspace domain"
+  description = "Required List of users, groups, service accounts or domains who can request grants using this entitlement. Can be one or more of Google Account email, Google Group, Service account, or Google Workspace domain"
 }
 
 variable "entitlement_approvers" {
   type        = list(string)
-  description = "Required List of users or groups who can request grants using this entitlement. Can be one or more of Google Account email, Google Group or Service account"
+  description = "Required List of users, groups or service accounts who can approve this entitlement. Can be one or more of Google Account email, Google Group or Service account"
 }
 
 variable "entitlement_approval_notification_recipients" {
