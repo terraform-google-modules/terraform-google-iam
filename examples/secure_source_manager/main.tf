@@ -47,12 +47,12 @@ module "ssm_instance_iam_binding" {
 
   bindings = {
     "roles/securesourcemanager.instanceAccessor" = [
-      # "serviceAccount:${var.sa_email}",
+      "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
     "roles/securesourcemanager.instanceManager" = [
-      # "serviceAccount:${var.sa_email}",
+      "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
@@ -72,19 +72,16 @@ module "ssm_repository_iam_binding" {
     repository_ids = [google_secure_source_manager_repository.default.repository_id]
   }
 
-  # repository_ids = [
-  #   google_secure_source_manager_repository.default.repository_id,
-  # ]
   mode = "additive"
 
   bindings = {
     "roles/securesourcemanager.repoReader" = [
-      # "serviceAccount:${var.sa_email}",
+      "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
     "roles/securesourcemanager.repoWriter" = [
-      # "serviceAccount:${var.sa_email}",
+      "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
