@@ -19,7 +19,7 @@
  *****************************************/
 module "custom-role-project" {
   source  = "terraform-google-modules/iam/google//modules/custom_role_iam"
-  version = "~> 7.0"
+  version = "~> 8.0"
 
   target_level         = "project"
   target_id            = var.project_id

@@ -5,7 +5,9 @@ This submodule is used to assign BigQuery dataset roles.
 ## Example Usage
 ```
 module "bigquery_dataset-iam-bindings" {
-  source             = "terraform-google-modules/iam/google//modules/bigquery_datasets_iam"
+  source  = "terraform-google-modules/iam/google//modules/bigquery_datasets_iam"
+  version = "~> 8.0"
+
   project            = "my-bigquery_dataset_project"
   bigquery_datasets  = ["my_big_query_one", "my_bigquery_dataset_two"]
   mode               = "additive"

@@ -11,7 +11,8 @@ resource "google_service_account" "service_account_one" {
 }
 
 module "service_account-iam-bindings" {
-  source = "terraform-google-modules/iam/google//modules/service_accounts_iam"
+  source   = "terraform-google-modules/iam/google//modules/service_accounts_iam"
+  version  = "~> 8.0"
 
   service_accounts = [google_service_account.service_account_one.email]
   project          = "<PROJECT ID>"

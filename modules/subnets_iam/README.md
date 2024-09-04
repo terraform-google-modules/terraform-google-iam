@@ -6,6 +6,7 @@ This optional module is used to assign subnet roles
 ```
 module "subnet-iam-bindings" {
   source = "terraform-google-modules/iam/google//modules/subnets_iam"
+  version = "~> 8.0"
 
   subnets        = ["my-subnet_one", "my-subnet_two"]
   subnets_region = "my-region"

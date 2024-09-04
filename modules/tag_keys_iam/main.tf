@@ -35,7 +35,7 @@ resource "google_tags_tag_key_iam_binding" "tag_key_iam_authoritative" {
 }
 
 /******************************************
-  DNS Zone Topic IAM binding additive
+  DNS Zone IAM binding additive
  *****************************************/
 resource "google_tags_tag_key_iam_member" "tag_key_iam_additive" {
   for_each = module.helper.set_additive

@@ -5,7 +5,9 @@ This optional module is used to assign pubsub_subscription roles
 ## Example Usage
 ```
 module "pubsub_subscription-iam-bindings" {
-  source               = "terraform-google-modules/iam/google//modules/pubsub_subscriptions_iam"
+  source    = "terraform-google-modules/iam/google//modules/pubsub_subscriptions_iam"
+  version   = "~> 8.0"
+
   project              = "my-pubsub_subscription_project"
   pubsub_subscriptions = ["my-pubsub_subscription_one", "my-pubsub_subscription_two"]
   mode                 = "additive"
