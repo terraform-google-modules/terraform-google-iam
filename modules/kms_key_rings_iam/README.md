@@ -6,7 +6,9 @@ This optional module is used to assign kms_key_ring roles
 ## Example Usage
 ```
 module "kms_key_ring-iam-bindings" {
-  source        = "terraform-google-modules/iam/google//modules/kms_key_rings_iam"
+  source   = "terraform-google-modules/iam/google//modules/kms_key_rings_iam"
+  version  = "~> 8.0"
+
   kms_key_rings = ["my-kms_key_ring_one", "my-kms_key_ring_two"]
   mode          = "additive"
 

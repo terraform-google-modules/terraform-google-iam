@@ -27,5 +27,5 @@ output "roles" {
 
 output "members" {
   value       = distinct(module.helper.bindings_by_member[*].member)
-  description = "Members which were bound to the Tag keys."
+  description = "Members which were bound to the DNS managed zones."
 }

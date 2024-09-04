@@ -6,6 +6,8 @@ This optional module is used to assign project roles
 ```
 module "project-iam-bindings" {
   source   = "terraform-google-modules/iam/google//modules/projects_iam"
+  version  = "~> 8.0"
+
   projects = ["my-project_one", "my-project_two"]
   mode     = "additive"
 

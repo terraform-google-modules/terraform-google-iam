@@ -5,7 +5,9 @@ This optional module is used to assign artifact registry repository iam roles.
 ## Example Usage
 ```
 module "artifact-registry-repository-iam-bindings" {
-  source   = "terraform-google-modules/iam/google//modules/artifact_registry_iam"
+  source  = "terraform-google-modules/iam/google//modules/artifact_registry_iam"
+  version = "~> 8.0"
+
   project      = "my-project"
   repositories = ["my-project_one", "my-project_two"]
   location     = "us-central1"

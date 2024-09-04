@@ -5,7 +5,9 @@ This optional module is used to assign service account roles
 ## Example Usage
 ```
 module "member_roles" {
-  source                  = "terraform-google-modules/iam/google//modules/member_iam"
+  source   = "terraform-google-modules/iam/google//modules/member_iam"
+  version  = "~> 8.0"
+
   service_account_address = "my-sa@my-project.iam.gserviceaccount.com"
   prefix                  = "serviceAccount"
   project_id              = "my-project-one"

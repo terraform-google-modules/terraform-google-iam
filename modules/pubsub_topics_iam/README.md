@@ -5,7 +5,9 @@ This optional module is used to assign pubsub_topic roles
 ## Example Usage
 ```
 module "pubsub_topic-iam-bindings" {
-  source        = "terraform-google-modules/iam/google//modules/pubsub_topics_iam"
+  source    = "terraform-google-modules/iam/google//modules/pubsub_topics_iam"
+  version   = "~> 8.0"
+
   project       = "my-pubsub_topic_project"
   pubsub_topics = ["my-pubsub_topic_one", "my-pubsub_topic_two"]
   mode          = "authoritative"

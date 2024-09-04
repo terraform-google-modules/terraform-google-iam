@@ -19,7 +19,7 @@
  *****************************************/
 module "folder-iam" {
   source  = "terraform-google-modules/iam/google//modules/folders_iam"
-  version = "~> 7.0"
+  version = "~> 8.0"
 
   folders = [var.folder_one, var.folder_two]
 

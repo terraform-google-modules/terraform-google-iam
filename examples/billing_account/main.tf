@@ -35,7 +35,7 @@ locals {
  *****************************************/
 module "billing-account-iam" {
   source  = "terraform-google-modules/iam/google//modules/billing_accounts_iam"
-  version = "~> 7.0"
+  version = "~> 8.0"
 
   billing_account_ids = [var.billing_account_id]
 

@@ -5,7 +5,9 @@ This optional module is used to assign organization roles
 ## Example Usage
 ```
 module "organization-iam-bindings" {
-  source        = "terraform-google-modules/iam/google//modules/organizations_iam"
+  source   = "terraform-google-modules/iam/google//modules/organizations_iam"
+  version  = "~> 8.0"
+
   organizations = ["my-organization_one", "my-organization_two"]
   mode          = "authoritative"
 

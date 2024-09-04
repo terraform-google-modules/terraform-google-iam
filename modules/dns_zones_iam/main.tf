@@ -36,7 +36,7 @@ resource "google_dns_managed_zone_iam_binding" "dns_zone_iam_authoritative" {
 }
 
 /******************************************
-  DNS Zone Topic IAM binding additive
+  DNS Zone IAM binding additive
  *****************************************/
 resource "google_dns_managed_zone_iam_member" "dns_zone_iam_additive" {
   for_each     = module.helper.set_additive

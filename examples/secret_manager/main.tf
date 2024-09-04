@@ -19,7 +19,7 @@
  *****************************************/
 module "folder-iam" {
   source  = "terraform-google-modules/iam/google//modules/secret_manager_iam"
-  version = "~> 7.0"
+  version = "~> 8.0"
 
   project = var.project_id
   secrets = [var.secret_one, var.secret_two]
