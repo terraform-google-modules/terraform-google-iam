@@ -21,13 +21,10 @@ This is a collection of submodules that make it easier to non-destructively mana
 * [Subnets IAM](modules/subnets_iam)
 * [Tag Keys IAM](modules/tag_keys_iam)
 * [Tag Values IAM](modules/tag_values_iam)
+* [Secure Source Manager](modules/secure_source_manager_iam)
 
 ## Compatibility
-This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0+. If you find incompatibilities using Terraform >=0.13, please open an issue.
- If you haven't
-[upgraded](https://www.terraform.io/upgrade-guides/0-13.html) and need a Terraform
-0.12.x-compatible version of this module, the last released version
-intended for Terraform 0.12.x is [v6.4.1](https://registry.terraform.io/modules/terraform-google-modules/-iam/google/v6.4.1).
+This module is meant for use with Terraform 1.3+ and tested using Terraform 1.3+. If you find incompatibilities using Terraform >=1.3, please open an issue.
 
 ## Upgrading
 
@@ -44,7 +41,7 @@ Full examples are in the [examples](./examples/) folder, but basic usage is as f
 ```hcl
 module "projects_iam_bindings" {
   source  = "terraform-google-modules/iam/google//modules/projects_iam"
-  version = "~> 7.7"
+  version = "~> 8.0"
 
   projects = ["project-123456", "project-9876543"]
 
@@ -129,6 +126,7 @@ You can choose the following resource types to apply the IAM bindings:
 - Kms Crypto Keys (`kms_crypto_keys` variable)
 - Secret Manager Secrets (`secrets` variable)
 - DNS Zones (`managed_zones` variable)
+- Secure Source Manager (`entity_ids` and `location` variable)
 
 Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#additive-and-authoritative-modes) and give enough [permissions](#permissions) to manage the selected resource as well. Note that the `bindings` variable accepts an empty map `{}` passed in as an argument in the case that resources don't have IAM bindings to apply.
 
@@ -199,30 +197,13 @@ In order to execute a submodule you must have a Service Account with an appropri
 
 ### Terraform
 
-Be sure you have the correct Terraform version (0.12), you can choose the binary here:
-- https://releases.hashicorp.com/terraform/
+Be sure you have the correct Terraform version >= 1.3
 
 ### Terraform plugins
 
 Be sure you have the compiled plugins on $HOME/.terraform.d/plugins/
 
-- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 1.20.0
-- [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 1.20.0
+- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) >= 5.37
+- [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) >= 5.37
 
 See each plugin page for more information about how to compile and use them.
-
-## Fast install (optional)
-
-For a fast install, please configure the variables on init_centos.sh  or init_debian.sh script and then launch it.
-
-The script will do:
-- Environment variables setting
-- Installation of base packages like wget, curl, unzip, gcloud, etc.
-- Installation of go 1.9.0
-- Installation of Terraform 0.10.x
-- Download the terraform-provider-google plugin
-- Compile the terraform-provider-google plugin
-- Move the terraform-provider-google to the right location
-
-[v1.1.1]: https://registry.terraform.io/modules/terraform-google-modules/iam/google/1.1.1
-[terraform-0.12-upgrade]: https://www.terraform.io/upgrade-guides/0-12.html
