@@ -23,7 +23,7 @@ spec:
   source:
     repo: https://github.com/terraform-google-modules/terraform-google-iam.git
     sourceType: git
-  version: 7.7.1
+  version: 8.0.0
   actuationTool:
     type: Terraform
     version: '>= 0.13'

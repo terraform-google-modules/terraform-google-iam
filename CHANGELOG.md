@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [8.0.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.7.1...v8.0.0) (2024-09-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* added sub-modules for PAM and Secure Source Manager ([#222](https://github.com/terraform-google-modules/terraform-google-iam/issues/222))
+
+### Features
+
+* added sub-modules for PAM and Secure Source Manager ([#222](https://github.com/terraform-google-modules/terraform-google-iam/issues/222)) ([87f34e0](https://github.com/terraform-google-modules/terraform-google-iam/commit/87f34e0995e16e44faaf962a5759ba8ece35a869))
+
+
+### Bug Fixes
+
+* Removed Privileged Access Manager(PAM) sub-module ([#226](https://github.com/terraform-google-modules/terraform-google-iam/issues/226)) ([d639022](https://github.com/terraform-google-modules/terraform-google-iam/commit/d63902233d7e1be0f748b165be76d3c4f68d27c5))
+
 ## [7.7.1](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.7.0...v7.7.1) (2023-10-17)
 
 
