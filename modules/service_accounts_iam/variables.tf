@@ -15,8 +15,7 @@
  */
 
 variable "project" {
-  description = "Project to add the IAM policies/bindings"
-  default     = ""
+  description = "ID of target project for the IAM policies/bindings"
   type        = string
 }
 
