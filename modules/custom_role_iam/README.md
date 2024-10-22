@@ -62,5 +62,6 @@ module "custom-roles" {
 | Name | Description |
 |------|-------------|
 | custom\_role\_id | ID of the custom role created. |
+| custom\_role\_name | Name of the custom role created in the format {{target\_level}}/{{target\_id}}/roles/{{role\_id}}, for use as a reference in other resources such as IAM role bindings. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
