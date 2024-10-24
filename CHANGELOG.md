@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [8.1.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v8.0.0...v8.1.0) (2024-10-24)
+
+
+### Features
+
+* add output for custom role name for use in IAM role bindings ([#230](https://github.com/terraform-google-modules/terraform-google-iam/issues/230)) ([fc4ac94](https://github.com/terraform-google-modules/terraform-google-iam/commit/fc4ac947dc08644cd1fcbd90e34d8b2bfde9771c))
+
 ## [8.0.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v7.7.1...v8.0.0) (2024-09-14)
 
 

@@ -7,7 +7,7 @@ This optional module is used to assign folder roles
 ```hcl
 module "folder-iam" {
   source  = "terraform-google-modules/iam/google//modules/folders_iam"
-  version = "~> 8.0"
+  version = "~> 8.1"
 
   folders = ["my-folder-name"]
 
