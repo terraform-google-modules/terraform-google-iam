@@ -9,6 +9,7 @@ This is a collection of submodules that make it easier to non-destructively mana
 * [Custom Role IAM](modules/custom_role_iam)
 * [DNS Zone IAM](modules/dns_zones_iam)
 * [Folders IAM](modules/folders_iam)
+* [IAP Web Backend Services IAM](modules/iap_web_backend_services_iam)
 * [KMS Crypto Keys IAM](modules/kms_crypto_keys_iam)
 * [KMS_Key Rings IAM](modules/kms_key_rings_iam)
 * [Organizations IAM](modules/organizations_iam)
@@ -126,6 +127,7 @@ You can choose the following resource types to apply the IAM bindings:
 - Kms Crypto Keys (`kms_crypto_keys` variable)
 - Secret Manager Secrets (`secrets` variable)
 - DNS Zones (`managed_zones` variable)
+- IAP Web Backend Services (`web_backend_services` and `project` variables)
 - Secure Source Manager (`entity_ids` and `location` variable)
 
 Set the specified variable on the module call to choose the resources to affect. Remember to set the `mode` [variable](#additive-and-authoritative-modes) and give enough [permissions](#permissions) to manage the selected resource as well. Note that the `bindings` variable accepts an empty map `{}` passed in as an argument in the case that resources don't have IAM bindings to apply.
@@ -143,55 +145,50 @@ Set the specified variable on the module call to choose the resources to affect.
 In order to execute a submodule you must have a Service Account with an appropriate role to manage IAM for the applicable resource. The appropriate role differs depending on which resource you are targeting, as follows:
 
 - Organization:
-  - Organization Administrator: Access to administer all resources belonging to the organization
-    and does not include privileges for billing or organization role administration.
-  - Custom: Add resourcemanager.organizations.getIamPolicy and
-    resourcemanager.organizations.setIamPolicy permissions.
+  - Organization Administrator: Access to administer all resources belonging to the organization and does not include privileges for billing or organization role administration.
+  - Custom: Add `resourcemanager.organizations.getIamPolicy` and `resourcemanager.organizations.setIamPolicy` permissions.
 - Project:
   - Owner: Full access and all permissions for all resources of the project.
   - Projects IAM Admin: allows users to administer IAM policies on projects.
-  - Custom: Add resourcemanager.projects.getIamPolicy and resourcemanager.projects.setIamPolicy permissions.
+  - Custom: Add `resourcemanager.projects.getIamPolicy` and `resourcemanager.projects.setIamPolicy` permissions.
 - Folder:
   - The Folder Admin: All available folder permissions.
   - Folder IAM Admin: Allows users to administer IAM policies on folders.
-  - Custom: Add resourcemanager.folders.getIamPolicy and
-    resourcemanager.folders.setIamPolicy permissions (must be added in the organization).
+  - Custom: Add `resourcemanager.folders.getIamPolicy` and `resourcemanager.folders.setIamPolicy` permissions (must be added in the organization).
 - Service Account:
   - Service Account Admin: Create and manage service accounts.
-  - Custom: Add resourcemanager.organizations.getIamPolicy and
-    resourcemanager.organizations.setIamPolicy permissions.
+  - Custom: Add `iam.serviceAccounts.getIamPolicy` and `iam.serviceAccounts.setIamPolicy` permissions.
 - Subnetwork:
   - Project compute admin: Full control of Compute Engine resources.
   - Project compute network admin: Full control of Compute Engine networking resources.
-  - Project custom: Add compute.subnetworks.getIamPolicy	and
-    compute.subnetworks.setIamPolicy permissions.
+  - Project custom: Add `compute.subnetworks.getIamPolicy` and `compute.subnetworks.setIamPolicy` permissions.
 - Storage bucket:
   - Storage Admin: Full control of GCS resources.
-  - Storage Legacy Bucket Owner: Read and write access to existing
-    buckets with object listing/creation/deletion.
-  - Custom: Add storage.buckets.getIamPolicy	and
-  storage.buckets.setIamPolicy permissions.
+  - Storage Legacy Bucket Owner: Read and write access to existing buckets with object listing/creation/deletion.
+  - Custom: Add `storage.buckets.getIamPolicy` and `storage.buckets.setIamPolicy` permissions.
 - Pubsub topic:
   - Pub/Sub Admin: Create and manage service accounts.
-  - Custom: Add pubsub.topics.getIamPolicy and pubsub.topics.setIamPolicy permissions.
+  - Custom: Add `pubsub.topics.getIamPolicy` and `pubsub.topics.setIamPolicy` permissions.
 - Pubsub subscription:
   - Pub/Sub Admin role: Create and manage service accounts.
-  - Custom role: Add pubsub.subscriptions.getIamPolicy and
-    pubsub.subscriptions.setIamPolicy permissions.
+  - Custom role: Add `pubsub.subscriptions.getIamPolicy` and `pubsub.subscriptions.setIamPolicy` permissions.
 - Kms Key Ring:
   - Owner: Full access to all resources.
   - Cloud KMS Admin: Enables management of crypto resources.
-  - Custom: Add cloudkms.keyRings.getIamPolicy and cloudkms.keyRings.getIamPolicy permissions.
+  - Custom: Add `cloudkms.keyRings.getIamPolicy` and `cloudkms.keyRings.setIamPolicy` permissions.
 - Kms Crypto Key:
   - Owner: Full access to all resources.
   - Cloud KMS Admin: Enables management of cryptoresources.
-  - Custom: Add cloudkms.cryptoKeys.getIamPolicy	and cloudkms.cryptoKeys.setIamPolicy permissions.
+  - Custom: Add `cloudkms.cryptoKeys.getIamPolicy`	and `cloudkms.cryptoKeys.setIamPolicy` permissions.
 - Secret Manager:
-    - Secret Manager Admin: Full access to administer Secret Manager.
-    - Custom: Add secretmanager.secrets.getIamPolicy and secretmanager.secrets.setIamPolicy permissions.
+  - Secret Manager Admin: Full access to administer Secret Manager.
+  - Custom: Add `secretmanager.secrets.getIamPolicy` and `secretmanager.secrets.setIamPolicy` permissions.
 - DNS Zone:
-    - DNS Administrator : Full access to administer DNS Zone.
-    - Custom: Add dns.managedZones.setIamPolicy, dns.managedZones.list and dns.managedZones.getIamPolicy permissions.
+  - DNS Administrator : Full access to administer DNS Zone.
+  - Custom: Add `dns.managedZones.setIamPolicy`, `dns.managedZones.list` and `dns.managedZones.getIamPolicy` permissions.
+- IAP Web Backend Service:
+  - IAP Policy Admin: Grants permissions to manage access policies for IAP resources.
+  - Custom: Add `iap.webServices.getIamPolicy` and `iap.webServices.setIamPolicy` permissions.
 
 ## Install
 
