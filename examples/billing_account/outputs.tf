@@ -20,11 +20,11 @@ output "service_account_addresses" {
 }
 
 output "billing_account_ids" {
-  value       = module.billing-account-iam.billing_account_ids
-  description = "Billing Accounts which received bindings."
-}
+#   value       = module.billing-account-iam.billing_account_ids
+#   description = "Billing Accounts which received bindings."
+# }
 
-output "members" {
-  value       = module.billing-account-iam.members
-  description = "Members which were bound to the billing accounts."
-}
+# output "members" {
+#   value       = module.billing-account-iam.members
+#   description = "Members which were bound to the billing accounts."
+# }
