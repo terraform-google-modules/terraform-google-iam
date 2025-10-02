@@ -34,12 +34,12 @@ locals {
   Module billing_account_iam_binding calling
  *****************************************/
 module "billing-account-iam" {
-  source  = "terraform-google-modules/iam/google//modules/billing_accounts_iam"
-  version = "~> 8.0"
+#   source  = "terraform-google-modules/iam/google//modules/billing_accounts_iam"
+#   version = "~> 8.0"
 
-  billing_account_ids = [var.billing_account_id]
+#   billing_account_ids = [var.billing_account_id]
 
-  mode = "additive"
+#   mode = "additive"
 
-  bindings = local.bindings
-}
+#   bindings = local.bindings
+# }
