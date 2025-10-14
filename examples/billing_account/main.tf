@@ -18,16 +18,16 @@ locals {
   service_account_01_email = "billing-iam-test-01@${var.project_id}.iam.gserviceaccount.com"
   service_account_02_email = "billing-iam-test-02@${var.project_id}.iam.gserviceaccount.com"
 
-  bindings = {
-    "roles/billing.viewer" = [
-      "serviceAccount:${local.service_account_01_email}",
-    ]
+  # bindings = {
+  #   "roles/billing.viewer" = [
+  #     "serviceAccount:${local.service_account_01_email}",
+  #   ]
 
-    "roles/billing.admin" = [
-      "serviceAccount:${local.service_account_01_email}",
-      "serviceAccount:${local.service_account_02_email}",
-    ]
-  }
+  #   "roles/billing.admin" = [
+  #     "serviceAccount:${local.service_account_01_email}",
+  #     "serviceAccount:${local.service_account_02_email}",
+  #   ]
+  # }
 }
 
 /******************************************
