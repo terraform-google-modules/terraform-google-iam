@@ -18,7 +18,7 @@
 
 #Additive
 
-output "billing_iam_test_accounts" {
+# output "billing_iam_test_accounts" {
 #   value       = module.iam_binding_billing_accounts_additive.billing_account_ids
 #   description = "Billing Accounts which received bindings."
 # }
