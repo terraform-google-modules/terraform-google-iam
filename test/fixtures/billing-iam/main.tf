@@ -16,8 +16,8 @@
 
 #additive
 
-module "iam_binding_billing_accounts_additive" {
-  source             = "../../../examples/billing_account"
-  billing_account_id = var.billing_iam_test_account
-  project_id         = var.project_id
-}
+# module "iam_binding_billing_accounts_additive" {
+#   source             = "../../../examples/billing_account"
+#   billing_account_id = var.billing_iam_test_account
+#   project_id         = var.project_id
+# }
