@@ -7,7 +7,7 @@ This optional module is used to assign secrets roles
 ```hcl
 module "secret_manager_iam" {
   source  = "terraform-google-modules/iam/google//modules/secret_manager_iam"
-  version = "~> 8.1"
+  version = "~> 8.2"
 
   project = "gcp-project-id"
   secrets = ["my-secret"]
