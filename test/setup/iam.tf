@@ -86,14 +86,13 @@ resource "google_folder_iam_member" "int_test_folder" {
   member = "serviceAccount:${google_service_account.int_test.email}"
 }
 
-### Disabling due to billing account issue
-# resource "google_billing_account_iam_member" "int_test_ba" {
-#   count = length(local.int_required_ba_roles)
+resource "google_billing_account_iam_member" "int_test_ba" {
+  count = length(local.int_required_ba_roles)
 
-#   billing_account_id = var.billing_account
-#   role               = local.int_required_ba_roles[count.index]
-#   member             = "serviceAccount:${google_service_account.int_test.email}"
-# }
+  billing_account_id = var.billing_account
+  role               = local.int_required_ba_roles[count.index]
+  member             = "serviceAccount:${google_service_account.int_test.email}"
+}
 
 # resource "google_billing_account_iam_member" "int_test_ba_billing_iam" {
 #   count = length(local.int_required_ba_billing_iam_roles)
