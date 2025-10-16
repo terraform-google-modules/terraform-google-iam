@@ -6,7 +6,7 @@ This submodule is used to assign roles on Tag Keys.
 ```
 module "tag_keys_iam_binding" {
   source  = "terraform-google-modules/iam/google//modules/tag_keys_iam"
-  version = "~> 8.1"
+  version = "~> 8.2"
   tag_keys = [
     google_tags_tag_key.tag_key.name,
   ]
