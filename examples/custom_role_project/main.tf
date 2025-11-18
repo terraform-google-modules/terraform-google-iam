@@ -18,11 +18,10 @@
   Module custom_role call
  *****************************************/
 module "custom-role-project" {
-  source  = "terraform-google-modules/iam/google//modules/custom_role_iam"
-  version = "~> 8.0"
+  source = "anshukaira/iam/google//modules/custom_role_iam"
 
   target_level         = "project"
-  target_id            = var.project_id
+  project_id           = var.project_id
   role_id              = "iamDeleter"
   base_roles           = ["roles/iam.serviceAccountAdmin"]
   permissions          = ["iam.roles.list", "iam.roles.create", "iam.roles.delete"]

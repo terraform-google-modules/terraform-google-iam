@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
+variable "project_id" {
+  description = "Project ID to create Cloud Function"
+  type        = string
+  default     = null
+}
+
 variable "role_id" {
   type        = string
   description = "ID of the Custom Role."
@@ -58,6 +64,7 @@ variable "stage" {
 variable "target_id" {
   type        = string
   description = "Variable for project or organization ID."
+  default     = null
 }
 
 variable "target_level" {

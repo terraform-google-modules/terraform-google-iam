@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,151 +19,131 @@ metadata:
   annotations:
     config.kubernetes.io/local-config: "true"
 spec:
-  title: Module Custom Role IAM
-  source:
-    repo: https://github.com/terraform-google-modules/terraform-google-iam/
-    sourceType: git
-  version: 8.2.0
-  actuationTool:
-    type: Terraform
-    version: '>= 0.13'
-  examples:
-  - name: bigquery_dataset
-    location: examples/bigquery_dataset
-  - name: billing_account
-    location: examples/billing_account
-  - name: cloud_run_service
-    location: examples/cloud_run_service
-  - name: custom_role_org
-    location: examples/custom_role_org
-  - name: custom_role_project
-    location: examples/custom_role_project
-  - name: folder
-    location: examples/folder
-  - name: kms_crypto_key
-    location: examples/kms_crypto_key
-  - name: kms_key_ring
-    location: examples/kms_key_ring
-  - name: member_iam
-    location: examples/member_iam
-  - name: organization
-    location: examples/organization
-  - name: project
-    location: examples/project
-  - name: project_conditions
-    location: examples/project_conditions
-  - name: pubsub_subscription
-    location: examples/pubsub_subscription
-  - name: pubsub_topic
-    location: examples/pubsub_topic
-  - name: secret_manager
-    location: examples/secret_manager
-  - name: service_account
-    location: examples/service_account
-  - name: stackdriver_agent_roles
-    location: examples/stackdriver_agent_roles
-  - name: storage_bucket
-    location: examples/storage_bucket
-  - name: subnet
-    location: examples/subnet
-  variables:
-  - name: base_roles
-    description: List of base predefined roles to use to compose custom role.
-    type: list(string)
-    default: []
-    required: false
-  - name: description
-    description: Description of Custom role.
-    type: string
-    default: ""
-    required: false
-  - name: excluded_permissions
-    description: List of permissions to exclude from custom role.
-    type: list(string)
-    default: []
-    required: false
-  - name: members
-    description: List of members to be added to custom role.
-    type: list(string)
-    required: true
-  - name: permissions
-    description: IAM permissions assigned to Custom Role.
-    type: list(string)
-    required: true
-  - name: role_id
-    description: ID of the Custom Role.
-    type: string
-    required: true
-  - name: stage
-    description: The current launch stage of the role. Defaults to GA.
-    type: string
-    default: GA
-    required: false
-  - name: target_id
-    description: Variable for project or organization ID.
-    type: string
-    required: true
-  - name: target_level
-    description: String variable to denote if custom role being created is at project or organization level.
-    type: string
-    default: project
-    required: false
-  - name: title
-    description: Human-readable title of the Custom Role, defaults to role_id.
-    type: string
-    default: ""
-    required: false
-  outputs:
-  - name: custom_role_id
-    description: ID of the custom role created.
-  roles:
-  - level: Project
+  info:
+    title: Module Custom Role IAM
+    source:
+      repo: https://github.com/terraform-google-modules/terraform-google-iam/
+      sourceType: git
+      dir: /modules/custom_role_iam
+    version: 8.2.0
+    actuationTool:
+      flavor: Terraform
+      version: ">= 1.3"
+    description: {}
+  content:
+    examples:
+      - name: bigquery_dataset
+        location: examples/bigquery_dataset
+      - name: billing_account
+        location: examples/billing_account
+      - name: cloud_run_service
+        location: examples/cloud_run_service
+      - name: custom_role_org
+        location: examples/custom_role_org
+      - name: custom_role_project
+        location: examples/custom_role_project
+      - name: dns_zone
+        location: examples/dns_zone
+      - name: folder
+        location: examples/folder
+      - name: kms_crypto_key
+        location: examples/kms_crypto_key
+      - name: kms_key_ring
+        location: examples/kms_key_ring
+      - name: member_iam
+        location: examples/member_iam
+      - name: organization
+        location: examples/organization
+      - name: project
+        location: examples/project
+      - name: project_conditions
+        location: examples/project_conditions
+      - name: pubsub_subscription
+        location: examples/pubsub_subscription
+      - name: pubsub_topic
+        location: examples/pubsub_topic
+      - name: secret_manager
+        location: examples/secret_manager
+      - name: secure_source_manager
+        location: examples/secure_source_manager
+      - name: service_account
+        location: examples/service_account
+      - name: stackdriver_agent_roles
+        location: examples/stackdriver_agent_roles
+      - name: storage_bucket
+        location: examples/storage_bucket
+      - name: subnet
+        location: examples/subnet
+      - name: tag_keys
+        location: examples/tag_keys
+      - name: tag_values
+        location: examples/tag_values
+  interfaces:
+    variables:
+      - name: project_id
+        description: Project ID to create Cloud Function
+        varType: string
+      - name: role_id
+        description: ID of the Custom Role.
+        varType: string
+        required: true
+      - name: title
+        description: Human-readable title of the Custom Role, defaults to role_id.
+        varType: string
+        defaultValue: ""
+      - name: base_roles
+        description: List of base predefined roles to use to compose custom role. Either base_roles or permissions must be set with some values
+        varType: list(string)
+        defaultValue: []
+      - name: permissions
+        description: IAM permissions assigned to Custom Role. Either base_roles or permissions must be set with some values
+        varType: list(string)
+        defaultValue: []
+      - name: excluded_permissions
+        description: List of permissions to exclude from custom role.
+        varType: list(string)
+        defaultValue: []
+      - name: description
+        description: Description of Custom role.
+        varType: string
+        defaultValue: ""
+      - name: stage
+        description: The current launch stage of the role. Defaults to GA.
+        varType: string
+        defaultValue: GA
+      - name: target_id
+        description: Variable for project or organization ID.
+        varType: string
+      - name: target_level
+        description: String variable to denote if custom role being created is at project or organization level.
+        varType: string
+        defaultValue: project
+      - name: members
+        description: List of members to be added to custom role.
+        varType: list(string)
+        defaultValue: []
+    outputs:
+      - name: custom_role_id
+        description: ID of the custom role created.
+        type: string
+      - name: custom_role_name
+        description: Name of the custom role created in the format {{target_level}}/{{target_id}}/roles/{{role_id}}, for use as a reference in other resources such as IAM role bindings.
+        type: string
+  requirements:
     roles:
-    - roles/iam.organizationRoleAdmin
-    - roles/orgpolicy.policyAdmin
-    - roles/resourcemanager.organizationAdmin
-  - level: Project
-    roles:
-    - roles/owner
-    - roles/resourcemanager.projectIamAdmin
-    - roles/iam.serviceAccountAdmin
-    - roles/compute.admin
-    - roles/compute.networkAdmin
-    - roles/compute.storageAdmin
-    - roles/pubsub.admin
-    - roles/cloudkms.admin
-    - roles/storage.admin
-    - roles/composer.worker
-    - roles/secretmanager.admin
-  - level: Project
-    roles:
-    - roles/resourcemanager.projectCreator
-    - roles/resourcemanager.folderAdmin
-    - roles/resourcemanager.folderIamAdmin
-    - roles/owner
-    - roles/billing.projectManager
-    - roles/composer.worker
-  - level: Project
-    roles:
-    - roles/billing.user
-  - level: Project
-    roles:
-    - roles/billing.admin
-  services:
-  - admin.googleapis.com
-  - appengine.googleapis.com
-  - cloudbilling.googleapis.com
-  - cloudresourcemanager.googleapis.com
-  - compute.googleapis.com
-  - iam.googleapis.com
-  - iamcredentials.googleapis.com
-  - oslogin.googleapis.com
-  - serviceusage.googleapis.com
-  - cloudkms.googleapis.com
-  - pubsub.googleapis.com
-  - storage-api.googleapis.com
-  - servicenetworking.googleapis.com
-  - storage-component.googleapis.com
-  - iap.googleapis.com
-  - secretmanager.googleapis.com
-  - bigquery.googleapis.com
+      - level: Project
+        roles:
+          - roles/resourcemanager.projectIamAdmin
+          - roles/iam.serviceAccountAdmin
+          - roles/iam.roleAdmin
+          - roles/owner
+    services:
+      - cloudresourcemanager.googleapis.com
+      - iam.googleapis.com
+      - iamcredentials.googleapis.com
+      - serviceusage.googleapis.com
+    providerVersions:
+      - source: hashicorp/google
+        version: ">= 3.53, < 8"
+      - source: hashicorp/null
+        version: ~> 3.2
