@@ -1,0 +1,82 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: terraform-google-iam-display
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  info:
+    title: Module Custom Role IAM
+    source:
+      repo: https://github.com/terraform-google-modules/terraform-google-iam/
+      sourceType: git
+      dir: /modules/custom_role_iam
+  ui:
+    input:
+      variables:
+        base_roles:
+          name: base_roles
+          title: Base Roles
+          level: 1
+        description:
+          name: description
+          title: Description
+          level: 1
+        excluded_permissions:
+          name: excluded_permissions
+          title: Excluded Permissions
+        members:
+          name: members
+          title: Members
+        permissions:
+          name: permissions
+          title: Permissions
+          level: 1
+        project_id:
+          name: project_id
+          title: Project Id
+        role_id:
+          name: role_id
+          title: Role Id
+          regexValidation: ^[a-zA-Z0-9_.]{1,64}$
+          validation: ID must be 1-64 characters and can only contain letters, numbers, periods, and underscores.
+        stage:
+          name: stage
+          title: Stage
+          enumValueLabels:
+            - label: General Availability
+              value: GA
+            - label: Beta
+              value: BETA
+            - label: Alpha
+              value: ALPHA
+            - label: Early Access
+              value: EAP
+            - label: Deprecated
+              value: DEPRECATED
+        target_id:
+          name: target_id
+          title: Target Id
+        target_level:
+          name: target_level
+          title: Target Level
+          enumValueLabels:
+            - label: Project
+              value: project
+        title:
+          name: title
+          title: Title

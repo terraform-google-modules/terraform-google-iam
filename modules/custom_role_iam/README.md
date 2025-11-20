@@ -51,9 +51,10 @@ module "custom-roles" {
 | excluded\_permissions | List of permissions to exclude from custom role. | `list(string)` | `[]` | no |
 | members | List of members to be added to custom role. | `list(string)` | `[]` | no |
 | permissions | IAM permissions assigned to Custom Role. Either base\_roles or permissions must be set with some values | `list(string)` | `[]` | no |
+| project\_id | Project ID to create Cloud Function | `string` | `null` | no |
 | role\_id | ID of the Custom Role. | `string` | n/a | yes |
 | stage | The current launch stage of the role. Defaults to GA. | `string` | `"GA"` | no |
-| target\_id | Variable for project or organization ID. | `string` | n/a | yes |
+| target\_id | Variable for project or organization ID. | `string` | `null` | no |
 | target\_level | String variable to denote if custom role being created is at project or organization level. | `string` | `"project"` | no |
 | title | Human-readable title of the Custom Role, defaults to role\_id. | `string` | `""` | no |
 
