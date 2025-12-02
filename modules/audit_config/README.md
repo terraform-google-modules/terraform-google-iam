@@ -6,7 +6,7 @@ This optional module is used to configure audit log configs for a project.
 ```
 module "audit_log_config" {
   source  = "terraform-google-modules/iam/google//modules/audit_config"
-  version = "~> 8.1"
+  version = "~> 8.2"
 
   project          = my-project
 audit_log_config = [

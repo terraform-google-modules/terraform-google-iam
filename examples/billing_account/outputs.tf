@@ -19,12 +19,12 @@ output "service_account_addresses" {
   description = "Service Account Addresses which were bound to projects."
 }
 
-output "billing_account_ids" {
-  value       = module.billing-account-iam.billing_account_ids
-  description = "Billing Accounts which received bindings."
-}
+# output "billing_account_ids" {
+#   value       = module.billing-account-iam.billing_account_ids
+#   description = "Billing Accounts which received bindings."
+# }
 
-output "members" {
-  value       = module.billing-account-iam.members
-  description = "Members which were bound to the billing accounts."
-}
+# output "members" {
+#   value       = module.billing-account-iam.members
+#   description = "Members which were bound to the billing accounts."
+# }

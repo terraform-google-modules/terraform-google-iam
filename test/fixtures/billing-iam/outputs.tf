@@ -18,15 +18,15 @@
 
 #Additive
 
-output "billing_iam_test_accounts" {
-  value       = module.iam_binding_billing_accounts_additive.billing_account_ids
-  description = "Billing Accounts which received bindings."
-}
+# output "billing_iam_test_accounts" {
+#   value       = module.iam_binding_billing_accounts_additive.billing_account_ids
+#   description = "Billing Accounts which received bindings."
+# }
 
-output "members" {
-  value       = module.iam_binding_billing_accounts_additive.members
-  description = "Members which were bound to the billing accounts."
-}
+# output "members" {
+#   value       = module.iam_binding_billing_accounts_additive.members
+#   description = "Members which were bound to the billing accounts."
+# }
 
 output "project_id" {
   value       = var.project_id

@@ -20,12 +20,12 @@ terraform {
 
     google = {
       source  = "hashicorp/google"
-      version = ">= 4.48, < 7"
+      version = ">= 4.48, < 8"
     }
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-iam:dns_zone_iam/v8.1.0"
+    module_name = "blueprints/terraform/terraform-google-iam:dns_zone_iam/v8.2.0"
   }
 
 }

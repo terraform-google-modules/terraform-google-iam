@@ -9,7 +9,7 @@ Permissions that are [unsupported](https://cloud.google.com/iam/docs/custom-role
 ```hcl
 module "custom-roles" {
   source  = "terraform-google-modules/iam/google//modules/custom_role_iam"
-  version = "~> 8.1"
+  version = "~> 8.2"
 
   target_level         = "org"
   target_id            = "123456789"
