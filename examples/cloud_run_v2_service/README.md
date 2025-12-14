@@ -1,6 +1,6 @@
 # Cloud Run Example
 
-This example illustrates how to use the `cloud_run_service_iam` submodule
+This example illustrates how to use the `cloud_run_v2_services_iam` submodule
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs

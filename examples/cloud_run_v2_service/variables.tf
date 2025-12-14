@@ -30,7 +30,7 @@ variable "user_email" {
 }
 
 /******************************************
-  cloud_run_service_iam_binding variables
+  cloud_run_v2_service_iam_binding variables
  *****************************************/
 variable "cloud_run_service_project" {
   type        = string
