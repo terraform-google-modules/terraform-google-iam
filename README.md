@@ -6,6 +6,7 @@ This is a collection of submodules that make it easier to non-destructively mana
 * [BigQuery IAM](modules/bigquery_datasets_iam)
 * [Billing Accounts IAM](modules/billing_accounts_iam)
 * [Cloud Run Service IAM](modules/cloud_run_services_iam)
+* [Cloud Run V2 Service IAM](modules/cloud_run_v2_services_iam)
 * [Custom Role IAM](modules/custom_role_iam)
 * [DNS Zone IAM](modules/dns_zones_iam)
 * [Folders IAM](modules/folders_iam)

@@ -15,12 +15,11 @@
  */
 
 /******************************************
-  Module cloud_run_service_iam_binding calling
+  Module cloud_run_v2_service_iam calling
  *****************************************/
 
-module "cloud_run_service_iam_binding" {
-  source  = "terraform-google-modules/iam/google//modules/cloud_run_services_iam"
-  version = "~> 8.0"
+module "cloud_run_v2_service_iam_binding" {
+  source = "../../modules/cloud_run_v2_services_iam"
 
   project            = var.cloud_run_service_project
   location           = var.cloud_run_service_location
