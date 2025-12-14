@@ -28,12 +28,12 @@ module "cloud_run_service_iam_binding" {
   mode               = "authoritative"
 
   bindings = {
-    "roles/role.admin" = [
+    "roles/run.admin" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-    "roles/role.invoker" = [
+    "roles/run.invoker" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",

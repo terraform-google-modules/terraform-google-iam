@@ -19,7 +19,7 @@
  *****************************************/
 
 module "cloud_run_v2_service_iam_binding" {
-  source = "filip-kaminski/iam/google//modules/cloud_run_v2_services_iam"
+  source = "../../modules/cloud_run_v2_services_iam"
 
   project            = var.cloud_run_service_project
   location           = var.cloud_run_service_location
@@ -27,12 +27,12 @@ module "cloud_run_v2_service_iam_binding" {
   mode               = "authoritative"
 
   bindings = {
-    "roles/role.admin" = [
+    "roles/run.admin" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-    "roles/role.invoker" = [
+    "roles/run.invoker" = [
       "serviceAccount:${var.sa_email}",
       "group:${var.group_email}",
       "user:${var.user_email}",
