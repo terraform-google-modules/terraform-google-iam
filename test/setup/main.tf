@@ -21,8 +21,9 @@ resource "random_id" "folder-rand" {
 }
 
 resource "google_folder" "ci-iam-folder" {
-  display_name = "ci-tests-iam-folder-${random_id.folder-rand.hex}"
-  parent       = "folders/${var.folder_id}"
+  display_name        = "ci-tests-iam-folder-${random_id.folder-rand.hex}"
+  parent              = "folders/${var.folder_id}"
+  deletion_protection = false
 }
 
 module "iam-project" {
@@ -35,6 +36,7 @@ module "iam-project" {
   folder_id           = var.folder_id
   billing_account     = var.billing_account
   auto_create_network = true
+  deletion_policy     = "DELETE"
 
   activate_apis = [
     "admin.googleapis.com",
@@ -48,6 +50,7 @@ module "iam-project" {
     "serviceusage.googleapis.com",
     "cloudkms.googleapis.com",
     "pubsub.googleapis.com",
+    "run.googleapis.com",
     "storage-api.googleapis.com",
     "servicenetworking.googleapis.com",
     "storage-component.googleapis.com",
