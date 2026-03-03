@@ -65,7 +65,7 @@ class BucketBindings < Bindings
   name 'bucket_bindings'
   private
   def get_command(bucket, project)
-    "gsutil iam get gs://#{bucket} --project='#{project}' --format='json(bindings)'"
+    "gcloud storage buckets get-iam-policy gs://#{bucket} --project='#{project}' --format='json(bindings)'"
   end
 end
 
