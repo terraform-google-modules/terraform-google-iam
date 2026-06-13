@@ -116,7 +116,7 @@ locals {
 
   # It is important to provide a set for the `for_each` instead of
   # the map, since we have to guarantee that the `for_each`
-  # expression is resolved synchonously.
+  # expression is resolved synchronously.
   set_authoritative = (
     local.authoritative
     ? toset(local.all_keys_authoritative)
