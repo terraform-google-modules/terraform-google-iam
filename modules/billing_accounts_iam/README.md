@@ -7,7 +7,7 @@ This optional module is used to assign Billing Accounts roles
 ```hcl
 module "billing-account-iam" {
   source  = "terraform-google-modules/iam/google//modules/billing_accounts_iam"
-  version = "~> 8.2"
+  version = "~> 8.3"
 
   billing_account_ids = ["035617-1B8VBC-AF0TD9"]
 
