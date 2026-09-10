@@ -65,7 +65,8 @@ resource "google_storage_bucket" "test" {
   project  = var.base_project_id
   location = local.location
 
-  name = "${local.prefix}-bkt-${count.index}-${random_id.test[count.index].hex}"
+  name                        = "${local.prefix}-bkt-${count.index}-${random_id.test[count.index].hex}"
+  uniform_bucket_level_access = true
 }
 
 # KMS
@@ -164,6 +165,7 @@ resource "google_tags_tag_key" "tag_key" {
   description = "test tag ${count.index}"
 }
 
+
 # Tag Key
 
 resource "google_tags_tag_value" "tag_value" {
@@ -171,4 +173,22 @@ resource "google_tags_tag_value" "tag_value" {
   parent      = "tagKeys/${google_tags_tag_key.tag_key[count.index].name}"
   short_name  = "${local.prefix}-tagvalue-${count.index}-${random_id.test[count.index].hex}"
   description = "test value ${count.index}"
+}
+
+# Cloud Run Job
+
+resource "google_cloud_run_v2_job" "test" {
+  count = local.n
+
+  name     = "${local.prefix}-job-${count.index}-${random_id.test[count.index].hex}"
+  location = local.location
+  project  = var.base_project_id
+
+  template {
+    template {
+      containers {
+        image = "us-docker.pkg.dev/cloudrun/container/hello"
+      }
+    }
+  }
 }
