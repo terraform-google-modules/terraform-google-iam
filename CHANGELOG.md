@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning][semantic-versioning].
 Extending the adopted spec, each change should have a link to its
 corresponding pull request appended.
 
+## [8.3.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v8.2.0...v8.3.0) (2026-09-09)
+
+
+### Features
+
+* **deps:** Update Terraform Google Provider to v8 ([#261](https://github.com/terraform-google-modules/terraform-google-iam/issues/261)) ([a7a71f4](https://github.com/terraform-google-modules/terraform-google-iam/commit/a7a71f489232de21da29e30d497f2281ecbae8e3))
+
 ## [8.2.0](https://github.com/terraform-google-modules/terraform-google-iam/compare/v8.1.0...v8.2.0) (2025-10-16)
 
 
