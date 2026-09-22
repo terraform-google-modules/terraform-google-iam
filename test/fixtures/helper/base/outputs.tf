@@ -96,3 +96,8 @@ output "tag_values" {
   value       = google_tags_tag_value.tag_value.*.name
   description = "Tag values created for bindings."
 }
+
+output "cloud_run_jobs" {
+  value       = google_cloud_run_v2_job.test.*.name
+  description = "Cloud Run Jobs created for bindings."
+}

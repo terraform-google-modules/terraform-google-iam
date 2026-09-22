@@ -142,3 +142,8 @@ output "secrets" {
   value       = module.generic.secrets
   description = "Secrets created for bindings."
 }
+
+output "cloud_run_jobs" {
+  value       = module.generic.cloud_run_jobs
+  description = "Cloud Run Jobs created for bindings."
+}
