@@ -138,9 +138,19 @@ module "iam_binding_tag_keys" {
   bindings = local.basic_bindings
 }
 
+
 module "iam_binding_tag_values" {
   source     = "../../../modules/tag_values_iam"
   mode       = var.mode
   tag_values = module.base.tag_values
   bindings   = local.basic_bindings
+}
+
+module "iam_binding_cloud_run_job" {
+  source         = "../../../modules/cloud_run_v2_jobs_iam"
+  mode           = var.mode
+  cloud_run_jobs = module.base.cloud_run_jobs
+  project        = var.project_id
+  location       = module.base.region
+  bindings       = local.basic_bindings
 }

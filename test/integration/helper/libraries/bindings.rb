@@ -160,3 +160,13 @@ class SecretManager < Bindings
     "gcloud beta secrets get-iam-policy #{secret} --project='#{project}' --format='json(bindings)'"
   end
 end
+
+# Cloud Run Jobs
+
+class CloudRunJobBindings < Bindings
+  name 'cloud_run_job_bindings'
+  private
+  def get_command(job, project, region)
+    "gcloud run jobs get-iam-policy #{job} --project='#{project}' --region='#{region}' --format='json(bindings)'"
+  end
+end

@@ -31,6 +31,7 @@ topics           = attribute('topics')
 subscriptions    = attribute('subscriptions')
 region           = attribute('region')
 secrets          = attribute('secrets')
+cloud_run_jobs   = attribute('cloud_run_jobs')
 
 # Role pairs (arrays of length = 2)
 basic_roles               = attribute('basic_roles')
@@ -297,6 +298,30 @@ control 'secret-bindings' do
   title 'Test secret manager bindings are correct'
 
   describe secrets.map { |secret| secret_bindings(secret, project_id) } do
+    it 'include the 1st binding' do
+      if roles < 1
+        skip 'less than 1 roles specified'
+      else
+        should all include role: basic_roles[0], members: member_groups[0]
+      end
+    end
+
+    it 'include the 2st binding' do
+      if roles < 2
+        skip 'less than 2 roles specified'
+      else
+        should all include role: basic_roles[1], members: member_groups[1]
+      end
+    end
+  end
+end
+
+# Cloud Run Jobs
+
+control 'cloud-run-job-bindings' do
+  title 'Test cloud run job bindings are correct'
+
+  describe cloud_run_jobs.map { |job| cloud_run_job_bindings(job, project_id, region) } do
     it 'include the 1st binding' do
       if roles < 1
         skip 'less than 1 roles specified'
